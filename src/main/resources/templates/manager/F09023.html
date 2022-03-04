@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>既存利用者ログインID同報設定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09023.css" />
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="content">
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">既存利用者ログインID同報設定画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId">{{orgId}}</div>
+        <div>組織名:</div>
+        <div id="orgNm">{{orgNm}}</div>
+    </div>
+    <div class="one" style="height: 5vh">
+        <div class="one_role">
+            <div class="_role">利用者ロール</div>
+            <input v-for="role in roleList" class="newtui-radio-one nolabel" type="radio" name="usrRole" :value="role.codCd" :title="role.codValue"
+                   :checked="role.codCd == '1' ? true:''">
+        </div>
+    </div>
+    <div class="two" style="height: 10vh">
+        <form id="_validate" style="height: 60%">
+            <div class="two_loginId" style="width: 50%">
+                <div class="_loginId">利用者ログインID</div>
+                <div class="star">*</div>
+                <input type="text" name="loginId" maxlength="50" style="border: 1px solid black">
+                <button id="addObj" @click="addObj" type="button">追加</button>
+            </div>
+            <!--<div class="two_commonKey" style="width: 50%">
+                <div class="_commonKey">組織共用キー</div>
+                <div class="star">*</div>
+                <input type="text" name="commonKey" maxlength="50" style="border: 1px solid black">
+            </div>-->
+        </form>
+    </div>
+    <div class="_list" style="font-size: 1.1vw;font-weight: bold;">既存利用者同報対象一覧</div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div class="_btn" style="margin-top: 10%;text-align: center;height: 5vh">
+        <button class="btn return" style="margin-right: 5%" @click="returnToF00041">戻る</button>
+        <button class="btn login" style="margin-left: 5%" @click="submit">登録</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F09023.js"></script>
+</html>

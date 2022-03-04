@@ -1,0 +1,34 @@
+html, body {
+    margin: 0;
+    overflow: hidden;
+}
+p {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    position: absolute;
+    top: 30%;
+}
+.div_button{
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    position: absolute;
+    top: 60%;
+    width: 100%;
+}
+
+button{
+    width: 40%;
+    height: 29px;
+    font-size: 16px;
+    color: #58ab64;
+    border: 2px solid #58ab64;
+    background: transparent;
+    border-radius: 999px;
+}
+#no{
+    margin-right: 2%;
+    border: 0px;
+}

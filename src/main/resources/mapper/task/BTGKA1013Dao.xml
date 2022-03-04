@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.job.dao.BTGKA1013Dao">
+    <select id="getUsrIds" resultType="jp.learningpark.modules.job.entity.BTGKA1013Dto">
+        SELECT
+            mdt.device_id,
+            mdt.upd_datime
+        FROM
+            mst_device_token mdt
+            INNER JOIN mst_cod_d md on md.cod_key = 'SAFE_EFT_TIME'
+        WHERE
+            mdt.del_flg = 0
+            AND md.del_flg = 0
+            AND EXTRACT(epoch FROM CAST(to_char(mdt.upd_datime, 'yyyy-MM-dd HH24:mm:ss') AS TIMESTAMP))::INTEGER <![CDATA[ < ]]>
+                ( EXTRACT(epoch FROM CAST( to_char(now(), 'yyyy-MM-dd HH24:mm:ss') AS TIMESTAMP)) ::INTEGER - md.cod_value::INTEGER )
+    </select>
+    <update id="updateDelFlgByDeviceId">
+        UPDATE mst_device_token
+        SET  del_flg = 1 ,
+             upd_usr_id = 'manamiru',
+             upd_datime = NOW()
+        WHERE
+              device_id = #{usrId}
+              AND upd_datime = #{updDatime}
+    </update>
+</mapper>

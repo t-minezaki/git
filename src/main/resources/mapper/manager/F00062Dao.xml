@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00062Dao">
+    <select id="getInitCont" resultType="jp.learningpark.modules.manager.dto.F00062Dto">
+        SELECT
+            d.after_usr_id stuId,
+            b.stu_id stu,
+            b.flnm_nm stuSei,
+            b.flnm_lnm stuMei,
+            b.flnm_kn_nm stuKnSei,
+            b.flnm_kn_lnm stuKnMei,
+            b.birthd,
+            m2.cod_value sex,
+            m1.cod_value schy,
+            e.after_usr_id mentorId,
+            c.mentor_id mentor,
+            c.flnm_nm mentorSei,
+            c.flnm_lnm mentorMei,
+            c.flnm_kn_nm mentorKnSei,
+            c.flnm_kn_lnm mentorKnMei,
+            c.telnum,
+            c.mailad,
+            a.upd_datime updDatime
+        FROM
+            mentor_stu a
+            inner join mst_stu b on b.del_flg = 0 and a.stu_id = b.stu_id
+            left join mst_mentor c on c.del_flg = 0 and c.mentor_id = a.mentor_id
+            inner join mst_usr d on d.del_flg = 0 and d.usr_id = b.stu_id and d.usr_sts = '1'
+            left join mst_usr e on e.del_flg = 0 and e.usr_id = c.mentor_id and e.usr_sts = '1'
+            inner join mst_cod_d m1 on m1.del_flg = 0 and m1.cod_key = 'SCHY_DIV' and m1.cod_cd = b.schy_div
+            left join mst_cod_d m2 on m2.del_flg = 0 and m2.cod_key = 'GENDR_DIV' and m2.cod_cd = b.gendr_div
+        WHERE a.id = #{id} and a.del_flg = 0
+    </select>
+    <select id="selectMentorInfo" resultType="jp.learningpark.modules.manager.dto.F00062Dto">
+        SELECT
+            b.after_usr_id mentorId,
+            a.flnm_nm mentorSei,
+            a.flnm_lnm mentorMei,
+            a.flnm_kn_nm mentorKnSei,
+            a.flnm_kn_lnm mentorKnMei,
+            a.telnum,
+            a.mailad
+        FROM
+            mst_mentor a
+            inner join mst_usr b on b.del_flg = 0
+        WHERE
+            a.mentor_id = #{mentorId}
+            and a.mentor_id = b.usr_id
+            and b.usr_sts = '1'
+            and a.del_flg = 0
+    </select>
+    <select id="selectStuInfo" resultType="jp.learningpark.modules.manager.dto.F00062Dto">
+        SELECT
+            b.after_usr_id stuId,
+            a.flnm_nm stuSei,
+            a.flnm_lnm stuMei,
+            a.flnm_kn_nm stuKnSei,
+            a.flnm_kn_lnm stuKnMei,
+            a.birthd,
+			m2.cod_value sex,
+			m1.cod_value schy
+        FROM
+            mst_stu a
+            inner join mst_usr b on b.del_flg = 0
+			inner join mst_cod_d m1 on m1.del_flg = 0 and m1.cod_key = 'SCHY_DIV' and m1.cod_cd = a.schy_div
+            left join mst_cod_d m2 on m2.del_flg = 0 and m2.cod_key = 'GENDR_DIV' and m2.cod_cd = a.gendr_div
+        WHERE
+            a.stu_id = #{stuId}
+            and a.stu_id = b.usr_id
+            and b.usr_sts = '1'
+            and a.del_flg = 0
+    </select>
+</mapper>

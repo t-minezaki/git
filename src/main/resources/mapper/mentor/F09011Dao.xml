@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.manager.dao.F09011Dao">
+    <select id="selectStuInfoListByStuId" resultType="jp.learningpark.modules.manager.dto.F09011StuDto">
+        SELECT MU.usr_id,
+               MU.after_usr_id,
+               MCD.cod_value                    AS schy,
+               MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+        FROM mst_usr MU
+             INNER JOIN mst_stu MS ON (MU.usr_id = MS.stu_id AND MS.del_flg = 0
+                AND MS.stu_id in
+                <foreach item="item" collection="stuIds" separator="," open="(" close=")" index="">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>)
+             INNER JOIN mst_org MO ON (MU.org_id = MO.org_id AND MO.del_flg = 0)
+        <if test='user.roleDiv != null and user.roleDiv == "2"'>
+            INNER JOIN mentor_stu MS2 ON (MS.stu_id = MS2.stu_id AND MS2.del_flg = 0)
+        </if>
+        INNER JOIN mst_cod_d MCD
+                ON (MS.schy_div = MCD.cod_cd AND (MCD.cod_key = 'SCHY_DIV') AND MCD.del_flg = 0)
+        INNER JOIN mst_cod_d MCD1
+                ON (MU.usr_sts = MCD1.cod_cd AND (MCD1.cod_key = 'USR_STS') AND MCD1.del_flg = 0 AND MU.usr_sts = '1')
+                WHERE MU.del_flg = 0
+                  AND MU.org_id = #{user.orgId}
+        <if test='user.roleDiv != null and user.roleDiv == "2"'>
+            AND MS2.mentor_id = #{user.usrId}
+        </if>
+        order by MS.flnm_nm, flnm_lnm
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+
+    <select id="selectStuInfoListByStuIdCount" resultType="java.lang.Integer">
+        select count(1)
+        from (
+            SELECT *
+            FROM mst_usr MU
+                 INNER JOIN mst_stu MS ON (MU.usr_id = MS.stu_id AND MS.del_flg = 0
+                    AND MS.stu_id in
+                    <foreach item="item" collection="stuIds" separator="," open="(" close=")" index="">
+                        #{item, jdbcType=VARCHAR}
+                    </foreach>)
+                 INNER JOIN mst_org MO ON (MU.org_id = MO.org_id AND MO.del_flg = 0)
+            <if test='user.roleDiv != null and user.roleDiv == "2"'>
+                INNER JOIN mentor_stu MS2 ON (MS.stu_id = MS2.stu_id AND MS2.del_flg = 0)
+            </if>
+            INNER JOIN mst_cod_d MCD
+                    ON (MS.schy_div = MCD.cod_cd AND (MCD.cod_key = 'SCHY_DIV') AND MCD.del_flg = 0)
+            INNER JOIN mst_cod_d MCD1
+                    ON (MU.usr_sts = MCD1.cod_cd AND (MCD1.cod_key = 'USR_STS') AND MCD1.del_flg = 0 AND MU.usr_sts = '1')
+                    WHERE MU.del_flg = 0
+                      AND MU.org_id = #{user.orgId}
+            <if test='user.roleDiv != null and user.roleDiv == "2"'>
+                AND MS2.mentor_id = #{user.usrId}
+            </if>
+            order by MS.flnm_nm, flnm_lnm
+        ) TOTAL
+    </select>
+
+    <select id="selectStuUpdateTime" resultType="jp.learningpark.modules.manager.dto.F09011StuPointDto">
+        select id,
+               stu_id,
+               org_id,
+               point,
+               move_point,
+               cret_datime,
+               cret_usr_id,
+               upd_datime,
+               upd_usr_id,
+               del_flg,
+               move_point_add
+        from stu_point
+        where stu_id in <foreach item="item" collection="stuIds" separator="," open="(" close=")" index="">
+            #{item, jdbcType=VARCHAR}
+        </foreach>
+    </select>
+</mapper>

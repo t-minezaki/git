@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30411Dao">
+    <resultMap id="reasonsMap" type="jp.learningpark.modules.guard.dto.F30411Dto">
+        <result column="cod_cd" property="codCd"/>
+        <result column="cod_value" property="codValue"/>
+    </resultMap>
+    <select id="getReasons" resultMap="reasonsMap">
+        SELECT
+            cod_cd, cod_value
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'ABS_REASON'
+        and
+            del_flg = 0
+        order by sort
+    </select>
+    <select id="getContents" resultMap="reasonsMap">
+        SELECT
+            cod_cd, cod_value
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'ABS_STS'
+        <!--2021/02/25 manamiri1-526 cuikailin start -->
+            and cod_cd in ('0','1')
+        and
+            del_flg = 0
+        order by sort asc
+        <!--2021/02/25 manamiri1-526 cuikailin end -->
+    </select>
+    <select id="getUsrIds" resultType="String">
+        SELECT
+            mentor_id as usr_id
+        FROM
+            mentor_stu AS ms
+        WHERE
+            stu_id = #{stuId} UNION
+        SELECT
+            usr_id
+        FROM
+            mst_usr
+        WHERE
+            role_div = '1'
+          AND org_id = #{orgId}
+    </select>
+</mapper>

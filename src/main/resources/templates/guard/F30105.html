@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>理解度詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30105.css"/>
+    <script type="text/javascript" src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/echarts-4.2.0/echarts.min.js"></script>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="content">
+    <ul class="tab">
+        <li class="liactive" id="learnStatus">学習状況</li>
+        <li id="news">ニュース</li>
+    </ul>
+    <div class="time_tab">
+        <ul>
+            <li>
+                <a href="#tab-1" id="week">週</a>
+            </li>
+            <li>
+                <a href="#tab-2" id="month">月</a>
+            </li>
+            <li>
+                <a href="#tab-3" id="year">年</a>
+            </li>
+        </ul>
+        <button onclick="getPrd()">時期指定</button>
+    </div>
+    <div class="content_main">
+        <div class="return">
+            <img src="../img/left.png" alt="">
+        </div>
+        <div class="content_title" v-text="subjtNm ? '詳細理解度'+'【'+subjtNm+'】' :'詳細理解度'"></div>
+        <div class="content_con" id="tab-2">
+            <div class="content_div" v-for="li in f30105DtoList">
+                <div class="div_title"><p :style="'color:'+li.codValue2">●</p>{{li.codValue}}</div>
+                <ul v-for="li1 in li.f30105SecDtoList">
+                    <!--2021/01/06 UT-107 cuikailin add start-->
+                    <li v-if="li1.blockTypeDiv=='S1' && li1.stuTermPlanId"
+                        v-text="li1.chaptNm.length>10 ? li1.chaptNm.substr(0,10)+'...' : li1.chaptNm">
+                    </li>
+                    <li v-if="li1.blockTypeDiv=='S1' && li1.stuTermPlanId == null" v-text="li1.blockNm"></li>
+                    <!--2021/01/06 UT-107 cuikailin add end-->
+                    <li v-if="li1.blockTypeDiv=='R1'" v-text="li1.blockNm"></li>
+                    <li v-if="li1.blockTypeDiv=='P1'" v-text="li1.blockNm"></li>
+                    <li v-if="li1.blockTypeDiv=='W1'" v-text="li1.blockNm"></li>
+                    <li v-if="li1.blockTypeDiv=='V1'" v-text="li1.blockNm"></li>
+                </ul>
+            </div>
+            <div style="height: 54px;width: 100%;float: left"></div>
+        </div>
+    </div>
+</div>
+<div class="div_bottom">
+    <iframe src="${request.contextPath}/common/F40004.html?id=F30105" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+<script src="${request.contextPath}/js/guard/F30105.js"></script>
+</html>

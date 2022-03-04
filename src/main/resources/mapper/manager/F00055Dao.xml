@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F00055Dao">
+    <select id="selectStudentInfo" resultType="jp.learningpark.modules.pop.dto.F00055StudentDto">
+        SELECT
+        mu.usr_id,
+        mu.after_usr_id as stu_id,
+        ms.flnm_nm || ' ' || ms.flnm_lnm AS student_nm,
+        mcd.cod_value AS schyDiv
+        FROM
+        mst_usr mu
+        INNER JOIN mst_stu ms ON mu.usr_id = ms.stu_id
+        <if test="studentNm != null and studentNm != '' ">
+            AND ms.flnm_nm || ' ' || ms.flnm_lnm LIKE CONCAT( '%', trim(#{studentNm}),'%')
+        </if>
+        <if test="schyDiv != null and schyDiv != '' ">
+            AND ms.schy_div =#{schyDiv}
+        </if>
+        AND ms.del_flg = 0
+        INNER JOIN mst_cod_d mcd ON mcd.cod_key = 'SCHY_DIV'
+        AND mcd.cod_cd = ms.schy_div
+        AND mcd.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        <if test="stuId != null and stuId != '' ">
+            and mu.after_usr_id = #{stuId}
+        </if>
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+        ORDER BY
+        ms.flnm_nm,
+        ms.flnm_lnm
+        <if test="startRow!=null">
+            LIMIT 30 OFFSET #{startRow}
+        </if>
+    </select>
+    <select id="selectStudentInfoCount" resultType="Integer">
+        SELECT
+        COUNT (*)
+        FROM
+        mst_usr mu
+        INNER JOIN mst_stu ms ON mu.usr_id = ms.stu_id
+        <if test="studentNm != null and studentNm != '' ">
+            AND ms.flnm_nm || ' ' || ms.flnm_lnm LIKE CONCAT( '%', #{studentNm},'%')
+        </if>
+        <if test="schyDiv != null and schyDiv != '' ">
+            AND ms.schy_div =#{schyDiv}
+        </if>
+        AND ms.del_flg = 0
+        INNER JOIN mst_cod_d mcd ON mcd.cod_key = 'SCHY_DIV'
+        AND mcd.cod_cd = ms.schy_div
+        AND mcd.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        <if test="stuId != null and stuId != '' ">
+            and mu.after_usr_id = #{stuId}
+        </if>
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+    </select>
+    <select id="selectMentorInfo" resultType="jp.learningpark.modules.pop.dto.F00055MentorDto">
+        SELECT
+        mu.usr_id,
+        mu.after_usr_id as mentor_id,
+        mm.flnm_nm || ' ' || mm.flnm_lnm AS mentor_nm
+        FROM
+        mst_usr mu INNER JOIN mst_mentor mm ON mu.usr_id = mm.mentor_id
+        <if test="mentorNm != null and mentorNm != '' ">
+            AND mm.flnm_nm || ' ' || mm.flnm_lnm LIKE CONCAT( '%', #{mentorNm},'%')
+        </if>
+        AND mm.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        <if test="mentorId != null and mentorId != '' ">
+            and mu.after_usr_id = #{mentorId}
+        </if>
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+        ORDER BY
+        mm.flnm_nm,
+        mm.flnm_lnm
+        <if test="startRow!=null">
+            LIMIT 30 OFFSET #{startRow}
+        </if>
+    </select>
+    <select id="selectMentorInfoCount" resultType="Integer">
+        SELECT
+        COUNT (*)
+        FROM
+        mst_usr mu INNER JOIN mst_mentor mm ON mu.usr_id = mm.mentor_id
+        <if test="mentorNm != null and mentorNm != '' ">
+            AND mm.flnm_nm || ' ' || mm.flnm_lnm LIKE CONCAT( '%', #{mentorNm},'%')
+        </if>
+        AND mm.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        <if test="mentorId != null and mentorId != '' ">
+            and mu.after_usr_id = #{mentorId}
+        </if>
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+    </select>
+    <select id="selectGuardInfo" resultType="jp.learningpark.modules.pop.dto.F00055GuardDto">
+        SELECT
+        mu.usr_id,
+        mu.after_usr_id as guard_id,
+        mg.flnm_nm || ' ' || mg.flnm_lnm AS guard_nm,
+        mg.mailad,
+        mcd.cod_value as reltnspDiv
+        FROM
+        mst_usr mu
+        INNER JOIN mst_guard mg ON mu.usr_id = mg.guard_id
+        <if test="guardNm != null and guardNm != '' ">
+            AND mg.flnm_nm || ' ' || mg.flnm_lnm LIKE CONCAT( '%', #{guardNm},'%')
+        </if>
+        <if test="mailad != null and mailad != '' ">
+            AND mg.mailad LIKE CONCAT( '%', #{mailad},'%')
+        </if>
+        AND mg.del_flg = 0
+        INNER JOIN mst_cod_d as mcd on mcd.cod_key = 'RELTNSP_DIV'
+        AND mcd.cod_cd = mg.reltnsp_div
+        AND mcd.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        <if test="guardId != null and guardId != '' ">
+            and mu.after_usr_id = #{guardId}
+        </if>
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+        ORDER BY
+        mg.flnm_nm,
+        mg.flnm_lnm
+        <if test="startRow!=null">
+            LIMIT 30 OFFSET #{startRow}
+        </if>
+    </select>
+    <select id="selectGuardInfoCount" resultType="Integer">
+        SELECT
+        COUNT (*)
+        FROM
+        mst_usr mu
+        INNER JOIN mst_guard mg ON mu.usr_id = mg.guard_id
+        <if test="guardNm != null and guardNm != '' ">
+            AND mg.flnm_nm || ' ' || mg.flnm_lnm LIKE CONCAT( '%', #{guardNm},'%')
+        </if>
+        <if test="mailad != null and mailad != '' ">
+            AND mg.mailad LIKE CONCAT( '%', #{mailad},'%')
+        </if>
+        AND mg.del_flg = 0
+        INNER JOIN mst_cod_d as mcd on mcd.cod_key = 'RELTNSP_DIV'
+        AND mcd.cod_cd = mg.reltnsp_div
+        AND mcd.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        <if test="guardId != null and guardId != '' ">
+            and mu.after_usr_id = #{guardId}
+        </if>
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+    </select>
+</mapper>

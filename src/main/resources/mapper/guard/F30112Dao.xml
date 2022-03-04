@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30112Dao">
+    <!--お知らせのデータとイベントのデータを取得する。-->
+    <select id="selectNotices" resultType="jp.learningpark.modules.guard.dto.F30112Dto">
+        SELECT
+        *
+        FROM
+        (
+        (
+        SELECT
+        'event' as type,
+        null AS org_id,
+        me.event_title AS noticeTitle,
+        NULL AS noticeContent,
+        null as noticeTypeDiv,
+        me.title_img_path AS noticeImgPath,
+        me.event_level_div AS noticeLevDiv,
+        me.event_cd AS eventCd,
+        me.pub_start_dt AS pubStartDt,
+        geas.reading_sts_div as readStsDiv,
+        me.id AS id,
+        null as corrspd_sts
+        FROM mst_event as me
+        INNER JOIN guard_event_apply_sts as geas
+        on me.id = geas.event_id
+        AND geas.del_flg = 0
+        WHERE
+        me.pub_start_dt <![CDATA[ <= ]]> now()
+        and me.pub_end_dt <![CDATA[ >= ]]> now()
+        and me.event_sts_div = '0'
+        and geas.guard_id = #{guardId}
+        and geas.stu_id = #{stuId}
+        and me.del_flg = 0
+        )
+        UNION ALL
+        (
+        SELECT
+        'notice' as type,
+        a.org_id,
+        b.notice_title as noticeTitle,
+        b.notice_cont noticeContent,
+        b.notice_type_div as noticeTypeDiv,
+        b.title_img_path noticeImgPath,
+        b.notice_level_div noticeLevDiv,
+        NULL as evenCd,
+        b.pub_plan_start_dt as pubStartDt,
+        c.reading_sts_div readStsDiv,
+        b.id,
+        lbh.corrspd_sts
+        FROM mst_notice b
+        LEFT JOIN mst_notice_deliver A
+        on a.notice_id = b.id
+        and a.org_id = #{orgId}
+        and a.del_flg = 0
+        inner join guard_reading_sts c
+        on c.guard_id = #{guardId}
+        and c.stu_id = #{stuId}
+        and c.notice_id = b.id
+        and c.del_flg = 0
+        left join late_abs_hst lbh
+        on lbh.notice_id = b.id
+        and lbh.del_flg = 0
+        WHERE
+        ((b.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND b.pub_plan_end_dt <![CDATA[ >= ]]> now( )
+        AND b.notice_type_div NOT IN ( '1', '6', '3', '7' ))
+        OR (b.notice_type_div IN ( '3', '7' )
+        AND b.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND b.pub_plan_start_dt <![CDATA[ >= ]]> now( ) - INTERVAL '7 day'
+        ))
+        <!--b.pub_plan_start_dt <![CDATA[ <= ]]> now()-->
+        <!--and b.pub_plan_start_dt <![CDATA[ >= ]]> now() - interval '7 day'-->
+        and b.notice_type_div <![CDATA[ <> ]]> '1'
+        and b.notice_type_div <![CDATA[ <> ]]> '6'
+        and b.del_flg = 0
+
+        group by
+        a.org_id,
+        noticeTitle,
+        noticeContent,
+        noticeTypeDiv,
+        noticeImgPath,
+        noticeLevDiv,
+        readStsDiv,
+        b.pub_plan_start_dt,
+        b.id,
+        lbh.corrspd_sts
+        )
+        UNION ALL
+        (
+        SELECT
+        'message' as type,
+        null as org_id,
+        mm.message_title as noticeTitle,
+        mm.message_cont as noticeContent,
+        mm.message_type_div as noticeTypeDiv,
+        mm.title_img_path as noticeImgPath,
+        mm.message_level_div as noticeLevDiv,
+        null as eventCd,
+        mm.cret_datime as pubStartDiv,
+        trs.reading_sts_div as readStsDiv,
+        mm.id,
+        null as corrspd_sts
+        FROM talk_reading_sts trs
+        INNER JOIN mst_message mm
+        ON trs.message_id = mm.id
+        and mm.del_flg = 0
+        WHERE
+        mm.message_type_div in ('3','5')
+        AND trs.deliver_id = #{guardId}
+        )
+        ) as dada
+        ORDER BY
+        <!--readStsDiv = '0' DESC,-->
+        <!--noticeLevDiv = '2' DESC,-->
+        readStsDiv,
+        pubStartDt desc
+        <if test="page != null">
+            limit #{limit} OFFSET #{page}
+        </if>
+    </select>
+    <!--通知とイベントの総数を取得する。-->
+    <select id="selectNoticeCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM (
+                 (
+                     SELECT 'event'              as type,
+                            null                 AS org_id,
+                            me.event_title       AS noticeTitle,
+                            NULL                 AS noticeContent,
+                            null                 as noticeTypeDiv,
+                            me.title_img_path    AS noticeImgPath,
+                            me.event_level_div   AS noticeLevDiv,
+                            me.event_cd          AS eventCd,
+                            me.pub_start_dt      AS pubStartDt,
+                            geas.reading_sts_div as readStsDiv,
+                            me.id                AS id,
+                            null                 as corrspd_sts
+                     FROM mst_event as me
+                              INNER JOIN guard_event_apply_sts as geas
+                                         on me.id = geas.event_id
+                                             AND geas.del_flg = 0
+                     WHERE me.pub_start_dt <![CDATA[ <= ]]> now()
+                       and me.pub_end_dt <![CDATA[  >=  ]]> now()
+                       and me.event_sts_div = '0'
+                       and geas.guard_id = #{guardId}
+                       and geas.stu_id = #{stuId}
+                       and me.del_flg = 0
+                 )
+                 UNION ALL
+                 (
+                     SELECT 'notice'            as type,
+                            a.org_id,
+                            b.notice_title      as noticeTitle,
+                            b.notice_cont          noticeContent,
+                            b.notice_type_div   as noticeTypeDiv,
+                            b.title_img_path       noticeImgPath,
+                            b.notice_level_div     noticeLevDiv,
+                            NULL                as evenCd,
+                            b.pub_plan_start_dt as pubStartDt,
+                            c.reading_sts_div      readStsDiv,
+                            b.id,
+                            lbh.corrspd_sts
+                     FROM mst_notice b
+                              LEFT JOIN mst_notice_deliver A
+                                        on a.notice_id = b.id
+                                            and a.org_id = #{orgId}
+                                            and a.del_flg = 0
+                              inner join guard_reading_sts c
+                                         on c.guard_id = #{guardId}
+                                             and c.stu_id = #{stuId}
+                                             and c.notice_id = b.id
+                                             and c.del_flg = 0
+                              left join late_abs_hst lbh
+                                        on lbh.notice_id = b.id
+                                            and lbh.del_flg = 0
+                       WHERE ((b.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND b.pub_plan_end_dt <![CDATA[ >= ]]> now( )
+                             AND b.notice_type_div NOT IN ( '1', '6', '3', '7' ))
+                             OR (b.notice_type_div IN ( '3', '7' )
+                             AND b.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND b.pub_plan_start_dt <![CDATA[ >= ]]> now( ) - INTERVAL '7 day'
+                                    ))
+                       and b.del_flg = 0
+                     group by a.org_id,
+                              noticeTitle,
+                              noticeContent,
+                              noticeTypeDiv,
+                              noticeImgPath,
+                              noticeLevDiv,
+                              readStsDiv,
+                              b.pub_plan_start_dt,
+                              b.id,
+                              lbh.corrspd_sts
+                 )
+                 UNION ALL
+                 (
+                     SELECT 'message'            as type,
+                            null                 as org_id,
+                            mm.message_title     as noticeTitle,
+                            mm.message_cont      as noticeContent,
+                            mm.message_type_div  as noticeTypeDiv,
+                            mm.title_img_path    as noticeImgPath,
+                            mm.message_level_div as noticeLevDiv,
+                            null                 as eventCd,
+                            mm.pub_plan_start_dt as pubStartDiv,
+                            trs.reading_sts_div  as readStsDiv,
+                            mm.id,
+                            null                 as corrspd_sts
+                     FROM talk_reading_sts trs
+                              INNER JOIN mst_message mm
+                                         ON trs.message_id = mm.id
+                                             and mm.del_flg = 0
+                     WHERE mm.message_type_div in ('3', '5')
+                       AND trs.deliver_id = #{guardId}
+                 )
+             ) as dada
+    </select>
+    <!--お知らせ未読カウント数-->
+    <select id="getNoticeUnreadCount" resultType="Integer">
+        SELECT count(*)
+        FROM (
+                 (
+                     SELECT 'event'              as type,
+                            null                 AS org_id,
+                            me.event_title       AS noticeTitle,
+                            NULL                 AS noticeContent,
+                            null                 as noticeTypeDiv,
+                            me.title_img_path    AS noticeImgPath,
+                            me.event_level_div   AS noticeLevDiv,
+                            me.event_cd          AS eventCd,
+                            me.pub_start_dt      AS pubStartDt,
+                            geas.reading_sts_div as readStsDiv,
+                            me.id                AS id,
+                            null                 as corrspd_sts
+                     FROM mst_event as me
+                              INNER JOIN guard_event_apply_sts as geas
+                                         on me.id = geas.event_id
+                                             AND geas.del_flg = 0
+                     WHERE me.pub_start_dt <![CDATA[ <= ]]> now()
+                       and me.pub_end_dt <![CDATA[  >=  ]]> now()
+                       and me.event_sts_div = '0'
+                       and me.del_flg = 0
+                       and geas.guard_id = #{guardId}
+                       and geas.stu_id = #{stuId}
+                       AND geas.reading_sts_div = '0'
+                 )
+                 UNION ALL
+                 (
+                     SELECT 'notice'            as type,
+                            a.org_id,
+                            b.notice_title      as noticeTitle,
+                            b.notice_cont          noticeContent,
+                            b.notice_type_div   as noticeTypeDiv,
+                            b.title_img_path       noticeImgPath,
+                            b.notice_level_div     noticeLevDiv,
+                            NULL                as evenCd,
+                            b.pub_plan_start_dt as pubStartDt,
+                            c.reading_sts_div      readStsDiv,
+                            b.id,
+                            lbh.corrspd_sts
+                     FROM mst_notice b
+                              LEFT JOIN mst_notice_deliver A
+                                        on a.notice_id = b.id
+                                            and a.org_id = #{orgId}
+                                            and a.del_flg = 0
+                              inner join guard_reading_sts c
+                                         on c.guard_id = #{guardId}
+                                             and c.stu_id = #{stuId}
+                                             and c.notice_id = b.id
+                                             and c.del_flg = 0
+                              left join late_abs_hst lbh
+                                        on lbh.notice_id = b.id
+                                            and lbh.del_flg = 0
+                     WHERE b.pub_plan_start_dt <![CDATA[ <= ]]> now()
+                       and b.pub_plan_start_dt <![CDATA[ >= ]]> now()
+                       and b.notice_type_div <![CDATA[ <> ]]> '1'
+                       and b.notice_type_div <![CDATA[ <> ]]> '6'
+                       and b.del_flg = 0
+                       and c.reading_sts_div = '0'
+                     group by a.org_id,
+                              noticeTitle,
+                              noticeContent,
+                              noticeTypeDiv,
+                              noticeImgPath,
+                              noticeLevDiv,
+                              readStsDiv,
+                              b.pub_plan_start_dt,
+                              b.id,
+                              lbh.corrspd_sts
+                 )
+                 UNION ALL
+                 (
+                     SELECT 'message'            as type,
+                            null                 as org_id,
+                            mm.message_title     as noticeTitle,
+                            mm.message_cont      as noticeContent,
+                            mm.message_type_div  as noticeTypeDiv,
+                            mm.title_img_path    as noticeImgPath,
+                            mm.message_level_div as noticeLevDiv,
+                            null                 as eventCd,
+                            mm.pub_plan_start_dt as pubStartDiv,
+                            trs.reading_sts_div  as readStsDiv,
+                            mm.id,
+                            null                 as corrspd_sts
+                     FROM talk_reading_sts trs
+                              INNER JOIN mst_message mm
+                                         ON trs.message_id = mm.id
+                                             and mm.del_flg = 0
+                     WHERE mm.message_type_div in ('3', '5')
+                       AND trs.deliver_id = #{guardId}
+                       and trs.reading_sts_div = '0'
+                 )
+             ) as dada
+    </select>
+    <!--塾・教室ニュース未読件数-->
+    <select id="getNewsUnreadCount" resultType="Integer">
+        SELECT count(DISTINCT notice.id) as id
+        FROM mst_notice notice,
+             mst_notice_deliver deliver,
+             guard_reading_sts guard
+        WHERE deliver.notice_id = notice.id
+          AND deliver.org_id = #{orgId}
+          AND notice.pub_plan_start_dt <![CDATA[ <= ]]> now()
+          and notice.pub_plan_start_dt <![CDATA[  >=  ]]> now() - interval '7 day'
+          AND notice.notice_type_div = '1'
+          AND notice.id = guard.notice_id
+          AND guard.guard_id = #{guardId}
+          AND guard.stu_id = #{stuId}
+          AND guard.reading_sts_div = '0'
+          AND notice.del_flg = 0
+          AND deliver.del_flg = 0
+          AND guard.del_flg = 0
+    </select>
+    <!--「お知らせ」詳細情報押下-->
+    <select id="updateStatus" resultType="jp.learningpark.modules.guard.dto.F30112Dto">
+        SELECT
+            mn.notice_level_div as noticeLevDiv,
+            grs.id  AS grsId,
+            gras.id AS grasId
+        FROM mst_notice mn
+        INNER JOIN guard_reading_sts grs
+        ON
+            grs.notice_id = mn.id
+            and grs.reading_sts_div = '0'
+            and grs.del_flg = 0
+        inner join guid_repr_apply_sts gras
+        ON
+            gras.guid_repr_id = #{guidReprId}
+            and gras.stu_id = #{stuId}
+            and gras.org_id = #{orgId}
+            and gras.guard_id = #{guardId}
+            and gras.reading_sts_div = '0'
+            and gras.del_flg = 0
+        WHERE mn.id = #{id}
+          and mn.del_flg = 0
+          and gras.guid_repr_deliver_cd = #{guidReprDeliverCd}
+    </select>
+</mapper>

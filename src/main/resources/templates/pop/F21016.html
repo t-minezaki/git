@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>出席簿用代理登録</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/select2/css/select2.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21016.css"/>
+</head>
+<body id="body">
+<div class="header" id="header">代理登録 <p style="float: right;margin-right: 2vw;" id="close" onclick="back()">×</p></div>
+<div class="content" id="content">
+    <div class="row" id="schyDiv">
+        <div class="left float">生徒学年</div>
+<!--        <div class="mid float">：</div>-->
+        <div class="right float">
+            <select class="input" id="schy">
+                <option v-for="schy in schys" :value="schy.codCd">{{schy.codValue}}</option>
+            </select>
+            <!--            <span style="color: red">*</span>-->
+        </div>
+    </div>
+    <div class="row" id="stuNameDiv">
+        <div class="left float">生徒名</div>
+<!--        <div class="mid float">：</div>-->
+        <div class="right float">
+            <select class="input form-control" id="stuName">
+                <option value="">生徒名を入力してください</option>
+            </select>
+            <!--            <span style="color: red">*</span>-->
+        </div>
+    </div>
+    <div class="row" id="contentDiv">
+        <div class="left float">内容</div>
+<!--        <div class="mid float">：</div>-->
+        <div class="right float">
+            <button v-for="(content, index) in contents" onclick="choose(this)" class="float btn" :class="{'active first':index==0}"
+                    :id="getId(content.codCd)">{{content.codValue}}</button>
+<!--            <button class="float btn late active" id="late" onclick="choose(this)">遅刻</button>-->
+<!--            <button class="float btn absence" id="absence" onclick="choose(this)">欠席</button>-->
+        </div>
+    </div>
+    <div class="row" id="dayDiv">
+        <div class="left float">対象日</div>
+<!--        <div class="mid float">：</div>-->
+        <div class="right float">
+            <input disabled="disabled" class="input" id="day">
+            <img src="../img/diy/4.png" class="clickPhoto" id="dayPic">
+        </div>
+    </div>
+    <div class="row" id="reasonDiv" style="margin-bottom: 1vh;">
+        <div class="left float">理由</div>
+<!--        <div class="mid float">：</div>-->
+        <div class="right float">
+            <select class="input" id="reason">
+                <option style="display:none;"></option>
+                <option v-for="reason in reasons" :value="reason.codCd">{{reason.codValue}}</option>
+            </select>
+            <!--            <span style="color: red">*</span>-->
+        </div>
+    </div>
+    <div class="row" id="remarkDiv">
+        <div class="left float">備考</div>
+<!--        <div class="mid float">：</div>-->
+        <div class="right float">
+            <textarea class="textarea" id="remark" maxlength="200">
+
+            </textarea>
+        </div>
+    </div>
+    <div class="btnRow" id="btnDiv">
+        <div>
+            <button id="back-btn" class="float back-btn btn" onclick="back()" style="margin-right: 5vw;">戻る</button>
+            <button id="submit-btn" class="float submit-btn btn" onclick="submit()" style="margin-left: 5vw;">登録</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="${request.contextPath}/plugins/select2/js/select2.js"></script>
+<script src="${request.contextPath}/plugins/select2/js/i18n/ja.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/js/pop/F21016.js"></script>
+</html>

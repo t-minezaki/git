@@ -1,0 +1,83 @@
+
+@import "common_tab.css";
+.float {
+    float: left;
+}
+
+.row {
+    overflow: hidden;
+}
+
+.top {
+    top: 56px;
+    z-index: 999;
+}
+
+.div_header {
+    height: 56px !important;
+    position: unset !important;
+}
+
+.line {
+    height: 1px;
+    background: #d3d4d3;
+    margin: 1.5vh auto;
+}
+
+.left {
+    width: 25%;
+    text-align: center;
+}
+
+.mid {
+    margin-right: 20px;
+}
+
+.right {
+    width: 60%;
+    text-align: left;
+}
+
+.btnRow {
+    width: 100%;
+    text-align: center;
+}
+
+.btn {
+    width: 60%;
+    color: white;
+    border: 0;
+    font-size: 28px;
+    position: relative;
+    margin: 1vh;
+    padding: 20px;
+    background: #8CC11F;
+}
+
+textarea#textarea {
+    width: calc(100% - 8px);
+    padding: 2vw;
+    margin: 2px 4px;
+    /*height: 100%;*/
+    /* font-weight: 600; */
+    font-size: 26px;
+    resize: none;
+    border: 1px solid #ccc;
+    height: 97% !important;
+}
+
+.textareaDiv{
+    height: 75% !important;
+}
+
+.div_bottom{
+    height: 60px;
+}
+
+#body{
+    overflow: hidden !important;
+}
+
+.content{
+    height: calc(100% - 116px);
+}

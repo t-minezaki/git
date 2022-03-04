@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30110Dao">
+    <select id="selectNews" resultType="jp.learningpark.modules.guard.dto.F30110Dto">
+        SELECT DISTINCT
+            b.notice_title noticeTitle,
+            b.notice_cont noticeContent,
+            b.title_img_path noticeImgPath,
+            d.cod_value noticeLev,
+            d.cod_cd noticeLevDiv,
+            c.reading_sts_div readStsDiv,
+            b.id,
+            b.pub_plan_start_dt
+        FROM
+            mst_notice_deliver a
+            inner join mst_notice b on b.pub_plan_start_dt <![CDATA[ <= ]]> now() and b.pub_plan_end_dt <![CDATA[ >= ]]> now() and b.del_flg = 0
+                and b.notice_type_div = '1'
+            inner join guard_reading_sts c on c.guard_id = #{guardId}
+                and c.stu_id = #{stuId} and c.notice_id = b.id and c.del_flg = 0
+            inner join mst_cod_d d on cod_cd = b.notice_level_div
+                and d.cod_key = 'NOTICE_LEVEL_DIV' and d.del_flg = 0
+        WHERE
+            a.org_id = #{orgId}
+            and a.notice_id = b.id and a.del_flg = 0
+        ORDER BY c.reading_sts_div, b.pub_plan_start_dt
+        <if test="page != null">
+            limit #{limit} OFFSET #{page}
+        </if>
+    </select>
+    <select id="selectNewsCount" resultType="java.lang.Integer">
+        SELECT count(DISTINCT c.notice_id)
+        FROM mst_notice_deliver a
+        inner join mst_notice b on b.pub_plan_start_dt <![CDATA[ <= ]]> now() and b.pub_plan_end_dt <![CDATA[ >= ]]> now() and b.del_flg = 0
+        and b.notice_type_div = '1'
+        inner join guard_reading_sts c on c.guard_id = #{guardId}
+        and c.stu_id = #{stuId} and c.notice_id = b.id and c.del_flg = 0
+        inner join mst_cod_d d on cod_cd = b.notice_level_div
+        and d.cod_key = 'NOTICE_LEVEL_DIV' and d.del_flg = 0
+        WHERE
+        a.org_id = #{orgId}
+        and a.notice_id = b.id and a.del_flg = 0
+    </select>
+    <!--ニュース未読カウント数-->
+    <select id="getNewsCount" resultType="Integer">
+        SELECT
+        count( DISTINCT notice.id )
+        FROM
+        mst_notice notice,
+        mst_notice_deliver deliver,
+        guard_reading_sts guard
+        WHERE
+        deliver.notice_id = notice.id
+        AND deliver.org_id = #{orgId}
+        AND notice.pub_plan_start_dt <![CDATA[ <= ]]> ( SELECT now( ) ) AND notice.pub_plan_end_dt <![CDATA[ >= ]]> ( SELECT now( ) )
+        AND notice.notice_type_div = '1'
+        AND notice.id = guard.notice_id
+        AND guard.guard_id = #{guardId}
+        AND guard.stu_id = #{stuId}
+        AND guard.reading_sts_div = '0'
+        AND notice.del_flg = 0
+        AND deliver.del_flg = 0
+        AND guard.del_flg = 0
+    </select>
+</mapper>

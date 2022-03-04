@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F10303Dao">
+    <!--f10303-->
+    <select id="selectSubjtDivsByStuId" parameterType="String"
+            resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+        SELECT DISTINCT cmd.cod_cd,
+                        cmd.cod_value,
+                        cmd.cod_cont,
+                        cmd.cod_value_2 AS codValue2,
+                        cmd.cod_value_3 AS codValue3,
+                        cmd.sort
+        FROM mst_stu stu
+                     INNER JOIN mst_cod_d cmd ON
+                stu.schy_div = ANY (regexp_split_to_array(cmd.cod_value_5, ','))
+                        AND cmd.cod_key = 'SUBJT_DIV'
+                        AND cmd.del_flg = '0'
+        WHERE stu.stu_id = #{stuId}
+          AND stu.del_flg = '0'
+        ORDER BY cmd.sort
+    </select>
+
+    <!--2020/11/12 zhangminghao modify start-->
+    <select id="getDefaultSubject" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+        SELECT DISTINCT cod_cd,
+                        cod_value,
+                        cod_cont,
+                        cod_value_2 AS codValue2,
+                        cod_value_3 AS codValue3,
+                        sort
+        FROM mst_cod_d
+        WHERE cod_value = #{defaultSubject}
+          AND cod_key = 'SUBJT_DIV'
+          AND del_flg = '0'
+    </select>
+    <!--2020/11/12 zhangminghao modify end-->
+</mapper>

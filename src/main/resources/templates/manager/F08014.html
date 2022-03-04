@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <#include "/header.html" />
+    <link rel = "stylesheet" href = "${request.contextPath}/css/manager/F08014.css">
+</head>
+<body>
+<div id="app">
+    <button id="btn_close">×</button>
+
+    <div class="div_title">
+        <img src = "../img/08014_1.png" id="title_img">
+        <label class = "label_title">{{ eventEntity.eventTitle }}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    </div>
+    <div class = "div_time">
+        <label class="label_time_title">{{ eventEntity.sgdPlanDateStr }}</label><label class="label_time_cont">{{ eventEntity.sgdStartDatimeStr }}~{{ eventEntity.sgdEndDatimeStr }}</label>
+    </div>
+    <div class = "div_name">
+        <!--生徒-->
+        <label class="label_nm_title">生徒</label>
+        <select class="label_nm" id="geasId">
+            <option v-for="stu in stuList" :value="stu.guardEventApplyStsId">{{ stu.stuNm }}</option>
+        </select>
+    </div>
+
+    <div class = "div_name">
+        <!--先生-->
+        <label class="label_nm_title" v-if = "eventEntity.refType == '1'">先生</label>
+        <label class="label_nm" v-if = "eventEntity.refType == '1'">{{ eventEntity.divMentorNm }}</label>
+        <!--教室-->
+        <label class="label_nm_title" v-if = "eventEntity.refType == '0'">教室</label>
+        <label class="label_nm" v-if = "eventEntity.refType == '0'">{{ eventEntity.orgNm }}</label>
+    </div>
+
+    <div class = "div_btn">
+        <button v-if = "eventEntity.refType == '1'" id = "btn_change"  style="background: #00a65a; color: white;border: 0;border-bottom: 3px grey solid;">先生変更</button>
+        <button id = "btn_order" onclick="btnOrder()" style="color: rgba(100, 100, 100, 1); background: white;border: 1px grey solid;border-bottom: 3px grey solid;">予約キャンセル</button>
+    </div>
+</div>
+</body>
+<script type = "text/javascript" src = "${request.contextPath}/js/manager/F08014.js"></script>
+</html>

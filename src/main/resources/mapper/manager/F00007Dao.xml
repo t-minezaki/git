@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00007Dao">
+    <select id="selectLowerLevOrg" resultType="jp.learningpark.modules.manager.dto.F00007Dto">
+        with RECURSIVE cte as
+        (
+        select * from mst_org om
+        where om.org_id = #{upplevOrgId}
+        and om.brand_cd = #{brandCd}
+        and om.del_flg = 0
+        union all
+        select d.* from cte c
+        inner join mst_org d on c.org_id = d.upplev_org_id
+        and d.del_flg = 0
+        )
+        select DISTINCT
+        s.level,
+        s.org_id,
+        s.org_nm
+        from cte s
+        order by s.level,s.org_id
+    </select>
+    <select id="selectUsrCount" resultType="java.util.Map">
+        select
+            sum(case when A.usr_sts = '1' then 1 else 0 end) as usrCount,
+            sum(case when A.crmsch_sts = '3' then 1 else 0 end) as inCount,
+            sum(case when A.crmsch_sts = '2' then 1 else 0 end) as outCount,
+            sum(case when A.crmsch_sts = '1' then 1 else 0 end) as exitCount
+        from
+            (SELECT mu.usr_sts,C.crmsch_sts
+            from mst_usr mu
+            inner join mst_org mo on mu.org_id = mo.org_id and mo.del_flg = 0
+            left join (SELECT DISTINCT
+             B.move_ymd,
+             B.crmsch_sts,
+             B.stu_id,
+             B.org_id
+            FROM
+             move_out_in_hst B
+             INNER JOIN ( SELECT MAX( move_ymd ) move_ymd, stu_id, org_id FROM move_out_in_hst WHERE del_flg = 0 GROUP BY stu_id, org_id ) AS A ON A.move_ymd = B.move_ymd
+             AND A.stu_id = B.stu_id
+             AND A.org_id = B.org_id
+             AND b.del_flg = 0) as C
+             on mu.usr_id = C.stu_id
+             and mu.org_id = C.org_id
+             AND ( (mu.usr_sts = '1' and C.crmsch_sts = '1' ) OR ( mu.usr_sts = '0' and C.crmsch_sts in ('2','3') ) )
+             where mu.role_div = '4' and mu.del_flg = 0
+             -- リストの空判定
+            <if test='list != null and list.size() != 0'>
+                and mu.org_id in
+                <foreach collection="list" index="index" item="list" open="(" separator="," close=")">
+                    #{list.orgId}
+                </foreach>
+            </if>
+         order by
+         mo.level,mo.org_id) as A
+    </select>
+    <select id="exportFile" resultType="jp.learningpark.modules.manager.dto.F00007ExportDto">
+        SELECT mu.org_id,mo.org_nm,mu.after_usr_id,ms.flnm_nm,ms.flnm_lnm,mu.usr_sts,C.crmsch_sts
+        from mst_usr mu
+        inner join mst_org mo on mu.org_id = mo.org_id
+        inner join mst_stu ms on mu.usr_id = ms.stu_id
+        and mu.del_flg = 0 and mo.del_flg = 0 and ms.del_flg = 0
+        left join (SELECT DISTINCT
+         B.move_ymd,
+         B.crmsch_sts,
+         B.stu_id,
+         B.org_id
+        FROM
+         move_out_in_hst B
+         INNER JOIN ( SELECT MAX( move_ymd ) move_ymd, stu_id, org_id FROM move_out_in_hst WHERE del_flg = 0 GROUP BY stu_id, org_id ) AS A ON A.move_ymd = B.move_ymd
+         AND A.stu_id = B.stu_id
+         AND A.org_id = B.org_id
+         AND B.del_flg = 0) as C
+         on mu.usr_id = C.stu_id
+         and mu.org_id = C.org_id
+         AND ( (mu.usr_sts = '1' and C.crmsch_sts = '1' ) OR ( mu.usr_sts = '0' and C.crmsch_sts in ('2','3') ) )
+         where mu.org_id in
+         <foreach collection="list" index="index" item="list" open="(" separator="," close=")">
+             #{list.orgId}
+         </foreach>
+         order by
+         mo.level,mo.org_id,mu.after_usr_id
+    </select>
+</mapper>

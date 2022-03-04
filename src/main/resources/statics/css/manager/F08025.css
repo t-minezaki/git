@@ -1,0 +1,314 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto !important;
+}
+#img-mail{
+    width: 20px;
+    margin-top: 2px;
+}
+.mail_content {
+    height: 100%;
+    width: 64%;
+}
+
+.mail_content input {
+    height: 100%;
+    width: 44vw;
+    float: left;
+}
+#mail-submit{
+    float: left;
+    width: 5vw;
+    height: 3vh;
+    margin-left: 1vw;
+}
+.div_four button,#mail-submit {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 6vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+.div_body {
+    width: 100%;
+    height: 100%;
+}
+
+.div_body .div_top {
+    /*position: fixed;*/
+    width: 100%;
+    height: 2.6vw;
+    background-color: #F1F2F3;
+    min-height: 20px;
+}
+
+.div_top div {
+    float: left;
+    height: 2.6vw;
+    line-height: 2.6vw;
+    text-align: center;
+    font-size: 1vw;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    min-height: 20px;
+}
+
+
+.div_main {
+    width: 100%;
+    height: 100%;
+    padding-top: 2.6vw;
+    padding-left: 5%;
+    padding-right: 5%;
+    box-sizing: border-box;
+    /*overflow: auto;*/
+}
+
+.div_main .div_one {
+    height: 9vh;
+    font-size: 2vh;
+    /*padding-top: 2vh;*/
+    box-sizing: border-box;
+    min-height: 40px;
+}
+
+.div_one label {
+    display: block;
+    color: #868686;
+    font-weight: bolder;
+    margin-bottom: 0.2vh;
+}
+
+.div_one input {
+    width: 20vw;
+    height: 4vh;
+    float: left;
+    font-size: 0.9vw;
+    padding-left: 0.5vw;
+    box-sizing: border-box;
+    min-height: 20px;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+    border: 1px solid #d4d4d4 !important;
+}
+
+.div_one button {
+    width: 14vh;
+    height: 4vh;
+    margin-left: 30vw;
+    font-size: 1.6vh;
+    border-radius: 4px;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+
+}
+
+.div_one button:active {
+    background-color: transparent;
+}
+
+.div_two {
+    width: 100%;
+    height: auto;
+    min-height: 280px;
+}
+
+.div_two label {
+    display: block;
+    font-weight: bolder;
+    color: #868686;
+    font-size: 2vh;
+    /*padding-top: 2vh;*/
+    margin-bottom: 0.2vh;
+    box-sizing: border-box;
+}
+
+.div_two .mail_content {
+    width: 64%;
+    height: auto;
+}
+
+.mail_content #editor {
+    width: 100% !important;
+    /*height: 30vh !important;*/
+}
+
+#editor #edui1 {
+    width: 100% !important;
+    /*height: 43vh;*/
+}
+
+#editor #edui1_iframeholder {
+    width: 100% !important;
+    height: 31vh !important;
+}
+
+#edui1_bottombar {
+    display: none;
+}
+
+.div_three {
+    width: 100%;
+    height: 18vh;
+    min-height: 40px;
+    margin-bottom: 1vh;
+    overflow: hidden;
+}
+
+.div_three > label {
+    display: block;
+    font-weight: bolder;
+    color: #868686;
+    font-size: 2vh;
+    padding-top: 2vh;
+    margin-bottom: 0.2vh;
+    box-sizing: border-box;
+}
+
+.div_three .div_file {
+    width: 55%;
+    height: 10vh;
+    line-height: 10vh;
+    position: relative;
+    border: 0.2vh solid #BBB;
+    box-sizing: border-box;
+    border-radius: 0.5vh;
+    text-align: center;
+}
+
+.div_file label {
+    display: inline-block;
+    width: 100%;
+    font-size: 2vh;
+    color: #777;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.div_file button {
+    float: left;
+    width: 8vw;
+    height: 5vh;
+    line-height: 4vh;
+    min-height: 10px;
+    font-size: 1vw;
+    position: absolute;
+    top: 4.8vh;
+    /* 2020/11/27 V8.0 cuikailin modify start */
+    right: -9.1vw;
+    /* 2020/11/27 V8.0 cuikailin modify end */
+    color: #FFF;
+    font-weight: bold;
+    background-color: #92D050;
+    border: none;
+    border-radius: 0.2vh;
+    cursor: pointer;
+}
+
+.div_file #in_file:hover {
+    background-color: #82D080;
+}
+
+.div_file #in_file:active {
+    background-color: #92D050;
+}
+
+.div_file #in_file {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 999;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.div_main .div_four {
+    width: 63%;
+    height: 8vh;
+    line-height: 8vh;
+    text-align: left;
+    min-height: 40px;
+}
+
+.div_four {
+    text-align: center !important;
+}
+
+.div_four button {
+    width: 10vw;
+    height: 2.5vw;
+    font-size: 0.9vw;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 6vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.div_four button:hover {
+    background-color: #4BD7A3;
+}
+
+.div_four button:active {
+    background-color: #4BC783;
+}
+
+#edui114{
+    visibility: hidden;
+}
+
+#edui78 > .edui-listitem-body > .edui-label > .edui-default {
+    font-size: 16px !important;
+}
+
+#edui79 > .edui-listitem-body > .edui-label > .edui-default {
+    font-size: 16px !important;
+}
+#edui1_toolbarbox{
+    position: unset !important;
+}
+.add-option {
+    border-radius: 999px;
+    width: 3vh;
+    height: 3vh;
+    line-height: 3vh;
+    border: 0;
+    background: #BFBFBF;
+    color: #7F7F7F;
+    font-size: x-large;
+    margin-left: 1vw;
+    text-align: center;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+select{
+    border: 1px solid #d4d4d4 !important;
+    font-size: 0.9vw;
+    height: 4vh;
+    background: #FFFFFF;
+}
+#edui2 div {
+    /*width: 16.6%;*/
+    float: left;
+}

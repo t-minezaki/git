@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>運用管理｜ユーザー管理｜生徒・保護者一覧</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00044.css"/>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app">
+    <div class="popTitle">運用管理｜ユーザー管理｜生徒・保護者一覧</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="sOrgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <form id="f00044Form">
+        <div class="inputDiv">
+            <div class="inputMessage">
+                <div>生徒ID</div>
+                <input type="text" maxlength="20" id="stuId" name="stuId">
+                <div style="width: 15%; padding-left: 6vw">保護者ID</div>
+                <input type="text" maxlength="100" id="guardId" name="guardId">
+            </div>
+            <div class="inputMessage">
+                <div>生徒姓名</div>
+                <input type="text" maxlength="20" id="stuName" name="stuName">
+                <div style="width: 15%; padding-left: 6vw">保護者姓名</div>
+                <input type="text" maxlength="100" id="guardName" name="guardName">
+            </div>
+            <div class="inputMessage">
+                <div>学年</div>
+                <select type="text" id="schy" style="background: white" name="schy"></select>
+                <button type="button" id="setOrg">組織指定</button>
+                <button type="button" onclick="searchButton()">検索</button>
+            </div>
+        </div>
+    </form>
+    <div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F00044.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,176 @@
+.content {
+    width: 100%;
+    font-size: 15px;
+}
+
+.select-content {
+    overflow: hidden;
+    width: 100%;
+    margin: 4vh 0 2vh 0;
+}
+
+.select-div-day {
+    width: 30vw;
+    float: left;
+    display: table-cell;
+    margin-left: 1vw;
+}
+
+.input {
+    width: 12vw;
+    background: white;
+    border: 1px solid #000;
+    text-align: left;
+    height: 1.6vw;
+    font-size: 0.9vw
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div{
+    font-size: 15px !important;
+}
+
+.left-item {
+    float: left;
+}
+
+.right-item {
+    margin: auto 10px;
+}
+
+.back-button {
+    margin-right: 4.0vw;
+    float: right;
+    border: #009944;
+    z-index: 1;
+    padding: 2px 2vw;
+    font-size: 1.2vw;
+    background-color: #00a65a;
+    color: whitesmoke;
+    border: 0px;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    width: 10vw;
+    height: 5vh;
+    border-radius: 3px;
+}
+
+#date{
+    float: left;
+    line-height: 3vh;
+    font-size: 0.9vw;
+    margin-left: 1vw;
+}
+
+.listContent {
+    width: 100%;
+}
+
+.backContent {
+    overflow: hidden;
+    width: 100%;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: hidden !important;
+    border-bottom: 2px #ccc solid;
+}
+
+
+.ui-jqgrid .ui-jqgrid-view input, .ui-jqgrid .ui-jqgrid-view select, .ui-jqgrid .ui-jqgrid-view textarea, .ui-jqgrid .ui-jqgrid-view button {
+    font-size: 15px !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    font-size: 15px !important;
+}
+
+.ui-jqgrid .ui-jqgrid-pager {
+    margin: 0 0 0 1vw !important;
+}
+#jqGrid {
+    /*border: 1px solid black;*/
+    border-top: none;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 0.9vw!important;
+}
+
+.one {
+
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+
+    height: 100%;
+    line-height: 35px;
+    font-size: 1.4em;
+}
+
+.one-ul li {
+
+    height: 100%;
+    float: left;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+
+    display: inline-block;
+    margin-right: 0.5vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+.topMessage {
+    position: absolute;
+}

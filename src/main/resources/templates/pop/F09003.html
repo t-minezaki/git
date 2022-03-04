@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F09003.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div class="content" id="data" >
+    <div class="one"  style="font-size: 15px;height: 14vh;width: 100%">
+        <div id="checkSelect">
+            <span class="span" style="margin-left: 8vh;">カテゴリー選択１</span>
+            <div class="div_radiobox">
+                <input id="all" style="margin-left: 2vw" type="radio" value="all" name="select" checked><p id="radio" class="radioText">全員</p>
+                <input type="radio" value="schy" name="select"><p id="schy" class="radioText">学年</p>
+                <input type="radio" value="group" name="select"><p id="group" class="radioText" style="width: 8vw">グループ</p>
+                <input type="radio" value="someone" name="select"><p id="someone" class="radioText">個人</p>
+                <input type="radio" value="loginDate" name="select"><p id="loginDate" class="radioText">登録日</p>
+                <input type="radio" value="absSts" name="select"><p id="absSts" class="radioText">出欠</p>
+            </div>
+        </div>
+        <div id="selectDiv2" style="float: left;margin-top: 2vh;" v-if="searchDiv != 'all'" >
+            <span class="span" style="margin-left: 8vh;float: left;margin-top: 2.2vh;">カテゴリー選択2</span>
+            <select type="text" id="typeDiv" name="schy" v-if="searchDiv == 'schy' || searchDiv == 'group' || searchDiv == 'absSts'">
+                <option></option>
+                <option v-if="searchDiv == 'schy'" v-for="schy in schyList" :value="schy.codCd">{{schy.codValue}}</option>
+                <option v-if="searchDiv == 'absSts'" v-for="abs in absList" :value="abs.codCd">{{abs.codValue}}</option>
+                <option v-if="searchDiv == 'group'" v-for="group in mstGrpEntityList" :value="group.grpId">{{group.grpNm}}</option>
+            </select>
+            <input id="stuName"  v-if="searchDiv == 'someone'">
+            <div class="inputMessage" v-if="searchDiv == 'loginDate'" style="padding-left: 0.5vw;">
+                <div class="time_div">
+                    <div class="img_div">
+                        <img src="../img/timeBtn2.png" style="width: 2.5vw;margin-top: 0.8vh;" alt="" id="timeOne">
+                    </div>
+                    <input type="text" id="readTimeStart" name="readTimeStart" style="margin-left: 2vw;height: 2.5vw;width: 15vw;border: 1px solid #000" readonly>
+                </div>
+                <div style="text-align: center">～</div>
+                <div class="time_div">
+                    <div class="img_div" style="margin-left: 12.2vw;">
+                        <img src="../img/timeBtn2.png" style="width: 2.5vw;margin-top: 0.8vh;" alt="" id="timeTwo">
+                    </div>
+                    <input type="text" id="readTimeEnd" name="readTimeEnd" style="height: 2.5vw;width: 15vw;border: 1px solid #000" readonly>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="selectBtn"  @click="search()" >検索</button>
+    </div>
+    <div class="box">
+        <div class="box1" style="margin-left: 5%" >
+            <div class="head"><span class="title">検索結果</span></div>
+            <form id="form_left">
+                <div class="item_div"  v-for="stu in searchStuList">
+                    <input type="checkbox" :value="stu.stuId" class="stu_chk" content=""/>
+                    <span class="cont" > {{stu.stuName}} </span>
+                </div>
+            </form>
+        </div>
+        <div class="symbol">
+                <div>
+                    <button id="right"><span>&#155</span></button>
+                </div>
+                <div>
+                    <button id="right_all"><span>&#187</span></button>
+                </div>
+                <div>
+                    <button id="left"><span>&#139</span></button>
+                </div>
+                <div>
+                    <button id="left_all"><span>&#171</span></button>
+                </div>
+        </div>
+        <div class="box1">
+            <div class="head"><span class="title">対象者とする</span></div>
+            <form id="form_right">
+            </form>
+        </div>
+    </div>
+    <div class="footDiv">
+        <div class="footAuto">
+            <button  @click="submit()" id="select">選択</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F09003.js"></script>
+</html>

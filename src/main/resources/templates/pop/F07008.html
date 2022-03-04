@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>その他ブロック小分類追加・編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F07008.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+    <style>
+    </style>
+</head>
+<body>
+<div class="main">
+    <div id="message" class="topMessage"></div>
+    <div class="content" id="app">
+        <div class="popTitle">その他ブロック小分類追加・編集画面</div>
+        <div class="buttonDiv">
+            <div class="orgTitle" style="margin-left: 2%">組織ID:</div>
+            <div id="orgId">{{org.orgId}}</div>
+            <div class="orgTitle">組織名:</div>
+            <p id="orgNm">{{org.orgNm}}</p>
+        </div>
+        <form id="f07008Form">
+            <div class="inputDiv" id="manager">
+                <div class="inputMessage" style="margin-top: 2vw">
+                    <div class="inputMessageOne">
+                        <div class="title">小分類名</div>
+                        <div class="star" id="star">*</div>
+                        <input type="text" maxlength="20" class="blockDispyNm" name="blockDispyNm" id="blockDispyNm">
+                    </div>
+                    <div class="inputMessageOne">
+                        <div class="title">ソート</div>
+                        <div class="star">*</div>
+                        <input type="text" maxlength="2" class="blockTypeDiv" name="blockTypeDiv">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="button_div">
+            <button class="end_btn" @click="submitFn()">登録</button>
+            <button class="end_btn" @click="bakBtn()">キャンセル</button>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/pop/F07008.js" type="text/javascript" charset="utf-8"></script>
+</html>

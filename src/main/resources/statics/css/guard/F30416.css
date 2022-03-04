@@ -1,0 +1,752 @@
+body {
+    height: 100%;
+}
+#page {
+    height: 100%;
+}
+.avatar{
+    margin-top: 85px;
+    height: 33vw;
+    width: 100%;
+    background-color: #8CC11F;
+}
+/*.protectorInfo{*/
+/*border: none;*/
+/*resize:none;*/
+/*text-align: center;*/
+/*}*/
+.san {
+    width: 8vw !important;
+    font-size: smaller;
+    /*background: white;*/
+    width: 100%;
+    border: 0;
+}
+
+.photo-container{
+    border-radius: 50%;
+    height: 100%;
+    width: 40%;
+    top: 10%;
+    position: relative;
+}
+#photo {
+    width: 100px !important;
+    height: 100px !important;
+    top: 20% !important;
+    left: 2% !important;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+}
+.btn{
+    text-align: center;
+    left: 38%;
+    top: -73%;
+    margin-left: 10px;
+}
+
+/*.btn2{*/
+/*text-align: center;*/
+/*margin-bottom: calc(58px + 3vh);*/
+/*}*/
+
+#QrBtn{
+    background-color: white;
+    border: 1px solid #8cc134;
+    border-radius: 999px;
+    width: auto;
+    height: calc(94px/3);
+    color: #8cc134;
+    margin-top: 5%;
+    /* margin-left: -33%; */
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left
+}
+#backBtn{
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    width: 30vw;
+    border-radius: 3px;
+    height: 5vh;
+    font-size: 4vw;
+}
+.title{
+    background-color: #CCC;
+    font-weight: unset !important;
+    width: 45%;
+    border: 1px solid #A9A9A9;
+    text-align: center;
+    border-right: 1px solid #ccc;
+}
+.content {
+    border-bottom: 1px solid #A9A9A9;
+    border-right: 1px solid #A9A9A9;
+    font-weight: unset !important;
+    text-align: center;
+}
+.tableCss{
+    margin-top: 2vh;
+    margin-left: 5%;
+    width: 90%;
+    border-collapse: collapse !important;
+    word-wrap:break-word;
+    word-break:break-all;
+}
+.update{
+    width: 22vw;
+    height: 18vw;
+    position: relative;
+    right: -9vw;
+    top: 14vw;
+    font-size: 1em;
+    border-radius: 3vw;
+    background-color: #4F81BD;
+    color: white;
+    border: 1px solid #4F81BD;
+}
+.camera {
+    height: 7vw;
+    width: 7vw;
+    position: relative;
+    right: -11vw;
+    top: -25%;
+    z-index: 2;
+}
+.filepath {
+    width: 7vw;
+    height: 7vw;
+    opacity: 0;
+    z-index: 999;
+    position: relative;
+    right: -27%;
+    top: -6%;
+}
+
+div#content {
+    width: 100vw;
+    overflow-y: scroll;
+    height: 100%;
+    padding-bottom: 70px;
+}
+.layui-layer-content{
+    overflow: hidden !important;
+    text-align: center;
+}
+div#layui-layer3 {
+    width: 90% !important;
+}
+
+
+.colorDiv {
+    height : 5vh;
+    width : 100%;
+    background-color : #8CC134;
+    margin-top : 10px;
+    text-align: center;
+    line-height: 5vh;
+    color:white;
+}
+p {
+    width: 66%;
+    margin-left: 5%;
+}
+.title1 {
+    font-size : small;
+    color: gray;
+}
+
+li {
+    margin-top: 3%;
+}
+
+.bgcolor {
+    margin-top: 7vh;
+    height : 2px;
+    width : 100%;
+    background-color : #13eff9;
+}
+#back {
+    width: 3vw;
+    margin-top: 1.5vh;
+    margin-left: 6px;
+}
+.cont {
+    font-size: 15px;
+    border-bottom: 1px solid #cccccc;
+    width: 90%;
+    min-height: 18px;
+}
+
+#title {
+    font-size: 18px;
+    margin-top: -4.4vh;
+    margin-left: 34%;
+    color: white;
+    font-weight: bold;
+}
+.back {
+    position: relative;
+    left: 2%;
+    width: 11%;
+    height: 100%;
+}
+
+
+
+
+/*Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+    body {
+        height: 100%;
+    }
+
+    #page {
+        height: 100%;
+    }
+
+    .avatar {
+        margin-top: 86px;
+        height: 9.5rem;
+        width: 100%;
+        background-color: #8CC11F;
+    }
+
+    /*.protectorInfo{*/
+    /*border: none;*/
+    /*resize:none;*/
+    /*text-align: center;*/
+    /*}*/
+    .san {
+        width: 8vw !important;
+        font-size: 15px;
+        /*background: white;*/
+        width: 100%;
+        border: 0;
+        margin-left: 0.2rem;
+    }
+
+    .photo-container {
+        border-radius: 50%;
+        height: 100%;
+        width: 33% !important;
+        top: unset;
+        /*left: 90px;*/
+        position: relative;
+    }
+
+    #photo {
+        width: 5.8rem !important;
+        height: 5.8rem !important;
+        border-radius: 50%;
+        border: 2px solid white;
+        margin: 2rem 0.25rem;
+        float: right;
+        top: unset;
+        left: unset;
+    }
+
+    .btn {
+        text-align: center;
+        left: 38%;
+        top: -73%;
+        margin-left: 10px;
+    }
+
+    /*.btn2{*/
+    /*text-align: center;*/
+    /*margin-bottom: calc(58px + 3vh);*/
+    /*}*/
+
+    #QrBtn {
+        background-color: white;
+        border: 1px solid #8cc134;
+        border-radius: 999px;
+        width: auto;
+        height: calc(84px / 3);
+        font-size: 12px;
+        color: #8cc134;
+        margin-top: .7rem;
+        margin-left: .5rem;
+        padding-left: 15px;
+        padding-right: 15px;
+        float: left;
+        font-weight: bold;
+    }
+
+    #backBtn {
+        background: #00a65a;
+        color: white;
+        border: 0;
+        border-bottom: 3px grey solid;
+        width: 30vw;
+        border-radius: 3px;
+        height: 5vh;
+        font-size: 4vw;
+    }
+
+    .title {
+        background-color: #CCC;
+        font-weight: unset !important;
+        width: 45%;
+        border: 1px solid #A9A9A9;
+        text-align: center;
+        border-right: 1px solid #ccc;
+    }
+
+    .content {
+        border-bottom: 1px solid #A9A9A9;
+        border-right: 1px solid #A9A9A9;
+        font-weight: unset !important;
+        text-align: center;
+    }
+
+    .tableCss {
+        margin-top: 2vh;
+        margin-left: 5%;
+        width: 90%;
+        border-collapse: collapse !important;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .update {
+        width: 22vw;
+        height: 18vw;
+        position: relative;
+        right: -9vw;
+        top: 14vw;
+        font-size: 1em;
+        border-radius: 3vw;
+        background-color: #4F81BD;
+        color: white;
+        border: 1px solid #4F81BD;
+    }
+
+    .camera {
+        height: 7vw;
+        width: 7vw;
+        position: relative;
+        right: -15vw;
+        top: 45%;
+        z-index: 2;
+    }
+
+    .filepath {
+        width: 7vw;
+        height: 7vw;
+        opacity: 0;
+        z-index: 999;
+        position: relative;
+        right: -45%;
+        top: 70%;
+    }
+
+    div#content {
+        width: 100vw;
+        overflow-y: scroll;
+        height: 100%;
+        padding-bottom: 70px;
+    }
+
+    .layui-layer-content {
+        overflow: hidden !important;
+        text-align: center;
+    }
+
+    div#layui-layer3 {
+        width: 90% !important;
+    }
+
+
+    .colorDiv {
+        height: 5vh;
+        width: 100%;
+        background-color: #8CC134;
+        margin-top: 10px;
+        text-align: center;
+        line-height: 5vh;
+        color: white;
+    }
+
+    p {
+        width: 66%;
+        margin-left: 5%;
+    }
+
+    .title1 {
+        margin-bottom: 1px;
+        font-size: .75rem ;
+        color: gray;
+    }
+
+    li {
+        margin-top: 3%;
+    }
+
+    .bgcolor {
+        margin-top: 7vh;
+        height: 2px;
+        width: 100%;
+        background-color: #13eff9;
+    }
+
+    #back {
+        width: 1.8vw;
+        margin-top: 13px;
+        margin-left: 29px;
+    }
+
+    .cont {
+        font-size: 0.95rem;
+        border-bottom: 1px solid #cccccc;
+        width: 95%;
+    }
+
+    #title {
+        position: fixed;
+        top: 56px;
+        z-index: 999;
+        margin-left: 0;
+        margin-top: 0px;
+    }
+
+    .back {
+        z-index: 9999;
+        position: relative;
+        left: 0;
+        width: 11%;
+        height: 100%;
+    }
+
+    .div_bottom {
+        height: 46px;
+    }
+
+    .div_header {
+        height: 44px !important;
+    }
+
+    .div_title1 {
+        margin-top: 44px !important;
+        height: 40px !important;
+    }
+
+    ul, li {
+        margin-left: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    li {
+        margin-top: 1.2rem;
+    }
+
+    #name {
+        margin-top: 1rem;
+        width: 58vw !important;
+        padding: 3vw 0;
+    }
+
+    #stuName {
+        font-size: 1.3rem !important;
+        margin-top: unset !important;
+        margin-left: 1rem !important;
+        letter-spacing: 1px;
+    }
+
+    .stuName2 {
+        font-size: 15px !important;
+        margin-left: 1rem !important;
+        letter-spacing: 1px;
+    }
+}
+/*ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+
+    body {
+        height: 100%;
+    }
+
+    #page {
+        height: 100%;
+    }
+
+    .avatar {
+        margin-top: 110px;
+        height: 12.3rem;
+        width: 100%;
+        background-color: #8CC11F;
+    }
+
+    /*.protectorInfo{*/
+    /*border: none;*/
+    /*resize:none;*/
+    /*text-align: center;*/
+    /*}*/
+    .san {
+        width: 8vw !important;
+        font-size: 20px;
+        /*background: white;*/
+        width: 100%;
+        border: 0;
+        margin-left: 0.1rem;
+    }
+
+    .photo-container {
+        border-radius: 50%;
+        height: 100%;
+        width: 35% !important;
+        top: unset;
+        /*left: 90px;*/
+        position: relative;
+    }
+
+    #photo {
+        width: 8.3rem !important;
+        height: 8.3rem !important;
+        border-radius: 50%;
+        border: 2px solid white;
+        margin: 2rem 1.75rem;
+        float: right;
+        top: unset;
+        left: unset;
+        /*transform: rotate(270deg);*/
+    }
+
+    .btn {
+        text-align: center;
+        left: 38%;
+        top: -73%;
+        margin-left: 10px;
+    }
+
+    /*.btn2{*/
+    /*text-align: center;*/
+    /*margin-bottom: calc(58px + 3vh);*/
+    /*}*/
+
+    #QrBtn {
+        background-color: white;
+        border: 1px solid #8cc134;
+        border-radius: 999px;
+        width: auto;
+        height: calc(120px / 3);
+        font-size: 18px;
+        color: #8cc134;
+        margin-top: 1rem;
+        margin-left: .5rem;
+        padding-left: 15px;
+        padding-right: 15px;
+        float: left;
+        font-weight: bold;
+    }
+
+    #backBtn {
+        background: #00a65a;
+        color: white;
+        border: 0;
+        border-bottom: 3px grey solid;
+        width: 30vw;
+        border-radius: 3px;
+        height: 5vh;
+        font-size: 4vw;
+    }
+
+    .title {
+        background-color: #CCC;
+        font-weight: unset !important;
+        width: 45%;
+        border: 1px solid #A9A9A9;
+        text-align: center;
+        border-right: 1px solid #ccc;
+    }
+
+    .content {
+        border-bottom: 1px solid #A9A9A9;
+        border-right: 1px solid #A9A9A9;
+        font-weight: unset !important;
+        text-align: center;
+    }
+
+    .tableCss {
+        margin-top: 2vh;
+        margin-left: 5%;
+        width: 90%;
+        border-collapse: collapse !important;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .update {
+        width: 22vw;
+        height: 18vw;
+        position: relative;
+        right: -9vw;
+        top: 14vw;
+        font-size: 1em;
+        border-radius: 3vw;
+        background-color: #4F81BD;
+        color: white;
+        border: 1px solid #4F81BD;
+    }
+
+    .camera {
+        height: 5vw;
+        width: 5vw;
+        position: relative;
+        right: -16vw;
+        top: 55%;
+        z-index: 2;
+    }
+
+    .filepath {
+        width: 5vw;
+        height: 5vw;
+        z-index: 999;
+        position: relative;
+        right: -16vw;
+        top: 75%;
+        border-radius: 999vw;
+    }
+
+    div#content {
+        width: 100vw;
+        overflow-y: scroll;
+        height: 100%;
+        padding-bottom: 70px;
+    }
+
+    .layui-layer-content {
+        overflow: hidden !important;
+        text-align: center;
+    }
+
+    div#layui-layer3 {
+        width: 90% !important;
+    }
+
+
+    .colorDiv {
+        height: 5vh;
+        width: 100%;
+        background-color: #8CC134;
+        margin-top: 10px;
+        text-align: center;
+        line-height: 5vh;
+        color: white;
+    }
+
+    p {
+        width: 66%;
+        margin-left: 5%;
+    }
+
+    .title1 {
+        margin-bottom: 3px;
+        font-size: 1rem ;
+        color: gray;
+    }
+
+    li {
+        margin-top: 3%;
+    }
+
+    .bgcolor {
+        margin-top: 7vh;
+        height: 2px;
+        width: 100%;
+        background-color: #13eff9;
+    }
+
+    #back {
+        width: 1.7vw;
+        margin-top: 16px;
+        margin-left: 39px;
+    }
+
+    .cont {
+        font-size: 1.35rem;
+        border-bottom: 1px solid #cccccc;
+        width: 95%;
+        color: #333;
+    }
+
+    #title {
+        position: fixed;
+        top: 56px;
+        z-index: 999;
+        margin-left: 0;
+    }
+
+    .back {
+        z-index: 9999;
+        position: relative;
+        left: 0;
+        width: 11%;
+        height: 100%;
+    }
+
+    .div_bottom {
+        height: 60px;
+    }
+
+    .div_header {
+        height: 56px !important;
+    }
+
+    .div_title1 {
+        margin-top: 56px !important;
+        height: 52px !important;
+    }
+
+    ul, li {
+        margin-left: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    li {
+        margin-top: 1.2rem;
+    }
+
+    #name {
+        margin-top: 1rem;
+        width: 58vw !important;
+        padding: 3vw 0;
+    }
+
+    #stuName {
+        font-size: 1.7rem !important;
+        margin-top: unset !important;
+        margin-left: 1rem !important;
+        letter-spacing: 1px;
+    }
+
+    .stuName2 {
+        font-size: 21px !important;
+        margin-left: 1rem !important;
+        letter-spacing: 1px;
+    }
+}
+@media only screen and (min-device-width: 768px) and (orientation: landscape){
+    .filepath {
+        width: 5vh;
+        height: 5vh;
+        z-index: 999;
+        position: relative;
+        right: -20vw;
+        top: 59%;
+        opacity: 0;
+        border-radius: 999vw;
+    }
+    .camera {
+        height: 5vh;
+        width: 5vh;
+        position: relative;
+        right: -16vw;
+        top: 70%;
+        z-index: 2;
+    }
+}

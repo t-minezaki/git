@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40007Dao">
+    <!-- 更新条件 -->
+    <select id="selectById" resultType="jp.learningpark.modules.common.entity.MstUsrEntity" parameterType="String">
+        SELECT
+            *
+        FROM
+            mst_usr
+        WHERE
+            after_usr_id = #{afterUserId}
+            <!-- 2021/10/25 manamiru1-776 cuikl add start -->
+            AND gid_flg = #{gidFlg}
+            <!-- 2021/10/25 manamiru1-776 cuikl add end -->
+    </select>
+</mapper>

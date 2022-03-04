@@ -1,0 +1,900 @@
+body{
+	background: #fff;
+}
+.content {
+	position: fixed;
+	width: 100%;
+	height: calc(100% - 44px - 48px);
+	overflow: auto;
+	top: 44px;
+	box-sizing: border-box;
+}
+.div_header .logout{
+	margin-top: 1.8vw !important;
+}
+p {
+	word-break: break-all;
+}
+span {
+	word-break: break-all;
+}
+.div_header .headerBtn{
+	margin-top: 1.5vw !important;
+}
+
+.title_div {
+	width: 100%;
+	height: 6vh;
+	float: left;
+	text-align: center;
+	color: white;
+	background-color: #8CC11F;
+}
+.back {
+	height: 13px;
+	margin-top: calc((40px - 13px) / 2);
+	line-height: 13px;
+	float: left;
+	position: absolute;
+}
+
+.back img {
+	height: 13px;
+	margin-left: 14px;
+}
+
+#guardNm {
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	font-size: calc(56px / 3);
+	font-weight: bold;
+}
+.content {
+	position: absolute;
+	width: 100%;
+}
+.oneTitle{
+	width: 100%;
+	height: 9%;
+}
+.oneTitle ul{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	/*border-top: 1px solid grey;*/
+}
+.oneTitle button{
+	width: 50%;
+	height: 120%;
+	float: left;
+	background: none;
+	font-size: 15px;
+	line-height: 25px;
+	text-align: center;
+	border:none;
+	border-radius: 0px 0px 5px 5px;
+	font-weight: bold;
+}
+#leftLine{
+	display: inline;
+	width: 45%;
+	float: left;
+	margin-left: 5%;
+}
+#rightLine{
+	display: inline;
+	width: 45%;
+	float: left;
+
+}
+.oneTitle li.active{
+	color: #009944;
+	border-bottom: 4px solid #009944;
+}
+.oneTitle li.active1{
+	color: #555;
+	border-bottom: 4px solid #555;
+}
+.title_div {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+}
+.title_top{
+	width: 100%;
+	height: 90px;
+}
+.title_top img{
+	width: 100%;
+	height: 100%;
+}
+.title_bottom{
+	width: 100%;
+	height: 90px;
+}
+.title_bottom .top{
+	width: 80%;
+	height: 30px;
+	font-size: 20px;
+	line-height: 30px;
+	color: #444;
+	float: left;
+}
+.title_bottom .bottom{
+	width: 80%;
+	height: 56px;
+	font-size: 1em;
+	color: #555;
+	overflow: hidden;
+	line-height: 28px;
+	float: left;
+}
+.content_all{
+	height: 40%;
+}
+/* 2020/11/18 V9.0 cuikailin modify start */
+/*.content_div{*/
+	/*width: 100%;*/
+	/*height: 100%;*/
+/*}*/
+/* 2020/11/18 V9.0 cuikailin modify end */
+.content_div ul{
+	width: 100%;
+	height: 100%;
+	border-bottom: 1px solid grey;
+	padding:4px;
+}
+.content_div li{
+	width: 95%;
+	padding: 3px 4px 4px 0;
+	height: 15%;
+	display: inline-flex;
+}
+.content_div li .left{
+	width: 105px;
+	height: 86px;
+	float: left;
+	display: flex;
+	align-items: center
+}
+.content_div .insert{
+	width: 45%;
+	height: 100%;
+	float: left;
+	color: #009944;
+	background: none;
+	font-size: 13px;
+	text-align: center;
+	border: 2px solid #009944;
+	vertical-align: middle;
+	margin-left: 30%;
+	margin-top: 4%;
+	border-radius: 8px;
+}
+.left img{
+	width: 100%;
+	/*height: 100%;*/
+	max-height: 86px;
+}
+.content_div li .right{
+	width: calc(100% - 105px);
+	height: 86px;
+	float: left;
+	padding-left: 10px;
+}
+.right .top{
+	width: 100%;
+	height: 56px;
+	font-size: 17px;
+	line-height: 28px;
+	color: #444;
+	margin-top: 10px;
+	overflow: hidden;
+	font-weight: bold;
+}
+.right .bottom{
+	width: 100%;
+	height: 34px;
+	line-height: 17px;
+	font-size: 12px;
+	color: #555;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.count{
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #cf2d28;
+	color: #fff;
+	font-size: 10px;
+	right: 15px;
+	top: 54px;
+	line-height: 18px;
+	display: none;
+}
+.bottomNew{
+	width: 20%;
+	background-color: #009944;
+	float: right;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 1em;
+	margin-top: 1%;
+	display: none;
+}
+.bottomImportent{
+	width: 20%;
+	background-color: #cf2d28;
+	float: right;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 1em;
+	margin-top: 8%;
+	display: none;
+}
+/* 2020/11/17 V9.0 cuikailin modify start */
+._btn{
+	background: #8CC11F;
+	color: white;
+	border: none;
+	width: 46%;
+	height: 8vw;
+	padding: 0;
+	margin: 1px 6px;
+}
+/* 2020/11/17 V9.0 cuikailin modify end */
+/* 2020/11/17 V9.0 cuikailin add start */
+.photo-container {
+	height: 100px;
+	width: 100px;
+	float: left;
+	overflow: hidden;
+	z-index: 1;
+	margin-left:35vw;
+}
+
+.photo-image {
+	height: 100px;
+	width: 100px;
+	object-fit: cover;
+}
+
+.image-container > img {
+	position: fixed;
+	top: 50%;
+	max-width: 100%;
+	min-width: 50%;
+	max-height: fit-content;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+	background: rgba(255, 255, 255, 0.6);
+	display: block;
+	object-fit: cover;
+}
+
+.image-container {
+	position: absolute;
+	top: 0;
+	z-index: 9999999;
+	height: 100%;
+	width: 100%;
+	background: #e5e5e585;
+}
+/* 2020/11/17 V9.0 cuikailin add end */
+
+/* Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+
+	.content {
+		position: fixed;
+		width: 100%;
+		overflow: auto;
+		padding: 0;
+		margin-top: 40px;
+		height: calc(100% - 132px);
+	}
+
+	.title_div {
+		position: fixed;
+		top: 56px;
+		letter-spacing: 0;
+		float: unset;
+	}
+
+	.back {
+		height: unset;
+		margin-top: 0;
+		line-height: 20px;
+		float: left;
+		position: absolute;
+	}
+
+	.back img {
+		width: 1.8vw;
+		margin-top: 13px;
+		margin-left: 29px;
+		height: unset;
+	}
+
+	#guardNm {
+		display: unset;
+		height: unset;
+		line-height: unset;
+		font-size: unset;
+		font-weight: unset;
+	}
+	.content {
+		position: absolute;
+		width: 100%;
+	}
+
+	.oneTitle {
+		width: 100%;
+		margin: 0;
+		margin-top: .15rem;
+		height: 3.8rem;
+		position: fixed;
+		z-index: 1;
+		background-color: white;
+	}
+
+	.oneTitle ul {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.oneTitle button {
+		line-height: 6;
+		width: 50%;
+		height: 100%;
+		float: left;
+		color: #009944;
+		background: none;
+		font-size: .85rem;
+		text-align: center;
+		padding: 0;
+	}
+
+	#leftLine {
+		display: inline;
+		width: 45%;
+		float: left;
+		margin-left: 2rem;
+		position: fixed;
+		margin-top: 3.7rem;
+		z-index: 1;
+	}
+
+	#rightLine {
+		display: inline;
+		width: calc(50% - 2rem);
+		position: fixed;
+		margin-right: 2rem;
+		margin-top: 3.7rem;
+		z-index: 1;
+		right: 0;
+	}
+
+	.oneTitle li.active {
+		color: #009944;
+		border-bottom: 4px solid #009944;
+	}
+
+	.oneTitle li.active1 {
+		color: #555;
+		border-bottom: 4px solid #555;
+	}
+
+	.title_top {
+		width: 100%;
+		height: 90px;
+	}
+
+	.title_top img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.title_bottom {
+		width: 100%;
+		height: 90px;
+	}
+
+	.title_bottom .top {
+		width: 80%;
+		height: 30px;
+		font-size: 20px;
+		line-height: 30px;
+		color: #444;
+		float: left;
+	}
+
+	.title_bottom .bottom {
+		width: 80%;
+		height: 56px;
+		font-size: 1em;
+		color: #555;
+		overflow: hidden;
+		line-height: 28px;
+		float: left;
+	}
+
+	.content_all {
+		width: 100%;
+		height: calc(100% - 3.95rem - 4px - 0.8rem);
+		overflow: auto;
+		padding-bottom: 0;
+		margin-top: calc(3.95rem + 4px);
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+
+	/*过去*/
+	.content_div {
+		width: 100%;
+		height: 100%; /*70%*/
+	}
+
+	.content_div ul {
+		width: 100%;
+		height: 50%;
+		border-bottom: 1px solid grey;
+		padding: 4px;
+	}
+
+	/*过去*/
+	.content_div li {
+		width: 100%;
+		padding: 3px 4px 4px 0;
+		height: 25%; /*33%*/
+		display: inline-flex;
+	}
+
+	.content_div li .left {
+		width: 105px;
+		height: 86px;
+		float: left;
+		display: flex;
+		align-items: center
+	}
+
+	.content_div .insert {
+		width: 45%;
+		height: 100%;
+		float: left;
+		color: #009944;
+		background: none;
+		font-size: 13px;
+		text-align: center;
+		border: 2px solid #009944;
+		vertical-align: middle;
+		margin-left: 30%;
+		margin-top: 4%;
+		border-radius: 8px;
+	}
+
+	.left img {
+		width: 100%;
+		/*height: 100%;*/
+		max-height: 86px;
+	}
+
+	.content_div li .right {
+		width: calc(100% - 105px);
+		height: 86px;
+		float: left;
+		padding-left: 10px;
+	}
+
+	.right .top {
+		width: 100%;
+		height: 56px;
+		font-size: 17px;
+		line-height: 28px;
+		color: #444;
+		margin-top: 10px;
+		overflow: hidden;
+		font-weight: bold;
+	}
+
+	.right .bottom {
+		width: 100%;
+		height: 34px;
+		line-height: 17px;
+		font-size: 12px;
+		color: #555;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.count {
+		position: absolute;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: #cf2d28;
+		color: #fff;
+		font-size: 10px;
+		right: 15px;
+		top: 54px;
+		line-height: 18px;
+		display: none;
+	}
+
+	.bottomNew {
+		width: 20%;
+		background-color: #009944;
+		float: right;
+		text-align: center;
+		color: #FFFFFF;
+		font-size: 1em;
+		margin-top: 1%;
+		display: none;
+	}
+
+	.bottomImportent {
+		width: 20%;
+		background-color: #cf2d28;
+		float: right;
+		text-align: center;
+		color: #FFFFFF;
+		font-size: 1em;
+		margin-top: 8%;
+		display: none;
+	}
+
+	._btn {
+		background: #8CC11F;
+		color: white;
+		border: none;
+		width: 46%;
+		height: 2.5rem;
+		font-size: 1rem;
+		padding: 0;
+		margin: 1px 6px;
+	}
+
+	.btnDiv {
+		text-align: center;
+		height: auto;
+	}
+
+	.text1 {
+		margin-top: .3rem;
+		font-size: 1.25rem !important;
+		margin-left: .8rem !important;
+		height: 100%;
+	}
+
+	.text2 {
+		font-size: 1.1rem !important;
+	}
+}
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+	body {
+		background: #fff;
+	}
+
+	.content {
+		position: fixed;
+		width: 100%;
+		height: calc(100% - 116px);
+		overflow: auto;
+		top: 56px;
+		box-sizing: border-box;
+		margin-top: 0;
+	}
+
+	.div_header .logout {
+		margin-top: 1.8vw !important;
+	}
+
+	.div_header .headerBtn {
+		margin-top: 1.5vw !important;
+	}
+
+	.title_div {
+		position: fixed;
+		top: 56px;
+		letter-spacing: 0;
+		float: unset;
+	}
+
+	.back {
+		height: unset;
+		margin-top: 0;
+		line-height: 25px;
+		float: left;
+		position: absolute;
+	}
+
+	.back img {
+		width: 1.7vw;
+		margin-top: 16px;
+		margin-left: 39px;
+		height: unset;
+	}
+
+	#guardNm {
+		display: unset;
+		height: unset;
+		line-height: unset;
+		font-size: unset;
+		font-weight: unset;
+	}
+	.content {
+		position: absolute;
+		width: 100%;
+	}
+
+	.oneTitle {
+		width: 100%;
+		position: fixed;
+		z-index: 1;
+		background-color: white;
+		margin-top: calc(52px + 1.3rem);
+		height: auto;
+	}
+
+	.oneTitle ul {
+		width: 100%;
+		height: 60px;
+		overflow: hidden;
+		/*border-top: 1px solid grey;*/
+	}
+
+	.oneTitle button {
+		width: 50%;
+		height: 100%;
+		float: left;
+		background: none;
+		font-size: 1.1rem;
+		line-height: 25px;
+		text-align: center;
+		border: none;
+		border-radius: 0;
+		font-weight: bold;
+	}
+	.oneTitle #past {
+		color: #bfbfbf;
+	}
+
+	#leftLine {
+		display: inline;
+		width: calc(50% - 2.5rem);
+		float: left;
+		margin-left: 2.5rem;
+		position: fixed;
+		margin-top: 8.05rem;
+		z-index: 1;
+		border-bottom-width: 4px !important;
+	}
+
+	#rightLine {
+		display: inline;
+		width: calc(50% - 2.5rem);
+		position: fixed;
+		margin-left: 0;
+		margin-top: 8.05rem;
+		z-index: 1;
+		border-bottom-width: 4px !important;
+		margin-right: 2.5rem;
+	}
+
+	.oneTitle li.active {
+		color: #009944;
+		border-bottom: 4px solid #009944;
+	}
+
+	.oneTitle li.active1 {
+		color: #555;
+		border-bottom: 4px solid #555;
+	}
+
+	.title_top {
+		width: 100%;
+		height: 90px;
+	}
+
+	.title_top img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.title_bottom {
+		width: 100%;
+		height: 90px;
+	}
+
+	.title_bottom .top {
+		width: 80%;
+		height: 30px;
+		font-size: 20px;
+		line-height: 30px;
+		color: #444;
+		float: left;
+	}
+
+	.title_bottom .bottom {
+		width: 80%;
+		height: 56px;
+		font-size: 1em;
+		color: #555;
+		overflow: hidden;
+		line-height: 28px;
+		float: left;
+	}
+
+	.content_all {
+		height: calc(100% - 9.5rem);
+		margin-top: 8.5rem;
+		padding: 0 2.5rem;
+	}
+
+	/*过去*/
+	.content_div {
+		width: 100%;
+		height: 100%;
+	}
+
+	.content_div ul {
+		width: 100%;
+		height: 50%;
+		border-bottom: 1px solid grey;
+		padding: 4px;
+	}
+
+	/*过去*/
+	.content_div li {
+		width: 95%;
+		padding: 3px 4px 4px 0;
+		height: 25%; /*33%*/
+		display: inline-flex;
+	}
+
+	.content_div li .left {
+		width: 105px;
+		height: 86px;
+		float: left;
+		display: flex;
+		align-items: center
+	}
+
+	.content_div .insert {
+		width: 45%;
+		height: 100%;
+		float: left;
+		color: #009944;
+		background: none;
+		font-size: 13px;
+		text-align: center;
+		border: 2px solid #009944;
+		vertical-align: middle;
+		margin-left: 30%;
+		margin-top: 4%;
+		border-radius: 8px;
+	}
+
+	.left img {
+		width: 100%;
+		/*height: 100%;*/
+		max-height: 86px;
+	}
+
+	.content_div li .right {
+		width: calc(100% - 105px);
+		height: 86px;
+		float: left;
+		padding-left: 10px;
+	}
+
+	.right .top {
+		width: 100%;
+		height: 56px;
+		font-size: 17px;
+		line-height: 28px;
+		color: #444;
+		margin-top: 10px;
+		overflow: hidden;
+		font-weight: bold;
+	}
+
+	.right .bottom {
+		width: 100%;
+		height: 34px;
+		line-height: 17px;
+		font-size: 12px;
+		color: #555;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.count {
+		position: absolute;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: #cf2d28;
+		color: #fff;
+		font-size: 10px;
+		right: 15px;
+		top: 54px;
+		line-height: 18px;
+		display: none;
+	}
+
+	.bottomNew {
+		width: 20%;
+		background-color: #009944;
+		float: right;
+		text-align: center;
+		color: #FFFFFF;
+		font-size: 1em;
+		margin-top: 1%;
+		display: none;
+	}
+
+	.bottomImportent {
+		width: 20%;
+		background-color: #cf2d28;
+		float: right;
+		text-align: center;
+		color: #FFFFFF;
+		font-size: 1em;
+		margin-top: 8%;
+		display: none;
+	}
+
+	._btn {
+		background: #8CC11F;
+		color: white;
+		border: none;
+		width: 46%;
+		height: 3rem;
+		font-size: 1.25rem;
+		padding: 0;
+		margin: 1px 6px;
+	}
+
+	.div_bottom {
+		height: 60px !important;
+	}
+
+	.div_header {
+		height: 56px !important;
+	}
+
+	.btnDiv {
+		text-align: center;
+	}
+
+	.text1 {
+		margin-top: 5px;
+		font-size: 26px !important;
+		margin-left: 2vw !important;
+	}
+
+	.text2 {
+		font-size: 23px !important;
+	}
+
+}
+/* 2020/12/18 V9.0 cuikailin add start */
+.result_text {
+	padding: unset !important;
+	margin-left: 2vw;
+	width: 96vw;
+	resize: none;
+}
+/* 2020/12/18 V9.0 cuikailin add end */

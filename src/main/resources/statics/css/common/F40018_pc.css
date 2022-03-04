@@ -1,0 +1,74 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+#vue{
+    padding-top: 6vh;
+    overflow: hidden;
+    height: 100%;
+}
+.div_message{
+    float: left;
+    font-size: 1.5vw;
+    width: 44%;
+    margin: 12% 28% 0;
+}
+.div_message_one{
+    width: 100%;
+    float: left;
+    padding-bottom: 2vh;
+}
+.div_message_two{
+    width: 100%;
+    float: left;
+}
+.div_input{
+    float: left;
+    width: 100%;
+    font-size: 1.2vw;
+    margin-top: 6%;
+    font-weight: bold;
+    margin-left: 30%;
+}
+.div_input_one{
+    float: left;
+    width: 15%;
+    color: #494947;
+    height: 3vw;
+    line-height: 3vw;
+}
+.div_input_two{
+    float: left;
+    width: 55%;
+}
+.div_input_two input{
+    width: 34%;
+    height: 3vw;
+    border: 1px solid #b4b4b3;
+    font-size: 1.2vw;
+}
+.div_button{
+    float: left;
+    width: 100%;
+    font-size: 1vw;
+    margin-top: 6%;
+    margin-left: 40.5%;
+}
+.div_button button{
+    width: 7vw;
+    height: 4vw;
+    background: #189746;
+    border: 2px solid #189746;
+    color: white;
+    font-size: 0.9vw;
+    margin-left: 4.5vw;
+    font-weight: bold;
+    cursor: pointer;
+}
+input{
+    -webkit-appearance: none;
+}

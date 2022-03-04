@@ -1,0 +1,17 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1,user-scalable=no" name="viewport">
+<link rel="shortcut icon " type="images/x-icon" href="${request.contextPath}/favicon.ico">
+<script src="${request.contextPath}/plugins/jquery-3.3.1/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${request.contextPath}/js/common/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+    ctxPath = "${request.contextPath}";
+    <#if Session["CSRF_TOKEN"]?exists>
+        csrfToken = '${Session["CSRF_TOKEN"]}';
+        $(function(){
+            $("form").append("<input type='hidden' name='csrfToken' value='${Session['CSRF_TOKEN']}'/>")
+        });
+    </#if>
+</script>

@@ -1,0 +1,264 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body {
+    margin: 0;
+}
+
+html {
+    font-size: 62.5% !important; /*10 ÷ 16 × 100% = 62.5%*/
+}
+
+.topMessage {
+    width: 100%;
+    height: 4.6vw;
+    line-height: 2.6vw;
+    color: red;
+    font-size: 1.4vw;
+    text-align: center;
+    display: none;
+}
+
+.topSessionTitle {
+    height: 2.2vw;
+    margin-top: -0.5vw;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.topSessionTitle div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+    margin-left: 0.4vw;
+}
+
+.one, .two, ._list {
+    margin-left: 5%;
+}
+
+._role {
+    width: 10%;
+    float: left;
+    margin-top: 0.35vw;
+    font-size: 1vw;
+}
+
+#_validate > div {
+    float: left;
+}
+
+#_validate input {
+    float: left;
+    width: 50%;
+}
+
+.two_loginId > *, .two_commonKey > * {
+    float: left;
+    height: 100%;
+    font-size: 1vw;
+    /* line-height: 3.6vh; */
+}
+
+.star {
+    width: 10%;
+    text-align: center;
+    height: 3.6vh;
+    line-height: 4.6vh;
+    color: red;
+    float: left;
+}
+
+#addObj {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 15%;
+    margin-left: 5%;
+    float: left;
+    height: 50%;
+    padding: 0 1.6vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.popTitle {
+    font-weight: bold;
+    width: 100%;
+    height: 3.6vw;
+    line-height: 3.6vw;
+    font-size: 1.5vw;
+    text-align: center;
+}
+
+input[type="radio"].newtui-radio-one {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 6vw;
+    height: 1.5vw;
+    line-height: 1.5vw;
+    border: none;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    margin-top: 0.35vw;
+    font-size: 1vw;
+    cursor: pointer;
+}
+
+input[type = "radio"].newtui-radio-one::after {
+    content: "";
+    width: 1vw;
+    height: 1vw;
+    border: 1px solid #AAA;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: #FFF;
+}
+
+input[type="radio"].newtui-radio-one:checked:after {
+    border: 3px solid #AAA;
+    background-color: #000;
+}
+
+input[type="radio"].nolabel::before {
+    content: attr(title);
+    position: absolute;
+    margin-left: 1.2vw;
+    margin-top: 0.05vw;
+    height: 1.4vw;
+}
+
+.ui-jqgrid-hbox {
+    padding: unset !important;
+    width: 100%;
+}
+
+#gbox_jqGrid {
+    width: 65% !important;
+    border-left: unset;
+    border-right: unset;
+    border-bottom: unset;
+    margin-left: 18%;
+    height: 40vh;
+}
+
+#gview_jqGrid {
+    width: 100% !important;
+    height: 100%;
+}
+
+.ui-th-div {
+    font-size: 1.1vw !important;
+    color: black;
+    font-weight: bold !important;
+}
+
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    width: 100% !important;
+}
+
+.ui-jqgrid-bdiv {
+    width: 100% !important;
+    height: 90% !important;
+    overflow-y: visible!important;
+}
+
+#jqGridPager {
+    width: 100% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table {
+    width: 100% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table th {
+    width: 33.33% !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid-labels:last-child {
+    border-right: 1px solid #ccc !important;
+    border-left: 1px solid #ccc !important;
+}
+
+#jqGrid {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+#jqGridPager_center {
+    margin: unset !important;
+    padding: unset !important;
+}
+
+._delete {
+    font-size: 0.9vw !important;
+    border-radius: 4px;
+    width: 25%;
+    height: 100%;
+    padding: 0 1.6vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.btn {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 10%;
+    height: 80%;
+    padding: 0 1.6vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}

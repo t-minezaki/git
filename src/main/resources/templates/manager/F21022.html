@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21022.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="main">
+    <div id="message" class="topMessage"></div>
+    <div class="top">
+        <span>生徒名</span><input class="stuNm" disabled="disabled" style="height: 4vh;"><button class="stuBtn" id="toF21032">生徒指定</button>
+    </div>
+    <div class="top">
+        <span class="text">コメント入力</span>
+        <input placeholder="（あねば）" id="content" maxlength="100"><img src="${request.contextPath}/img/xiaolian.png" id="toF21023" style="height: 3vh">
+        <div class="stamp_img_div"></div>
+    </div>
+    <div class="div_head">
+        <span >送信履歴</span>
+    </div>
+    <div class="div_main">
+        <div class="first_div">
+            <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+            <div id="jqGridPager"></div>
+        </div>
+    </div>
+    <div class="bottom">
+        <button class="btn" onclick="submit()">送信</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F21022.js"></script>
+</html>

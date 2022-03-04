@@ -1,0 +1,331 @@
+#login{
+    background-color: #00a65a;
+    border-radius: 5px;
+    box-shadow: #1c2529;
+    height: 4vh;
+    line-height: 2vh;
+    padding: .5vw;
+    text-align: center;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-weight: bolder;
+    font-size: 1vw;
+    color: whitesmoke;
+    margin-left: 1vw;
+}
+#search, #updateitem{
+    border-radius: 4px;
+    width: 10.0vw;
+    height: 5vh;
+    line-height: 2vh;
+    padding: .5vw;
+    text-align: center;
+    font-size: 0.9vw;
+    margin-left: 1vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+#conf{
+    width:6vw;
+    height: 4vh;
+    color:white;
+    font-size: .8vw;
+    background-color: darkblue;
+    position: relative;
+    left: 50%;
+}
+/*modify at 2021/08/12 for V9.02 by NWT wen START*/
+#download, #sendMsg, #downloadCSV {
+    /*display: none;*/
+    width: 12vw;
+    text-align: center;
+    font-size: 0.9vw;
+    margin-left: 1vw;
+    height: 4vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+/*modify at 2021/08/12 for V9.02 by NWT wen END*/
+button:hover{
+    cursor: pointer;
+    background-color: orangered;
+}
+.div_main{
+    margin-top: 1vh;
+}
+.div_head{
+    margin-bottom: 1.0vh;
+    margin-top: 5.0vh;
+}
+ul li{
+    float: left;
+    list-style: none;
+    line-height: 4vh;
+    vertical-align: center;
+}
+ul li button{
+
+}
+.mybtn{
+
+}
+#jqGrid{
+    padding:0vw;
+    margin-top: -.5vh;
+    /*width: 99vw !important;*/
+}
+
+.div_body{
+    position: relative;
+}
+
+.one{
+    height: 38px;
+    width: 100%;
+    margin-left: 1vw;
+}
+
+.one div{
+    height: 100%;
+    float: left;
+}
+
+.one-ul{
+    height: 100%;
+    line-height: 3.5vh;
+}
+
+.one-ul li{
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+}
+
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+#table {
+    width: 100%;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: .2vw solid #009944;
+    border-radius: .4vw;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+#divinfo table{
+    display: table;
+    margin-top: 2vh;
+    border-collapse: collapse;
+    width: 178vh;
+    margin-left: 1vw;
+    margin-right: auto;
+    height: 10vh;
+}
+
+#divinfo table tr th{
+    background-color: lightgrey;
+    color: whitesmoke;
+    font-size: .9vw;
+}
+
+#receiverList table{
+    display: table;
+    margin-top: 2vh;
+    border-collapse: collapse;
+    width: 85vw;
+    margin-left: 1vw;
+    margin-right: auto;
+    height: 10vh;
+}
+
+#receiverList table tr th{
+    background-color: lightgrey;
+    font-size: .9vw;
+}
+
+#readingInfo tr td{
+     font-weight: bolder;
+     font-size: 1.2vw;
+     text-align: center;
+ }
+#receiverListTable tr td{
+    font-weight: bolder;
+    font-size: 0.6vw;
+    text-align: center;
+    line-height: 3vw;
+}
+
+#questionInfo tr td{
+    text-align: center;
+    font-size: .8vw;
+}
+
+#footer{
+    position: absolute;
+    left: 90%;
+}
+
+#back{
+    display: block;
+    font-size: 1.3vw;
+    width: 7.5vw;
+    height: 5.5vh;
+    padding: .5vw;
+    margin-top: 0.8vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+#receiverListTable{
+    padding:0vw;
+    margin-top: -.5vh;
+    margin-left: 1vw;
+    border-collapse: collapse;
+    border: 1px black solid;
+}
+
+#jqGridPager{
+    min-height: unset !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 1px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 1px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+    width: 100%!important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 2vh;
+}
+::-webkit-scrollbar-thumb {
+    height: 0px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+    background: rgba(120,120,120,1);
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    border-radius: 0;
+    background: #eee;
+}
+
+.ui-jqgrid .ui-jqgrid-view::-webkit-scrollbar {
+    width: 0px !important;
+    height: 10px;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.topMessage {
+    position: absolute;
+}
+
+.layui-layer {
+
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 10px 5px #777;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+
+    padding: 0px 0px;
+}
+
+#jqGridPager_right {
+
+    text-align: left;
+}
+
+#pg_jqGridPager {
+
+    background: white;
+    position: fixed;
+    top: 95%;
+}
+.ui-jqgrid .ui-jqgrid-hbox {
+    padding-right: 0!important;
+}
+.ui-jqgrid-htable ui-common-table {
+    width: 100% !important;
+}
+.ui-jqgrid-htable{
+    width: 100%!important;
+}
+
+.layui-layer-myskin .layui-layer-title {
+
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 3em;
+    font-weight: bolder;
+    margin-top: 0.8vh;
+}
+.hyper_link {
+    color: blue;
+    text-decoration: underline;
+}
+img#preview {
+    max-width: 100%;
+    max-height: 100%;
+}
+div#gview_jqGrid {
+    overflow-x: auto;
+}

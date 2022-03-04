@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F10307Dao">
+    <select id="selectWithCodeMstBystuId" resultType="jp.learningpark.modules.common.entity.StuWeeklyPlanPerfEntity" parameterType="integer">
+        SELECT wpp.*
+        from stu_weekly_plan_perf wpp
+        inner join mst_cod_d cmd on cmd.cod_cd=(case when wpp.learn_lev_unds is null then '0' else wpp.learn_lev_unds end) and cmd.cod_key='LEARN_LEV_UNDS'
+        and wpp.id=#{id} and cmd.del_flg='0' and wpp.del_flg='0'
+    </select>
+
+    <select id="selectListByCodKey" parameterType="String" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+        select * from mst_cod_d
+        <where>
+            cod_key=#{codKey}
+        </where>
+        order by sort
+    </select>
+</mapper>

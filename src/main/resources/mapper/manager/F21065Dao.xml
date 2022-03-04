@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21065Dao">
+    <select id="init01" resultType="jp.learningpark.modules.manager.dto.F21065Dto">
+        SELECT
+          trs.org_id || ' ' || MO.org_nm AS orgIdNm
+	      ,MO.LEVEL
+	      ,trs.org_id
+	      ,MO.org_nm
+          ,sum( CASE WHEN trs.reading_sts_div = '0' OR trs.reading_sts_div = '1' THEN 1 END ) as countSend
+          ,sum( CASE WHEN trs.reading_sts_div = '0' THEN 1 END ) AS countNotRead
+          ,sum( CASE WHEN trs.reading_sts_div = '1' THEN 1 END ) AS countRead
+          ,(select count(*) from push_err_dat fls where fls.msg_id = #{messageId} AND fls.resend_sts = '1' AND fls.org_id = trs.org_id and fls.del_flg = 0) as errorDataList
+            <!-- 2020/11/4 zhangminghao modify start-->
+          ,sum( CASE WHEN trs.opened_flg = '0' THEN 1 END) AS notOpened
+          ,sum( CASE WHEN trs.opened_flg = '1' THEN 1 END) AS opened
+            <!--2020/11/4 zhangminghao modify end-->
+        FROM
+          mst_org MO
+        INNER JOIN talk_reading_sts trs ON ( #{messageId} = trs.message_id AND MO.org_id = trs.org_id AND trs.del_flg = 0)
+        WHERE
+          MO.del_flg = 0
+        GROUP BY
+          trs.org_id
+	      ,MO.org_nm
+	      ,MO.LEVEL
+        ORDER BY
+          MO.LEVEL
+	      ,trs.org_id
+	    limit #{limit} offset #{page}
+    </select>
+    <select id="init02" resultType="jp.learningpark.modules.manager.dto.F21065Dto">
+        SELECT
+        trs.org_id || ' ' || MO.org_nm AS orgIdNm
+        ,MO.LEVEL
+        ,MO.org_nm
+        ,trs.org_id
+        ,sum( CASE WHEN trs.reading_sts_div = '0' OR trs.reading_sts_div = '1' THEN 1 END ) as countSend
+        ,sum( CASE WHEN trs.reading_sts_div = '0' THEN 1 END ) AS countNotRead
+        ,sum( CASE WHEN trs.reading_sts_div = '1' THEN 1 END ) AS countRead
+        ,(select count(*) from push_err_dat fls where fls.msg_id = #{messageId} AND fls.resend_sts = '1' AND fls.org_id = trs.org_id and fls.del_flg = 0) as errorDataList
+        ,sum( CASE WHEN trs.opened_flg = '0' THEN 1 END 0 ) AS notOpened
+        ,sum( CASE WHEN trs.opened_flg = '1' THEN 1 END 0 ) AS opened
+        FROM
+        mst_org MO
+        INNER JOIN talk_reading_sts trs ON ( MO.org_id = trs.org_id AND trs.message_id = #{messageId} AND trs.del_flg = 0)
+        WHERE
+        MO.del_flg = 0
+        AND MO.org_id IN
+        <foreach collection="orgIds.split(',')" item ="orgIds" open="(" close=")" separator=",">
+            #{orgIds}
+        </foreach>
+        GROUP BY
+        trs.org_id
+        ,MO.org_nm
+        ,MO.LEVEL
+        ORDER BY
+        MO.LEVEL
+        ,trs.org_id
+        limit #{limit} offset #{page}
+    </select>
+    <select id="getOrg" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+        WITH RECURSIVE cte AS (
+            SELECT
+                a1.* ,
+                a1.org_id || ' ' || a1.org_nm as orgNmDisplay,
+                '1' as orgDiv
+            FROM
+                mst_org a1
+            WHERE
+                a1.org_id = #{orgId}
+                AND a1.brand_cd=#{brandCd}
+                AND a1.del_flg = 0
+                UNION ALL
+            SELECT
+                a2.* ,
+                a2.org_id || ' ' || a2.org_nm as orgNmDisplay,
+                '2' as orgDiv
+            FROM
+                cte
+                C INNER JOIN mst_org a2 ON C.org_id = a2.upplev_org_id
+                AND a2.del_flg = 0
+                ) SELECT DISTINCT  s.* FROM cte s
+        ORDER BY
+            s.LEVEL asc,
+            s.org_id
+    </select>
+</mapper>

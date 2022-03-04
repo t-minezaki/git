@@ -1,0 +1,352 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+}
+
+#message {
+    height: 5vh !important;
+    line-height: 5vh !important;
+}
+
+#div_head {
+    width: 100%;
+    height: 8vh;
+    line-height: 8vh;
+    position: fixed;
+    padding-left: 0.8vw;
+    background-color: #F0F0F0;
+    box-sizing: border-box;
+    /*font-weight: bold;*/
+}
+
+#div_head a {
+    margin-left: 2vh;
+    font-size: 2.4vh;
+    cursor: pointer;
+}
+
+#div_head i {
+    margin-left: 2vh;
+    font-size: 2.4vh;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    padding-top: 8vh;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+/*.checkbox_style {*/
+/*width: 2vh;*/
+/*height: 2vh;*/
+/*}*/
+
+.content #left_div {
+    width: 23%;
+    height: 100%;
+    float: left;
+    padding-left: 2%;
+    padding-right: 2vw;
+    box-sizing: border-box;
+    background: white;
+}
+
+.layui-laydate-header {
+    padding: unset !important;
+}
+
+.layui-laydate-header i {
+    top: 0px !important;
+}
+
+.layui-laydate-header i.laydate-prev-y {
+    left: 0px !important;
+}
+
+.layui-laydate-header i.laydate-prev-m {
+    left: 15px !important;
+}
+
+.layui-laydate-header i.laydate-next-y {
+    right: 0px !important;
+}
+
+.layui-laydate-header i.laydate-next-m {
+    right: 15px !important;
+}
+
+.layui-laydate-content td, .layui-laydate-content th {
+    height: 20px !important;
+    padding: unset !important;
+    font-size: 0.4vw;
+}
+
+.content #right_div {
+    width: 75%;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+#user_area label {
+    font-size: 1.1rem;
+}
+
+.fc-view-container, .fc-today {
+    background: white !important;
+}
+
+#left_div .fc-left {
+    width: 100%;
+    height: 7vh;
+    line-height: 7vh;
+    font-size: 2vh;
+    margin-top: 1vh;
+}
+
+.fc-left .fc-button-group {
+    margin-right: 2vh;
+}
+
+.fc-left button {
+    height: 3vh;
+    line-height: 3vh;
+    box-sizing: border-box;
+}
+
+#left_div .div_m {
+    width: 100%;
+    height: 8vh;
+}
+
+.div_m p {
+    height: 4vh;
+    line-height: 4vh;
+    font-size: 2vh;
+}
+
+.div_m p input {
+    width: 30vh;
+    height: 100%;
+    padding-left: 10px;
+    margin-right: 1vh;
+    box-sizing: border-box;
+}
+
+#left_div .under-left {
+    width: 100%;
+    height: 6vh;
+    line-height: 6vh;
+    font-size: 1.5vh;
+    margin-top: 10vh;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+    box-sizing: border-box;
+}
+
+.under-left span {
+    margin-left: 5%;
+}
+
+.under-left .under-button-group {
+    height: 100%;
+    display: inline-block;
+    float: right;
+    margin-right: 5%;
+}
+
+.under-left button {
+    height: 3vh;
+    line-height: 3vh;
+    box-sizing: border-box;
+}
+
+#left_div .date {
+    width: 95%;
+    height: auto;
+    margin-bottom: 2vh;
+    box-sizing: border-box;
+    margin-top: 2vh;
+}
+
+.layui-laydate-header i {
+    font-size: 14px !important;
+}
+
+.date > div,
+.date > div > div,
+.date table {
+    width: 100%;
+}
+
+#left_div .div_lbot {
+    width: 95%;
+}
+
+#right_div #calendar {
+    height: 100%;
+}
+
+#calendar .fc-header-toolbar {
+    height: 1vh;
+}
+
+#calendar > table {
+    height: 89vh;
+}
+
+#calendar > table .fc-head {
+    display: block;
+    height: 8vh;
+}
+
+#calendar > table .fc-head th {
+    height: 8vh;
+}
+
+#calendar > table .fc-head p {
+    line-height: 4vh;
+    font-size: 2.4vh;
+}
+
+#calendar > table .fc-body {
+    height: 81vh;
+}
+
+#calendar > table .fc-body > tr {
+    height: 81vh;
+}
+
+#calendar > table .fc-body > tr > td {
+    height: 81vh;
+}
+
+.fc-body > tr > td > div {
+    height: 80vh !important;
+}
+
+.fc-content .fc-time {
+    display: none !important;
+}
+
+#right_div .btn_close {
+    width: 10vh;
+    height: 10vh;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: #4BC783;
+    font-size: 3vh;
+    z-index: 999;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    border: #999 solid 1px;
+    width: 18px;
+    height: 18px;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '\2714';
+    vertical-align: middle;
+    color: white;
+    position: relative;
+    top: -28%;
+    left: 21%;
+    font-size: 0.8em;
+}
+
+.hide_eve {
+    display: none;
+}
+
+.fc-toolbar.fc-header-toolbar {
+    display: none;
+}
+
+.fc-day-header.fc-widget-header {
+    height: 10vh;
+}
+
+.custom_col_header_day, .custom_col_header_date {
+    height: 5vh;
+}
+
+.custom_col_header_date {
+    font-size: 1.5em;
+}
+
+.custom_col_header_day {
+    line-height: 6vh;
+}
+
+#user_input {
+    height: 5vh;
+    width: 100%;
+}
+
+#user_area {
+    margin-top: 2%;
+    /*font-size: 1.2em;*/
+    height: auto;
+    max-height: 44vh;
+    overflow-y: auto;
+}
+
+.layui-laydate-content {
+    padding: 0 !important;
+}
+
+#pageF08005 {
+    overflow: hidden;
+}
+
+#turn_back {
+    /*margin-left: 6vh;*/
+    width: 9vw;
+    height: 4vh;
+    margin-top: 0.3vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 25px;
+    font-size: 0.7vw;
+}
+
+.laydate-day-next {
+    display: none;
+}
+
+.laydate-day-prev {
+    visibility: hidden;
+}
+
+.laydate-set-ym span {
+    pointer-events: none !important;
+}
+/*2020/11/04   Modify  LiYuHuan*/
+div#select_classroom {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fc-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

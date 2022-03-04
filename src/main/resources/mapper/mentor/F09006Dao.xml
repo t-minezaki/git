@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.manager.dao.F09006Dao">
+    <select id="init" parameterType="java.util.Map" resultType="jp.learningpark.modules.manager.dto.F09006Dto">
+        SELECT
+            MO.org_nm
+            , MU.usr_id
+            , MU.after_usr_id as stuId
+            , MCD.cod_value AS schy
+            , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+        <!-- modify at 2021/08/10 for V9.02 by NWT LiGX START -->
+            , CASE WHEN (SP.point + SP.do_login_point + SP.do_total_point + SP.in_room_point + SP.move_point + SP.attend_point + SP.birthday_point) IS NULL THEN 0
+        ELSE (SP.point + SP.do_login_point + SP.do_total_point + SP.in_room_point + SP.move_point + SP.attend_point + SP.birthday_point) END AS point
+        <!-- modify at 2021/08/10 for V9.02 by NWT LiGX END -->
+            , CASE WHEN SP.move_point_add IS NULL THEN 0
+              ELSE SP.move_point_add  END AS move_point
+        FROM
+            mst_usr MU
+            INNER JOIN mst_stu MS ON ( MU.usr_id = MS.stu_id AND MS.del_flg = 0 )
+            INNER JOIN mst_org MO ON ( MU.org_id = MO.org_id AND MO.del_flg = 0 )
+            <if test='params != null and params.roleDiv != null and params.roleDiv == "2"'>
+            INNER JOIN mentor_stu MS2 ON ( MS.stu_id = MS2.stu_id AND MS2.del_flg = 0)
+            </if>
+            LEFT JOIN stu_point SP ON ( MS.stu_id = SP.stu_id AND SP.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD ON ( MS.schy_div = MCD.cod_cd AND (MCD.cod_key = 'SCHY_DIV' ) AND MCD.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD1 ON( MU.usr_sts = MCD1.cod_cd AND ( MCD1.cod_key = 'USR_STS') AND MCD1.del_flg = 0  AND MU.usr_sts = '1')
+        WHERE
+        MU.del_flg = 0
+        AND MU.org_id = #{params.orgId}
+        <if test='params != null and params.roleDiv != null and params.roleDiv == "2"'>
+        AND MS2.mentor_id = #{params.usrId}
+        </if>
+        order by MS.flnm_nm ,flnm_lnm
+        <if test="page!=null">
+            limit #{limit} offset #{page}
+        </if>
+    </select>
+
+    <select id="initTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+            count(MU.usr_id)
+        FROM
+            mst_usr MU
+            INNER JOIN mst_stu MS ON ( MU.usr_id = MS.stu_id AND MS.del_flg = 0 )
+            INNER JOIN mst_org MO ON ( MU.org_id = MO.org_id AND MO.del_flg = 0 )
+            <if test='params != null and params.roleDiv != null and params.roleDiv == "2"'>
+            INNER JOIN mentor_stu MS2 ON ( MS.stu_id = MS2.stu_id AND MS2.del_flg = 0)
+            </if>
+            LEFT JOIN stu_point SP ON ( MS.stu_id = SP.stu_id AND SP.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD ON ( MS.schy_div = MCD.cod_cd AND (MCD.cod_key = 'SCHY_DIV' ) AND MCD.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD1 ON( MU.usr_sts = MCD1.cod_cd AND ( MCD1.cod_key = 'USR_STS') AND MCD1.del_flg = 0  AND MU.usr_sts = '1')
+        WHERE
+        MU.del_flg = 0
+        AND MU.org_id = #{params.orgId}
+        <if test='params != null and params.roleDiv != null and params.roleDiv == "2"'>
+        AND MS2.mentor_id = #{params.usrId}
+        </if>
+    </select>
+
+    <select id="check_after" parameterType="java.util.Map" resultType="jp.learningpark.modules.manager.dto.F09006Dto">
+        SELECT
+         MO1.org_nm
+            , MU1.usr_id
+            , MU1.after_usr_id as stuId
+            , MCD1.cod_value AS schy
+            , MS1.flnm_nm || ' ' || MS1.flnm_lnm AS stu_nm
+        <!-- modify at 2021/08/10 for V9.02 by NWT LiGX START -->
+            , CASE WHEN (SP1.point + SP1.do_login_point + SP1.do_total_point + SP1.in_room_point + SP1.move_point + SP1.attend_point + SP1.birthday_point) IS
+        NULL THEN 0
+        ELSE (SP1.point + SP1.do_login_point + SP1.do_total_point + SP1.in_room_point + SP1.move_point + SP1.attend_point + SP1.birthday_point) END AS point
+            , CASE WHEN SP1.move_point_add IS NULL THEN 0
+        <!-- modify at 2021/08/10 for V9.02 by NWT LiGX END -->
+        ELSE SP1.move_point_add  END AS move_point
+        FROM
+            mst_usr MU1
+            INNER JOIN mst_stu MS1 ON ( MU1.usr_id = MS1.stu_id AND MS1.del_flg = 0 )
+            INNER JOIN mst_org MO1 ON ( MU1.org_id = MO1.org_id AND MO1.del_flg = 0 )
+            LEFT JOIN stu_point SP1 ON ( MS1.stu_id = SP1.stu_id AND SP1.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD1 ON ( MS1.schy_div = MCD1.cod_cd AND (MCD1.cod_key = 'SCHY_DIV' ) AND MCD1.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD2 ON( MU1.usr_sts = MCD2.cod_cd AND ( MCD2.cod_key = 'USR_STS') AND MCD2.del_flg = 0 )
+        WHERE
+        MU1.del_flg = 0
+        <if test="orgId != null and orgId != ''">
+            AND MU1.org_id = #{orgId}
+        </if>
+        AND MS1.stu_id IN
+        <foreach collection="stulist" item ="stulist" index="i" open="(" close=")" separator=",">
+            #{stulist}
+        </foreach>
+        AND MU1.usr_id IN
+        <foreach collection="stulist" item ="stulist" index="i" open="(" close=")" separator=",">
+            #{stulist}
+        </foreach>
+        <if test="page!=null">
+            limit #{limit} offset #{page}
+        </if>
+    </select>
+
+    <select id="checkAfterTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+         count(MU1.usr_id)
+        FROM
+            mst_usr MU1
+            INNER JOIN mst_stu MS1 ON ( MU1.usr_id = MS1.stu_id AND MS1.del_flg = 0 )
+            INNER JOIN mst_org MO1 ON ( MU1.org_id = MO1.org_id AND MO1.del_flg = 0 )
+            LEFT JOIN stu_point SP1 ON ( MS1.stu_id = SP1.stu_id AND SP1.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD1 ON ( MS1.schy_div = MCD1.cod_cd AND (MCD1.cod_key = 'SCHY_DIV' ) AND MCD1.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD2 ON( MU1.usr_sts = MCD2.cod_cd AND ( MCD2.cod_key = 'USR_STS') AND MCD2.del_flg = 0 )
+        WHERE
+        MU1.del_flg = 0
+        <if test="orgId != null and orgId != ''">
+            AND MU1.org_id = #{orgId}
+        </if>
+        AND MS1.stu_id IN
+        <foreach collection="stulist" item ="stulist" index="i" open="(" close=")" separator=",">
+            #{stulist}
+        </foreach>
+        AND MU1.usr_id IN
+        <foreach collection="stulist" item ="stulist" index="i" open="(" close=")" separator=",">
+            #{stulist}
+        </foreach>
+    </select>
+
+    <select id="moveHistoryPoint" resultType="jp.learningpark.modules.manager.dto.F09006StuPointDto">
+        select stu_id as stu_id,
+        sum(CASE WHEN point_num IS NULL THEN 0 ELSE point_num END) as point
+        from
+        stu_get_point_hst sgph
+        where org_id = #{orgId}
+        and stu_id in
+        <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+            #{item.usrId}
+        </foreach>
+        and point_type_div <![CDATA[ <> ]]> '5'
+        and del_flg = 0
+        group by stu_id;
+    </select>
+
+  <!--  <select id="birthdayPoint" resultType="jp.learningpark.modules.manager.dto.F09006StuPointDto">
+        select ms.stu_id as stu_id,
+               count(distinct to_date(entry_dt::text, 'YYYY-MM-DD')) as point
+        from mst_stu ms
+                     left join entry_exit_hst eeh on ms.stu_id = eeh.stu_id
+        where eeh.org_id = #{orgId}
+            and eeh.stu_id in
+            <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+            and eeh.entry_flg = '0'
+            and substr(to_date(eeh.entry_dt::text, 'YYYY-MM-DD')::text, 6, 5) =
+              substr(to_date(birthd::text, 'YYYY-MM-DD')::text, 6, 5)
+            and eeh.del_flg = 0
+        group by ms.stu_id;
+    </select>-->
+</mapper>

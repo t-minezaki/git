@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F03004Dao">
+    <select id="selectUnitList" resultType="jp.learningpark.modules.manager.dto.F03004Dto">
+        SELECT
+            *,
+            cmd.cod_value as schy,
+            cmd1.cod_value as subjt,
+            om.org_id,
+            om.org_nm
+        FROM
+            mst_unit um
+        INNER JOIN mst_org om on om.org_id=um.org_id
+        AND om.del_flg=0
+        INNER JOIN mst_cod_d cmd on cmd.cod_cd= #{schyDiv}
+        AND cmd.cod_key='SCHY_DIV'
+        AND cmd.del_flg=0
+        INNER JOIN mst_cod_d cmd1 on cmd1.cod_cd= #{subjtDiv}
+        AND cmd1.cod_key='SUBJT_DIV'
+        AND cmd1.del_flg=0
+        WHERE
+            um.org_id =#{orgId}
+            AND um.schy_div = #{schyDiv}
+            AND um.subjt_div = #{subjtDiv}
+            AND um.del_flg =0
+        <if test="unitNm!=null and unitNm!=''">
+            and  um.unit_nm like CONCAT('%',trim(#{unitNm}),'%')
+        </if>
+        <if test="sectnNm!=null and sectnNm!=''">
+            and  um.sectn_nm like CONCAT('%',trim(#{sectnNm}),'%')
+        </if>
+        <if test="chaptNm!=null and chaptNm!=''">
+            and  um.chapt_nm like CONCAT('%',trim(#{chaptNm}),'%')
+        </if>
+        order by um.unit_mst_cd
+        <if test="page!=null">
+            limit #{limit} offset #{page}
+        </if>
+    </select>
+
+    <select id="selectUnitCount" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        mst_unit um
+        INNER JOIN mst_org om on om.org_id=um.org_id
+        AND om.del_flg=0
+        WHERE
+        um.org_id =#{orgId}
+        AND um.schy_div = #{schyDiv}
+        AND um.subjt_div = #{subjtDiv}
+        AND um.del_flg =0
+        <if test="unitNm!=null and unitNm!=''">
+            and  um.unit_nm like CONCAT('%',trim(#{unitNm}),'%')
+        </if>
+        <if test="sectnNm!=null and sectnNm!=''">
+            and  um.sectn_nm like CONCAT('%',trim(#{sectnNm}),'%')
+        </if>
+        <if test="chaptNm!=null and chaptNm!=''">
+            and  um.chapt_nm like CONCAT('%',trim(#{chaptNm}),'%')
+        </if>
+    </select>
+</mapper>

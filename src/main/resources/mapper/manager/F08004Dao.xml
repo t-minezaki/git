@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F08004Dao">
+    <select id="selectEventEntity" resultType="jp.learningpark.modules.pop.dto.F08004Dto">
+		SELECT
+            MT.tmplate_title,
+            ME.ctgy_nm,
+            ME.event_title,
+            ME.event_cont,
+            ME.attach_file_path,
+            MCD.cod_value AS object,
+            ME.unit_time
+        FROM
+            mst_event ME
+            LEFT JOIN mst_tmplate MT ON ( ME.temp_id = MT.id AND MT.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD ON ( MCD.cod_cd = ME.ref_type AND MCD.cod_key = 'REF_TYPE_DIV' AND MCD.del_flg = 0 )
+        WHERE
+            ME.del_flg = 0
+            AND ME.id = #{eventId}
+    </select>
+
+    <select id="selectOrgList" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+		SELECT
+            MO.org_nm
+        FROM
+        mst_event_deliver MED
+        INNER JOIN mst_org MO ON ( MO.org_id = MED.org_id AND MO.del_flg = 0 )
+        WHERE
+        MED.del_flg = 0
+        AND MED.event_id = #{eventId}
+    </select>
+</mapper>

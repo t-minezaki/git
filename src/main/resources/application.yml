@@ -1,0 +1,99 @@
+# Tomcat
+server:
+  max-http-header-size: 4048576
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+    max-http-post-size: 1073741824
+  port: 8080
+  connection-timeout: 5000ms
+spring:
+  profiles:
+    active: awsdev
+  jackson:
+    time-zone: GMT+9
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 250MB
+      max-request-size: 1024MB
+      enabled: true
+  freemarker:
+    suffix: .html
+    request-context-attribute: request
+  resources:
+    static-locations: classpath:/statics/
+    chain:
+      strategy:
+        content:
+          enabled: true
+  messages:
+    basename: i18n/messages
+  devtools:
+    restart:
+      enabled: true
+      exclude: statics/**,templates/**,jp/**
+  http:
+    encoding:
+      force: true
+  mvc:
+    favicon:
+      enabled: true
+  mail:
+    jndi-name: gakken_mail
+#Mybatis
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  typeAliasesPackage: jp.learningpark.modules.*.entity
+  configuration:
+    map-underscore-to-camel-case: true
+# Shiro
+shiro:
+  user:
+    # ログイン
+    loginUrl: /login
+    # 权限认证失败地址
+    unauthorizedUrl: /error/403
+    # 首页地址
+    indexUrl: /index
+  cookie:
+    # 设置Cookie的域名 默认空，即当前访问的域名
+    domain: 
+    # 设置cookie的有效访问路径
+    path: /
+    # 设置HttpOnly属性
+    httpOnly: true
+    # 设置Cookie的过期时间，天为单位
+    maxAge: 30
+  session:
+    # セッションタイムアウト時間（デフォルト7200分）
+    expireTime: 7200
+    # セッションタイムアウト時間（生徒180分）
+    expireTimeStu: 180
+    # セッションをデータベースに同期する期間（デフォルト1分）
+    dbSyncPeriod: 1
+    # セッション有効期限のチェック期間（デフォルト10分）
+    validationInterval: 10
+# JWT
+jwt:
+  # secret key
+  secret: qfj1AJhzvcI1qLRsc8CIbg==
+  # token expire，7 days
+  expire: 604800
+  header: token
+md5:
+  # secret key sso用
+  secret: goonoderakosako123
+xapi:
+  basicURI: http://learningpark.jp
+  #server url
+  serverUrl: http://47.101.139.13/data/xAPI
+  #basic Auth
+  basicAuth: Nzg0ZTFlN2U1MDE1YmY3ODg0OTk1MzMyNGRmMjA4YTQ2YjM0NDczNjoxZWEzOTFmM2Q3ZWQzNzcxODdjM2UxNmFhM2JlOGEyMDc5YTYwMzgy
+  #enabled
+  enabled: false
+#ルートパス
+sftp:
+  #ルートパス
+  root: /gakken

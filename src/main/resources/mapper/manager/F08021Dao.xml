@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08021Dao">
+    <select id="getGrsList" resultType="jp.learningpark.modules.manager.dto.F08021Dto">
+        SELECT
+        mu.after_usr_id as stu_login_id,
+        ms.flnm_nm||' '||ms.flnm_lnm as stu_nm,
+        mu.usr_id as stu_usr_id,
+        trs.reading_sts_div,
+        trs.opened_flg
+        FROM
+        talk_reading_sts trs
+        INNER JOIN
+        mst_stu ms
+        ON ms.stu_id = trs.deliver_id AND ms.del_flg = 0
+        INNER JOIN
+        mst_usr mu
+        ON mu.usr_id = ms.stu_id AND mu.del_flg = 0
+        WHERE
+        trs.del_flg = 0
+        <if test="readDiv != null and readDiv != ''">
+            AND trs.reading_sts_div = #{readDiv}
+        </if>
+        <if test="openDiv != null and openDiv != ''">
+            AND trs.opened_flg = #{openDiv}
+        </if>
+        AND trs.message_id = #{messageId}
+        AND trs.org_id = #{orgId}
+        ORDER BY
+        mu.after_usr_id
+    </select>
+
+    <select id="getDownloadInfo" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08021Dto">
+        SELECT
+        mu.after_usr_id AS stu_login_id,
+        ms.flnm_nm||' '||ms.flnm_lnm AS stu_nm,
+        mm.id,
+        mm.message_title,
+        trs.reading_sts_div,
+        trs.opened_flg,
+        to_char(mm.pub_plan_start_dt,'yyyy/MM/dd HH24:MI') AS pub_plan_start_dt
+        FROM
+        talk_reading_sts trs
+        INNER JOIN
+        mst_message mm
+        ON mm.id = trs.message_id AND mm.del_flg = 0
+        INNER JOIN
+        mst_stu ms
+        ON ms.stu_id = trs.deliver_id AND ms.del_flg = 0
+        AND ms.stu_id IN
+        <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+            #{item, jdbcType=VARCHAR}
+        </foreach>
+        INNER JOIN
+        mst_usr mu
+        ON mu.usr_id = ms.stu_id AND mu.del_flg = 0
+        WHERE
+        trs.del_flg = 0
+        <if test="readDiv != null and readDiv != ''">
+            AND trs.reading_sts_div = #{readDiv}
+        </if>
+        <if test="openDiv != null and openDiv != ''">
+            AND trs.opened_flg = #{openDiv}
+        </if>
+        AND trs.message_id = #{messageId}
+        AND trs.org_id = #{orgId}
+        ORDER BY
+        mu.after_usr_id
+    </select>
+</mapper>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>運用管理｜ユーザー管理｜生徒・保護者個別紐付け設定</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00045.css"/>
+</head>
+<body>
+<div class="content" id="data">
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">運用管理｜ユーザー管理｜生徒・保護者個別紐付け設定</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="sim two" id="main">
+        <div v-for="dto in showData" v-cloak v-if="dto.guardId!=null">
+            <div class="top title"><span>◆　保護者情報</span></div>
+            <div class="infoContent">
+                <div>
+                    <button @click="selectBtn(dto.userId)" type="button" class="selectBtn" id="search">検索</button>
+                </div>
+                <ul style="padding-top: 0">
+                    <li>
+                        <div class="title">保護者ＩＤ</div>
+                        <input type="text" id="guardId" disabled :value="dto.guardId">
+                    </li>
+                    <li>
+                        <div class="title">保護者姓名</div>
+                        <input type="text" id="guardNm" disabled :value="dto.guardSei+' '+dto.guardMei">
+                    </li>
+                    <li>
+                        <div class="title">カナ姓名</div>
+                        <input type="text" id="guardKnNm" disabled :value="dto.guardKnSei + ' ' + dto.guardKnMei">
+                    </li>
+                    <li>
+                        <div class="title">メール</div>
+                        <input type="text" id="mailad" disabled :value="dto.mailad">
+                    </li>
+                    <li>
+                        <div class="title">電話番号</div>
+                        <input type="text" id="telnum" disabled :value="dto.telnum">
+                    </li>
+                    <li>
+                        <div class="title">続柄</div>
+                        <input type="text" id="tuzukiGara" disabled :value="dto.tuzukiGara">
+                    </li>
+                    <li style="height: 6vw">
+                        <div class="title" >住所</div>
+                        <input type="text" id="adr" disabled :value="dto.adr">
+                        <input type="text" id="adr" disabled :value="dto.adr2" style="margin-left: 25%;">
+                    </li>
+                    <li>
+                        <div class="title">緊急電話番号</div>
+                        <input type="text" id="urgTelnum" disabled :value="dto.urgTelnum">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="btnDiv">
+            <button :style="dataLen==6?style1:style2" @click="selectBtn()">保護者追加</button>
+        </div>
+        <div class="title"><span>◆　生徒情報</span></div>
+        <div class="infoContent">
+            <ul style="height: 7vw;">
+                <li>
+                    <div class="title">生徒ＩＤ</div>
+                    <input type="text" id="stuId" disabled>
+                </li>
+                <li>
+                    <div class="title">生徒姓名</div>
+                    <input type="text" id="stuNm" disabled>
+                </li>
+                <li>
+                    <div class="title">カナ姓名</div>
+                    <input type="text" id="stuKnNm" disabled>
+                </li>
+                <li>
+                    <div class="title">生年月日</div>
+                    <input type="text" id="birthd" disabled>
+                </li>
+                <li>
+                    <div class="title">性別</div>
+                    <input type="text" id="sex" disabled>
+                </li>
+                <li>
+                    <div class="title">学年</div>
+                    <input type="text" id="schy" disabled>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footDiv">
+        <div class="footAuto">
+            <button onclick="updateBtn()" class="selectBtn footBtn">登録</button>
+            <button onclick="window.location.href = 'F00044.html'" class="selectBtn footBtn">戻る</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00045.js"></script>
+</html>

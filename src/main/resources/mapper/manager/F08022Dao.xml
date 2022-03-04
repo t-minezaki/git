@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08022Dao">
+    <select id="getGrsList" resultType="jp.learningpark.modules.manager.dto.F08022Dto">
+<!-- ユーザ基本マスタ．変更後ユーザID	管理者ＩＤ OR 先生ID-->
+<!--姓名_姓＋半角スペース＋姓名_名		管理者氏名　OR　先生氏名-->
+        SELECT
+            user_info.user_name
+            , user_info.after_user_id
+            , user_info.usr_id
+            , user_info.reading_sts_div
+            , mcd.cod_value as status
+        FROM
+        (
+            SELECT
+                mu.after_usr_id AS after_user_id
+                , mu.usr_id
+                , mm.flnm_nm || ' ' || mm.flnm_lnm AS user_name
+                , trs.reading_sts_div as reading_sts_div
+            FROM talk_reading_sts trs
+            LEFT JOIN mst_manager mm
+                ON trs.message_id = #{messageId}
+                AND trs.org_id = #{orgId}
+                <if test="readDiv != null and readDiv != ''">
+                    AND trs.reading_sts_div = #{readDiv}
+                </if>
+                AND mm.del_flg = 0
+                AND trs.deliver_id = mm.mgr_id
+            INNER JOIN mst_usr mu
+                ON mm.mgr_id = mu.usr_id
+                AND mu.del_flg = 0
+            UNION ALL
+            SELECT
+                mu.after_usr_id AS after_user_id
+                , mu.usr_id
+                , mm.flnm_nm || ' ' || mm.flnm_lnm AS user_name
+                , trs.reading_sts_div as reading_sts_div
+            FROM talk_reading_sts trs
+            LEFT JOIN mst_mentor mm
+                ON trs.message_id = #{messageId}
+                AND trs.org_id = #{orgId}
+                <if test="readDiv != null and readDiv != ''">
+                    AND trs.reading_sts_div = #{readDiv}
+                </if>
+                AND mm.del_flg = 0
+                AND trs.deliver_id = mm.mentor_id
+            INNER JOIN mst_usr mu
+                ON mm.mentor_id = mu.usr_id
+                AND mu.del_flg = 0
+        ) AS user_info
+        inner join mst_cod_d mcd
+            on mcd.cod_key = 'READING_STS_DIV'
+            and mcd.cod_cd = user_info.reading_sts_div
+            and mcd.del_flg = 0
+        ORDER BY
+            user_info.after_user_id
+    </select>
+
+    <select id="getDownloadInfo" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08022Dto">
+        SELECT
+            user_info.user_name
+            , user_info.after_user_id
+            , user_info.usr_id
+            , user_info.reading_sts_div
+            , user_info.opened_flg
+            , user_info.message_title
+            , user_info.pub_plan_start_dt
+            , user_info.deliver_id
+        FROM
+        (
+            SELECT
+                mu.after_usr_id AS after_user_id
+                , mu.usr_id
+                , mm.flnm_nm || ' ' || mm.flnm_lnm AS user_name
+                , msg.message_title
+                , msg.pub_plan_start_dt
+                , trs.deliver_id
+                , trs.reading_sts_div as reading_sts_div
+                , trs.opened_flg
+            FROM talk_reading_sts trs
+            LEFT JOIN mst_manager mm
+                ON trs.message_id = #{messageId}
+                AND trs.org_id = #{orgId}
+                <if test="readDiv != null and readDiv != ''">
+                    AND trs.reading_sts_div = #{readDiv}
+                </if>
+                AND mm.del_flg = 0
+                AND trs.deliver_id = mm.mgr_id
+            INNER JOIN mst_usr mu
+                ON mm.mgr_id = mu.usr_id
+                AND mu.del_flg = 0
+            inner join mst_message msg
+                on msg.id = trs.message_id
+                and msg.del_flg = 0
+            <where>
+                AND trs.deliver_id IN
+                <foreach item="item" collection="usrIdList" separator="," open="(" close=")" index="">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
+            </where>
+        UNION ALL
+            SELECT
+                mu.after_usr_id AS after_user_id
+                , mu.usr_id
+                , mm.flnm_nm || ' ' || mm.flnm_lnm AS user_name
+                , msg.message_title
+                , msg.pub_plan_start_dt
+                , trs.deliver_id
+                , trs.reading_sts_div as reading_sts_div
+                , trs.opened_flg
+            FROM talk_reading_sts trs
+            LEFT JOIN mst_mentor mm
+                ON trs.message_id = #{messageId}
+                AND trs.org_id = #{orgId}
+                <if test="readDiv != null and readDiv != ''">
+                    AND trs.reading_sts_div = #{readDiv}
+                </if>
+                AND mm.del_flg = 0
+                AND trs.deliver_id = mm.mentor_id
+            INNER JOIN mst_usr mu
+                ON mm.mentor_id = mu.usr_id
+                AND mu.del_flg = 0
+            inner join mst_message msg
+                on msg.id = trs.message_id
+                and msg.del_flg = 0
+            <where>
+                AND trs.deliver_id IN
+                <foreach item="item" collection="usrIdList" separator="," open="(" close=")" index="">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
+            </where>
+        ) AS user_info
+        ORDER BY
+            user_info.after_user_id
+    </select>
+</mapper>

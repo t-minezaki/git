@@ -1,0 +1,300 @@
+html,body {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+}
+.content{
+    padding-top: 5.2vw;
+}
+.btn_div button{
+    background: none;
+    color: #009944;
+    border: 0.20vw solid #009944;
+    border-radius: 0.4vw;
+    width: 100%;
+    font-size: 0.9vw;
+    height: 100%;
+}
+.btn_div{
+    top: 1.4vw;
+    right: 1vw;
+    height: 2.2vw;
+    width: 8vw;
+    position: absolute;
+}
+.topTitle{
+    padding:0;
+    border:none;
+    margin-top:5vw;
+    scrolling : no;
+    height: calc(2.7vw + 2px);
+}
+.mian{
+    width: 80%;
+    height: auto;
+    padding:0 0 3vw 0;
+    margin: auto;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 3vw;
+}
+.mainTitle{
+    width: 100%;
+    height: 3.4vw;
+    line-height: 3.4vw;
+    color: #000;
+    font-size: 1.2vw;
+    padding: 0 1vw;
+    border-bottom: 1px solid #ccc;
+    font-weight: bolder;
+}
+.mainDiv{
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+.bottomMain p.sp{
+    width: 50%;
+    height: 2.2vw;
+    color: #EA331B;
+    font-size: 1vw;
+    text-align: left;
+    line-height: 2.2vw;
+    float: left;
+}
+.topMain{
+    width: 96%;
+    height: 3.4vw;
+    line-height: 3.4vw;
+    border-bottom: 1px solid #ccc;
+    margin: auto;
+    font-size: 1vw;
+    color: #666;
+}
+.bottomMain{
+    width: 96%;
+    height: 3.4vw;
+    margin: auto;
+    border-bottom: 1px solid #ccc;
+}
+.bottomMain pInput{
+    width: 100%;
+    height: 4.5vw;
+    padding: 0.6vw 1vw;
+    border-bottom: 1.5px solid #ccc;
+}
+.bottomMain p{
+    float: left;
+    width: 15%;
+    height: 100%;
+    line-height: 3.4vw;
+    font-size: 1vw;
+    color: #666;
+}
+.bottomMain p.center{
+    color: #EA331B;
+    width: auto;
+    min-width: 4%;
+}
+.bottomMain input{
+    width: 50%;
+    height: 2.6vw;
+    line-height: 2.6vw;
+    font-size: 1vw;
+    padding: 0 0.2vw;
+    margin-right: 1vw;
+    float: left;
+    border: 1px solid #aaa;
+    color: #666;
+    border-radius: 4px;
+    margin-top: 0.4vw;
+}
+
+.tInput input{
+    width: calc(25% - 0.5vw);
+}
+.sInput input{
+    width: calc(16.67% - 0.67vw);
+    margin: 0;
+}
+.sInput label{
+    width: 1vw;
+    text-align: center;
+    height: 100%;
+    line-height: 2.6vw;
+    font-size: 1vw;
+    float: left;
+}
+.bottomMain input:disabled{
+    background: none;
+    border: 0;
+    color: #EA331B;
+}
+.theme_btn{
+    width: 60%;
+    height: 3vw;
+    margin: 4vw auto 0 auto;
+}
+.btn_con{
+    width: 80%;
+    padding-left: 20%;
+    height: 100%;
+    padding-right: 20%;
+}
+.theme_btn button{
+    width: 40%;
+    border-radius: 0.5vw;
+    height: 100%;
+    background: none;
+    color:#009944;
+    float: left;
+    font-size: 1.2vw;
+    border: 2px solid #009944;
+}
+.theme_btn button.left{
+    border: 0;
+    width: 60%;
+}
+@media screen and (max-width: 440px) {
+    header {
+        width: 100% !important;
+        padding: 0 2% !important;
+        height: 40px !important;
+    }
+    .header_logo {
+        height: 24px !important;
+        width: 70px !important;
+        margin-top: 10px !important;
+    }
+    .header_operat li {
+        width: 24px !important;
+        height: 24px !important;
+        margin-top: 8px !important;
+    }
+    .header_operat li img {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .btn_div button {
+        font-size: 10px!important;
+        padding: 0!important;
+    }
+    .div_head{
+        height: 20px !important;
+        background: #009944 !important;
+        margin-top: 40px;
+    }
+    .content{
+        height: calc( 100% - 40px);
+        width: 100%;
+    }
+    .btn_div {
+        top: 10px !important;
+        right: 48px !important;
+        height: 24px !important;
+        width: 120px !important;
+        margin-top: 8px !important;
+        font-size: 12px !important;
+    }
+    .mian{
+        padding: 0 !important;
+        height: auto;
+        margin-top: 40px;
+    }
+    .mainCon {
+        padding: 0 !important;
+        height: auto;
+    }
+    .topTitle {
+        margin-top: 44px !important;
+        height: 22px !important;
+    }
+    .mainTitle {
+        height: 10vw !important;
+        line-height: 10vw !important;
+        font-size: 14px !important;
+    }
+    .topMain {
+        height: 14vw;
+        padding-left: 10px;
+        padding: 2vw 0;
+        line-height: 5vw;
+        font-size: 12px;
+    }
+    .topMain div {
+        line-height: 5vw !important;
+        font-size: 12px !important;
+        padding: 5px 0px;
+    }
+    .bottomMain {
+        height: 10vw;
+    }
+    .bottomMain p {
+        line-height: 10vw;
+        height: 10vw;
+        font-size: 13px;
+        width: 40%;
+    }
+    .bottomMain input {
+        line-height: 8vw;
+        font-size: 12px;
+        padding: 0px 3px;
+        height: 8vw;
+        width: 58%;
+    }
+    .tInput input {
+        width: calc(29% - 0.5vw);
+    }
+    .theme_btn {
+        height: 27px;
+        width: 100%;
+        margin-bottom: 8%;
+    }
+    .btn_con {
+        padding: 0 !important;
+
+    }
+    .theme_btn button {
+        border-radius: 4px;
+        font-size: 12px;
+        border: 1.5px solid #009944;
+    }
+    .more{
+        height: 21vw !important;
+    }
+    .bottomMain p.sp {
+        height: 7vw !important;
+        line-height: 4vw !important;
+        margin-top: 0vw !important;
+        font-size: 12px !important;
+        width: 56%;
+        margin-left: 40%;
+    }
+    .bottomMainEmail {
+        height: 10vw !important;
+    }
+    .bottomMainEmail p {
+        width: 25% !important;
+        height: 10vw!important;
+        line-height: 9vw!important;
+        font-size: 13px!important;
+    }
+    .bottomMainEmail p.center {
+        width: 4% !important;
+    }
+    .bottomMainEmail input {
+        width: 39% !important;
+        height: 8vw!important;
+        line-height: 8vw!important;
+        font-size: 12px !important;
+    }
+    .bottomMainEmail button {
+        width: 31% !important;
+        margin-left: 0.4vw !important;
+        font-size: 9px !important;
+        padding: 0!important;
+    }
+}
+.more{
+    height: 6vw;
+}

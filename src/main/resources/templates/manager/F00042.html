@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>運用管理｜ユーザー管理｜新規登録</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00042.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+    <style>
+        .ui-widget.ui-widget-content {
+            margin-top: 9.6vw;
+        }
+    </style>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app" v-cloak>
+    <div class="popTitle">運用管理｜ユーザー管理｜新規登録</div>
+    <div class="topSessionTitle">
+        <div class="orgTitle">組織ID:</div>
+        <div id="sOrgId">{{mstOrgEntity.orgId}}</div>
+        <div class="orgTitle">組織名:</div>
+        <div id="orgNm">{{mstOrgEntity.orgNm}}</div>
+    </div>
+    <form id="f00042Form">
+
+        <!--manager画面-->
+        <div class="inputDiv" id="manager" style="display: none">
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">利用者ロール</div>
+                    <div class="star"></div>
+                    <input type="text" :value="role_div.codValue" class="role" disabled
+                           style="background: none;border: 0;">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">利用者ＩＤ</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="32" class="userId" name="userId"> <input type="text"
+                                                                                                    value="（８文字以上半角）"
+                                                                                                    disabled
+                                                                                                    style="color: red">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">パスワード</div>
+                    <div class="star"></div>
+                    <input type="password" value="" maxlength="32" autocomplete="new-password" class="password" name="password">
+                    <input type="text" value="（大小文字・数字を含む）" disabled style="color: red">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">姓名</div>
+                    <div class="star">*</div>
+                    <!--2021/02/24 manamiru1-524 cuikailin start -->
+                    <input type="text" value="" maxlength="30" class="flnmNm" name="flnmNm">
+                    <input type="text" value="" maxlength="30" class="flnmLnm" name="flnmLnm">
+                    <!--2021/02/24 manamiru1-524 cuikailin end -->
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">カナ姓名</div>
+                    <div class="star">*</div>
+                    <!--2021/02/24 manamiru1-524 cuikailin start -->
+                    <input type="text" value="" maxlength="30" class="flnmKnNm" name="flnmKnNm">
+                    <input type="text" value="" maxlength="30" class="flnmKnLnm" name="flnmKnLnm">
+                    <!--2021/02/24 manamiru1-524 cuikailin end -->
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne" v-if="role_div.codCd == '1'">
+                    <div class="title">メールアドレス</div>
+                    <div class="star"></div>
+                    <input type="text" value="" maxlength="60" class="email" style="width: 62%" name="email">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">電話番号</div>
+                    <div class="star"></div>
+                    <input type="text" value="" maxlength="11" class="telNum" name="telNum"> <input type="text"
+                                                                                                    value="（ハイフンなし）"
+                                                                                                    disabled
+                                                                                                    style="color: red">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">組織追加</div>
+                    <div class="star"></div>
+                    <button  type="button" class="choseBtn" @click="chooseBtn()">組織選択</button>
+                </div>
+            </div>
+            <div class="inputMessage" style="width: 22%">
+                <div class="inputMessageOne" style="width: 100%">
+                    <div class="title" style="width: 66.6%">利用組織一覧</div>
+                    <div class="star" style="width: 31.5%;">*</div>
+                </div>
+            </div>
+            <div class="org-table" style="width: 30%;float: left;margin-left: -3.3vw;">
+                <div style="width: 100%">
+                    <table class="tbl_title" style="width: 90%;margin-left: unset" >
+                        <tr style="word-break: break-all; ">
+                            <th width="30%">組織ID</th>
+                            <th width="50%">組織名</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-body manageTabel">
+                    <table style="width: 90%; overflow: scroll;border-top: unset;" >
+                        <tr style="height: 3vh;" v-for="(obj,i) in orgList">
+                            <td width="30%" style="text-align: left;font-size: 0.8vw;">{{ obj.orgId}}</td>
+                            <td width="50%" style="text-align: left;font-size: 0.8vw;">{{ obj.orgNm }}</td>
+                            <td width="20%">
+                                <button type="button" class="delBtn" @click="delOrgBtn(orgList,i)">削除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--guard画面-->
+        <div class="inputDiv" id="guard" style="display: none">
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">利用者ロール</div>
+                    <div class="star"></div>
+                    <input type="text" :value="role_div.codValue" maxlength="60" class="role" disabled>
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">利用者ＩＤ</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="32" class="userId" name="userId"> <input type="text"
+                                                                                                    value="（８文字以上半角）"
+                                                                                                    disabled
+                                                                                                    style="color: red">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">パスワード</div>
+                    <div class="star"></div>
+                    <input type="password" value="" maxlength="32" autocomplete="new-password" class="password" name="password">
+                    <input type="text" value="（大小文字・数字を含む）" disabled style="color: red">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">姓名</div>
+                    <div class="star">*</div>
+                    <!--2021/02/24 manamiru1-524 cuikailin start -->
+                    <input type="text" value="" maxlength="30" class="flnmNm" name="flnmNm">
+                    <input type="text" value="" maxlength="30" class="flnmLnm" name="flnmLnm">
+                    <!--2021/02/24 manamiru1-524 cuikailin end -->
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">カナ姓名</div>
+                    <div class="star">*</div>
+                    <!--2021/02/24 manamiru1-524 cuikailin start -->
+                    <input type="text" value="" maxlength="30" class="flnmKnNm" name="flnmKnNm">
+                    <input type="text" value="" maxlength="30" class="flnmKnLnm" name="flnmKnLnm">
+                    <!--2021/02/24 manamiru1-524 cuikailin end -->
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">メールアドレス</div>
+                    <div class="star"></div>
+                    <input type="text" value="" maxlength="60" class="email" style="width: 62%" name="email">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">電話番号</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="11" class="telNum" name="telNum"> <input type="text"
+                                                                                                    value="（ハイフンなし）"
+                                                                                                    disabled
+                                                                                                    style="color: red">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">郵便番号</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="7" class="postCd" name="postCd">
+                    <button type="button" class="choseBtn" @click="searchPostCd()">住所検索</button>
+                    <input type="text" value="（ハイフンなし）" disabled style="color: red;width: 16.5%">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">続柄</div>
+                    <div class="star">*</div>
+                    <select type="" class="parent" name="parent">
+                        <option style="display: none"></option>
+                        <option v-for="li in reltnsp_div" :value="li.codCd">{{li.codValue}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">住所1</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="60" style="width: 62%" class="addr1" name="addr1">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title" style="width: 30%">緊急電話番号</div>
+                    <input type="text" value="" maxlength="11" class="urgent" name="urgent"> <input type="text"
+                                                                                                    value="（ハイフンなし）"
+                                                                                                    disabled
+                                                                                                    style="color: red">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">住所2</div>
+                    <div class="star"></div>
+                    <input type="text" value="" maxlength="60" style="width: 62%" class="addr2" name="addr2">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">組織追加</div>
+                    <div class="star"></div>
+                    <button  type="button" class="choseBtn" @click="chooseBtn()">組織選択</button>
+                </div>
+            </div>
+            <div class="inputMessage" style="width: 22%">
+                <div class="inputMessageOne" style="width: 100%">
+                    <div class="title" style="width: 66.6%">利用組織一覧</div>
+                    <div class="star" style="width: 31.5%;">*</div>
+                </div>
+            </div>
+            <div class="org-table" style="width: 30%;float: left;margin-left: -3.3vw;">
+                <div style="width: 100%">
+                    <table class="tbl_title" style="width: 90%;margin-left: unset" >
+                        <tr style="word-break: break-all; ">
+                            <th width="30%">組織ID</th>
+                            <th width="50%">組織名</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-body manageTabel">
+                    <table style="width: 90%; overflow: scroll;border-top: unset;" >
+                        <tr style="height: 3vh;" v-for="(obj,i) in orgList">
+                            <td width="30%" style="text-align: left;font-size: 0.8vw;">{{ obj.orgId}}</td>
+                            <td width="50%" style="text-align: left;font-size: 0.8vw;">{{ obj.orgNm }}</td>
+                            <td width="20%">
+                                <button type="button" class="delBtn" @click="delOrgBtn(orgList,i)">削除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--student画面-->
+        <div class="inputDiv" id="student" style="display: none">
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">利用者ロール</div>
+                    <div class="star"></div>
+                    <input type="text" :value="role_div.codValue" class="role" disabled>
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">利用者ＩＤ</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="32" class="userId" name="userId"> <input type="text"
+                                                                                                    value="（８文字以上半角）"
+                                                                                                    disabled
+                                                                                                    style="color: red">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">パスワード</div>
+                    <div class="star"></div>
+                    <input type="password" value="" maxlength="32" autocomplete="new-password" class="password" name="password">
+                    <input type="text" value="（大小文字・数字を含む）" disabled style="color: red">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">姓名</div>
+                    <div class="star">*</div>
+                    <!--2021/02/24 manamiru1-524 cuikailin start -->
+                    <input type="text" value="" maxlength="30" class="flnmNm" name="flnmNm">
+                    <input type="text" value="" maxlength="30" class="flnmLnm" name="flnmLnm">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">カナ姓名</div>
+                    <div class="star">*</div>
+                    <input type="text" value="" maxlength="30" class="flnmKnNm" name="flnmKnNm">
+                    <input type="text" value="" maxlength="30" class="flnmKnLnm" name="flnmKnLnm">
+                    <!--2021/02/24 manamiru1-524 cuikailin end -->
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">学年</div>
+                    <div class="star">*</div>
+                    <select type="" class="schoolYear" name="schoolYear">
+                        <option style="display: none"></option>
+                        <option v-for="li in schy_div" :value="li.codCd">{{li.codValue}}</option>
+                    </select>
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">学校</div>
+                    <div class="star"></div>
+                    <input type="text" value="" maxlength="30" class="schoolName" name="schoolName">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">生年月日</div>
+                    <div class="star">*</div>
+                    <input type="text" id="birthDay" name="birthDay" readonly class="birthDay" name="birthDay">
+                </div>
+                <div class="inputMessageOne">
+                    <div class="title">性別</div>
+                    <div class="star">*</div>
+                    <select type="" class="gender" name="gender">
+                        <option style="display: none"></option>
+                        <option v-for="li in gender_div" :value="li.codCd">{{li.codValue}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div class="title">組織追加</div>
+                    <div class="star"></div>
+                    <button  type="button" class="choseBtn" @click="chooseBtn()">組織選択</button>
+                </div>
+            </div>
+            <div class="inputMessage" style="width: 22%">
+                <div class="inputMessageOne" style="width: 100%">
+                    <div class="title" style="width: 66.6%">利用組織一覧</div>
+                    <div class="star" style="width: 31.5%;">*</div>
+                </div>
+            </div>
+            <div class="org-table" style="width: 30%;float: left;margin-left: -3.3vw;">
+                <div style="width: 100%">
+                    <table class="tbl_title" style="width: 90%;margin-left: unset" >
+                        <tr style="word-break: break-all; ">
+                            <th width="30%">組織ID</th>
+                            <th width="50%">組織名</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-body manageTabel">
+                    <table style="width: 90%; overflow: scroll;border-top: unset;" >
+                        <tr style="height: 3vh;" v-for="(obj,i) in orgList">
+                            <td width="30%" style="text-align: left;font-size: 0.8vw;">{{ obj.orgId}}</td>
+                            <td width="50%" style="text-align: left;font-size: 0.8vw;">{{ obj.orgNm }}</td>
+                            <td width="20%">
+                                <button type="button" class="delBtn" @click="delOrgBtn(orgList,i)">削除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="notice">[*] は入力必須項目です</div>
+    <div class="button_div">
+        <button class="end_btn" @click="submitFn()">登録</button>
+        <button class="end_btn" @click="bakBtn()">戻る</button>
+    </div>
+
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_confirm.js"></script>
+<script src="${request.contextPath}/js/manager/F00042.js" type="text/javascript" charset="utf-8"></script>
+</html>

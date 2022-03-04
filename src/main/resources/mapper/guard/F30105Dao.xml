@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30105Dao">
+    <resultMap id="CodValueMap" type="jp.learningpark.modules.guard.dto.F30105Dto">
+        <result property="codValue" column="cod_value"/>
+        <result property="codValue2" column="cod_value_2"/>
+        <collection property="f30105SecDtoList" ofType="jp.learningpark.modules.guard.dto.F30105SecDto">
+            <result property="learnLevUnds" column="learn_lev_unds"/>
+            <result property="blockTypeDiv" column="block_type_div"/>
+            <result property="blockNm" column="block_nm"/>
+            <result property="chaptNm" column="chapt_nm"/>
+            <result property="subjtNm" column="subjt_nm"/>
+            <result property="bnum" column="bnum"/>
+            <result property="id" column="id"/>
+			<!-- 2021/01/06 UT-107 cuikailin add start -->
+			<result property="stuTermPlanId" column="stu_term_plan_id"/>
+			<!-- 2021/01/06 UT-107 cuikailin add end -->
+        </collection>
+    </resultMap>
+    <select id="selectValueByCodcd" resultMap="CodValueMap">
+        SELECT DISTINCT
+	MCD.cod_value AS block_nm,
+CASE
+
+	WHEN cd.cod_value = K.cod_value THEN
+	G.cod_value ELSE cd.cod_value
+	END AS cod_value,
+CASE
+
+		WHEN cd.cod_value_2 = K.cod_value_2 THEN
+		G.cod_value_2 ELSE cd.cod_value_2
+	END AS cod_value_2,
+	cd.sort,
+	wpp.*,
+	um.chapt_nm
+FROM
+	( SELECT cod_value, cod_value_2 FROM MST_COD_d WHERE cod_cd = '0' AND cod_key = 'LEARN_LEV_UNDS' ) K,
+	( SELECT cod_value, cod_value_2 FROM MST_COD_d WHERE cod_cd = '4' AND cod_key = 'LEARN_LEV_UNDS' ) G,
+	MST_COD_d cd
+	LEFT JOIN stu_weekly_plan_perf wpp ON COALESCE ( wpp.learn_lev_unds, '0' ) = cd.cod_cd
+	AND wpp.stu_id = #{stuId}
+	AND wpp.plan_ymd BETWEEN #{startDate}
+	AND #{endDate}
+	AND wpp.block_type_div IN ( 'S1', 'R1', 'P1', 'W1','V1' )
+	AND wpp.subjt_div = #{subjtDiv}
+	and wpp.learn_lev_unds is not NULL
+	AND wpp.del_flg = 0
+	LEFT JOIN mst_unit um ON um.ID = wpp.unit_id
+	AND um.del_flg = 0
+	left JOIN mst_cod_d mcd ON mcd.cod_cd = wpp.block_type_div
+	AND mcd.cod_key = 'BLOCK_TYPE_DIV'
+	AND MCD.del_flg = 0
+WHERE
+	cd.cod_key = 'LEARN_LEV_UNDS'
+	AND cd.del_flg = 0
+ORDER BY
+cd.sort
+    </select>
+</mapper>

@@ -1,0 +1,253 @@
+*{
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+p{
+    margin: 0;
+}
+html {
+    font-size: 62.5%; /*10 ÷ 16 × 100% = 62.5%*/
+    user-select: none;
+}
+header{
+    position: fixed;
+    width: 100%;
+    height: 5vw;
+    background: #e2ffef;
+    z-index: 999;
+}
+html,body{
+    margin: 0;
+}
+ul{
+    padding:0;
+    margin:0;
+}
+ul li{
+    list-style:none;
+}
+h1,h2,h3,h4,h5,h6{
+    margin:0!important;
+}
+a{
+    text-decoration: none;
+}
+.header_logo{
+    float: left;
+    width: 9vw;
+    height: 100%;
+    overflow: hidden;
+    background: url(../../img/logo.png) no-repeat center/100%;
+}
+.header_stuNm{
+    float: left;
+    width: 30vw;
+    height: 100%;
+    padding-top: 2vw;
+    margin-left: 3vw
+}
+.header_stuNm p{
+    display: inline;
+}
+.header_stuNm b{
+    font-size: 1.3vw !important;
+}
+.content{
+    padding:5vw 1vw 0 1vw;
+    width:100%;
+    overflow: hidden;
+    overflow-y:auto;
+}
+.header_operat{
+    float: right;
+    height: 100%;
+    width: 30%;
+    margin: 0;
+}
+
+.header_operat li{
+    width: 20%;
+    height: 100%;
+    float: left;
+    margin: 0;
+    text-align: center;
+}
+.header_operat li.endLi {
+    float: right;
+}
+
+.header_operat li a{
+    width: 100%;
+    height: 100%;
+    float: left;
+    color: #000;
+    text-align: center;
+}
+.header_operat li img{
+    width: 40%;
+    margin-top: 0.5vw;
+}
+.header_operat li p{
+    font-size: 0.8vw;
+    margin: 0;
+    color: #666;
+}
+select{
+    border:1px solid #999!important;
+    background:url(../../img/select_ico.png) no-repeat  right center/1vw;
+}
+.login_btn{
+    width:420px;
+    line-height:40px;
+    background:#00b0f0;
+    text-align:center;
+    color:#fff;
+    border:none;
+    margin-top:20px;
+    border-radius:0;
+    left:50%;
+    transform: translate(-50%);
+}
+.login_btn_sc_first{
+    margin:0!important;
+}
+
+.topMessage{
+    width: 100%;
+    height: 2.4vw;
+    line-height: 2.4vw;
+    color: red;
+    font-size: 1.1vw;
+    text-align: center;
+    overflow: hidden;
+    display: none;
+}
+.hasHeight{
+    display: block!important;
+}
+.fc-view-container{background-color: #feffef}
+::-webkit-scrollbar{width: 4px;height: 4px;}
+::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);border-radius: 1px;  background-color: #dadada;}
+::-webkit-scrollbar-thumb{border-radius: 1px;-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.3);background-color: #AAAAAA;}
+[v-cloak]{
+    display: none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default{
+    background: none;
+    border: 0;
+}
+.ui-jqgrid .ui-jqgrid-hdiv{
+    border-top: 1px solid #009944!important;
+    border-radius: 0;
+}
+.ui-jqgrid tr.ui-row-ltr td{
+    text-align: center;
+    border: 0;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr{
+    border-right: 0;
+}
+.ui-widget.ui-widget-content{
+    border: 0!important;
+    border-radius: 0!important;
+}
+.ui-jqgrid .ui-jqgrid-view button{
+    width: auto;
+    height: auto;
+    background: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+    color: #009944;
+    border: 0;
+}
+.ui-state-active{
+    background: #007fff !important;
+
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+    border: 0;
+    background: none;
+    color: #333333;
+}
+
+.required{
+    padding-right: 2%;
+    position: relative;
+}
+
+.required:after{
+    content: '*';
+    color: #EA331B;
+    position: absolute;
+    right: 6%;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.6rem;
+    color: #FFF!important;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-dialog {
+    max-width: 400px;
+    width: auto !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1.6rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+.layui-layer-btn{
+    text-align: center;
+}
+
+/*hjx:radio css add type-two*/
+input[type="radio"].newtui-radio-two{
+    appearance: none;
+    -webkit-appearance: none;
+    width: 10vw;
+    height: 4vw;
+    line-height: 4vw;
+    border: none;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+input[type = "radio"].newtui-radio-two::after {
+    content: "";
+    width: 1.5vw;
+    height: 1.5vw;
+    border: 1px solid #AAA;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+input[type="radio"].newtui-radio-two:checked:after {
+    border: 3px solid #AAA;
+    background-color: #000;
+}
+
+input[type="radio"].nolabel::before{
+    content: attr(title);
+    position: absolute;
+    margin-left: 2vw;
+    /*margin-top: 0.5vw;*/
+    width: auto;
+    height: 100%;
+}

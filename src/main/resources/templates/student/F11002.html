@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>スマホ_学習情報登録(繰り返す予定)</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11002.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_F10102.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11002" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul id="titleUl">
+                <li onclick="window.location.href='F11001.html'" class="active1">計画登録</li>
+                <li :onclick="toF11004()" class="active2">実行登録</li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <div class="topBtnDiv" style="height: 41px; padding: 0 5px;">
+                <button :disabled="isEditMode()" class="topBtn1" onclick="window.location.href='F11001.html'"
+                        style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">ウィークリープラン
+                </button>
+                <button class="topBtn" onclick="location.reload()">繰り返す予定</button>
+                <button class="topBtn1" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;"
+                        :disabled="isEditMode()" onclick="window.location.href = 'F11003.html'">生活のブロック
+                </button>
+            </div>
+
+            <div class="planTitle">
+                <span>実施項目の選択</span>
+                <button class="submit">{{params.id ? '戻る' : '登録'}}</button>
+            </div>
+            <div class="chooseOne">
+                <div class="showteach" @click="showCategory" :style="params.typeDiv && params.typeDiv === '1' ? 'pointer-events: none;' : ''">
+                    <p>項目</p>
+                    <div id="init"></div>
+                </div>
+                <div class="check_category">
+                    <select id="dom_category" name="select">
+                        <option :selected="blockType.id === vm.blockType ? true : false" :value="blockType.id"
+                                v-for="blockType in blockTypeDivList">{{blockType.blockDispyNm}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="chooseTwo">
+                <div class="planTitle">
+                    <span>期間設定</span>
+                </div>
+                <div class="contentDiv">
+                    <div class="title">期間</div>
+                    <div class="divContent">
+                        <div>
+                            <input class="onetime" disabled="disabled" id="start_date" name="blockStartDate"
+                                   type="text">
+                            <p class="timeBtn"><img src="../img/timeBtn.png" alt=""></p>
+                            <p :style="params.typeDiv && params.typeDiv === '1' ? 'pointer-events: none;' : ''"
+                               class="timeCon oneBtn"></p>
+                        </div>
+                        <div class="wave">~</div>
+                        <div>
+                            <input type="text" disabled="disabled" class="twotime" name="blockEndDate" id="end_date">
+                            <p class="timeBtn"><img src="../img/timeBtn.png" alt=""></p>
+                            <p :style="params.typeDiv && params.typeDiv === '1' ? 'pointer-events: none;' : ''"
+                               class="timeCon twoBtn"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="contentDiv">
+                    <div class="title week-title">曜日</div>
+                    <ul :style="params.typeDiv && params.typeDiv === '1' ? 'pointer-events: none;' : ''"
+                        class="divContent">
+                        <li class="week-item"
+                            disabled="disabled"
+                            style="border-left: 1px solid #009944;border-top-left-radius: 3px;border-bottom-left-radius: 3px;">月
+                        </li>
+                        <li class="week-item">火</li>
+                        <li class="week-item">水</li>
+                        <li class="week-item">木</li>
+                        <li class="week-item">金</li>
+                        <li class="week-item">土</li>
+                        <li class="week-item" style="border-top-right-radius: 3px;border-bottom-right-radius: 3px;">日</li>
+
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="contentDiv">
+                    <section class="form_item_content">
+                        <section class="time_item time_itemO" id="div1">
+                            <span class="label">時間（開始）</span>
+                            <!--<p class="p_che"><input type="checkbox" id="in_check_start"/><label>翌日</label></p>-->
+                            <p class="checktimeO" id="blockStartTime" onclick="blockStartTime()"></p>
+                            <input type="text" id="time_picker_begin" style="display:none;"/>
+                        </section>
+                        <section class="time_item time_itemT" id="div2">
+                            <span class="label">時間（終了）</span>
+                            <!--<p class="p_che"><input type="checkbox" id="in_check_end"/><label>翌日</label></p>-->
+                            <p class="checktimeT" id="blockEndTime" onclick="blockEndTime()"></p>
+                            <input type="text" id="time_picker_end" style="display:none;"/>
+                        </section>
+                    </section>
+                </div>
+            </div>
+            <div class="button-container" v-if="params.id">
+                <button @click="del()" class="del">削除</button>
+                <button @click="update()" class="update">更新</button>
+            </div>
+        </div>
+
+        <div class="div_bottom">
+            <iframe src="${request.contextPath}/common/F40012.html?id=F11002" frameborder="0" width="100%"
+                    height="100%"></iframe>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F11002.js"></script>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21003Dao">
+    <select id="select" resultType="jp.learningpark.modules.manager.dto.F21003Dto">
+     SELECT
+        lah.id,
+        lah.tgt_ymd,
+        lah.corrspd_sts,
+        lah.notice_id,
+        mg.flnm_nm,
+        mg.flnm_lnm,
+        mg.mailad,
+        ms2.flnm_nm|| ' '|| ms2.flnm_lnm as stuNm,
+        mcd.cod_value,
+        to_char(lah.cret_datime, 'yy/MM/dd') as cretDatime
+    FROM
+        late_abs_hst lah
+        INNER JOIN mst_guard mg ON ( lah.guard_id = mg.guard_id AND lah.del_flg = 0 )
+        inner join mst_stu as ms2 on ms2.stu_id = lah.stu_id and ms2.del_flg = 0
+        inner join mst_cod_d as mcd on mcd.cod_cd = ms2.schy_div and mcd.cod_key = 'SCHY_DIV' and mcd.del_flg = 0
+        <if test="roleDiv == 2">
+            INNER JOIN mentor_stu as ms ON ( ms.stu_id = lah.stu_id and ms.crmsch_id = #{orgId} and ms.del_flg = 0 )
+        </if>
+    WHERE
+        <if test="roleDiv == 1">
+            lah.org_id = #{orgId}
+        </if>
+        <if test="roleDiv == 2">
+            ms.mentor_id = #{userId}
+        </if>
+        <if test="corrspdSts == 0">
+            AND lah.corrspd_sts in ('0','3')
+        </if>
+        <if test="corrspdSts == 1">
+            AND lah.corrspd_sts in ('1','2')
+        </if>
+
+    order by
+        <if test="corrspdSts == 0 ">
+            lah.cret_datime ASC
+        </if>
+        <if test="corrspdSts == 1 ">
+            lah.tgt_ymd desc ,
+            COALESCE ( ms2.flnm_kn_nm, '' ) || COALESCE ( ms2.flnm_kn_lnm, '' ) COLLATE "ja_JP.utf8" ,
+            cretDatime desc
+        </if>
+        <if test="offset != null">
+            limit #{limit} OFFSET #{offset}
+
+        </if>
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        late_abs_hst lah
+        INNER JOIN mst_guard mg ON ( lah.guard_id = mg.guard_id AND lah.del_flg = 0 )
+        inner join mst_stu as ms2 on ms2.stu_id = lah.stu_id and ms2.del_flg = 0
+        inner join mst_cod_d as mcd on mcd.cod_cd = ms2.schy_div and mcd.cod_key = 'SCHY_DIV' and mcd.del_flg = 0
+        <if test="roleDiv == 2">
+            INNER JOIN mentor_stu as ms ON ( ms.stu_id = lah.stu_id and ms.crmsch_id = #{orgId} and ms.del_flg = 0 )
+        </if>
+        WHERE
+        <if test="corrspdSts == 0">
+             lah.corrspd_sts in ('0','3')
+        </if>
+        <if test="corrspdSts == 1">
+             lah.corrspd_sts in ('1','2')
+        </if>
+        <if test="roleDiv == 1">
+            AND lah.org_id = #{orgId}
+        </if>
+        <if test="roleDiv == 2">
+            AND ms.mentor_id = #{userId}
+        </if>
+
+
+    </select>
+    <select id="selectIdMax" resultType="java.lang.Integer">
+	SELECT
+		MAX (id) as id
+	FROM
+		late_abs_hst
+	</select>
+</mapper>

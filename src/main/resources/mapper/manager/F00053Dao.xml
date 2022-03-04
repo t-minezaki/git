@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00053Dao">
+    <select id="getGroupList" resultType="jp.learningpark.modules.manager.dto.F00053Dto">
+        SELECT DISTINCT
+        mg.grp_id AS groupId,
+        mg.grp_nm AS tmp
+        FROM
+        mst_grp AS mg
+        INNER JOIN stu_grp AS sp ON sp.grp_id = mg.grp_id
+        WHERE
+        mg.del_flg = 0
+        AND sp.del_flg = 0
+        <if test="orgId !=null and orgId !='' ">
+            AND mg.org_id = #{orgId}
+        </if>
+        <if test="groupName != null and groupName != '' ">
+            AND mg.grp_nm  LIKE CONCAT('%',trim(#{groupName}),'%')
+        </if>
+
+        ORDER BY mg.grp_id
+    </select>
+    <select id="getTotalCount" resultType="integer">
+        SELECT
+        count( DISTINCT mg.grp_id )
+        FROM
+        mst_grp AS mg
+        INNER JOIN stu_grp AS sp ON sp.grp_id = mg.grp_id
+        WHERE
+        mg.del_flg = 0
+        AND sp.del_flg = 0
+        <if test="orgId !=null and orgId !='' ">
+            AND  mg.org_id = #{orgId}
+        </if>
+        <if test="groupName != null and groupName != '' ">
+            AND mg.grp_nm  LIKE CONCAT('%',trim(#{groupName}),'%')
+        </if>
+
+    </select>
+</mapper>

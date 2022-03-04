@@ -1,0 +1,63 @@
+body {
+
+    background: white;
+}
+
+#app {
+
+    overflow-y: auto;
+    margin-left: 6%;
+    height: 100vh;
+}
+
+.div_info {
+
+    margin-top: 1vh;
+}
+
+.div_title {
+
+    display: inline-block;
+    width: 30%;
+    font-size: 1.5em;
+    font-weight: bolder;
+    float: left;
+}
+
+.div_cont {
+
+    display: inline-block;
+    font-size: 1.5em;
+    width: 60%;
+    min-width: 20%;
+    height: 6.3vh;
+    line-height: 6vh;
+    border: 1px #888 solid;
+    overflow-y: auto;
+    border-radius: 7px;
+    text-indent: 1em;
+}
+
+.span_org {
+    display: block;
+}
+
+#event_cont {
+
+    width: 60%;
+    height: 35vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#orgList {
+
+    width: 60%;
+    height: 20vh;
+    overflow-y: auto;
+}
+
+#attachFilePath:focus {
+    height: auto;
+    border: 1px cornflowerblue solid;
+}

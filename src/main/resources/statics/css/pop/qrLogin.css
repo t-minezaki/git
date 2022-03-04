@@ -1,0 +1,98 @@
+html, body, #app {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+}
+
+.header {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 4vh;
+}
+
+.radio {
+    float: left;
+    margin-top: 2vh;
+    margin-left: 23%;
+}
+
+.content {
+    margin: 1% 1% 3% 1%;
+    height: 65%;
+    overflow-y: auto;
+    border: 1px #CCC solid;
+}
+
+p {
+    margin: 0px 0px 10px 0px;
+}
+.other{
+    margin: 0;
+    width: 20%;
+    float: left;
+}
+
+.theme_btn button {
+    width: 30%;
+    border-radius: 1vw;
+    font-size: 4vw;
+    float: left;
+    margin-right: 8vw;
+    background: none;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+.text{
+    float: left;
+    width: 20%;
+}
+.layui-layer-title{
+    text-align: center !important;
+    background: #00a65a !important;
+    padding: 0 !important;
+    color: white;
+}
+.layui-layer-btn{
+    text-align: center !important;
+}
+.layui-layer-molv .layui-layer-btn a{
+    border-color: #00a65a !important;
+    background:#00a65a !important;
+}
+.layui-layer-molv .layui-layer-btn .layui-layer-btn0,.layui-layer-btn1{
+    background: #00a65a;
+    color: white;
+}
+.hasHeight{
+    display: block;
+    color: red;
+    text-align: center;
+    width: 70%;
+    padding-left: 15%;
+}
+.layui-layer-btn a{
+    border-color: #00a65a !important;
+    background: #00a65a !important;
+    color: white;
+}
+input:disabled {
+    color: rgb(84, 84, 84);
+    cursor: default;
+    background-color: rgb(235, 235, 228) !important;
+}
+::-webkit-scrollbar{
+    width: 4px;
+    height: 4px;
+    background: rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #CCC;    /* 较少使用 */
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    height: 20px !important;    /* 滚动条滑块长度 */
+    background-color: rgba(0,0,0,0.3);
+}

@@ -1,0 +1,531 @@
+.header_operat {
+    width: auto;
+}
+
+html {
+    overflow: hidden;
+    background: white !important;
+}
+
+body {
+    background: white !important;
+}
+
+.title {
+    font-weight: bold;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 1vw;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9vw;
+    padding: 0 1.6vw;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sim {
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.two {
+    width: 100%;
+    padding: 1vw 2.2vw 2vw 2.2vw;
+}
+
+.top {
+    width: 100%;
+    height: 2.2vw;
+}
+
+.top_div {
+    border: 1px dashed #000;
+    width: auto;
+    height: 2.2vw;
+    float: left;
+    padding: 0 0.2vw;
+}
+
+.div_radiobox {
+    display: inline-flex;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    line-height: 3vw;
+    font-size: 10px;
+}
+
+input[type="radio"] {
+    font-size: 0.8vw;
+    margin-top: 0px !important;
+    text-indent: 4px;
+}
+
+div > label {
+    position: relative;
+    margin-right: 1vw;
+    float: left;
+}
+
+div > label > p {
+    height: 100%;
+    width: auto;
+    font-size: 0.9vw;
+    margin: 0;
+    padding: 0;
+    line-height: 2.2vw;
+    float: left;
+}
+
+div > label::before {
+    display: inline-block;
+    content: "";
+    width: 0.8vw;
+    height: 0.8vw;
+    border-radius: 100%;
+    border: 1px solid #ccc;
+    margin-right: 0.5vw;
+    vertical-align: bottom;
+    margin-top: 0.5vw;
+    float: left;
+}
+
+div > input:checked + label::after {
+    display: inline-block;
+    content: "";
+    width: 0.4vw;
+    height: 0.4vw;
+    border-radius: 50%;
+    position: absolute;
+    left: 0.26vw;
+    bottom: 1vw;
+    background-color: #2e2e2e;
+    float: left;
+}
+
+.center {
+    width: 100%;
+    height: 4vw;
+    padding: 1vw 0;
+    position: relative;
+}
+
+.center div {
+    width: 12%;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    float: left;
+    font-size: 0.9vw;
+}
+
+.center input {
+    width: 50%;
+    height: 2.2vw;
+    border: 1px solid #000;
+    font-size: 0.9vw;
+    padding: 0 0.5vw;
+    border-radius: 4px;
+}
+
+.center input:disabled {
+    background: none;
+}
+
+.center button {
+    width: 8%;
+    height: 2.2vw;
+    background: none;
+    border-radius: 4px;
+    border: 1px solid #009944;
+    margin-left: 2%;
+    color: #009944;
+    font-size: 0.9vw;
+}
+
+.bottom {
+    width: 100%;
+    height: 6vw;
+    padding: 1vw 0;
+}
+
+.bottom .left {
+    width: 12%;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    float: left;
+    font-size: 0.9vw;
+}
+
+.bottom button {
+    width: 8%;
+    height: 2.2vw;
+    background: none;
+    border-radius: 0.3vw;
+    border: 1px solid #009944;
+    margin-left: 2.2vw;
+    color: #009944;
+    font-size: 0.9vw;
+}
+
+.content_bottom {
+    width: 50%;
+    height: 4vw;
+    float: left;
+}
+
+.rigPo {
+    float: left;
+    width: 38%;
+    height: 2.2vw;
+}
+
+.con_bottom {
+    width: 100%;
+    height: 4.4vw;
+    border: 1px dashed #000;
+    border-radius: 0.1vw;
+    padding: 0 0.3vw;
+}
+
+.con_bottom .title {
+    width: 100%;
+    float: left;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+}
+
+.con_bottom .radio_div {
+    width: 50%;
+    float: left;
+    height: 2.2vw;
+}
+
+.content_bottom1 {
+    height: 2.2vw;
+}
+
+.bottom1 {
+    height: 4vw;
+}
+
+.top_title {
+    width: 100%;
+    font-size: 0.9vw;
+    height: 2.2vw;
+    line-height: 2.2vw;
+}
+
+.four {
+    /*padding: 0 2.2vw 1vw 2.2vw;*/
+}
+
+.fileForm {
+    width: 8%;
+    height: 2.2vw;
+    position: absolute;
+    top: 1vw;
+    left: 64%;
+    opacity: 0;
+}
+
+.center input.getFile {
+    width: 100%;
+    height: 2.2vw;
+}
+
+.infoContent {
+    border: 1px dashed black;
+}
+
+.infoContent > ul {
+    height: 6vw;
+    width: 100%;
+    padding: 1vw 2vw;
+}
+
+.infoContent > ul > li {
+    float: left;
+    height: 2.2vw;
+    width: calc(100% / 3);
+}
+
+.infoContent > ul > li > div {
+    float: left;
+    width: 25%;
+    height: 2.2vw;
+}
+
+.infoContent > ul > li > input {
+    float: left;
+    width: 70%;
+    height: 2.2vw;
+    border: none;
+    background: none;
+}
+
+.selectBtn {
+    border-radius: 4px;
+    width: 12vw;
+    height: 7vh;
+    /* line-height: 6vh; */
+    border-bottom: 3px grey solid;
+    color: rgb(100, 100, 100);
+    background: white;
+    border-width: 1px 1px 3px;
+    border-style: solid;
+    border-color: grey;
+    border-image: initial;
+    float: right;
+    margin-right: 10vw;
+}
+
+.footDiv {
+    width: 100%;
+    height: 13vh;
+}
+
+.selectBtn.footBtn {
+    float: left;
+}
+
+.footDiv .footAuto {
+    width: 100%;
+    height: 100%;
+    /*margin-top: 3vh;*/
+}
+
+.box {
+    height: 64vh;
+    margin-top: 3vh;
+}
+
+.box1 {
+    float: left;
+    display: inline-block;
+    width: 40%;
+    height: 65vh;
+    padding: 0;
+    overflow-y: hidden;
+    /*margin-top: 5vh;*/
+}
+
+.box2 {
+    width: 3%;
+    float: left;
+    text-align: center;
+    margin-top: 11vh;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+}
+
+.box2 button {
+    text-align: center;
+    margin-top: 1vw;
+    border: 1px solid grey;
+    background-color: white;
+    height: 1.5vw;
+    width: 1.5vw;
+    padding: 0;
+}
+
+option {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+#select {
+    width: 15vw;
+    height: 8vh;
+    border-radius: 3px;
+    border: 0;
+    background: #00a65a;
+    color: whitesmoke;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    float: right;
+    margin-right: 6vw;
+    margin-top: 3vh;
+}
+
+#toleft, #toright {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+    padding: 20%;
+}
+
+.span {
+    height: 1.5vw;
+    font-size: 2vw;
+    line-height: 1.5vw;
+    font-weight: 600;
+}
+
+#checkSelect {
+    position: relative;
+    height: 5vh;
+}
+
+.img_div {
+    width: auto;
+    position: absolute;
+    margin-left: 14vw;
+    height: 2.5vw;
+}
+
+.inputMessage {
+    display: flex;
+}
+
+.box1 form {
+    overflow-y: auto;
+    height: 56vh;
+    border: 1px grey solid;
+    background: white;
+}
+
+.item_div {
+    border-bottom: 1px grey solid;
+    width: auto;
+    height: 10vh !important;
+    line-height: 10vh !important;
+    margin-top: 3vh !important;
+}
+
+.item_div input[type="checkbox"] {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    margin-top: -2vh;
+    background: #fff;
+    border: #999 solid 1px;
+    border-radius: 3px;
+    width: 2vw;
+    height: 5vh;
+    margin-left: 3vw;
+}
+
+.content div input {
+    height: 6vh;
+    color: #2e2e2e;
+    font-size: 1.4vw;
+    line-height: 8vh;
+    margin-left: 0.1vw;
+    width: 2vw;
+}
+
+.radioText {
+    width: 6vw;
+}
+
+span.cont {
+    display: inline-block;
+    width: 82%;
+    height: 8vh;
+    line-height: 8vh;
+    float: right;
+    font-size: 2vw;
+}
+
+span.title {
+    width: 100%;
+    height: 9vh;
+    text-align: center;
+    font-size: 2vw;
+    line-height: 9vh;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    border: 1px grey solid;
+}
+
+.item_div input[type="checkbox"]:checked::after {
+    content: '\2714';
+    position: relative;
+    top: -1.1vh;
+    left: 0.2vw;
+}
+
+div.symbol {
+    float: left;
+    display: inline-block;
+    width: 9%;
+    height: 60vh;
+    text-align: center;
+    padding-right: 0.7vw;
+    position: relative;
+    top: 6vh;
+}
+
+div.symbol div {
+    height: auto;
+    line-height: 0vh;
+    margin-top: 5vh;
+    overflow: hidden;
+}
+
+.radioText {
+    width: 6vw;
+    font-size: 1.2em;
+}
+
+#typeDiv {
+    width: 14vw;
+    margin-left: 2.5vw;
+    height: 5vh;
+    margin-top: 4px;
+    -webkit-appearance: none;
+}
+
+#stuName {
+    border: 1px solid black;
+    margin-left: 2.5vw;
+    width: 14vw;
+    height: 5vh;
+    -webkit-appearance: none;
+}
+
+div.symbol button {
+    display: inline-block;
+    width: 5vw;
+    height: 8vh;
+    line-height: 8vh;
+    background-color: rgb(247, 247, 247);
+    border: 1px grey solid;
+    padding: 0;
+    color: grey;
+    font-size: 5vw;
+    margin-left: 1vw;
+    border-radius: 10%;
+}
+
+.div_radio {
+    display: inline-block;
+    margin-left: 2vw;
+    height: 18px;
+    line-height: 18px;
+}
+.laydate-btns-time{
+    display: none !important;
+}

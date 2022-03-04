@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.manager.dao.F20001Dao">
+    <select id="selectInfo" resultType="jp.learningpark.modules.manager.dto.F20001Dto" parameterType="map">
+        SELECT DISTINCT
+        cst.stu_id,
+        sm.flnm_nm AS stuNM,
+        sm.flnm_lnm AS stuLNM,
+        case when clpm.id is null THEN clpm2.id else clpm.id end as id,
+        CASE
+        WHEN clpm.plan_prd_start_dy IS NULL THEN
+        clpm2.plan_prd_start_dy ELSE clpm.plan_prd_start_dy
+        END AS planstartdy,
+        CASE
+        WHEN clpm.plan_prd_end_dy IS NULL THEN
+        clpm2.plan_prd_end_dy ELSE clpm.plan_prd_end_dy
+        END AS planenddy,
+        CASE
+        WHEN t1.stu_id IS NULL THEN
+        '0' ELSE
+        CASE
+        WHEN t1.planTime > t1.perfTime THEN
+        '1' ELSE'2'
+        END
+        END AS status,
+        choc.stu_id IS NOT NULL AS nameStatus
+        FROM
+        mentor_stu cst
+        INNER JOIN mst_stu sm ON cst.stu_id = sm.stu_id
+        <if test="userName!=null and userName!=''">
+            and (sm.flnm_nm like CONCAT('%',#{userName},'%') or sm.flnm_lnm like CONCAT('%',#{userName},'%'))
+        </if>
+        <if test="schyDiv !=null and schyDiv!=''">
+            and sm.schy_div=#{schyDiv}
+        </if>
+        AND sm.del_flg = '0'
+        LEFT JOIN (
+        SELECT SUM( tp.PLAN_LEARN_TM ) AS planTime,
+        SUM ( wpp.PERF_LEARN_TM ) AS perfTime,
+        wpp.stu_id
+        FROM
+        stu_weekly_plan_perf wpp
+        INNER JOIN stu_term_plan tp on tp.id=wpp.stu_term_plan_id
+        WHERE
+        wpp.del_flg = '0'
+        AND wpp.plan_ymd BETWEEN #{startDate}
+        AND #{endDate}
+        GROUP BY
+        wpp.stu_id
+        ) t1 ON t1.stu_id = cst.stu_id
+
+        LEFT JOIN stu_textb_choc choc ON choc.stu_id = cst.stu_id
+        AND choc.del_flg = '0'
+        left JOIN mst_crmsch_learn_prd clpm on clpm.use_flg='1'
+        and clpm.schy_div=sm.schy_div
+        and clpm.org_id=#{orgId}
+        and clpm.del_flg=0
+        left JOIN mst_crmsch_learn_prd clpm2 on clpm2.use_flg='1'
+        and clpm2.schy_div=sm.schy_div
+        and clpm2.del_flg=0
+        and clpm2.org_id = (select om.upplev_org_id from mst_org om where om.org_id=#{orgId} and om.del_flg=0 )
+        <if test="userId != null and userId!=''">
+            INNER JOIN mst_usr MM ON MM.usr_id=sm.stu_id AND MM.after_usr_id=#{userId} AND MM.org_id=#{orgId} AND MM.del_flg=0
+        </if>
+        <if test="termPlanCheck!=null">
+            LEFT JOIN stu_term_plan term on term.stu_id=cst.stu_id and term.del_flg=0
+        </if>
+        <if test="grpDiv1 !=null and grpDiv1!=''">
+            inner join stu_grp sg on sg.stu_id=cst.stu_id AND sg.grp_id=#{grpDiv1}
+        </if>
+        WHERE
+        cst.mentor_id = #{mentorId}
+        <if test="termPlanCheck!=null">
+            AND term.stu_id is null
+        </if>
+        AND cst.del_flg = '0'
+        And cst.crmsch_id=#{orgId}
+        ORDER BY
+        sm.flnm_nm,
+        sm.flnm_lnm
+    </select>
+    <select id="getManagerStu" resultType="jp.learningpark.modules.manager.dto.F20001Dto" parameterType="map">
+        SELECT distinct
+        mu.usr_id AS stuId,
+        ms.flnm_nm AS stuNM,
+        ms.flnm_lnm AS stuLNM,
+        case when mclp.id is null THEN mclp2.id else mclp.id end as id,
+        CASE WHEN mclp.plan_prd_start_dy IS NULL
+        THEN mclp2.plan_prd_start_dy
+        ELSE mclp.plan_prd_start_dy
+        END AS planstartdy,
+        CASE WHEN mclp.plan_prd_end_dy IS NULL
+        THEN mclp2.plan_prd_end_dy
+        ELSE mclp.plan_prd_end_dy
+        END AS planenddy,
+        CASE WHEN t1.stu_id IS NULL
+        THEN '0'
+        ELSE
+        CASE WHEN t1.planTime > t1.perfTime
+        THEN '1'
+        ELSE'2'
+        END
+        END AS status
+        FROM mst_usr AS mu
+        INNER JOIN mst_stu AS ms
+        ON ms.stu_id = mu.usr_id
+        AND ms.del_flg = 0
+        LEFT JOIN stu_term_plan AS stp
+        ON stp.stu_id = mu.usr_id
+        AND stp.del_flg = 0
+        LEFT JOIN (
+        SELECT SUM
+        ( tp.PLAN_LEARN_TM ) AS planTime,
+        SUM ( wpp.PERF_LEARN_TM ) AS perfTime,
+        wpp.stu_id
+        FROM
+        stu_weekly_plan_perf wpp
+        INNER JOIN stu_term_plan tp ON tp.ID = wpp.stu_term_plan_id
+        WHERE
+        wpp.del_flg = '0'
+        AND wpp.plan_ymd BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+        wpp.stu_id
+        ) t1 ON t1.stu_id = mu.usr_id
+        LEFT JOIN stu_textb_choc AS stc
+        ON stc.stu_id = mu.usr_id
+        and stc.stu_id = ms.stu_id
+        AND stc.del_flg = 0
+        left join mst_crmsch_learn_prd mclp
+        on mclp.org_id = #{orgId}
+        and mclp.use_flg = '1'
+        and mclp.schy_div = ms.schy_div
+        and mclp.del_flg = 0
+        left join mst_crmsch_learn_prd mclp2
+        on mclp2.use_flg = '1'
+        and mclp2.schy_div = ms.schy_div
+        and mclp2.org_id = #{orgId}
+        and mclp2.del_flg = 0
+        left join mst_org mo
+        on mo.upplev_org_id = mclp2.org_id
+        and mo.org_id = #{orgId}
+        and mo.del_flg = 0
+        <if test="grpDiv1 !=null and grpDiv1!=''">
+            inner join stu_grp sg on sg.stu_id=mu.usr_id AND sg.grp_id=#{grpDiv1}
+            AND sg.del_flg = 0
+        </if>
+        WHERE
+        mu.org_id = #{orgId}
+        AND mu.role_div = '4'
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+        <if test="userId != null and userId!=''">
+            AND mu.after_usr_id = #{userId}
+        </if>
+        <if test="userName!=null and userName!=''">
+            AND (ms.flnm_nm like CONCAT('%',#{userName},'%') or ms.flnm_lnm like CONCAT('%',#{userName},'%'))
+        </if>
+        <if test="schyDiv !=null and schyDiv!=''">
+            and ms.schy_div=#{schyDiv}
+        </if>
+        ORDER BY
+        stuNM,
+        stuLNM
+    </select>
+
+    <select id="selectCrmLearnPrdId" parameterType="String" resultType="jp.learningpark.modules.common.entity.MstCrmschLearnPrdEntity">
+        SELECT
+            clpm.ID
+        FROM
+            mst_crmsch_learn_prd clpm
+            INNER JOIN mst_stu sm ON sm.schy_div = clpm.schy_div
+            AND sm.stu_id = #{stuId}
+        WHERE
+            (
+            clpm.org_id = #{orgId}
+            OR clpm.org_id = ( SELECT upplev_org_id FROM mst_org WHERE org_id = #{orgId} AND del_flg = 0 )
+            )
+            AND clpm.use_flg = '1'
+        AND clpm.del_flg =0
+    </select>
+    <select id="getPermissionFromMstUserNmFunList" parameterType="java.lang.String" resultType="String">
+        select
+            fun_id
+        from
+            mst_user_nm_fun_list
+        where
+            user_id = #{user_id}
+            and fun_id in ('F20002', 'F20003', 'F20006', 'F20008', 'F20010')
+            and del_flg = 0;
+    </select>
+    <select id="getPermissionFromMstOrgFunList" parameterType="java.lang.String" resultType="String">
+        select
+            a.fun_id
+        from
+            mst_org_fun_list a
+        inner join
+            (select * from mst_usr b where b.usr_id = #{user_id}) as c
+        on a.org_id = c.org_id
+        where
+            a.del_flg = 0
+            and a.fun_id in ('F20002', 'F20003', 'F20006', 'F20008', 'F20010')
+            and (c.role_div = '1' and a.mgr_flg = '1')
+            or (c.role_div = '2' and a.ment_flg = '1')
+    </select>
+</mapper>

@@ -1,0 +1,370 @@
+* {
+    user-select: none;
+}
+
+select.my_select {
+
+    width: 40vw !important;
+    height: 5vh !important;
+    margin-top: 1vh;
+    border-radius: 5px;
+}
+
+select.my_select + label::after {
+
+    height: 5vh !important;
+    line-height: 5vh !important;
+    width: 3vw;
+    color: black;
+}
+
+select.my_select + label::before {
+
+    display: none;
+}
+
+select.my_select + label {
+
+    width: 40vw !important;
+    height: 5vh !important;
+    margin-top: 1vh;
+}
+
+.inputMessage {
+    display: inline-block;
+    width: 50%;
+    /* height: 2vh; */
+    line-height: 2vh;
+    margin-left: 2vw;
+}
+
+.form_up {
+    border: 1px black solid;
+    border-bottom: none;
+    display: inline-block;
+    width: 40vw;
+    height: 11vh;
+    line-height: 6vh;
+    margin-bottom: -0.5vh;
+    overflow-y: auto;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.form_up ul li {
+    height: 4vh;
+    /* line-height: 3vh; */
+    cursor: default;
+    line-height: 3.5vh;
+    border: 1px black solid;
+    width: 47%;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 0.2vh;
+    margin-left: 2%;
+    margin-bottom: 0.2vh;
+    float: left;
+    overflow: hidden;
+}
+
+.form_down {
+    display: inline-block;
+    border: 1px black solid;
+    border-top: 0.8vh #777 solid;
+    width: 40vw;
+    height: 20vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.form_down ul li {
+    height: 3vh;
+    cursor: default;
+    line-height: 3vh;
+    text-indent: 1em;
+    margin-top: 0.5vh;
+    overflow: hidden;
+}
+
+.form_down ul li:hover {
+    background-color: #ccc;
+}
+
+.box1 {
+    /* margin-left: 0.6vw; */
+    width: 40%;
+    height: 100%;
+    float: left;
+}
+
+.box1 .title {
+    font-size: 12px
+}
+
+.box1 .title + div {
+    height: 100%;
+}
+
+.box2 {
+    width: 20%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    padding-top: 6vh;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+}
+
+.box2 button {
+    height: 3vh;
+    width: 6vw;
+    border-radius: 0.3vw;
+    background: none;
+    border: 2px solid #009944;
+    color: #009944;
+    font-weight: bolder;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 2vw;
+    line-height: 2vh;
+}
+
+label.title {
+
+    font-size: 1.4em;
+    font-weight: bolder;
+    color: #444;
+    display: inline-block;
+    text-align: left;
+    width: 9em;
+    float: left;
+    height: auto;
+    line-height: 4vh;
+}
+
+.btn_del {
+    float: left;
+}
+
+.btn_del:hover {
+    font-weight: bolder;
+}
+
+.content {
+    float: left;
+    display: inline-block;
+    width: 45%;
+    height: 35vh;
+    padding: 0;
+    margin-top: -1vh;
+    /*border: 4px #444 solid;*/
+    overflow-y: hidden;
+}
+
+.content form {
+    height: 28vh;
+    border: 1px grey solid;
+    border-top: 0px;
+    overflow: auto;
+}
+
+.content div p {
+    width: 30%;
+    height: 8vh;
+    text-align: left;
+    font-size: 3vw;
+    line-height: 4vw;
+    display: inline-block;
+}
+
+span.title {
+    width: 100%;
+    height: 6vh;
+    text-align: center;
+    font-size: 2vw;
+    line-height: 6vh;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    border: 1px grey solid;
+}
+
+#app {
+    width: 97%;
+    margin-left: 2vw;
+}
+
+div.symbol {
+
+    float: left;
+    display: inline-block;
+    width: 9%;
+    height: 35vh;
+    text-align: center;
+    padding-right: 0.7vw;
+    position: relative;
+    top: -1vh;
+    /*background: #444;*/
+}
+
+div.symbol button {
+    display: inline-block;
+    width: 5vw;
+    height: 6vh;
+    line-height: 6vh;
+    background-color: rgb(247, 247, 247);
+    border: 1px grey solid;
+    padding: 0;
+    color: grey;
+    font-size: 5vw;
+    margin-left: 1vw;
+    border-radius: 13px;
+    overflow: hidden;
+}
+
+div.symbol div {
+    height: auto;
+    line-height: 0vh;
+    margin-top: 2vh;
+}
+
+#close_btn {
+    position: absolute;
+    display: inline-block;
+    right: 1.5vw !important;
+    top: 2vh !important;
+    border: 1px black solid;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    /* line-height: 20px; */
+    font-size: 13px;
+    font-weight: bolder;
+    cursor: default;
+}
+
+#close_btn:hover {
+    background-color: #ccc;
+}
+
+.item_div {
+    border-bottom: 1px grey solid;
+    height: 10vh !important;
+    line-height: 10vh !important;
+    margin-top: 3vh !important;
+}
+
+.content form select {
+    width: 100%;
+    height: 100%;
+    border: 0px !important;
+    overflow: auto;
+    background: white !important;
+}
+
+.content form select option {
+    /*border-bottom: 1px grey solid;*/
+    height: 6vh !important;
+    padding-top: 1.2vh;
+    font-size: 1vw;
+    text-indent: 1em;
+}
+
+.inputMessage input[type = "radio"] {
+    margin-left: 1vw;
+}
+
+input[type="radio"] {
+    outline: none;
+    vertical-align: text-bottom;
+    width: 18px;
+    height: 18px;
+}
+
+#search {
+    background-color: rgb(20,151,71);
+    border-radius: 5px;
+    width: 9vw;
+    padding: 5px;
+    text-align: center;
+    font-size: 1.5vw;
+    color: white;
+    border: 0px;
+    margin-left: 0vw;
+    height: 6vh;
+    line-height: 2vh;
+}
+
+.noFocus {
+    pointer-events: none;
+    /*background-color: #ccc !important;*/
+}
+
+#btn_ok {
+    width: 17vw;
+    height: 7vh;
+    background-color: rgb(20,151,71);
+    border: 0px;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.5em;
+    margin-top: 3vh;
+    position: absolute;
+    left: 41.5%;
+    top: 88%;
+}
+.div_input {
+    height: 10vh;
+    /*margin-top: 2vh;*/
+}
+
+.header {
+    text-align: center;
+}
+
+.head_title {
+    font-size: 2em;
+    color: grey;
+    font-weight: bolder;
+}
+
+.symbol_span{
+    position: relative;
+    top: -1vh;
+}
+
+.my_radio {
+    -webkit-appearance: none;
+    background: url(../../img/icons/radio.svg) no-repeat center/100%;
+    border-radius: 100px;
+}
+
+.my_radio:checked {
+    background: url(../../img/icons/radio_checked.svg) no-repeat center/100%;
+}
+
+#left {
+    background: url(../../img/left_button.png) no-repeat center/100%;
+}
+
+#left_all {
+    background: url(../../img/left_all_button.png) no-repeat center/100%;
+}
+
+#right {
+    background: url(../../img/right_button.png) no-repeat center/100%;
+}
+
+#right_all {
+    background: url(../../img/right_all_button.png) no-repeat center/100%;
+}
+
+#line {
+    height: 1px;
+    width: 40vw;
+    display: inline-block;
+    margin: 0;
+    /* color: black; */
+    background: black;
+}

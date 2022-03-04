@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>ユーザ情報登録·変更：基本情報</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40008.css"/>
+</head>
+<body>
+<header style="padding: 0 1vw;background: #e2ffef;">
+    <div class="header_logo">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout.png" alt="logout"/>
+        </li>
+    </ul>
+</header>
+<div class="content" id="app" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="info_mine">
+        <h4>ユーザ情報登録·確認：<span v-if="roleDiv != 4 && flag == 1">ID／</span>パスワード</h4>
+        <div id="no-first" style="width: 100%; padding-left: 0px;">
+            <h3 style="border: 0;"><span v-if="roleDiv != 4 && flag == 1">ID／</span>パスワードを変更してください。</h3>
+            <h3 style="border: 0;" class="h3_div" v-if="roleDiv != 4 && flag == 1">IDルール：半角英数字8文字以上</h3>
+            <h3 class="h3_div" style="color: red;">パスワードルール：大文字・小文字・数字を含む8文字以上(記号は使えません)</h3>
+        </div>
+        <!--初期の場合のみ表示-->
+        <div id="first" style="width: 100%; padding-left: 0px;">
+            <h3 style="border: 0;">パスワードを変更してください</h3>
+            <h3 style="border: 0;" class="h3_div">定期的なパスワード変更をおすすめしております。</h3>
+            <h3 style="border: 0;" class="h3_div">また、初めてマナミルのご利用を開始される場合にも本画面が表示されます。</h3>
+            <h3 class="h3_div">パスワード変更を行わない場合は、「パスワード変更しない」を押して先に進んでください。</h3>
+        </div>
+        <ul>
+            <li id="input-id-li" v-show="flag == 1">
+                <p>ID</p>
+                <div>
+                    <p class="p1" id="p1">*</p>
+                    <input type="text" :value="afterId" id="id" name="id" maxlength="32" :disabled="roleDiv == 4">
+                </div>
+            </li>
+            <li id="pro">
+                <p>現在のパスワード</p>
+                <div>
+                    <p class="p1">*</p>
+                    <input type="password"  type="text" autocomplete="new-password"  value="" id="oldPwd" name="oldPwd" maxlength="32">
+                </div>
+            </li>
+            <li>
+                <p> 新しいパスワード</p>
+                <div>
+                    <p class="p1" v-if="flag == 0">*</p>
+                    <input type="password" value="" id="newPwd1" name="newPwd1" maxlength="32">
+                </div>
+            </li>
+            <li>
+                <p>パスワード再入力</p>
+                <div>
+                    <p class="p1" v-if="flag == 0">*</p>
+                    <input type="password" value="" id="newPwd2" name="newPwd2" maxlength="32">
+                </div>
+            </li>
+            <li style="border: 0">
+                <p></p>
+                <div>
+                    <p class="bottom" v-if="flag == 0">「*」 は入力必須項目です<br>パスワードは、半角英大文字小文字数字混在の8文字以上<br>(記号は使えません)</p>
+                    <!--<input type="button ">-->
+                </div>
+            </li>
+        </ul>
+        <ul class="ulbottom">
+            <li class="libor">
+                <button class="save_btn save_btn_libor" id="retu" onclick="window.history.go(-1)">戻る</button>
+                <button class="save_btn" id="update" onclick="getInto()">変更</button>
+            </li>
+        </ul>
+        <div class="modifyPsw">
+            <button class="modify" onclick="Jump()">
+                パスワード変更しない
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="${request.contextPath}/js/common/F40008.js"></script>
+</html>

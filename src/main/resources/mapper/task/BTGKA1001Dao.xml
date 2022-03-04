@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.job.task.dao.BTGKA1001Dao">
+    <!--メール送信対象を取得する。-->
+    <select id="selectDeliverInfo" resultType="jp.learningpark.modules.job.task.dto.BTGKA1001Dto">
+        SELECT
+            me.id AS event_id,
+            geas.org_id,
+            geas.stu_id,
+            geas.guard_id,
+            mu.after_usr_id,
+            mg.flnm_nm,
+            mg.flnm_lnm,
+            mg.mailad,
+            mo.brand_cd,
+            mo.org_nm,
+            me.event_title,
+            me.title_img_path
+        FROM mst_event me
+        INNER JOIN guard_event_apply_sts geas
+            ON geas.event_id = me.id
+            and geas.event_sche_del_id is NULL
+            AND geas.del_flg = 0
+        INNER JOIN mst_guard mg
+            ON mg.guard_id = geas.guard_id
+            AND mg.del_flg = 0
+        INNER JOIN mst_org mo
+            ON mo.org_id = geas.org_id
+            AND mo.del_flg = 0
+        INNER JOIN mst_usr mu
+            ON mu.usr_id = geas.guard_id
+            AND mu.del_flg = 0
+        WHERE
+            me.pub_start_dt BETWEEN #{pubStart} and #{pubEnd}
+            AND me.noitce_flg = '1'
+            AND me.del_flg = 0
+        ORDER BY
+            me.org_id,
+            me.id,
+            geas.guard_id
+    </select>
+</mapper>

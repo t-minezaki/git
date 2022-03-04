@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<#include "/header.html" />
+    <title>単元検索結果画面</title>
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F03004.css" />
+</head>
+<body>
+<div class="content">
+	<div id="message" class="topMessage"></div>
+	<div class="popTitle">単元検索結果</div>
+    <div class="topSessionTitle">
+		<div class="bold">組織ID:</div>
+		<div id="showOrgId"></div>
+		<div class="bold">組織名:</div>
+		<div id="orgNm"></div>
+	</div>
+	<div class="main">
+		<div class="top">
+			<p>学年</p>
+			<span id="schy"></span>
+			<p style="margin-left: 13.8vw">教科</p>
+			<span id="subjt"></span>
+		</div>
+		<div class="top">
+			<p>組織</p>
+			<select id="orgId"></select>
+			<p>章名</p>
+			<!--2020/12/23 UT-050 cuikailin modify start-->
+			<!--<input type="text" id="chaptNm" onkeyup="this.value=this.value.replace(/[\x01-\x7E\uFF61-\uFF9F]+/g,'')">-->
+			<input type="text" id="chaptNm">
+			<!--2020/12/23 UT-050 cuikailin modify end-->
+		</div>
+		<div class="top">
+			<p>節名</p>
+			<!--2020/12/23 UT-050 cuikailin modify start-->
+			<!--<input type="text" id="sectnNm" onkeyup="this.value=this.value.replace(/[\x01-\x7E\uFF61-\uFF9F]+/g,'')">-->
+			<input type="text" id="sectnNm">
+			<!--2020/12/23 UT-050 cuikailin modify end-->
+			<p>単元名</p>
+			<!--2020/12/23 UT-050 cuikailin modify start-->
+			<!--<input type="text" id="unitNm" onkeyup="this.value=this.value.replace(/[\x01-\x7E\uFF61-\uFF9F]+/g,'')">-->
+			<input type="text" id="unitNm">
+			<!--2020/12/23 UT-050 cuikailin modify start-->
+			<button onclick="searchFn()">検索</button>
+		</div>
+        <div id="jqGridPager"></div>
+        <table id="jqGrid"></table>
+    </div>
+    <div class="theme_btn">
+        <button onclick="addFn()" class="one">教科書に単元追加</button>
+        <button onclick="cancelFn()">閉じる
+        </button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/pop/F03004.js" type="text/javascript" charset="utf-8"></script>
+</html>

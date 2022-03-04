@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F10304Dao">
+    <select id="selectBlockListByUpplevBlockIdAndBlockTypeDiv" resultType="jp.learningpark.modules.common.entity.MstBlockEntity">
+    SELECT
+	bm.id,
+	bm.block_dispy_nm,
+	bm.stu_id,
+	bm.upplev_block_id,
+	bm.block_pic_div
+    FROM
+	mst_block bm
+	where
+	bm.del_flg = '0'
+	AND ( bm.stu_id IS NULL OR bm.stu_id = '' )
+	AND bm.upplev_block_id = #{blockId}
+	AND bm.block_type_div=#{blockTypeDiv}
+    </select>
+</mapper>

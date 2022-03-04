@@ -1,0 +1,210 @@
+.theme_selec {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.table-cell{
+    float: left;
+}
+
+.img{
+    width: 20px;
+}
+.title {
+    color: #000;
+    font-size: 0.8em;
+    text-align: left;
+    position: relative;
+    z-index: 99999;
+    background: #fff;
+    margin: 0 3vw 0 8vw;
+}
+.center{
+    margin: 10vh 2vw 0 2vw;
+    position: absolute;
+    top: 6vh;
+    width: 100%;
+}
+.divContent {
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
+
+.divContent div {
+    float: left;
+    /* width: calc(50% - 3vw); */
+    height: 9vw;
+    position: relative;
+}
+.layui-laydate-content td, .layui-laydate-content th {
+    width: 20px!important;
+    height: 20px!important;
+    padding: 1px!important;
+    text-align: center!important;
+}
+.layui-laydate, .layui-laydate-hint {
+    border: 1px solid #d2d2d2;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+    background-color: #fff;
+    color: #666;
+    top: 0px!important;
+}
+.laydate-set-ym {
+    width: 100%!important;
+    text-align: center!important;
+    text-overflow: ellipsis!important;
+    overflow: hidden!important;
+    white-space: nowrap!important;
+}
+.layui-laydate-main {
+    width: 167px!important;
+}
+.layui-laydate-header {
+    position: relative!important;
+    line-height: 15px!important;
+    padding: 2px 40px 2px!important;
+}
+.layui-laydate {
+    position: absolute;
+    z-index: 66666666;
+    margin: 0px 0!important;
+    border-radius: 2px;
+    font-size: 14px;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: laydate-upbit;
+    animation-name: laydate-upbit;
+}
+.layui-laydate-header i {
+    position: absolute!important;
+    top: 2px!important;
+    color: #999!important;
+    font-size: 5px!important;
+}
+.layui-laydate-content {
+    position: relative!important;
+    padding: 0px 10px!important;
+    -moz-user-select: none!important;
+    -webkit-user-select: none!important;
+    -ms-user-select: none!important;
+}
+.layui-laydate-footer {
+    position: relative!important;
+    height: 23px!important;
+    line-height: 19px!important;
+    padding: 0px 20px!important;
+}
+.laydate-footer-btns span {
+    height: 20px!important;
+    line-height: 21px!important;
+    margin: 0 0 0 -1px!important;
+    padding: 0px 10px!important;
+    border: 1px solid #C9C9C9!important;
+    background-color: #fff!important;
+    white-space: nowrap!important;
+    vertical-align: top!important;
+    border-radius: 2px!important;
+}
+.laydate-footer-btns {
+    position: absolute!important;
+    right: 10px!important;
+    top: 1px!important;
+}
+.layui-laydate {
+    font-size: 6px!important;
+}
+.layui-laydate-header i.laydate-prev-y {
+    left: 0px!important;
+}
+.layui-laydate-header i.laydate-prev-m {
+    left: 20px!important;
+}
+.layui-laydate-header i.laydate-next-m {
+    right: 20px!important;
+}
+.layui-laydate-header i.laydate-next-y {
+    right: 0px!important;
+}
+.divContent div .timeCon {
+    position: absolute;
+    z-index: 999;
+    right: 1vw;
+    top: 1vw;
+    opacity: 0;
+    width: 7vw;
+    overflow: hidden;
+    height: 7vw;
+    background: red;
+}
+
+.divContent div.line {
+    width: 6vw;
+    font-size: 0.8em;
+}
+
+.divContent div input {
+    width: 25vw;
+    height: 20px;
+    float: left;
+    background: none;
+    border: 1px solid #999;
+    /* padding: 0 2vw; */
+    border-radius: 4px;
+    line-height: 11vw;
+    font-size: 0.8em;
+}
+
+.timeBtn {
+    width: 9vw;
+    height: 9vw;
+    float: left;
+    padding: 1vw;
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: 0;
+}
+
+.timeBtn img {
+    width: 100%;
+    height: 100%;
+}
+
+.theme_btn {
+    width: 100%;
+    height: 52px;
+    position: fixed;
+    background: #fff;
+    bottom: 0;
+    z-index: 9;
+    padding: 0 20px;
+    left: 0;
+    padding-top: 4px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+html{
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+* {
+    box-sizing: border-box;
+}
+
+p {
+    float: left;
+    margin: 0 0 0 0.5vw;
+}

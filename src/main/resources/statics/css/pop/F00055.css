@@ -1,0 +1,286 @@
+
+.one {
+    height: 15vh;
+    width: 100%;
+}
+
+.two {
+    height: 15vh;
+    width: 100%;
+}
+
+.three {
+    height: 15vh;
+    width: 100%;
+}
+
+#mentor_area {
+    width: 100%;
+    height: 100%;
+    line-height: 14.5vh;
+}
+
+#stu_area {
+    width: 100%;
+    height: 100%;
+}
+
+#guard_area {
+    width: 100%;
+    height: 100%;
+}
+
+#mentor_area div {
+    float: left;
+    text-align: center;
+    font-size: 1.3rem;
+
+}
+
+.up {
+    width: 100%;
+    height: 50%;
+}
+
+.up div {
+    float: left;
+    padding-top: 1vh;
+    font-size: 1.3rem;
+}
+
+.label_area {
+    width: 20%;
+    padding-left: 5vw;
+}
+
+.name_label {
+    width: 7%;
+}
+
+.input_area {
+    width: 17.5%;
+}
+
+.id_input {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.name_input {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.select_btn_area {
+    width: 22%;
+    margin-left: 3vw;
+}
+
+.search-btn {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 10vw;
+    height: 5.7vh;
+    padding: 0 1.6vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+.down {
+    width: 100%;
+    height: 50%;
+}
+
+.down div {
+    float: left;
+    font-size: 1.3rem;
+    margin-top: 1vh;
+}
+
+#schy_label_area {
+    width: 20%;
+    margin-top: 1vh;
+}
+
+#schy_label {
+    width: 15%;
+    padding-left: 5vw;
+}
+
+#schyDiv {
+    margin-top: 1vh;
+    width: 17.5%;
+    background: none;
+}
+
+#mail_addr_area {
+    width: 17.5%;
+}
+
+#mail_addr_input {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.jqGrid_area {
+    height: 56vh;
+    margin-top: 1vh;
+}
+
+.list_stu {
+    height: 100%;
+}
+
+.list_mentor {
+    height: 100%;
+}
+
+.list_guard {
+    height: 100%;
+}
+
+#gbox_jqGrid_stu {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#gbox_jqGrid_mentor {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#gbox_jqGrid_guard {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#gview_jqGrid_stu {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#gview_jqGrid_mentor {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#gview_jqGrid_guard {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ui-jqgrid-bdiv {
+    height: 83% !important;
+    width: 100% !important;
+}
+
+.ui-paging-info {
+    margin-right: 3vw !important;
+}
+
+.ui-jqgrid ui-widget ui-widget-content ui-corner-all {
+    width: 100% !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: none;
+    color: #EA331B;
+    width: 40%;
+    height: 22px;
+    margin-left: 6%;
+    border-radius: 22px;
+}
+
+.ui-jqgrid .ui-jqgrid-view button.edit {
+    color: #009944;
+    border: 1px solid #009944;
+}
+
+.ui-jqgrid-sortable {
+    font-weight: bolder;
+}
+
+.btn_area {
+    width: 100%;
+    height: 6.6vh;
+    margin-top: 6.5vh;
+    text-align: center;
+}
+
+.btn_area button {
+    background: gray;
+    font-size: 0.9vw;
+    color: white;
+    border: 0px solid;
+    border-radius: 4px;
+    width: 10vw;
+    height: 4.7vh;
+    padding: 0 1.6vw;
+    border-bottom: 3px grey solid;
+}
+
+#close_btn {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 10vw;
+    height: 4.7vh;
+    padding: 0 1.6vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+#jqGrid_guard, #jqGrid_mentor {
+    border-top: none;
+    border-spacing:unset !important;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 1px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 1px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+.ui-corner-top{
+    border-bottom: 0 !important;
+}
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+}
+table#jqGrid_stu {
+    border-collapse: collapse;
+}

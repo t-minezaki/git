@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40018Dao">
+    <select id="authenticationPassword" resultType="jp.learningpark.modules.com.dto.F40018Dto">
+        SELECT
+            mu.role_div,
+            otp.one_time_pw,
+            otp.mailad,
+            otp.upd_datime
+        FROM
+            mst_usr mu,
+            one_time_pwd otp
+        WHERE
+            mu.after_usr_id	= otp.after_usr_id
+          AND mu.usr_id = #{userId}
+          AND mu.del_flg = 0
+    </select>
+    <update id="update">
+        UPDATE
+        <if test="roleDiv == 3">
+            mst_guard
+        </if>
+        <if test="roleDiv == 2">
+            mst_mentor
+        </if>
+        <if test="roleDiv == 1">
+            mst_manager
+        </if>
+        SET
+            mailad = #{mailad},
+            upd_datime = now( ),
+            upd_usr_id = #{userId}
+        WHERE
+        <if test="roleDiv == 3">
+            guard_id IN
+        </if>
+        <if test="roleDiv == 2">
+            mentor_id IN
+        </if>
+        <if test="roleDiv == 1">
+            mgr_id IN
+        </if>
+        (
+        SELECT
+            usr_id
+        FROM
+            mst_usr
+        WHERE
+            after_usr_id = #{afterUsrId}
+        )
+    </update>
+</mapper>

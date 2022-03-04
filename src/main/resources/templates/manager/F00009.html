@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<#include "/header.html" />
+	<title>組織一覧画面</title>
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+	<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+	<link rel="stylesheet" href="${request.contextPath}/css/manager/F00009.css" />
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app">
+	<div class="popTitle">組織一覧</div>
+	<div class="topSessionTitle">
+		<div>組織ID：</div>
+		<div id="orgId"></div>
+		<div>組織名：</div>
+		<div id="orgNm"></div>
+		<div>階層：</div>
+		<div id="levelShow"></div>
+	</div>
+	<div class="one">
+		<div class="oneRight">
+			<div class="objectName left">組織ＩＤ</div>
+			<input type="text" class="input_area" name="orgId">
+		</div>
+		<div class="oneRight">
+			<div class="objectName right">組織名</div>
+			<input type="text" class="input_area"name="orgNm">
+		</div>
+	</div>
+	<div class="one">
+		<div class="oneRight">
+			<div class="objectName left">階層</div>
+			<input type="text" class="input_area"id="level" value="" maxlength="3">
+		</div>
+		<div class="oneRight">
+			<div class="objectName right">上位組織</div>
+			<select class="upLevOrg" id="uplevList">
+			</select>
+		</div>
+	</div>
+	<div class="one">
+		<div class="oneRight">
+			<div class="objectName left" style="line-height: 2.2vw;">管理組織</div>
+			<input class="newtui-radio-one nolabel" type="radio" name="mgrFlg" value="0" id="all" title="すべて" checked>
+			<input class="newtui-radio-one nolabel" type="radio" name="mgrFlg" value="1" id="mgr_1" title="管理">
+			<input class="newtui-radio-one nolabel" type="radio" name="mgrFlg" value="2" id="mgr_2" title="非管理">
+		</div>
+	</div>
+	<div class="buttonDiv">
+		<div class="btn">
+			<!--<button class="green" style="background: #00a65a;color: white;border:0;border-bottom: 3px grey solid;" id="qrLogin" onclick="toQrLogin()">ＱＲログインID-->
+				<!--統合</button>-->
+			<button class="green" onclick="searchFn()">検索</button>
+			<button class="green" style="background: #00a65a;color: white;border:0;border-bottom: 3px grey solid;" onclick="addFn()">組織追加</button>
+		</div>
+	</div>
+	<div id="jqGridPager"></div>
+	<div class="listTitle">下位組織一覧</div>
+	<table id="jqGrid"></table>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F00009.js" type="text/javascript" charset="utf-8"></script>
+</html>

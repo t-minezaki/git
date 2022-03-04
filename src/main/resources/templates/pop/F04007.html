@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<#include "/header.html" />
+	<title>保護者既読未読詳細一覧画面（掲示板）
+	</title>
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+	<!--<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />-->
+	<link rel="stylesheet" href="${request.contextPath}/css/pop/F04007.css" />
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content"　id="app">
+	<div class="popTitle">保護者既読未読詳細一覧画面（掲示板）</div>
+	<div class="topSessionTitle">
+		<div>組織ID:</div>
+		<div id="orgId"></div>
+		<div>組織名:</div>
+		<div id="orgNm"></div>
+	</div>
+	<div class="inputDiv">
+		<div class="inputMessage">
+			<div id="news_id">掲示板ＩＤ</div>
+			<input type="text" maxlength="60" id="newsId" disabled>
+			<div class="input_center"></div >
+			<div id="news_name">掲示板名</div>
+			<input type="text" maxlength="60" id="newsNm" disabled style="width: 45%">
+		</div>
+		<div class="inputMessage">
+			<div>掲載開始日時</div>
+			<input type="text" id="planTime" disabled>
+			<div class="input_center">～</div >
+			<div>掲載終了日時</div>
+			<input type="text" id="endTime" disabled>
+		</div>
+		<div class="inputMessage">
+			<div>組織</div>
+			<input type="text" id="org" style="width: 80%;" disabled>
+		</div>
+	</div>
+	<table id="jqGrid"></table>
+	<div id="jqGridPager"></div>
+	<div class="insert" onclick="cancelFn()">閉じる</div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/pop/F04007.js" type="text/javascript" charset="utf-8"></script>
+</html>

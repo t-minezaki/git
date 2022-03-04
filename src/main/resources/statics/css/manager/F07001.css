@@ -1,0 +1,114 @@
+.header_operat {
+    width: auto;
+}
+
+.page {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+#CV_area {
+    height: 1.6vw;
+    margin-left: 2vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.div_main {
+    width: 100%;
+    height: 100%;
+}
+
+.second_div {
+    margin: 0.4vw;
+    font-weight: bold;
+    font-size: 0.9vw;
+    text-align: left;
+    border-top: 1px solid black;
+}
+
+.ui-jqgrid-bdiv {
+    /*height: 600px !important;*/
+    width: 100% !important;
+}
+
+.ui-paging-info {
+    margin-right: 3vw !important;
+}
+
+.one {
+    width: 100%;
+    height: 2vw;
+    margin-left: 5vw;
+    margin-top: 0.5vw;
+    margin-bottom: 1vw;
+}
+
+.one button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 13.3%;
+    height: 100%;
+    padding: 0 1.6vw;
+    margin-left: 13vw;
+}
+
+.two {
+    width: 100%;
+    height: 2vw;
+    text-align: center;
+    /*margin-bottom: 1px;*/
+}
+
+#add {
+    margin-right: 1vw;
+    margin-left: 3vw;
+}
+
+
+.one label {
+    margin-right: 1vw;
+    font-size: 0.9vw;
+    height: 1.6vw;
+    line-height: 1.6vw;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    color: #009944;
+    font-size: 15px;
+    margin-left: 2vw;
+}
+
+#pg_jqGridPager {
+    border-top: solid;
+    border-width: 0.5px;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+}

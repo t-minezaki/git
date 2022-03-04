@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>マナミル</title>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40011-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div id="title_div">
+            <div class="back" onclick="window.location.href = 'F09018.html'">
+                <img src="../img/left.png">
+            </div>
+            <span>教室からのお知らせ</span>
+            <button id="notice_add_btn" onclick="window.location.href = 'F09020.html'">お知らせ作成</button>
+        </div>
+        <div id="content">
+            <ul class="list_ul" id="list_ul" style="width: 100%">
+                <li v-for="list in f09019Dtos" :style="pinkOrGrey(list)">
+                    <div class="object_div">
+                        <div class="cont_div" @click="toEdit(list.id)">
+                            <div class="time_div" v-if="list.startTimeStr != null && list.startTimeStr != '' && list.endTimeStr != null && list.endTimeStr != ''">{{list.startTimeStr}}～{{list.endTimeStr}}</div>
+                            <div class="time_div" v-if="(list.startTimeStr == null || list.startTimeStr == '') && (list.endTimeStr == null || list.endTimeStr == '')"></div>
+                            <span class="title_span">{{list.noticeTitle}}</span>
+                        </div>
+                        <div class="btn_div">
+                            <button class="deliver_btn" @click="checkDeliver(list.id)">配信状況を見る</button>
+                        </div>
+                    </div>
+                    <hr id="hr">
+                </li>
+                <li class="insert" @click="insert()">更に読み込む</li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40011.html?id=F09018" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F09019.js"></script>
+</html>

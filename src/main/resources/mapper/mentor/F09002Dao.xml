@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.manager.dao.F09002Dao">
+
+    <select id="init" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F09002Dto">
+
+        (SELECT
+            MO.org_nm
+            , MO.org_id
+            , MS.id
+            , MS.stu_id
+            , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+            , MCD.cod_value AS schy_div
+            , MS.qr_cod
+            , MU.after_usr_id
+            , CASE WHEN MS.oria_cd IS NULL THEN '' ELSE MS.oria_cd END AS oria_cd
+        FROM
+            mst_usr MU
+            INNER JOIN mst_org MO ON ( MU.org_id = MO.org_id AND MO.del_flg = 0 )
+            INNER JOIN mst_stu MS ON ( MU.usr_id = MS.stu_id AND MS.del_flg = 0 )
+            INNER JOIN mst_cod_d MCD ON (MS.schy_div = MCD.cod_cd AND MCD.del_flg = 0)
+        <if test='roleDiv == 2'>
+            INNER JOIN mentor_stu AS ms2 ON ms2.stu_id = ms.stu_id
+            AND ms2.crmsch_id = mo.org_id
+            AND ms2.mentor_id = #{userId}
+            AND ms2.del_flg = 0
+        </if>
+            WHERE
+            MU.del_flg = 0
+            <if test='roleDiv == 1'>
+              AND MU.org_id = #{orgId}
+            </if>
+            <if test='stuIdList != null and stuIdList.size() > 0'>
+                AND MS.stu_id IN
+                <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+                    #{item, jdbcType=CHAR}
+                </foreach>
+            </if>
+            AND MCD.cod_key = 'SCHY_DIV'
+            order by
+            MS.id
+          <if test="limit != null and page != null">
+              limit #{limit} offset #{page}
+          </if>
+          )
+    </select>
+</mapper>

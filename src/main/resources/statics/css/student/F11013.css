@@ -1,0 +1,259 @@
+.div_header {
+    /* 2020/12/24 V9.0 cuikailin modify start */
+    height: 60px;
+    /* 2020/12/24 V9.0 cuikailin modify end */
+}
+.div_img{
+    text-align: center;
+    margin: 2vw;
+}
+.newt-layout-body div_img {
+    padding:5%;
+}
+.content {
+    /*position: fixed;*/
+    width: 100%;
+    overflow: auto;
+    /*padding: 4px;*/
+    padding-bottom: 58px;
+    /* 2020/12/24 V9.0 cuikailin modify start */
+    padding-top: 60px;
+    /* 2020/12/24 V9.0 cuikailin modify end */
+    height: calc(100% - 60px);
+}
+
+@media screen and (max-device-width: 533px) {
+    .div_header {
+        height: 44px;
+    }
+    .content {
+        padding-top: 44px;
+        height: calc(100% - 44px);
+    }
+}
+
+.content_div {
+    height: auto;
+    width: 100%;
+    /*overflow: auto;*/
+    /*overflow-x: hidden;*/
+    /*padding-top: 2vw;*/
+    min-height: 60%;
+}
+
+.description {
+    width: 90%;
+    font-size: 4vw;
+    color: #555;
+    margin-left: 5%;
+    overflow: hidden;
+}
+
+.description p {
+    word-wrap: break-word;
+    word-break: break-all;
+    /*padding-bottom: 1vh;*/
+    /*padding-top: 1vh;*/
+    /*padding: 10px auto;*/
+}
+
+p > span {
+    line-height: 170%;
+}
+.title {
+    width: 80%;
+    font-size: 15px;
+    /*font-weight: bolder;*/
+    color: #444;
+    text-align: center;
+    margin-left: 10%;
+    line-height: 35px;
+}
+
+.img {
+    width: 80%;
+}
+img {
+    /*max-width: 100%;*/
+    max-width:100% !important;
+    height:auto;
+}
+.div_bottom {
+    /* 2020/12/24 V9.0 cuikailin modify start */
+    height: 58px !important;
+    /* 2020/12/24 V9.0 cuikailin modify end */
+    bottom: 0px;
+}
+
+.title413 {
+    background-color: #FFEEE0;
+}
+
+.div_body {
+    height: 84%;
+    background-color: white;
+}
+.headerBtn button {
+    padding: 1px 6px !important;
+}
+
+.line {
+    margin-bottom: 15px;
+    height: 2px;
+    background-color: #ddd;
+}
+
+.text413 > div:nth-child(1) > div:nth-child(1) {
+    background: unset;
+}
+
+.back {
+    width: 35px;
+    height: 35px;
+    float: left;
+    font-weight: bolder;
+    color: black;
+}
+
+.back img {
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+}
+
+#title_top {
+    color: red;
+    font-size: large;
+    text-align: center;
+    padding-top: 0.7vh;
+    letter-spacing: 0.5vw;
+    padding-bottom: 0.6vh;
+}
+
+.text413 {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 95%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.left_title {
+    height: auto;
+    position: relative;
+    vertical-align: center;
+}
+
+.span_cont {
+    width: 40%;
+    font-weight: bold;
+    font-size: large;
+}
+
+.span_cont span {
+    vertical-align: middle;
+}
+
+.span_val {
+    width: 60%;
+}
+
+sapn {
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+#time {
+    text-align: right;
+    font-size: 4vw;
+}
+
+.oneTitle {
+    width: 100%;
+    padding: 10px 5px 0 5px;
+    height: 41px;
+}
+
+.oneTitle ul {
+    width: 100%;
+    height: 100%;
+    /*border-radius: 5px;*/
+    overflow: hidden;
+    border-bottom: 4px solid #009944;
+}
+
+.oneTitle li {
+    width: 100%;
+    height: 100%;
+    float: left;
+    color: #727272;
+    background: none;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+.numCount {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: red;
+    color: #fff;
+    font-size: 10px;
+    left: 90%;
+    top: 57px;
+    line-height: 18px;
+    text-align: center;
+}
+.foot{
+    text-align: center;
+    margin-top: 2vh;
+}
+.btn{
+    font-size: 18px;
+    line-height: 40px;
+    border: 0px;
+    background-color: #009944;
+    color: white;
+    height: 40px;
+    border-radius: 2px;
+    width: 32%;
+}
+.layui-layer-dialog {
+    width: 86% !important;
+    left: 7% !important;
+}
+p#bottomMsg {
+    width: 95%;
+    height: 20vh;
+    line-height: 4vh;
+    margin-left: 3%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding: 2vh 2vw;
+    background-color: white;
+    box-sizing: border-box;
+    font-size: 2vh;
+    text-align: left;
+    border-radius: 1vh;
+}
+.title2 {
+    margin-top: 2vw;
+ }
+.div_files{
+    margin-top: 2vh;
+    text-align: center;
+}
+.div_files a{
+    color: red;
+    text-decoration: none;
+    border-bottom: 0.5vh solid red;
+}
+.toolbarButton{
+    display: none;
+}
+.layui-layer-molv123 a.layui-layer-ico.layui-layer-close.layui-layer-close1 {
+    right: 40px !important;
+    top: -6px !important;
+}

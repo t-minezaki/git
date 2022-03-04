@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.AskAboutRecordDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.AskAboutRecordEntity" id="askAboutRecordMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="askUserId" column="ask_user_id"/>
+        <result property="askDatime" column="ask_datime"/>
+        <result property="askTitle" column="ask_title"/>
+        <result property="askCont" column="ask_cont"/>
+        <result property="contlMatCont" column="contl_mat_cont"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

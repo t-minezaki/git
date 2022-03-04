@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00061Dao">
+    <select id="selectList" resultType="jp.learningpark.modules.manager.dto.F00061Dto">
+        SELECT
+            um1.after_usr_id as stuId,
+            um2.after_usr_id as mentorId,
+            sm.birthd,
+            cmd.cod_value as schy,
+            cmd2.cod_value as gendr,
+            ms.id,
+            ms.upd_datime,
+            mm.flnm_nm || ' ' ||mm.flnm_lnm as mentorNm,
+            sm.flnm_nm || ' ' ||sm.flnm_lnm as stuNm,
+            ms.id,
+            mo.org_id,
+            mo.org_nm
+        FROM
+            mentor_stu ms
+            INNER JOIN mst_stu sm ON sm.stu_id = ms.stu_id
+            AND sm.del_flg = 0
+            <if test="dto.stuNm!='' and  dto.stuNm!=null">
+                AND sm.flnm_nm||sm.flnm_lnm like  CONCAT('%',trim(#{dto.stuNm}),'%')
+            </if>
+            <if test="dto.schyDiv!='' and dto.schyDiv!=null">
+                AND sm.schy_div=#{dto.schyDiv}
+            </if>
+            INNER JOIN mst_usr um1 ON um1.usr_id = sm.stu_id
+            AND um1.usr_sts = '1'
+            AND um1.del_flg = 0
+            <if test="dto.stuId!='' and dto.stuId!=null">
+                AND um1.after_usr_id=#{dto.stuId}
+            </if>
+            INNER JOIN mst_mentor mm ON mm.mentor_id = ms.mentor_id
+            AND mm.del_flg = 0
+            <if test="dto.mentorNm!='' and dto.mentorNm!=null">
+                AND mm.flnm_nm||mm.flnm_lnm like  CONCAT('%',trim(#{dto.mentorNm}),'%')
+            </if>
+            INNER JOIN mst_usr um2 ON um2.usr_id = mm.mentor_id
+            AND um2.usr_sts = '1'
+            AND um2.del_flg = 0
+            <if test="dto.mentorId!='' and dto.mentorId!=null">
+                AND um2.after_usr_id=#{dto.mentorId}
+            </if>
+            INNER JOIN mst_cod_d cmd ON cmd.cod_key = 'SCHY_DIV'
+            AND cmd.cod_cd = sm.schy_div
+            AND cmd.del_flg = 0
+            left JOIN mst_cod_d cmd2 ON cmd2.cod_key = 'GENDR_DIV'
+            AND cmd2.cod_cd = sm.gendr_div
+            AND cmd2.del_flg = 0
+            INNER JOIN mst_org AS mo ON ms.crmsch_id = mo.org_id
+            AND mo.del_flg = 0
+        <where>
+            <if test="dto.orgIdList == null or dto.orgIdList.size() == 0">
+                ms.crmsch_id = #{dto.orgId}
+            </if>
+            <if test="dto.orgIdList != null and dto.orgIdList.size() > 0">
+                and ms.crmsch_id in
+                <foreach collection="dto.orgIdList" item="orgId" open="(" separator="," close=")">
+                    #{orgId}
+                </foreach>
+            </if>
+            AND ms.del_flg=0
+        </where>
+
+        order by mo.org_nm,ms.id
+        <if test="page!=null">
+            limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="count" resultType="integer">
+        SELECT
+        count(*)
+        FROM
+        mentor_stu ms
+        INNER JOIN mst_stu sm ON sm.stu_id = ms.stu_id
+        AND sm.del_flg = 0
+        <if test="stuNm!='' and  stuNm!=null">
+            AND sm.flnm_nm||sm.flnm_lnm like  CONCAT('%',trim(#{stuNm}),'%')
+        </if>
+        <if test="schyDiv!='' and schyDiv!=null">
+            AND sm.schy_div=#{schyDiv}
+        </if>
+        INNER JOIN mst_usr um1 ON um1.usr_id = sm.stu_id
+        AND um1.usr_sts = '1'
+        AND um1.del_flg = 0
+        <if test="stuId!='' and stuId!=null">
+            AND um1.after_usr_id=#{stuId}
+        </if>
+        INNER JOIN mst_mentor mm ON mm.mentor_id = ms.mentor_id
+        AND mm.del_flg = 0
+        <if test="mentorNm!='' and mentorNm!=null">
+            AND mm.flnm_nm||mm.flnm_lnm like  CONCAT('%',trim(#{mentorNm}),'%')
+        </if>
+        INNER JOIN mst_usr um2 ON um2.usr_id = mm.mentor_id
+        AND um2.usr_sts = '1'
+        AND um2.del_flg = 0
+        <if test="mentorId!='' and mentorId!=null">
+            AND um2.after_usr_id=#{mentorId}
+        </if>
+        INNER JOIN mst_cod_d cmd ON cmd.cod_key = 'SCHY_DIV'
+        AND cmd.cod_cd = sm.schy_div
+        AND cmd.del_flg = 0
+        left JOIN mst_cod_d cmd2 ON cmd2.cod_key = 'GENDR_DIV'
+        AND cmd2.cod_cd = sm.gendr_div
+        AND cmd2.del_flg = 0
+        WHERE
+        ms.crmsch_id = #{orgId}
+        AND
+        ms.del_flg=0
+    </select>
+
+</mapper>

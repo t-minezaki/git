@@ -1,0 +1,1810 @@
+
+.content {
+    height: 60%;
+    background-color: white;
+}
+
+.date {
+    width: 100%;
+    height: calc(100% - (78px / 3) - (42px / 3));
+    /*padding: 0 12px;*/
+}
+
+.date_title {
+    width: 100%;
+    height: 11.3%;
+    padding-top: calc(4px + 3%);
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.date_title > div {
+    float: left;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.date_title div#div_month_left {
+    width: 100px;
+    height: 100%;
+    text-align: center;
+    color: #757575;
+}
+
+.date_title div#div_month_right {
+    width: 100px;
+    height: 100%;
+    text-align: center;
+    color: #757575;
+    float: right !important;
+}
+
+.date_title div#div_month_left span {
+    width: 50px;
+    position: relative;
+    float: left;
+    text-align: left;
+}
+
+.date_title div#div_month_right span {
+    width: 50px;
+    position: relative;
+    float: right;
+    text-align: right;
+}
+
+.date_title div i {
+    width: 20px;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.date_title div#div_month_right i {
+    float: right;
+}
+
+.date_title div .layui-icon::before {
+    height: 20px;
+    line-height: 20px;
+    font-weight: bolder;
+    display: inline-block;
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.date_title span {
+    height: 100%;
+    width: auto;
+    line-height: unset;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.date_week {
+    height: 8.8%;
+    width: 100%;
+}
+
+.date_week p {
+    width: calc(100% / 7);
+    height: 90%;
+    margin: 0;
+    line-height: 34px;
+    float: left;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.date_content {
+    width: 100%;
+    height: 80.4%;
+    background-color: white;
+    /*position: fixed;*/
+    overflow-x: unset;
+}
+
+.control {
+    height: 30px;
+    float: left;
+}
+
+.calendar_div_empty {
+    float: left;
+    margin: 0;
+    height: calc(100% / 6);
+    width: calc(100% / 7);
+    font-size: 13px;
+    position: relative;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 1px solid #f2f2f2;
+    box-sizing: border-box;
+}
+
+.date_content div.calendar_div {
+    float: left;
+    margin: 0;
+    height: calc(100% / 6);
+    width: calc(100% / 7);
+    /*margin-left: calc(100% / 14 - 15px);*/
+    /*margin-right: calc(100% / 14 - 15px);*/
+    /*border-radius: 15px;*/
+    font-size: 13px;
+    position: relative;
+    text-align: center;
+    /*background-color: #CCC;*/
+    border-bottom: 1px solid #cccccc;
+    /*border-right: 1px solid #f2f2f2;*/
+    box-sizing: border-box;
+    border-top: 0;
+}
+
+.topTitle {
+    height: 40px;
+    background: #8CC11F;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.date_content div.calendar_div p {
+    width: 25px;
+    text-align: center;
+    margin-top: 2px;
+    line-height: 23px;
+    font-size: 15px;
+    margin-left: 25%;
+    border-radius: 50%;
+    height: 25px;
+}
+
+.date_content div.calendar_div p span {
+    height: 15px;
+    line-height: 15px;
+    font-weight: bold;
+    font-size: 13px !important;
+}
+
+.date_content div.calendar_div h6 {
+    width: 50%;
+    text-align: center;
+    padding-right: 1px;
+    line-height: 10px;
+    font-size: 15px;
+    margin-left: 25%;
+    border-radius: 50%;
+    height: 20px;
+    margin-top: 0px !important;
+    padding-top: 0.5px !important;
+}
+
+.list {
+    height: calc(78px / 3);
+    margin-top: calc(42px / 3);
+}
+
+.list_title {
+    width: 96%;
+    height: 100%;
+    border-bottom: 1px solid #b7b7b7;
+    box-sizing: border-box;
+    margin-left: 4%;
+}
+
+.list_title p {
+    width: auto;
+    height: 100%;
+    margin-right: 6px;
+    float: left;
+    font-size: 16px;
+    color: #202020;
+}
+
+.list_title span {
+    display: inline-block;
+    float: left;
+    height: 35px;
+    font-size: 16px;
+    color: #202020;
+}
+
+.list_content {
+    width: 100%;
+    height: calc(40% - 118px);
+    /*margin-bottom: 58px !important;*/
+    overflow-y: auto;
+    /*background: #f5f5f5;*/
+    position: absolute;
+    /*padding-top: 5px;!*2020-01-13 mod by zpa*!*/
+    /*padding-bottom: 5px;*/
+    box-sizing: border-box;
+}
+
+.div_bottom {
+    bottom: 0px;
+}
+
+.list_div {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    left: 0;
+    border-bottom: 1px dashed #aaa;
+    font-size: 12px;
+}
+
+.list_div p {
+    margin: 0;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    background: #f5f5f5;
+    margin-top: 45px;
+    z-index: 9;
+}
+
+.list_c_div {
+    position: absolute;
+    width: 70%;
+    height: auto;
+    left: 21%;
+    top: 0;
+}
+
+.list_input {
+    width: 100%;
+    height: 60px;
+}
+
+.list_input input {
+    width: 100%;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    margin: 0;
+    padding: 0 10px;
+    background: #fff;
+    height: 30px;
+}
+
+.list_input input.big {
+    height: 60px;
+}
+
+.pColorRed {
+    color: red;
+}
+
+.pColorBlue {
+    color: #0076FF;
+}
+
+.pBorderRed {
+    border-left: 1px solid #f2f2f2;
+}
+
+.disNone {
+    display: none;
+}
+
+.posi-div {
+    width: 100%;
+    height: 80px;
+}
+
+.fc-time-grid .fc-slats td {
+    height: 1.4em !important;
+    background: #f5f5f5;
+}
+
+.fc-event, .fc-event-dot {
+    background: none;
+}
+
+.fc-event {
+    border: 1px solid #666;
+}
+
+.fc-event, .fc-event:hover {
+    padding: 0 1.4em;
+    line-height: 1.6em;
+}
+
+.fc-content .fc-time {
+    display: none;
+}
+
+.fc-event-green {
+    border: 1px solid #009944;
+}
+
+.customEvent {
+    font-weight: 400 !important;
+    padding-left: 14%;
+}
+
+.customEvent:hover {
+    padding-left: 14%;
+}
+
+.fc-event {
+    font-weight: 100 !important;
+}
+
+.customEvent {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-weight: bold;
+}
+
+.customEvent .fc-time {
+    opacity: 0;
+/ important;
+}
+
+.customEvent::after {
+    content: '';
+    display: inline-block;
+    width: 12%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #FFE412;
+}
+
+.customEvent.nullEvent::after {
+    background-color: #FFF;
+}
+
+.customEvent.zeroEvent::after {
+    background-color: #FF0000;
+}
+
+.customEvent.passEvent::after {
+    background-color: #0079C3;
+}
+
+.customEvent.failEvent::after {
+    background-color: #FFE412;
+}
+
+.loopEvent.schoolEvent {
+    background-color: #FFFFFF;
+    border-color: #8CC66D;
+}
+
+.fc-event, .fc-event:hover {
+    color: #8CC66D;
+}
+
+.fc-time-grid-event.fc-short .fc-time:after {
+    display: none;
+}
+
+.fc-time-grid-event.fc-short .fc-time:before {
+    display: none;
+}
+
+.fc-time-grid-event .fc-time, .fc-time-grid-event .fc-title {
+    font-size: .85em;
+}
+
+.list_content span {
+    display: inline-block;
+    float: left;
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+    /*text-align: left;*/
+    /*margin-left: 15vw;*/
+    color: #191919;
+    width: auto;
+}
+
+.complimentCont {
+    width: 80%;
+}
+
+.list_content span.pink,
+.list_content span.green {
+    width: 50px;
+    margin-right: 5px;
+    background-color: #00a65a;
+    text-align: center;
+    color: #FFF;
+    /*border-radius: 4px;*/
+    font-size: 12px;
+}
+
+.list_content span.pink {
+    background-color: #FF6699;
+}
+
+img.title-image {
+    height: 22px;
+    float: left;
+    margin-right: 5px;
+    border-radius: 11px;
+}
+
+.list_content span.memo {
+    float: right;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.list_content img.memo {
+    float: right;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 10px;
+    height: 22px;
+}
+
+.list_content div {
+    margin-left: 3%;
+    box-sizing: border-box;
+    margin-top: 3%;
+    width: 97%;
+    border-bottom: 1px solid #E7E7E7;
+    padding-bottom: 2vw;
+}
+
+.list_content div:hover {
+    background-color: #F0F0F0;
+}
+
+/*.list_content div.green {*/
+/*border: 1px solid #00a65a;*/
+/*border-radius: 5px;*/
+/*}*/
+
+/*.list_content div.pink {*/
+/*border: 1px solid #FF6699;*/
+/*border-radius: 5px;*/
+/*}*/
+
+div#memopop > div.newt-layout-block {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: auto;
+    right: 0;
+    bottom: auto;
+    background-color: #FFF;
+}
+
+div#memopop > div.newt-layout-block > div.title {
+    height: 40px;
+    line-height: 40px;
+    color: black;
+    text-align: center;
+}
+
+div#memopop > div.newt-layout-block > div.time {
+    height: 30px;
+    line-height: 35px;
+    text-align: center;
+}
+
+div#memopop > div.newt-layout-block > div.memobox {
+    padding: 5px;
+}
+
+div#memopop > div.newt-layout-block > div.memobox > .newt-layout-block {
+    width: 100%;
+    min-height: 100px;
+    max-height: 250px;
+    /*background-color: #D9D9D9;*/
+    padding-left: 5px;
+    padding-right: 5px;
+    word-wrap: break-word;
+    overflow-y: auto;
+    border: 1px solid #CCC;
+}
+
+div#memopop > div.newt-layout-block > div.btnbox {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+div#memopop > div.newt-layout-block > div.btnbox input[type='button'] {
+    width: 80px;
+    height: 30px;
+    border: none;
+    font-size: 15px;
+    background-color: #8CC11F;
+    color: #FFF;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.headerBtn button {
+    padding: 1px 6px;
+}
+
+.line-one {
+    border-top: 1px solid #f2f2f2;
+}
+
+.Pback p {
+    background-color: black;
+    color: white !important;
+}
+
+.preMonth, .nextMonth {
+    color: #888888;
+}
+
+.pColorRed h6 {
+    color: #8CC134;
+    padding-top: 0px !important;
+    margin-top: 0 !important;
+}
+
+p.title {
+    text-align: center;
+    background-color: #8CC134;
+    height: 80px;
+    color: white !important;
+    line-height: 40px;
+    font-size: 4.5vw;
+}
+
+.days {
+    border-radius: 75px;
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+    margin-top: 25%;
+}
+
+.point {
+    background-color: red;
+    width: 5px !important;
+    height: 5px !important;
+    margin: 0;
+    margin-left: calc(50% - 2.5px) !important;
+    border-radius: 999px;
+}
+
+.plan .point {
+    background-color: #8CC134;
+}
+
+/* Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width: 534px) and (max-device-width: 768px) {
+    .div_header {
+        height: 44px;
+        position: fixed !important;
+    }
+
+    .content {
+        background-color: white;
+        margin-top: 84px;
+        height: unset;
+    }
+
+    .date {
+        width: 100%;
+        height: auto;
+        padding: 0 8%;
+    }
+
+    .date_title {
+        width: 100%;
+        height: 3.6rem;
+        padding: 1.8rem 0 .6rem 0;
+        margin-bottom: 0.1rem;
+    }
+
+    .date_title > div {
+        float: left;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .date_title div#div_month_left {
+        width: 100px;
+        height: 100%;
+        text-align: center;
+        color: #757575;
+    }
+
+    .date_title div#div_month_right {
+        width: 100px;
+        height: 100%;
+        text-align: center;
+        color: #757575;
+        float: right !important;
+    }
+
+    .date_title div#div_month_left span {
+        width: 50px;
+        position: relative;
+        float: left;
+        text-align: left;
+    }
+
+    .date_title div#div_month_right span {
+        width: 50px;
+        position: relative;
+        float: right;
+        text-align: right;
+    }
+
+    .date_title i {
+        float: right;
+        font-size: 1.2rem;
+        height: 100%;
+        line-height: 150%;
+        width: unset !important;
+    }
+
+    .date_title .layui-icon-left {
+        float: left;
+        width: unset;
+    }
+
+    .date_title span {
+        height: 100%;
+        width: auto;
+        line-height: unset;
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .date_week {
+        height: 1.6rem;
+        width: 100%;
+    }
+
+    .date_week p {
+        width: calc(100% / 7);
+        height: 90%;
+        margin: 0;
+        line-height: 2.5;
+        float: left;
+        text-align: center;
+        font-size: .6rem;
+        font-weight: bold;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .date_content {
+        width: 100%;
+        height: 80.4%;
+        background-color: white;
+        /*position: fixed;*/
+        overflow-x: unset;
+    }
+
+    .control {
+        height: 30px;
+        float: left;
+    }
+
+    .calendar_div_empty {
+        float: left;
+        margin: 0;
+        height: calc(100% / 6);
+        width: calc(100% / 7);
+        font-size: 13px;
+        position: relative;
+        border-top: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 1px solid #f2f2f2;
+        box-sizing: border-box;
+    }
+
+    .date_content div.calendar_div {
+        float: left;
+        margin: 0;
+        height: 4rem;
+        width: calc(100% / 7);
+        position: relative;
+        text-align: center;
+        border-bottom: 1px solid #cccccc;
+        box-sizing: border-box;
+        border-top: 0;
+        padding: .4rem 0;
+    }
+
+    .topTitle {
+        height: 52px;
+        background: #8CC11F;
+        line-height: 50px;
+        color: white;
+        text-align: center;
+        /*font-family: Hiragino sans-serif !important;*/
+        font-size: 1.5rem;
+        width: 100%;
+        font-weight: bold;
+        position: fixed !important;
+        z-index: 1;
+    }
+
+    .date_content div.calendar_div p {
+        text-align: center;
+        height: 1.8rem;
+        width: 1.8rem;
+        border-radius: 50%;
+        display: inline-block;
+        line-height: 1.8rem;
+        margin-top: unset;
+        font-size: unset;
+        margin-left: unset;
+    }
+
+    .date_content div.calendar_div p span {
+        font-weight: 500;
+        font-size: 1.2rem !important;
+        height: unset;
+        line-height: unset;
+    }
+
+    .date_content div.calendar_div h6 {
+        text-align: center;
+        padding-right: 1px;
+        line-height: 10px;
+        font-size: 15px;
+        border-radius: 50%;
+        height: 20px;
+        margin-top: 0.5rem !important;
+    }
+
+    .list {
+        padding: .7rem 12% 0 12%;
+        background-color: #F7F7F7;
+        border-top: 1px solid #cccccc;
+        margin-top: -1px;
+        height: unset;
+    }
+
+    .list_title {
+        height: 1.9rem;
+        border-bottom: 1px solid #b7b7b7;
+        box-sizing: border-box;
+        margin-left: unset;
+        width: unset;
+    }
+
+    .list_title p {
+        width: auto;
+        height: 100%;
+        float: left;
+        font-size: 1.1rem;
+        color: #202020;
+        margin-right: 0;
+    }
+
+    .list_title span {
+        display: inline-block;
+        float: left;
+        height: 100%;
+        font-size: 1.1rem;
+        color: #202020;
+    }
+
+    .list_content {
+        width: 100%;
+        height: unset;
+        margin-bottom: 61px !important;
+        overflow-y: auto;
+        position: absolute;
+        box-sizing: border-box;
+        padding: 0 12%;
+        background-color: #F7F7F7;
+    }
+
+    .list_div {
+        position: relative;
+        width: 100%;
+        height: 60px;
+        left: 0;
+        border-bottom: 1px dashed #aaa;
+        font-size: 12px;
+    }
+
+    .list_div p {
+        margin: 0;
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        position: absolute;
+        background: #f5f5f5;
+        margin-top: 45px;
+        z-index: 9;
+    }
+
+    .list_c_div {
+        position: absolute;
+        width: 70%;
+        height: auto;
+        left: 21%;
+        top: 0;
+    }
+
+    .list_input {
+        width: 100%;
+        height: 60px;
+    }
+
+    .list_input input {
+        width: 100%;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        margin: 0;
+        padding: 0 10px;
+        background: #fff;
+        height: 30px;
+    }
+
+    .list_input input.big {
+        height: 60px;
+    }
+
+    .pColorRed {
+        color: red;
+    }
+
+    .pColorBlue {
+        color: #0076FF;
+    }
+
+    .disNone {
+        display: none;
+    }
+
+    .posi-div {
+        width: 100%;
+        height: 80px;
+    }
+
+    .fc-time-grid .fc-slats td {
+        height: 1.4em !important;
+        background: #f5f5f5;
+    }
+
+    .fc-event, .fc-event-dot {
+        background: none;
+    }
+
+    .fc-event {
+        border: 1px solid #666;
+    }
+
+    .fc-event, .fc-event:hover {
+        padding: 0 1.4em;
+        line-height: 1.6em;
+    }
+
+    .fc-content .fc-time {
+        display: none;
+    }
+
+    .fc-event-green {
+        border: 1px solid #009944;
+    }
+
+    .customEvent {
+        font-weight: 400 !important;
+        padding-left: 14%;
+    }
+
+    .customEvent:hover {
+        padding-left: 14%;
+    }
+
+    .fc-event {
+        font-weight: 100 !important;
+    }
+
+    .customEvent {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        font-weight: bold;
+    }
+
+    .customEvent .fc-time {
+        opacity: 0;
+    !important;
+    }
+
+    .customEvent::after {
+        content: '';
+        display: inline-block;
+        width: 12%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #FFE412;
+    }
+
+    .customEvent.nullEvent::after {
+        background-color: #FFF;
+    }
+
+    .customEvent.zeroEvent::after {
+        background-color: #FF0000;
+    }
+
+    .customEvent.passEvent::after {
+        background-color: #0079C3;
+    }
+
+    .customEvent.failEvent::after {
+        background-color: #FFE412;
+    }
+
+    .loopEvent.schoolEvent {
+        background-color: #FFFFFF;
+        border-color: #8CC66D;
+    }
+
+    .fc-event, .fc-event:hover {
+        color: #8CC66D;
+    }
+
+    .fc-time-grid-event.fc-short .fc-time:after {
+        display: none;
+    }
+
+    .fc-time-grid-event.fc-short .fc-time:before {
+        display: none;
+    }
+
+    .fc-time-grid-event .fc-time, .fc-time-grid-event .fc-title {
+        font-size: .85em;
+    }
+
+    .list_content span {
+        display: inline-block;
+        float: left;
+        font-size: 0.8rem;
+        color: #191919;
+        width: auto;
+        height: unset;
+        line-height: unset;
+    }
+
+    .complimentCont {
+        width: 80%;
+    }
+
+    .list_content span.pink,
+    .list_content span.green {
+        width: 50px;
+        margin-right: 5px;
+        background-color: #00a65a;
+        text-align: center;
+        color: #FFF;
+        /*border-radius: 4px;*/
+        font-size: 12px;
+    }
+
+    .list_content span.pink {
+        background-color: #FF6699;
+    }
+
+    img.title-image {
+        height: 1.2rem;
+        float: left;
+        margin-right: 5px;
+    }
+
+    .list_content span.memo {
+        float: right;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+    .list_content img.memo {
+        float: right;
+        margin-right: 0.6rem;
+        text-align: center;
+        height: 1.2rem;
+    }
+
+    .list_content div {
+        box-sizing: border-box;
+        border-bottom: 1px solid #b7b7b7;
+        padding: 0.6rem 0 0.6rem 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .list_content div:hover {
+        background-color: #F0F0F0;
+    }
+
+    /*.list_content div.green {*/
+    /*border: 1px solid #00a65a;*/
+    /*border-radius: 5px;*/
+    /*}*/
+
+    /*.list_content div.pink {*/
+    /*border: 1px solid #FF6699;*/
+    /*border-radius: 5px;*/
+    /*}*/
+
+    div#memopop > div.newt-layout-block {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        top: auto;
+        right: 0;
+        bottom: auto;
+        background-color: #FFF;
+    }
+
+    div#memopop > div.newt-layout-block > div.title {
+        height: 40px;
+        line-height: 40px;
+        color: black;
+        text-align: center;
+    }
+
+    div#memopop > div.newt-layout-block > div.time {
+        height: 30px;
+        line-height: 35px;
+        text-align: center;
+    }
+
+    div#memopop > div.newt-layout-block > div.memobox {
+        padding: 5px;
+    }
+
+    div#memopop > div.newt-layout-block > div.memobox > .newt-layout-block {
+        width: 100%;
+        min-height: 100px;
+        max-height: 250px;
+        /*background-color: #D9D9D9;*/
+        padding-left: 5px;
+        padding-right: 5px;
+        word-wrap: break-word;
+        overflow-y: auto;
+        border: 1px solid #CCC;
+    }
+
+    div#memopop > div.newt-layout-block > div.btnbox {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    div#memopop > div.newt-layout-block > div.btnbox input[type='button'] {
+        width: 80px;
+        height: 30px;
+        border: none;
+        font-size: 15px;
+        background-color: #8CC11F;
+        color: #FFF;
+        border-radius: 5px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .headerBtn button {
+        padding: 1px 6px;
+    }
+
+    .line-one {
+        border-top: 1px solid #f2f2f2;
+    }
+
+    .Pback p {
+        background-color: black;
+        color: white !important;
+    }
+
+    .preMonth, .nextMonth {
+        color: #888888;
+    }
+
+    .pColorRed h6 {
+        color: #8CC134;
+        padding-top: 0px !important;
+        margin-top: 0 !important;
+    }
+
+    p.title {
+        text-align: center;
+        background-color: #8CC134;
+        height: 80px;
+        color: white !important;
+        line-height: 40px;
+        font-size: 4.5vw;
+    }
+
+    .days {
+        border-radius: 75px;
+        width: 50%;
+        height: 50%;
+        margin-left: 25%;
+        margin-top: 25%;
+    }
+
+    .point {
+        background-color: red;
+        width: 4px !important;
+        height: 4px !important;
+        margin: 0 !important;
+        padding: 0.2rem;
+    }
+
+    .plan .point, .pColorBlue .point, .pColorRed .point {
+        background-color: #8CC134;
+        margin-left: 0 !important;
+        padding: 0.2rem;
+    }
+
+    /*.plan p {*/
+    /*color: #8CC134;*/
+    /*}*/
+
+    .date_title div .layui-icon::before {
+        height: unset;
+        line-height: unset;
+        font-weight: unset;
+        display: unset;
+        font-size: unset;
+        position: unset;
+        top: unset;
+        left: unset;
+        right: unset;
+        bottom: unset;
+    }
+
+    .pBorderRed {
+        border-left: unset;
+    }
+
+    div.newt-layout-body {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background-color: #F7F7F7;
+    }
+}
+
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width: 768px) {
+    .div_header {
+        height: 56px;
+        position: fixed !important;
+    }
+
+    .content {
+        background-color: white;
+        margin-top: 108px;
+        height: unset;
+    }
+
+    .date {
+        width: 100%;
+        height: auto;
+        padding: 0 8%;
+    }
+
+    .date_title {
+        width: 100%;
+        height: 4.8rem;
+        margin-bottom: 0.1rem;
+        padding: 2.2rem 0 0 0;
+    }
+
+    .date_title > div {
+        float: left;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    .date_title div#div_month_left {
+        width: 100px;
+        height: 100%;
+        text-align: center;
+        color: #757575;
+    }
+
+    .date_title div#div_month_right {
+        width: 100px;
+        height: 100%;
+        text-align: center;
+        color: #757575;
+        float: right !important;
+    }
+
+    .date_title div#div_month_left span {
+        width: auto;
+        position: relative;
+        float: left;
+        text-align: left;
+    }
+
+    .date_title div#div_month_right span {
+        width: auto;
+        position: relative;
+        float: right;
+        text-align: right;
+    }
+
+    .date_title i {
+        float: right;
+        font-size: 1.5rem;
+        height: 100%;
+        line-height: 145%;
+        width: unset !important;
+    }
+
+    .date_title .layui-icon-left {
+        float: left;
+        width: unset;
+    }
+
+    .date_title span {
+        height: 100%;
+        width: auto;
+        line-height: unset;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .date_week {
+        height: 2rem;
+        width: 100%;
+    }
+
+    .date_week p {
+        width: calc(100% / 7);
+        height: 90%;
+        margin: 0;
+        line-height: 2.5;
+        float: left;
+        text-align: center;
+        font-size: .8rem;
+        font-weight: bold;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .date_content {
+        width: 100%;
+        height: 80.4%;
+        background-color: white;
+        /*position: fixed;*/
+        overflow-x: unset;
+    }
+
+    .control {
+        height: 30px;
+        float: left;
+    }
+
+    .calendar_div_empty {
+        float: left;
+        margin: 0;
+        height: calc(100% / 6);
+        width: calc(100% / 7);
+        font-size: 13px;
+        position: relative;
+        border-top: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 1px solid #f2f2f2;
+        box-sizing: border-box;
+    }
+
+    .date_content div.calendar_div {
+        float: left;
+        margin: 0;
+        height: 5.2rem;
+        width: calc(100% / 7);
+        /*margin-left: calc(100% / 14 - 15px);*/
+        /*margin-right: calc(100% / 14 - 15px);*/
+        /*border-radius: 15px;*/
+        font-size: 13px;
+        position: relative;
+        text-align: center;
+        /*background-color: #CCC;*/
+        border-bottom: 1px solid #cccccc;
+        /*border-right: 1px solid #f2f2f2;*/
+        box-sizing: border-box;
+        border-top: 0;
+        padding: .5rem 0;
+    }
+
+    .topTitle {
+        height: 52px;
+        background: #8CC11F;
+        line-height: 50px;
+        color: white;
+        text-align: center;
+        /*font-family: Hiragino sans-serif !important;*/
+        font-size: 1.5rem;
+        width: 100%;
+        font-weight: bold;
+        position: fixed !important;
+        z-index: 1;
+    }
+
+    .date_content div.calendar_div p {
+        text-align: center;
+        height: 2.4rem;
+        width: 2.4rem;
+        border-radius: 50%;
+        display: inline-block;
+        line-height: 2.4rem;
+        margin-top: unset;
+        font-size: unset;
+        margin-left: unset;
+    }
+
+    .date_content div.calendar_div p span {
+        font-weight: 500;
+        font-size: 1.5rem !important;
+        height: unset;
+        line-height: unset;
+    }
+
+    .date_content div.calendar_div h6 {
+        text-align: center;
+        padding-right: 1px;
+        line-height: 10px;
+        font-size: 15px;
+        border-radius: 50%;
+        height: 20px;
+        margin-top: 0.5rem !important;
+    }
+
+    .list {
+        padding: .8rem 12% 0 12%;
+        background-color: #F7F7F7;
+        border-top: 1px solid #cccccc;
+        margin-top: -1px;
+        height: unset;
+        z-index: 1;
+    }
+
+    .list_title {
+        height: 2.5rem;
+        border-bottom: 1px solid #b7b7b7;
+        box-sizing: border-box;
+        margin-left: unset;
+        width: unset;
+    }
+
+    .list_title p {
+        width: auto;
+        height: 100%;
+        float: left;
+        font-size: 1.4rem;
+        color: #202020;
+        margin-right: 0;
+    }
+
+    .list_title span {
+        display: inline-block;
+        float: left;
+        height: 100%;
+        font-size: 1.4rem;
+        color: #202020;
+    }
+
+    .list_content {
+        width: 100%;
+        height: unset;
+        margin-bottom: 61px !important;
+        overflow-y: auto;
+        position: absolute;
+        box-sizing: border-box;
+        padding: 0 12%;
+        background-color: #F7F7F7;
+    }
+
+    .div_bottom {
+        bottom: 0px;
+        height: 60px;
+    }
+
+    .list_div {
+        position: relative;
+        width: 100%;
+        height: 60px;
+        left: 0;
+        border-bottom: 1px dashed #aaa;
+        font-size: 12px;
+    }
+
+    .list_div p {
+        margin: 0;
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        position: absolute;
+        background: #f5f5f5;
+        margin-top: 45px;
+        z-index: 9;
+    }
+
+    .list_c_div {
+        position: absolute;
+        width: 70%;
+        height: auto;
+        left: 21%;
+        top: 0;
+    }
+
+    .list_input {
+        width: 100%;
+        height: 60px;
+    }
+
+    .list_input input {
+        width: 100%;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        margin: 0;
+        padding: 0 10px;
+        background: #fff;
+        height: 30px;
+    }
+
+    .list_input input.big {
+        height: 60px;
+    }
+
+    .pColorRed {
+        color: red;
+    }
+
+    .pColorBlue {
+        color: #0076FF;
+    }
+
+    .pColorBlue .point, .pColorRed .point {
+        padding: 0.2rem !important;
+        margin-left: 0 !important;
+    }
+
+    .disNone {
+        display: none;
+    }
+
+    .posi-div {
+        width: 100%;
+        height: 80px;
+    }
+
+    .fc-time-grid .fc-slats td {
+        height: 1.4em !important;
+        background: #f5f5f5;
+    }
+
+    .fc-event, .fc-event-dot {
+        background: none;
+    }
+
+    .fc-event {
+        border: 1px solid #666;
+    }
+
+    .fc-event, .fc-event:hover {
+        padding: 0 1.4em;
+        line-height: 1.6em;
+    }
+
+    .fc-content .fc-time {
+        display: none;
+    }
+
+    .fc-event-green {
+        border: 1px solid #009944;
+    }
+
+    .customEvent {
+        font-weight: 400 !important;
+        padding-left: 14%;
+    }
+
+    .customEvent:hover {
+        padding-left: 14%;
+    }
+
+    .fc-event {
+        font-weight: 100 !important;
+    }
+
+    .customEvent {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        font-weight: bold;
+    }
+
+    .customEvent .fc-time {
+        opacity: 0;
+    !important;
+    }
+
+    .customEvent::after {
+        content: '';
+        display: inline-block;
+        width: 12%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #FFE412;
+    }
+
+    .customEvent.nullEvent::after {
+        background-color: #FFF;
+    }
+
+    .customEvent.zeroEvent::after {
+        background-color: #FF0000;
+    }
+
+    .customEvent.passEvent::after {
+        background-color: #0079C3;
+    }
+
+    .customEvent.failEvent::after {
+        background-color: #FFE412;
+    }
+
+    .loopEvent.schoolEvent {
+        background-color: #FFFFFF;
+        border-color: #8CC66D;
+    }
+
+    .fc-event, .fc-event:hover {
+        color: #8CC66D;
+    }
+
+    .fc-time-grid-event.fc-short .fc-time:after {
+        display: none;
+    }
+
+    .fc-time-grid-event.fc-short .fc-time:before {
+        display: none;
+    }
+
+    .fc-time-grid-event .fc-time, .fc-time-grid-event .fc-title {
+        font-size: .85em;
+    }
+
+    .list_content span {
+        display: inline-block;
+        float: left;
+        font-size: 1rem;
+        color: #191919;
+        width: auto;
+        height: unset;
+        line-height: unset;
+    }
+
+    .complimentCont {
+        width: 80%;
+    }
+
+    .list_content span.pink,
+    .list_content span.green {
+        width: 50px;
+        margin-right: 5px;
+        background-color: #00a65a;
+        text-align: center;
+        color: #FFF;
+        /*border-radius: 4px;*/
+        font-size: 12px;
+    }
+
+    .list_content span.pink {
+        background-color: #FF6699;
+    }
+
+    img.title-image {
+        height: 1.4rem;
+        float: left;
+        margin-right: 5px;
+    }
+
+    .list_content span.memo {
+        float: right;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+    .list_content img.memo {
+        float: right;
+        margin-right: 10px;
+        text-align: center;
+        border-radius: 10px;
+        height: 22px;
+    }
+
+    .list_content div {
+        box-sizing: border-box;
+        border-bottom: 1px solid #b7b7b7;
+        padding: 0.9rem 0 0.9rem 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .list_content div:hover {
+        background-color: #F0F0F0;
+    }
+
+    /*.list_content div.green {*/
+    /*border: 1px solid #00a65a;*/
+    /*border-radius: 5px;*/
+    /*}*/
+    /*.list_content div.pink {*/
+    /*border: 1px solid #FF6699;*/
+    /*border-radius: 5px;*/
+    /*}*/
+    div#memopop > div.newt-layout-block {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        top: auto;
+        right: 0;
+        bottom: auto;
+        background-color: #FFF;
+    }
+
+    div#memopop > div.newt-layout-block > div.title {
+        height: 40px;
+        line-height: 40px;
+        color: black;
+        text-align: center;
+    }
+
+    div#memopop > div.newt-layout-block > div.time {
+        height: 30px;
+        line-height: 35px;
+        text-align: center;
+    }
+
+    div#memopop > div.newt-layout-block > div.memobox {
+        padding: 5px;
+    }
+
+    div#memopop > div.newt-layout-block > div.memobox > .newt-layout-block {
+        width: 100%;
+        min-height: 100px;
+        max-height: 250px;
+        /*background-color: #D9D9D9;*/
+        padding-left: 5px;
+        padding-right: 5px;
+        word-wrap: break-word;
+        overflow-y: auto;
+        border: 1px solid #CCC;
+    }
+
+    div#memopop > div.newt-layout-block > div.btnbox {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    div#memopop > div.newt-layout-block > div.btnbox input[type='button'] {
+        width: 80px;
+        height: 30px;
+        border: none;
+        font-size: 15px;
+        background-color: #8CC11F;
+        color: #FFF;
+        border-radius: 5px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .headerBtn button {
+        padding: 1px 6px;
+    }
+
+    .line-one {
+        border-top: 1px solid #f2f2f2;
+    }
+
+    .Pback p {
+        background-color: black;
+        color: white !important;
+    }
+
+    .preMonth, .nextMonth {
+        color: #888888;
+    }
+
+    .pColorRed h6 {
+        color: #8CC134;
+        padding-top: 0px !important;
+        margin-top: 0 !important;
+    }
+
+    p.title {
+        text-align: center;
+        background-color: #8CC134;
+        height: 80px;
+        color: white !important;
+        line-height: 40px;
+        font-size: 4.5vw;
+    }
+
+    .days {
+        border-radius: 75px;
+        width: 50%;
+        height: 50%;
+        margin-left: 25%;
+        margin-top: 25%;
+    }
+
+    .point {
+        background-color: red;
+        width: 5px !important;
+        height: 5px !important;
+        margin: 0;
+        border-radius: 999px;
+    }
+
+    .plan .point {
+        background-color: #8CC134;
+        margin-left: 0 !important;
+        padding: 0.2rem;
+    }
+
+    /*.plan p {*/
+    /*color: #8CC134;*/
+    /*}*/
+
+    .date_title div .layui-icon::before {
+        height: unset;
+        line-height: unset;
+        font-weight: unset;
+        display: unset;
+        font-size: unset;
+        position: unset;
+        top: unset;
+        left: unset;
+        right: unset;
+        bottom: unset;
+    }
+
+    .pBorderRed {
+        border-left: unset;
+    }
+
+    div.newt-layout-body {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background-color: #F7F7F7;
+    }
+}

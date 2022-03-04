@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+    <title>固定スケジュール表示・編集画面</title>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+
+    <!-- fullcalendar -->
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" media='print'/>
+
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10101.css"/>
+
+</head>
+<body>
+<header>
+    <iframe id="iframe" src="${request.contextPath}/common/F40002.html" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div id="message" class="topMessage"></div>
+<div id="pageF10101" class="content">
+    <div class="calendar">
+        <div class="tab_menu_block">
+            <ul class="tab_menu" id="main_menu">
+                <li id="planAreaBtn" data-ref-type="single">ウィークリープラン</li>
+                <li id="fixedAreaBtn" class="rightLi active" data-ref-type="loop">繰り返す予定</li>
+            </ul>
+        </div>
+        <div class="fc-toolbar fc-header-toolbar">
+            <div class="fc-left">
+                <div class="tab_menu_block" style="width: 12vw;">
+                    <ul class="tab_menu disabled" id="sub_menu">
+                        <li class="active" id="planBtn">計画</li>
+                        <li id="perfBtn" class="rightLi">実行</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fc-right">
+                <div class="fc-button-group">
+                    <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left"
+                            aria-label="prev"><span class="fc-icon fc-icon-left-single-arrow"></span></button>
+                </div>
+                <h2><span v-text="tgtYmd"></span></h2>
+                <div class="fc-button-group">
+                    <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right"
+                            aria-label="next"><span class="fc-icon fc-icon-right-single-arrow"></span></button>
+                </div>
+            </div>
+        </div>
+        <div id="calendar"></div>
+    </div>
+    <div id="other_events">
+        <div style="height:6.8vw;"></div>
+        <div class="menu_container other" style="border-top: 1px solid #666;background: #def4ff">
+            <div class='fc-event event_item_1 block' v-for="d in block"
+                 :data-json="JSON.stringify(d)"
+                 :style="'background-image: url(../img/' + d.blockPicDiv + ');background-size: 2.8vw 3.8vh;background-color:'+ d.colorId+';color:'+d.fontColor+''"
+                 :title="d.blockDispyNm">
+                <span v-text="d.blockDispyNm"></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<!-- fullcalendar -->
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-all.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- mobiscroll -->
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="${request.contextPath}/js/student/F10101.js"></script>
+</html>

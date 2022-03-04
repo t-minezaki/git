@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08017Dao">
+    <!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+    <select id="selectMstAskTalkData" resultType="jp.learningpark.modules.manager.dto.F08017Dto">
+      SELECT
+            mcd1.cod_value AS itemName,
+            mcd2.cod_value AS answerName,
+            matt.id,
+            matt.item_type_div,
+            matt.use_div,
+            matt.ask_num,
+            matt.question_name,
+            matt.answer_type_div,
+            matt.opt_cont1,
+            matt.opt_cont2,
+            matt.opt_cont3,
+            matt.opt_cont4,
+            matt.opt_cont5,
+            matt.opt_cont6,
+            matt.opt_cont7,
+            matt.opt_cont8,
+            matt.opt_cont9,
+            matt.opt_cont10,
+            matt.upd_datime
+        FROM
+            mst_ask_talk_tmplate AS matt
+            LEFT JOIN mst_cod_d AS mcd1 ON matt.item_type_div = mcd1.cod_cd
+            AND mcd1.cod_key = 'ITEM_TYPE_DIV'
+            LEFT JOIN mst_cod_d AS mcd2 ON matt.answer_type_div = mcd2.cod_cd
+            AND mcd2.cod_key = 'ANSWER_TYPE_DIV'
+        WHERE
+            matt.temp_id = #{tempId}
+            AND matt.org_id = #{orgId}
+            AND matt.del_flg = 0
+        ORDER BY
+            matt.item_type_div,
+            matt.ask_num
+    </select>
+
+
+</mapper>

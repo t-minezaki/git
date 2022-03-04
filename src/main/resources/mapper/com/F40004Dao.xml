@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40004Dao">
+    <select id="getEventUnreadCount" resultType="Integer">
+        SELECT count(DISTINCT a.id)
+        FROM mst_event a
+                 INNER JOIN guard_event_apply_sts b
+                            ON a.id = b.event_id
+                                AND b.guard_id = #{guardId}
+                                AND b.stu_id = #{stuId}
+                                AND a.event_sts_div = '0'
+                                AND a.pub_start_dt <![CDATA[ <= ]]> now()
+                                AND a.pub_end_dt <![CDATA[ >= ]]> now()
+                                AND b.reading_sts_div = '0'
+        WHERE a.del_flg = 0
+          AND b.del_flg = 0
+    </select>
+    <select id="getNoticeUnreadCount" resultType="Integer">
+        SELECT count(A.id)
+        FROM (
+                 SELECT DISTINCT mn.id
+                 FROM mst_notice mn
+                          LEFT JOIN mst_notice_deliver mnd
+                                    ON mnd.notice_id = mn.id
+                                        AND mnd.org_id = #{orgId}
+                                        AND mnd.del_flg = 0
+                          INNER JOIN guard_reading_sts grs
+                                     ON grs.notice_id = mn.id
+                                         AND grs.guard_id = #{guardId}
+                                         AND grs.stu_id = #{stuId}
+                                         and grs.reading_sts_div = '0'
+                                         AND grs.del_flg = 0
+                 WHERE mn.pub_plan_start_dt <![CDATA[ <= ]]> now()
+                   AND mn.pub_plan_end_dt <![CDATA[ > ]]> now()
+                   AND mn.notice_type_div <![CDATA[ <> ]]> '1'
+                   AND mn.notice_type_div <![CDATA[ <> ]]> '6'
+                   AND mn.del_flg = 0
+             ) A
+    </select>
+    <select id="getGKGCCount" resultType="Integer">
+        SELECT count(*)
+        FROM mst_notice MN
+                 INNER JOIN mst_notice_deliver MND
+                            ON MN.id = MND.notice_id
+                                AND MND.del_flg = 0
+                 INNER JOIN guard_reading_sts GRS
+                            ON MN.id = GRS.notice_id
+                                AND GRS.del_flg = 0
+                                AND MND.guard_id = GRS.guard_id
+        WHERE MND.org_id = #{orgId}
+          AND MN.pub_plan_start_dt <![CDATA[ <= ]]> now()
+          AND MN.pub_plan_end_dt <![CDATA[ >= ]]> now()
+          AND MN.notice_type_div = '6'
+          AND GRS.guard_id = #{guardId}
+          AND grs.stu_id = #{stuId}
+          AND GRS.reading_sts_div = '0'
+    </select>
+</mapper>

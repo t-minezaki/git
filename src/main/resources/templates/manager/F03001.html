@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>教科書一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F03001.css"/>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app" v-cloak>
+    <div class="popTitle">教科書一覧画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="inputDiv">
+        <div class="inputMessage">
+            <div>組織</div>
+            <select id="org" v-model="orgId">
+                <option v-for="idx in orgList" :value="idx.orgId">{{idx.orgId}} {{idx.orgNm}}</option>
+            </select>
+            <div>学年</div>
+            <select id="schy">
+                <option selected></option>
+                <option v-for="idx in schyList" :value="idx.codCd">{{idx.codValue}}</option>
+            </select>
+            <div>教科</div>
+            <select id="subjt">
+                <option selected></option>
+                <option v-for="idx in subjtList">{{idx.codValue}}</option>
+            </select>
+            <div>出版社名</div>
+            <select id="pubulisher">
+                <option selected></option>
+                <option v-for="idx in publisherList">{{idx.codValue}}</option>
+            </select>
+            <div>教科書名</div>
+            <input type="text" maxlength="60" id="textbNm">
+        </div>
+    </div>
+    <div class="buttonDiv" style="padding: 1vw 4vw!important;">
+        <button class="green" style="float: right" onclick="selectBtn()">検索</button>
+        <button class="green" style="float: right" onclick="toF03006()" id="add">新規作成</button>
+    </div>
+    <div class="buttonDiv">
+        <div>ファイル選択</div>
+        <input type="text" id="showPath1" value="" disabled>
+        <button class="green" id="chooseBtn">選択</button>
+        <button class="green" id="import" @click="importBtn(schyList,subjtList,publisherList)">インポートで新規作成</button>
+        <input type="file" class="chooseFile" id="getPath1">
+        <a onclick="getTemplate(0)" class="templateA">テンプレート</a>
+    </div>
+    <div class="list">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+        <form id="exportForm" method="post" action="${request.contextPath}/manager/F03001/download">
+            <input id="exportInput" type="hidden" name="fileNm">
+        </form>
+        <form id="getTemplate" method="post" action="${request.contextPath}/manager/F03001/getTemplate">
+        </form>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F03001.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <!--<link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21026.css">-->
+    <script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+</head>
+<body id="body">
+<div class="div_header" style="height: 10%;position: unset;">
+    <iframe src="${request.contextPath}/common/F40011-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="div_content" id="content" v-cloak>
+    <h3 style="height: 5%;">入退室の代理登録</h3>
+    <div class="pageDiv" style="margin-top: 5%">
+        <h3 class="title">対象会員</h3>
+        <table border="1" cellspacing="0">
+            <tr>
+                <!--<th width="25%">GakkenID</th>-->
+                <th width="35%">会員氏名</th>
+                <th width="15%">学年</th>
+                <th width="25%">登録内容</th>
+            </tr>
+            <tr>
+                <!--<td class="td"><p>{{stu.afterUsrId}}</p></td>-->
+                <td class="td"><p>{{stu.stuNm}}</p></td>
+                <td class="td"><p>{{stu.schy}}</p></td>
+                <td class="td"><p>{{stu.userSts}}</p></td>
+            </tr>
+        </table>
+    </div>
+    <div class="pageDiv" style="height: 26%;">
+        <h3 class="title">登録内容</h3>
+        <div class="btnDiv">
+            <button class="active in-out-school" id="logIn" @click="hidden()" style="margin-right: 1%" value="0">入室</button>
+            <button class="in-out-school" id="logOut" @click="hidden()" style="margin-left: 1%" value="1">退室</button>
+        </div>
+
+    </div>
+    <div class="pageDiv" id="timeChoose" style="height: auto;margin-bottom: 0;border: 0px;">
+        <h3 class="title">入退室時刻</h3>
+        <div class="showTime selectDiv">
+            <select @change="nowTime()" @click="hidden()" class="selectBtn">
+                <option :value="year"  :value="year" v-for="year in years"  :selected="year==nowYear?true:false" v-for="year in years">{{year}}</option>
+            </select>
+            <div  id="starTime"  @click="starTime" style="width: 50%; text-align: left" type="text"></div>
+            <img class="choose-date-btn" id="img"  @click="starTime" src="../img/calendar_GKGC.png">
+        </div>
+        <div class="check_starTime disNone">
+            <select id="dom_starTime2" type="text" name="demo_select2">
+            </select>
+            <select id="dom_starTime1" type="text" name="demo_select1">
+            </select>
+            <select id="dom_starTime" type="text" name="demo_select">
+            </select>
+        </div>
+    </div>
+    <div class="pageDiv" style="border: 0;">
+        <div class="btnDiv last">
+            <button class="submit-back-btn" onclick="toF21018()" style="margin-right: 1%">戻る</button>
+            <button @click="submit()" class="submit-back-btn"
+                    style="margin-left: 1%;background: #00a65a;color: whitesmoke">登録
+            </button>
+        </div>
+    </div>
+</div>
+<div class="div_bottom">
+    <iframe src="${request.contextPath}/common/F40011.html?id=F21017" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F21026.js"></script>
+</html>

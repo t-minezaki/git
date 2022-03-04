@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <#include "/header.html" />
+        <title>F08016</title>
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+        <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+        <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F08016.css">
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="message" class="topMessage"></div>
+        <div class="one">
+            <div>
+                <ul class="one-ul">
+                    <li>テンプレート管理</li>
+                    <li>  ＞   テンプレート一覧</li>
+                </ul>
+            </div>
+        </div>
+        <div class="div_body">
+            <div class="div_head">
+                <button id="additem">新規作成</button>
+                <button id="updateitem">表示項目変更</button>
+                <button id="search">検索</button>
+            </div>
+            <div class="div_main">
+                <div class="first_div">
+                    <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="${request.contextPath}/js/manager/F08016.js"></script>
+</html>

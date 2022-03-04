@@ -1,0 +1,126 @@
+.box {
+    height: 85%;
+}
+
+.box1 {
+    margin-left: 5%;
+    width: 40%;
+    float: left;
+    height: 100%;
+}
+
+.box2 button {
+    text-align: center;
+    margin-top: 1vw;
+    border: 1px solid grey;
+    background-color: white;
+    height: 1.5vw;
+    width: 1.5vw;
+    padding: 0;
+}
+
+.span_title {
+    width: 100%;
+    height: 10vh;
+    text-align: center;
+    font-size: 15px;
+    line-height: 10vh;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    border: 1px grey solid;
+}
+
+div.symbol {
+    float: left;
+    display: inline-block;
+    width: 9%;
+    height: 80%;
+    text-align: center;
+    padding-right: 0.7vw;
+    position: relative;
+    top: 15%;
+    /*background: #444;*/
+}
+
+div.symbol button {
+    display: inline-block;
+    width: 7vw;
+    height: 12.5vh;
+    line-height: 6vh;
+    background-color: rgb(247, 247, 247);
+    border: 1px grey solid;
+    padding: 0;
+    color: grey;
+    font-size: 5vw;
+    margin-left: 1vw;
+    border-radius: 13px;
+    overflow: hidden;
+}
+
+div.symbol div {
+    height: auto;
+    line-height: 0vh;
+    margin-top: 1vh;
+}
+
+#select1, #select2 {
+    border-color: grey !important;
+    background: white;
+    overflow: auto;
+}
+
+#toleft {
+    background: url(../../img/left_button.png) no-repeat center/100%;
+}
+
+#allToLeft {
+    background: url(../../img/left_all_button.png) no-repeat center/100%;
+}
+
+#toright {
+    background: url(../../img/right_button.png) no-repeat center/100%;
+}
+
+#allToRight {
+    background: url(../../img/right_all_button.png) no-repeat center/100%;
+}
+
+option {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.select {
+    width: 100%;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    height: 100%;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+    padding: 20%;
+}
+
+.footDiv {
+    width: 100%;
+    height: 15%;
+}
+
+.footDiv button {
+    float: right;
+    margin-right: 6%;
+    width: 20%;
+    height: 60%;
+    border-radius: 4px;
+    background: #009944;
+    border: 2px solid #009944;
+    color: white;
+    font-size: 1.5vw;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}

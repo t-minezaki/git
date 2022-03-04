@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21013Dao">
+    <!--  指導報告書ヘーダから指導報告書情報を取得し -->
+    <select id="select" resultType="jp.learningpark.modules.manager.dto.F21013Dto">
+		SELECT
+			mu.after_usr_id
+			, mstu.flnm_nm ||' '|| mstu.flnm_lnm AS stuNm
+			, string_agg(abh.tgt_ymd :: TEXT,',') as tgt_ymd
+			, case when abd.subjt_div = '99' then abd.yobi1
+			  else mcd1.cod_value end AS subjt_div
+			, string_agg(mcd2.cod_value,',') AS cod_value
+			, string_agg(abd.abs_sts_div,',')as abs_sts_div
+			, mstu.stu_id
+		FROM
+			mst_stu mstu
+			INNER JOIN mst_usr mu ON ( mstu.stu_id = mu.usr_id AND mu.del_flg = 0 )
+			INNER JOIN mst_org mo ON ( mu.org_id = mo.org_id AND mo.del_flg = 0 )
+			<if test='roleDiv != null and roleDiv == "2"'>
+			INNER JOIN ( SELECT * FROM mentor_stu WHERE mentor_id = #{userId} and del_flg = 0 ) ms ON ( mstu.stu_id = ms.stu_id )
+			</if>
+			INNER JOIN attend_book_h abh ON ( mo.org_id = abh.org_id AND abh.del_flg = 0 )
+			INNER JOIN attend_book_d abd ON ( abh.ID = abd.attend_book_id AND mstu.stu_id = abd.stu_id AND abd.del_flg = 0 )
+			LEFT JOIN mst_cod_d mcd1 ON ( abd.subjt_div = mcd1.cod_cd AND mcd1.cod_key = 'SUBJT_DIV' AND mcd1.del_flg = 0 )
+			INNER JOIN mst_cod_d mcd2 ON ( abd.abs_sts_div = mcd2.cod_cd AND mcd2.cod_key = 'ABS_STS_DIV' AND mcd2.del_flg = 0 )
+		WHERE
+		mo.org_id = #{orgId}
+			<if test='month != null and month != ""'>
+				AND to_char( abh.tgt_ymd, 'yyyy' ) = #{years}
+			AND to_char(abh.tgt_ymd,'MM') = #{month}
+			</if>
+		<if test='stuIdListLast.size > 0 '>
+			AND        mstu.stu_id IN
+			<foreach collection="stuIdListLast" item="stuId" index="i" open="(" close=")" separator="," >
+				#{stuId}
+			</foreach>
+		</if>
+		GROUP BY
+			abh.tgt_ymd,
+			mu.after_usr_id,
+			stuNm,
+			abd.subjt_div,
+			abd.yobi1,
+			mcd1.cod_value,
+			mstu.stu_id
+			ORDER BY
+			mstu.stu_id
+	</select>
+	<select id="reSelect" resultType="jp.learningpark.modules.manager.dto.F21013Dto">
+		SELECT
+		A.after_usr_id,
+		A.stu_nm,
+		<choose>
+			<when test=' cd == "8" or cd == "9"'>
+				A.tgt_ymd ,
+			</when>
+			<otherwise>
+				string_agg ( A.tgt_ymd :: TEXT, ',' ) AS tgt_ymd,
+			</otherwise>
+		</choose>
+
+		A.subjt_div,
+		<choose>
+			<when test='cd == "0" or cd == "1" or cd == "2" or  cd == "3" '>
+				string_agg ( A.cod_value1 :: TEXT, ',' ) AS cod_value,
+			</when>
+			<otherwise>
+				<choose>
+					<when test='cd == "10"or cd == "8" or cd == "9"'>
+						string_agg ( A.cod_value1 :: TEXT, ',' ) AS cod_value,
+					</when>
+					<otherwise>
+						string_agg ( A.cod_value :: TEXT, ',' ) AS cod_value,
+					</otherwise>
+				</choose>
+
+			</otherwise>
+		</choose>
+
+		A.stu_id
+		FROM
+
+		(SELECT DISTINCT
+		mu.after_usr_id
+		, ms.flnm_nm || ms.flnm_lnm AS stu_nm
+		, abh.tgt_ymd
+		, CASE WHEN abd.subjt_div = '99' THEN abd.yobi1 ELSE mcd1.cod_value END AS subjt_div
+		<choose>
+			<when test='cd == "0" or cd == "1" or cd == "2" or cd == "3" '>
+				<choose>
+				<when test='cd=="2" '>
+					,abd.${value} as cod_value1
+				</when>
+				<otherwise>
+				, abd.${value} as cod_value
+				, mcd3.cod_value as cod_value1
+				</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test='cd=="10" or cd == "8" or cd == "9"'>
+					, grd.${value} as cod_value
+						<choose>
+							<when test='cd == "10"  or cd == "8" or cd == "9"'>
+								, mcd3.cod_value_2 As cod_value1
+							</when>
+						<otherwise>
+					, mcd3.cod_value AS cod_value1
+						</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+					, grd.${value} as cod_value
+					</otherwise>
+				</choose>
+
+			</otherwise>
+		</choose>
+		, ms.stu_id
+		FROM
+		attend_book_h abh
+
+		INNER JOIN attend_book_d abd ON ( abh.id = abd.attend_book_id AND abd.del_flg = 0 )
+		LEFT JOIN mst_cod_d mcd1 ON ( abd.subjt_div = mcd1.cod_cd AND mcd1.cod_key = 'SUBJT_DIV' AND mcd1.del_flg = 0 )
+		INNER JOIN mst_cod_d mcd2 ON ( mcd2.cod_key = 'GUID_SIT_LIST' AND mcd2.del_flg = 0 )
+		<!--<if test='cd == 4||cd == 5||cd == 6||cd == 7||cd == 8||cd == 9||cd == 10||cd == 11'>-->
+		<!--INNER JOIN mst_cod_d mcd3 ON ( mcd3.cod_key = mcd2.cod_value_2 AND mcd3.del_flg = 0 )-->
+		<!--</if>-->
+		INNER JOIN mst_usr mu ON ( abd.stu_id = mu.usr_id AND mu.del_flg = 0 )
+		INNER JOIN mst_stu ms ON ( abd.stu_id = ms.stu_id AND ms.del_flg = 0 )
+		INNER JOIN guid_repr_h grh ON ( abh.attend_book_cd = grh.attend_book_cd AND grh.del_flg = 0 )
+
+		INNER JOIN guid_repr_d grd ON ( grd.guid_repr_id = grh.ID AND grd.stu_id = ms.stu_id  AND grd.del_flg = 0 )
+
+		<choose>
+			<when test='cd == "0" or cd == "1" or cd == "2" or cd == "3" or cd == "10"or cd == "8" or cd == "9" '>
+				<choose>
+				<when test=' cd == "10"'>
+
+					LEFT JOIN mst_cod_d mcd3 ON ( mcd3.cod_key = mcd2.cod_value_2 and mcd3.cod_cd  in (
+					SELECT  regexp_split_to_table( grd.lect_shape_div,',') AS a
+					FROM guid_repr_d grd
+					INNER JOIN guid_repr_h grh ON ( grd.guid_repr_id = grh.ID  AND grd.del_flg = 0)
+					and grd.guid_repr_id = grh.ID
+					AND grd.stu_id =ms.stu_id
+					)AND mcd3.del_flg = 0 )
+
+				</when>
+				<otherwise>
+					<choose>
+					<when test=' cd == "8" or cd == "9" '>
+				left join mst_cod_d mcd3 ON(mcd3.cod_key = mcd2.cod_value_2 and mcd3.cod_cd =grd.${value} and mcd3.del_flg = 0 )
+					</when>
+						<otherwise>
+							left join mst_cod_d mcd3 ON(mcd3.cod_key = mcd2.cod_value_2  and mcd3.del_flg = 0 )
+						</otherwise>
+					</choose>
+				</otherwise>
+				</choose>
+			</when>
+		</choose>
+
+		WHERE
+		abh.org_id = #{orgId}
+
+		<if test='stuIdList.size > 0 '>
+			AND        grd.stu_id IN
+			<foreach collection="stuIdList" item="stuId" index="i" open="(" close=")" separator="," >
+				#{stuId}
+			</foreach>
+		</if>
+		<if test='stuIdListLast.size > 0 '>
+			AND        ms.stu_id IN
+			<foreach collection="stuIdListLast" item="stuId" index="i" open="(" close=")" separator="," >
+				#{stuId}
+			</foreach>
+		</if>
+
+		<if test='month != null and month != ""'>
+			AND to_char( abh.tgt_ymd, 'yyyy' ) = #{years}
+			AND to_char(abh.tgt_ymd,'MM') = #{month}
+		</if>
+
+		AND mcd2.cod_cd = #{cd}
+
+		) as A
+		GROUP BY
+		A.after_usr_id,
+		A.stu_nm,
+		<if test='cd == "6" or cd == "8" or cd == "9"or cd == "7"or cd == "11"'>
+			A.tgt_ymd,
+		</if>
+		<if test='cd=="2"  '>
+			A.cod_value1,
+		</if>
+		<if test='cd!="2"  '>
+			A.cod_value,
+		</if>
+		A.stu_id,
+		A.subjt_div
+		ORDER BY
+		A.stu_id
+	</select>
+	<select id="selectTen" resultType="jp.learningpark.modules.manager.dto.F21013Dto">
+		SELECT DISTINCT
+				mu.after_usr_id,
+				ms.flnm_nm || ms.flnm_lnm AS stu_nm,
+				abh.tgt_ymd,
+				CASE	WHEN abd.subjt_div = '99' THEN
+				abd.yobi1 ELSE mcd1.cod_value
+				END AS subjt_div,
+		<choose>
+		<when test='cd == "10"'>
+				grd.LECT_SHAPE_DIV AS cod_value,
+		</when>
+			<otherwise>
+				abd.home_wk_div as cod_value,
+		</otherwise>
+		</choose>
+				ms.stu_id
+			FROM
+				attend_book_h abh
+				INNER JOIN attend_book_d abd ON ( abh.id = abd.attend_book_id AND abd.del_flg = 0 )
+				LEFT JOIN mst_cod_d mcd1 ON ( abd.subjt_div = mcd1.cod_cd AND mcd1.cod_key = 'SUBJT_DIV' AND mcd1.del_flg = 0 )
+				INNER JOIN mst_cod_d mcd2 ON ( mcd2.cod_key = 'GUID_SIT_LIST' AND mcd2.del_flg = 0 )
+				INNER JOIN mst_usr mu ON ( abd.stu_id = mu.usr_id AND mu.del_flg = 0 )
+				INNER JOIN mst_stu ms ON ( abd.stu_id = ms.stu_id AND ms.del_flg = 0 )
+				INNER JOIN guid_repr_h grh ON ( abh.attend_book_cd = grh.attend_book_cd AND grh.del_flg = 0 )
+				INNER JOIN guid_repr_d grd ON ( grd.guid_repr_id = grh.ID AND grd.stu_id = ms.stu_id AND grd.del_flg = 0 )
+		<choose>
+		<when test='cd == "10"'>
+				INNER JOIN mst_cod_d mcd3 ON (
+				mcd3.cod_key = mcd2.cod_value_2
+				AND mcd3.cod_cd in (
+			SELECT DISTINCT
+				regexp_split_to_table( grd.lect_shape_div, ',' )  as a
+			FROM
+				guid_repr_d grd
+				INNER JOIN guid_repr_h grh ON ( grd.guid_repr_id = grh.ID AND grd.del_flg = 0 )
+				INNER JOIN mst_stu ms on(
+				grd.stu_id = ms.stu_id AND  ms.del_flg = 0)
+				inner join attend_book_h abh1 on abh1.attend_book_cd = grh.attend_book_cd
+				INNER JOIN attend_book_d abd1 ON ( abh1.id = abd1.attend_book_id AND abd1.del_flg = 0 )
+				LEFT JOIN mst_cod_d mcd4 ON ( abd1.subjt_div = mcd4.cod_cd AND mcd4.cod_key = 'SUBJT_DIV' AND mcd4.del_flg = 0 )
+
+				)
+				AND mcd3.del_flg = 0
+				)
+		</when>
+		<otherwise>
+		LEFT JOIN mst_cod_d mcd3 ON ( mcd3.cod_key = mcd2.cod_value_2 AND mcd3.del_flg = 0 )
+		</otherwise>
+		</choose>
+		WHERE
+				abh.org_id = #{orgId}
+			<if test='stuIdListLast.size > 0 '>
+			AND        ms.stu_id IN
+			<foreach collection="stuIdListLast" item="stuId" index="i" open="(" close=")" separator="," >
+				#{stuId}
+			</foreach>
+			</if>
+				AND to_char ( abh.tgt_ymd, 'yyyy' ) = #{years}
+				AND to_char ( abh.tgt_ymd, 'MM' ) = #{month}
+
+	</select>
+</mapper>

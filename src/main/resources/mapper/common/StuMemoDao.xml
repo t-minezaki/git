@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.StuMemoDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.StuMemoEntity" id="stuMemoMap">
+        <result property="id" column="id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="memoCont" column="memo_cont"/>
+        <result property="testResult" column="test_result"/>
+        <result property="typeDiv1" column="type_div_1"/>
+        <result property="typeDiv2" column="type_div_2"/>
+        <result property="mentorId" column="mentor_id"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

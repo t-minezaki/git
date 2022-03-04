@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>塾からのイベント情報一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30401.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul id="titleUl">
+                <li onclick="window.location.href='F30112.html'" class="active">お知らせ<div class="count1">{{count1}}</div></li>
+                <li onclick="location.reload();" class="active active1">イベント通知<div class="count">{{count}}</div></li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <ul class="oneCont" >
+                <li v-for="list in showList">
+                <div class="img" @click="toF30402(list.id)">
+                    <img style="width: 100%;height: 100%;" :src="list.imgPath != null && list.imgPath != ''? list.imgPath : imgPath">
+                </div>
+                <div class="cont" @click="toF30402(list.id)">
+                    <div id="textArea"  disabled >{{list.eventTitle}}</div>
+                    <div style="width: 20%;margin-top: 10px;"><img src="../img/newlogo.png" height="21px" width="41px" v-if="list.readStsDiv == '0'"/></div>
+                    <div>
+                        <!--<div class="title" v-html="list.noticeContent==null ? '' : decodeURI(list.noticeContent)"></div>-->
+                        <!--<div class="important" :style="show(list.eventLevelDiv)">重要</div>-->
+                        <div class="pubtime">{{list.pubStartDt}}</div>
+                    </div>
+                </div>
+                </li>
+            </ul>
+            <div class="pageChange">
+                <div @click="pageChange(0)" id="prev">前のページ</div>
+                <div @click="pageChange(1)" id="next">次のページ</div>
+            </div>
+            <div id="pageFoot"></div>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40004.html?id=F30401" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30401.js"></script>
+</html>

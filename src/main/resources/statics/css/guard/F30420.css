@@ -1,0 +1,615 @@
+.div_header {
+    height: 44px;
+}
+.newt-layout-body .div_img {
+    text-align: center;
+    margin: 2vw;
+}
+.content {
+    /*position: fixed;*/
+    width: 100%;
+    overflow: auto;
+    /*padding: 4px;*/
+    padding-bottom: 48px;
+    padding-top: 84px;
+}
+.content_div {
+    height: calc(100% - 58px);
+    width: 100%;
+    /*overflow: auto;*/
+    /*overflow-x: hidden;*/
+    /*padding-top: 2vw;*/
+}
+
+.description {
+    font-size: 15px;
+    color: #555;
+    margin-left: 7%;
+    word-break: break-all;
+    border-top: 1px solid #CCCCCC;
+}
+
+.description p {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+p > span {
+    line-height: 170%;
+    word-break:normal;
+    word-wrap:break-word;
+}
+.title {
+    width: 80%;
+    font-size: 15px;
+    color: #444;
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 10%;
+}
+
+.img {
+    width: 80%;
+}
+img {
+    /*max-width: 100%;*/
+    max-width:100% !important;
+    height:auto;
+}
+.div_bottom {
+    bottom: 0px;
+}
+
+.title413 {
+    background-color: #FFEEE0;
+}
+
+.div_body {
+    height: 84%;
+    background-color: white;
+}
+.headerBtn button {
+    padding: 1px 6px !important;
+}
+
+.line {
+    margin-bottom: 15px;
+    height: 2px;
+    background-color: #ddd;
+}
+
+.text413 > div:nth-child(1) > div:nth-child(1) {
+    background: unset;
+}
+
+.back {
+    float: left;
+    margin-top: 16px;
+    width: 7%;
+}
+
+.back img {
+    height: 20px;
+    vertical-align: middle;
+}
+
+#title_top {
+    color: red;
+    font-size: large;
+    text-align: center;
+    padding-top: 0.7vh;
+    letter-spacing: 0.5vw;
+    padding-bottom: 0.6vh;
+}
+
+.text413 {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 95%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.left_title {
+    height: auto;
+    position: relative;
+    vertical-align: center;
+}
+
+.span_cont {
+    width: 40%;
+    font-weight: bold;
+    font-size: large;
+}
+
+.span_cont span {
+    vertical-align: middle;
+}
+
+.span_val {
+    width: 60%;
+}
+
+sapn {
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+#title {
+    width: 90%;
+    font-size: calc(56px / 3);
+    color: #444;
+    margin-top: 15px;
+    text-align: left;
+    float: left;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.topTitle{
+    height: 40px;
+    background: #8CC11F;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    position: fixed;
+    top: 44px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.title2 {
+    overflow: hidden;
+}
+
+.description{
+    padding-right: 7%;
+}
+.div_files {
+    margin-top: 2vh;
+    text-align: center;
+    margin-bottom: 2vh;
+}
+.div_files a{
+    color: red;
+    text-decoration: none;
+    border-bottom: 0.5vh solid red;
+    word-break: break-all;
+    width: 100%;
+    height: auto;
+    text-align: justify;
+    line-height: 3vh;
+}
+
+/* 2020/11/12 V9.0 cuikailin add start */
+div#confirmContainer {
+    text-align: center;
+    height: 10vh;
+}
+
+button#confirm {
+    border: 0;
+    background: #00B050;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    width: 35vw;
+    /*padding: 5px 20px;*/
+}
+/* 2020/11/12 V9.0 cuikailin add end */
+/* Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+    .div_header{
+        height: 44px;
+    }
+
+    .div_bottom{
+        height: 46px;
+    }
+    .newt-layout-body .div_img {
+        text-align: center;
+        margin: 1rem 3.5rem;
+    }
+    .content {
+        width: 100%;
+        overflow: auto;
+        /* padding: 4px; */
+        margin-top: 84px;
+        height: calc(100% - 130px);
+        padding-bottom: unset;
+        padding-top: unset;
+    }
+    .content_div {
+        width: 100%;
+        overflow: unset;
+        /*padding-top: 7.2rem;*/
+        padding-top: 0;
+        height: unset;
+    }
+
+    .description {
+        font-size: 1rem;
+        color: #555;
+        margin-left: 3.5rem;
+        word-break: break-all;
+        width: 85%;
+        line-height: 2rem;
+        padding-right: unset;
+        border-top: unset;
+        margin-bottom: 1rem;
+    }
+
+    .description p {
+        word-wrap: break-word;
+        word-break: break-all;
+        margin-right: 7%;
+        font-size: 1rem;
+        /*padding-bottom: 1vh;*/
+        /*padding-top: 1vh;*/
+        /*padding: 10px auto;*/
+    }
+
+    p > span {
+        line-height: 170%;
+    }
+    .title {
+        width: 80%;
+        font-size: 15px;
+        color: #444;
+        margin-top: 10px;
+        text-align: center;
+        margin-left: 10%;
+    }
+
+    .img {
+        width: 80%;
+    }
+    img {
+        /*max-width: 100%;*/
+        max-width:100% !important;
+        height:auto;
+    }
+    .div_bottom {
+        bottom: 0px;
+    }
+
+    .title413 {
+        background-color: #FFEEE0;
+    }
+
+    .div_body {
+        height: 84%;
+        background-color: white;
+    }
+    .headerBtn button {
+        padding: 1px 6px !important;
+    }
+
+    .line {
+        margin-bottom: 15px;
+        height: 2px;
+        background-color: #ddd;
+    }
+
+    .text413 > div:nth-child(1) > div:nth-child(1) {
+        background: unset;
+    }
+
+    .back {
+        float: left;
+        margin-left: -2rem;
+        margin-right: 0.5rem;
+        width: auto;
+        position: static;
+        margin-top: 0;
+    }
+
+    .back img {
+        height: 1.2rem;
+        vertical-align: middle;
+        width: 1.2rem;
+    }
+
+    #title_top {
+        color: red;
+        font-size: large;
+        text-align: center;
+        padding-top: 0.7vh;
+        letter-spacing: 0.5vw;
+        padding-bottom: 0.6vh;
+    }
+
+    .text413 {
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 95%;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .left_title {
+        height: auto;
+        position: relative;
+        vertical-align: center;
+    }
+
+    .span_cont {
+        width: 40%;
+        font-weight: bold;
+        font-size: large;
+    }
+
+    .span_cont span {
+        vertical-align: middle;
+    }
+
+    .span_val {
+        width: 60%;
+    }
+
+    sapn {
+        word-break: break-all;
+        word-wrap: break-word;
+        font-size: 18px;
+    }
+    #title {
+        width: 85%;
+        font-size: 1.1rem;
+        color: #444;
+        text-align: left;
+        float: none;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-top: unset;
+        height: 100%;
+        line-height: 1.25;
+        padding-bottom: 20px;
+    }
+    .topTitle{
+        position: fixed;
+        top: 56px;
+        z-index: 1;
+    }
+
+    .title2 {
+        margin-left: 3.5rem;
+        position: static;
+        min-height: 7.2rem;
+        /*width: 100%;*/
+        background: white;
+        border-bottom: 1px solid #ccc;
+        padding-top: 2.2rem;
+        overflow: unset;
+    }
+
+    .div_files {
+        margin-top: 2vh;
+        margin-left: 3.5rem;
+    }
+}
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+    .div_header{
+        height: 56px;
+    }
+
+    .div_bottom{
+        height: 60px;
+    }
+    .newt-layout-body .div_img {
+        text-align: center;
+        margin: 1.5rem 3.5rem;
+        /*margin-top: 0;*/
+    }
+    .content {
+        width: 100%;
+        overflow: auto;
+        /*padding: 4px;*/
+        margin-top: 108px;
+        height: calc(100% - 168px);
+        padding-bottom: unset;
+        padding-top: unset;
+    }
+    .content_div {
+        width: 100%;
+        overflow: unset;
+        /*padding-top: calc(108px + 4rem);*/
+        padding-top: 0;
+        height: unset;
+    }
+
+    .description {
+        font-size: 1.2rem;
+        color: #555;
+        margin-left: 3.5rem;
+        word-break: break-all;
+        width: 85%;
+        line-height: 2.6rem;
+        padding-right: 1rem;
+        border-top: unset;
+        margin-bottom: 1rem;
+    }
+
+    .description p {
+        word-wrap: break-word;
+        word-break: break-all;
+        margin-right: 7%;
+        font-size: 1.32rem;
+        /*padding-bottom: 1vh;*/
+        /*padding-top: 1vh;*/
+        /*padding: 10px auto;*/
+    }
+
+    p > span {
+        line-height: 170%;
+    }
+    .title {
+        width: 80%;
+        font-size: 15px;
+        color: #444;
+        margin-top: 10px;
+        text-align: center;
+        margin-left: 10%;
+    }
+
+    .img {
+        width: 80%;
+    }
+    img {
+        /*max-width: 100%;*/
+        max-width:100% !important;
+        height:auto;
+    }
+    .div_bottom {
+        bottom: 0px;
+    }
+
+    .title413 {
+        background-color: #FFEEE0;
+    }
+
+    .div_body {
+        height: 84%;
+        background-color: white;
+    }
+    .headerBtn button {
+        padding: 1px 6px !important;
+    }
+
+    .line {
+        margin-bottom: 15px;
+        height: 2px;
+        background-color: #ddd;
+    }
+
+    .text413 > div:nth-child(1) > div:nth-child(1) {
+        background: unset;
+    }
+
+    .back {
+        float: left;
+        margin-left: -2rem;
+        margin-right: 0.5rem;
+        width: auto;
+        position: static;
+        margin-top: 0.35rem;
+    }
+
+    .back img {
+        height: 1.3rem;
+        vertical-align: middle;
+        width: 1.3rem;
+    }
+
+    #title_top {
+        color: red;
+        font-size: large;
+        text-align: center;
+        padding-top: 0.7vh;
+        letter-spacing: 0.5vw;
+        padding-bottom: 0.6vh;
+    }
+
+    .text413 {
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 95%;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .left_title {
+        height: auto;
+        position: relative;
+        vertical-align: center;
+    }
+
+    .span_cont {
+        width: 40%;
+        font-weight: bold;
+        font-size: large;
+    }
+
+    .span_cont span {
+        vertical-align: middle;
+    }
+
+    .span_val {
+        width: 60%;
+    }
+
+    sapn {
+        word-break: break-all;
+        word-wrap: break-word;
+        font-size: 18px;
+    }
+    #title {
+        width: 80%;
+        font-size: 1.5rem;
+        color: #444;
+        text-align: left;
+        float: none;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: inline-block;
+        -webkit-box-orient: unset;
+        overflow: hidden;
+        line-height: 2.2rem;
+        margin-top: unset;
+    }
+    .topTitle{
+        position: fixed;
+        top: 56px;
+        z-index: 1;
+    }
+
+    .title2 {
+        margin-left: 3.5rem;
+        position: static;
+        min-height: 9.2rem;
+        /*width: 100%;*/
+        background: white;
+        border-bottom: 1px solid #ccc;
+        padding-top: 2.6rem;
+        overflow: unset;
+    }
+
+    .div_files {
+        margin-top: 2vh;
+        margin-left: 3.5rem;
+    }
+}
+.hyper_link{
+    color: blue;
+    text-decoration: underline;
+}
+/*2020/12/14 liguangxin add start*/
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+    object-fit: contain;
+    background-color: transparent;
+}
+.layui-layer-page .layui-layer-content{
+    overflow:hidden!important;
+}
+.layui-layer-page,.layui-layer-content{
+    background-color: transparent;
+    box-shadow:none;
+}
+.layui-layer-molv123 a.layui-layer-ico.layui-layer-close.layui-layer-close1 {
+    right: 40px !important;
+    top: -6px !important;
+}
+/*2020/12/14 liguangxin add end*/

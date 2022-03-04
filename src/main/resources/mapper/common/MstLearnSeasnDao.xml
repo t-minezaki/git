@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstLearnSeasnDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstLearnSeasnEntity" id="mstLearnSeasnMap">
+        <result property="id" column="id"/>
+        <result property="crmLearnPrdId" column="crm_learn_prd_id"/>
+        <result property="planLearnSeasn" column="plan_learn_seasn"/>
+        <result property="learnSeasnStartDy" column="learn_seasn_start_dy"/>
+        <result property="learnSeasnEndDy" column="learn_seasn_end_dy"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

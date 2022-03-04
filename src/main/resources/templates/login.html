@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <#include "header.html" />
+    <link rel="stylesheet"  href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <!--<link rel="stylesheet"  href="${gurl('/css/common/F40001.css')}"/>-->
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" type="text/javascript"></script>
+    <link rel="manifest" href="${request.contextPath}/manifest.json?brandcd=${brandcd}"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="マナミル"> 
+    <link rel="apple-touch-icon" href="${request.contextPath}/img/icons/apple-touch-icon-152x152.png" />
+    <title>ログイン</title>
+</head>
+<body>
+<header class="other-content" style="width: 100%;padding: 0 15px">
+    <div class="header_logo">
+    </div>
+    <div class="header_operat">
+    </div>
+</header>
+<div id="main" v-cloak style="height: 100%">
+    <div class="content other-content" id="rrapp" style="display: none" v-cloak>
+        <div class="login_info">
+            <div class="errorMsg">
+                {{errorMsg}} ${errorMsg!''}
+            </div>
+            <div style=" text-align: center; font-size: 20px;margin-bottom: 5px;padding-top: 20px;">ログイン</div>
+            <div class="secTitle">IDとパスワードを入力してログインしてください。</div>
+            <div class="pwd_div">
+                <input type="text" value="mentor" v-model="username" @keyup.enter="login" placeholder="ID" id="loginId"/>
+            </div>
+            <div class="pwd_div">
+                <input type="password" value="12345" v-model="password" @keyup.enter="login" autocomplete="new-password" placeholder=" パスワード" id="password"/>
+            </div>
+            <input type="hidden" id="brandcd" value="${brandcd}">
+            </select>
+            <div class="login_btn_lo">
+                <button type="button" @click="login">ログイン</button>
+            </div>
+            <div class="loginFooter"><a @click="resetPassword">パスワードを忘れた方はこちら</a></div>
+        </div>
+    </div>
+
+    <div class="content phone-content" id="rrapp" style="display: none" v-cloak>
+        <div class="login_info">
+            <div class="errorMsg">
+                {{errorMsg}} ${errorMsg!''}
+            </div>
+            <!--<div style=" text-align: center; font-size: 20px;margin-bottom: 5px;padding-top: 20px;">ログイン</div>-->
+            <!--<div class="secTitle">IDとパスワードを入力してログインしてください。</div>-->
+            <div style="text-align: center;margin-bottom: 20px;margin-top: 15px">
+                <img src="${request.contextPath}/img/login.png" height="90" width="90"/>
+            </div>
+            <div class="pwd_div">
+                <input type="text" value="mentor" v-model="username" @keyup.enter="login" placeholder="ID" id="loginId"/>
+            </div>
+            <div class="pwd_div">
+                <input type="password" value="12345" v-model="password" @keyup.enter="login" autocomplete="new-password" placeholder="パスワード" id="password"/>
+            </div>
+            <input type="hidden" id="brandcd" value="${brandcd}">
+            </select>
+            <div class="login_btn_lo">
+                <button type="button" @click="login" id="login">ログイン</button>
+            </div>
+            <div class="loginFooter"><a @click="resetPassword">パスワードを忘れた方はこちら</a></div>
+        </div>
+    </div>
+
+    <div class="content tab-content" id="rrapp" style="display: none" v-cloak>
+        <div class="login_info">
+            <div class="errorMsg">
+                {{errorMsg}} ${errorMsg!''}
+            </div>
+            <!--<div style=" text-align: center; font-size: 20px;margin-bottom: 5px;padding-top: 20px;">ログイン</div>-->
+            <!--<div class="secTitle">IDとパスワードを入力してログインしてください。</div>-->
+            <div class="div_img">
+                <img src="${request.contextPath}/img/login.png" style="width: 28%;" />
+            </div>
+            <div class="id_div">
+                <input type="text" value="mentor" v-model="username" @keyup.enter="login" placeholder="ID" />
+            </div>
+            <div class="pwd_div">
+                <input type="password" value="12345" v-model="password" @keyup.enter="login" autocomplete="new-password" placeholder="パスワード"/>
+            </div>
+            <input type="hidden" id="brandcd" value="${brandcd}">
+            </select>
+            <div class="login_btn_lo">
+                <button type="button" @click="login" id="login">ログイン</button>
+            </div>
+            <div class="loginFooter"><a @click="resetPassword">パスワードを忘れた方はこちら</a></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var equipment = getEquipment();
+        if (equipment === 'phone'){ //phone
+            $(".phone-content").css("display","block");
+            $(".other-content").remove();
+            $(".tab-content").remove();
+            $("<link>").attr({ rel: "stylesheet",type: "text/css",href:"${gurl('/css/common/F40001_1.css')}"}).appendTo("head");
+        }
+        else if(equipment === "tablet") { //ipad
+            $(".tab-content").css("display","block");
+            $(".other-content").remove();
+            $(".phone-content").remove();
+            $("<link>").attr({ rel: "stylesheet",type: "text/css",href:"${gurl('/css/common/F40001_tab.css')}"}).appendTo("head");
+        }
+        else { //PC
+            $(".other-content").css("display","block");
+            $(".phone-content").remove();
+            $(".tab-content").remove();
+            $("<link>").attr({ rel: "stylesheet",type: "text/css",href:"${gurl('/css/common/F40001.css')}"}).appendTo("head");
+        }
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                username: '',
+                password: '',
+                brandcd: '',
+                brandList: {},
+                error: false,
+                errorMsg: ''
+            },
+            beforeCreate: function () {
+                if (self != top) {
+                    top.location.href = self.location.href;
+                }
+            },
+            methods: {
+                login: function (event) {
+                    //var data = "username=" + vm.username + "&password=" + vm.password;
+                    if ($("#brandcd").val() != "") {
+                        vm.brandcd = $("#brandcd").val();
+                    } else {
+                        if ($.cookie("brandcd")) {
+                            vm.brandcd = $.cookie("brandcd");
+                        } else {
+                            vm.errorMsg = $.format($.msg.MSGCOMD0001, "ブランドコード");
+                            return false;
+                        }
+                    }
+                    var equipment = getEquipment();
+                    var data = {"username":vm.username,"password":vm.password,"loginUrl":window.location.href,"equipment":equipment,"brandCd":vm.brandcd};
+                    $.ajax({
+                        type: "POST",
+                        url: ctxPath + "/sys/login",
+                        data: data,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 0) {
+                                window.location.href = "${request.contextPath}" + result.url;
+                                sessionStorage.removeItem("url");
+                            } else {
+                                vm.error = true;
+                                vm.errorMsg = result.msg;
+                                if(result.lockFlg=='1'){
+                                    $(".loginFooter").html("<a style='color: red' href='${request.contextPath}/common/F40009.html?brandCd="+vm.brandcd+"'>入力したＩＤがロックされました。ロック解除へ</a>");
+                                }
+                            }
+                        },
+                        error: function (result) {
+                            vm.errorMsg = "システムエラー　管理者に連絡してください";
+                        }
+                    });
+                },
+                resetPassword: function(){
+                    window.open("${request.contextPath}/common/F40006.html?brandCd="+$("#brandcd").val(),"_self");
+                }
+            }
+        });
+    });
+    function getEquipment() {
+        var equipment = 'phone';
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isChrome && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+        if (os.isAndroid || os.isPhone) {
+            equipment = 'phone';
+        }
+        //HUAWEI
+        var hh = window.screen.height;
+        var ww = window.screen.width;
+        if ((new Number(parseFloat(hh/ww) - parseFloat(16/10)).toFixed(2) == 0 )|| (new Number(parseFloat(ww/hh) - parseFloat(16/10)).toFixed(2) == 0)) {
+            equipment = 'otherEquip';
+        }
+        if (os.isTablet || (window.orientation == 90 || window.orientation == -90) || (os.isAndroid && window.innerWidth > 530) || (os.isPc && window.innerWidth < 900)){
+            equipment = 'tablet';
+        }else if(!os.isAndroid && !os.isPhone) {
+            equipment = 'otherEquip';
+        }
+        return equipment;
+    }
+
+    function emitUpdate() {
+        var event = document.createEvent('Event');
+        event.initEvent('sw.update', true, true);
+        window.dispatchEvent(event)
+    }
+    var version = Date.now();
+    // PWA
+    window.onload = function () {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('${request.contextPath}/service-worker.js?v=' + version).then(function(reg) {
+                if (reg.waiting) {
+                    emitUpdate();
+                    return
+                }
+                reg.onupdatefound = function() {
+                    var installingWorker = reg.installing;
+                    installingWorker.onstatechange = function() {
+                        switch (installingWorker.state) {
+                        case 'installed':
+                            if (navigator.serviceWorker.controller) {
+                                emitUpdate()
+                            }
+                            break;
+                        }
+                    }
+                }
+            }).
+            catch(function(e) {
+                console.error('Error during service worker registration:', e)
+            })
+        }
+    };
+</script>
+</body>
+
+
+</html>

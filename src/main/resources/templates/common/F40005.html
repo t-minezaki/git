@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>F40005_時期指定画面(POP)</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40005.css"/>
+</head>
+<body>
+    <header>時期指定</header>
+    <div class="main">
+        <div class="mainTitle">
+            期間
+        </div>
+        <div  class="mainDiv">
+
+            <div>
+                <input type="text" id="startInput" name="startInput" disabled>
+                <img src="../img/timeBtn.png" alt="">
+                <label id="startTime"></label>
+            </div>
+            <p>~</p>
+            <div>
+                <input type="text" value="" name="endInput" disabled="disabled" id="endInput">
+                <img src="../img/timeBtn.png" alt="">
+                <label id="endTime"></label>
+            </div>
+
+        </div>
+    </div>
+    <div class="bottombtn">
+        <button class="oneBtn" id="cancelBtn">キャンセル</button>
+        <button id="submitBtn">決定</button>
+    </div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/jquery-validation-1.17.0/localization/messages_ja.js"></script>
+<script src="${request.contextPath}/js/common/F40005.js"></script>
+</html>

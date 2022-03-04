@@ -1,0 +1,63 @@
+#内部結合テスト環境
+spring:
+  datasource:
+    jndi-name: gakken_app9.0
+server:
+  servlet:
+    context-path: /
+ans-url:
+  NOTICE_REMOTE_URL_appLoginCheck: http://59.110.141.18:8090/ans/v1/3/device
+  NOTICE_REMOTE_URL_unReadGet: http://59.110.141.18:8090/ans/v1/3/message/unread
+  NOTICE_REMOTE_URL_sendMessage: http://59.110.141.18:8090/ans/v1/3/message
+  NOTICE_REMOTE_URL_errorData: http://59.110.141.18:8090/ans/v1/3/message/errorData
+  token: U2FsdGVkX1/fVLL43pIy0qGxgAdRS2lP81dbP/rVqS0tRArTBAN0Hd5NOhoa6Je1
+# 检证API
+# 学研API
+gakken-api:
+  #本仮APIフラグ（是否正式调用api）
+  realApi: false
+  #REQUEST_URL
+  requestUrl: https://idgear-qas.x.itecgw.jp/gid/services/
+  #SOAP認証用UsernameToken
+  user: GEDWESUNTQ
+  #SOAP認証用Password
+  password: c56de89c45dcf40d0d76418abdf7ad2a
+  #特権アクセストークン
+  priToken: 5fb8cf8936b8v62f802fc6b8a0cd3b28
+  #サービスサイトコード
+  serviceCd: GEDWESSSIQ
+  #サービスショップコード
+  shopCd: GEDWESSSHQ
+  #GakkenTID履歴キー
+  gakkenTidHistKey: get_info_hist
+  #メールアドレスキー
+  gakkenMailKey: get_mail_address
+  #指導者コードキー
+  teacherCodeKey: get_teacher_code_01
+  #サービスサイトコード2
+  serviceCd2: GEDWESSSIP
+
+#domain
+learningpark-domain:
+  #  59テスト環境
+  domain: http://59.110.141.18:8090/
+
+ueditor:
+  urlPrefix: http://59.110.141.18:8090
+localFlag: false
+
+#saml2の設定
+saml2:
+  regId: https://gsignup-dev.learningpark.jp/v9.1/saml2/service-provider-metadata/manamirusp
+  #IdP エンティティID
+  idpEntityId: http://gonline-auth.gakken.jp/simplesaml/saml2/idp/metadata.php
+  #IdP SSOエンドポイント
+  idpSSOLocation: http://gonline-auth.gakken.jp/simplesaml/saml2/idp/SSOService.php
+  #SPの秘密鍵
+  spPrivateKey: /cert/sp.pem
+  #SPの共通鍵
+  spCertificate: /cert/sp.crt
+  #IDPの共通鍵
+  idpCertificate: /cert/idp.crt
+  # 認証失敗
+  failureUrl: /login/onair

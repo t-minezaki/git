@@ -1,0 +1,197 @@
+html,body {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+}
+header{
+    padding: 0 1vw;
+}
+.btn_div button{
+    background: none;
+    color: #009944;
+    border: 0.15vw solid #009944;
+    border-radius: 0.4vw;
+    width: 100%;
+    font-size: 0.9vw;
+    height: 100%;
+}
+.btn_div{
+    top: 1.4vw;
+    right: 7vw;
+    height: 2.2vw;
+    width: 8vw;
+    position: absolute;
+}
+.topTitle{
+    padding:0;
+    border:none;
+    margin-top:5vw;
+    scrolling : no;
+    height: calc(2.7vw + 2px);
+}
+.mian{
+    width: 100%;
+    height: auto;
+    padding: 0 1vw;
+}
+.mainCon{
+    padding: 0 20%;
+    padding-top: 5vw;
+    margin-top: 10px;
+}
+.mainTitle{
+    width: 100%;
+    height: 3.4vw;
+    line-height: 3.4vw;
+    text-align: center;
+    background: #b6e8cc;
+    color: #000000;
+    font-size: 1.3vw;
+}
+.mainDiv{
+    width: 100%;
+    height: auto;
+    padding: 0 1vw;
+}
+.topMain{
+    width: 100%;
+    height: auto;
+    padding: 1vw 0;
+}
+.topMain div{
+    width: 100%;
+    height: 2vw;
+    line-height: 2vw;
+    font-size: 1vw;
+}
+.bottomMain{
+    width: 100%;
+    height: 3.2vw;
+    padding: 0.3vw 0;
+}
+.bottomMain p{
+    float: left;
+    width: 15%;
+    height: 100%;
+    line-height: 2.6vw;
+    font-size: 1vw;
+    color: #666;
+}
+.bottomMain p.center{
+    color: #EA331B;
+    width: auto;
+    min-width: 4%;
+}
+.bottomMain input{
+    width: 50%;
+    height: 100%;
+    line-height: 2.6vw;
+    font-size: 1vw;
+    padding: 0 0.2vw;
+    float: left;
+    border: 1px solid #666;
+    color: #666;
+}
+.bottomMain input:disabled{
+    background: none;
+    border: 0;
+    color: #EA331B;
+}
+.theme_btn{
+    width: 60%;
+    height: 3vw;
+    margin: 4vw auto 0 auto;
+}
+.btn_con{
+    width: 80%;
+    padding-left: 20%;
+    height: 100%;
+    padding-right: 20%;
+}
+.theme_btn button{
+    width: 40%;
+    border-radius: 0.5vw;
+    height: 100%;
+    background: none;
+    color:#009944;
+    float: left;
+    font-size: 1.2vw;
+    border: 2px solid #009944;
+}
+.theme_btn button.left{
+    border: 0;
+    width: 60%;
+}
+@media screen and (max-width: 500px) {
+    header {
+        width: 100%;
+        padding: 4px 2%;
+        height: 44px;
+    }
+    .header_logo {
+        height: 24px;
+        width: 90px;
+        margin-top: 10px;
+    }
+    .header_operat li {
+        width: 24px;
+        height: 24px;
+        margin-top: 8px;
+    }
+    .header_operat li img {
+        width: 100%;
+        height: 100%;
+    }
+    .btn_div {
+        top: 10px;
+        right: 48px;
+        height: 24px;
+        width: 60px;
+    }
+    .mainCon {
+        padding: 44px 10% 0 10%;
+    }
+    .topTitle {
+        margin-top: 44px;
+        height: 22px;
+    }
+    .mainTitle {
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+    }
+    .topMain {
+        padding: 6px 0;
+    }
+    .topMain div {
+        height: auto;
+        line-height: 15px;
+        font-size: 10px;
+    }
+    .bottomMain {
+        height: 30px;
+        padding: 6px 0;
+    }
+    .bottomMain p {
+        line-height: 22px;
+        font-size: 10px;
+        width: 32%;
+    }
+    .bottomMain input {
+        line-height: 22px;
+        font-size: 10px;
+        padding: 0 2px;
+    }
+    .theme_btn {
+        height: 24px;
+    }
+    .btn_con {
+        padding-left: 15%;
+        width: 90%;
+    }
+    .theme_btn button {
+        border-radius: 4px;
+        font-size: 12px;
+        border: 1.5px solid #009944;
+    }
+}

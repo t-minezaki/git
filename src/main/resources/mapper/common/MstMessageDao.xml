@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstMessageDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstMessageEntity" id="mstMessageMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="talkId" column="talk_id"/>
+        <result property="messageTitle" column="message_title"/>
+        <result property="messageCont" column="message_cont"/>
+        <result property="messageTypeDiv" column="message_type_div"/>
+        <result property="messageLevelDiv" column="message_level_div"/>
+        <result property="pubPlanStartDt" column="pub_plan_start_dt"/>
+        <result property="pubPlanEndDt" column="pub_plan_end_dt"/>
+        <result property="allDeliverFlg" column="all_deliver_flg"/>
+        <result property="attachFilePath" column="attach_file_path"/>
+        <result property="titleImgPath" column="title_img_path"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

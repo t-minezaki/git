@@ -1,0 +1,260 @@
+html,body{
+    height: 100%;
+}
+.main{
+    height: 77%;
+    overflow-y: hidden;
+}
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 0.1em;
+    font-size: 1.5em;
+    font-weight: bolder;
+    height: 35px;
+    line-height: 35px;
+}
+.layui-layer-iframe {
+    overflow-y: unset !important;
+}
+.layui-layer-title {
+    border-radius: 10px !important;
+}
+.layui-layer-content iframe {
+    border-radius: 10px !important;
+}
+.layui-layer {
+
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 10px 5px #777;
+    background: #F0F0F0;
+}
+.two{
+    height: 10%;
+    margin-left: 3vw;
+}
+
+.two .two_top{
+    height: 10vh;
+}
+
+p{
+    font-size: 1.0vw;
+    float: left;
+}
+
+.two_bottom{
+    margin-top: 5vh;
+    margin-left: 18vw;
+    width: 6vw;
+    height: 2.2vw;
+    font-size: 0.9vw;
+    border: 0;
+    background: #00a65a;
+    color: whitesmoke;
+    border-radius: 3px;
+    cursor: pointer;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    letter-spacing: 0.1vw;
+}
+.two .two_sel{
+    height: 5vh;
+    width: 10vw;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    float: left;
+    margin-left: 6vw;
+}
+
+.three{
+    height: 50vh;
+}
+.p{
+    width: 100%;
+    font-size: 1.2vw;
+    font-weight: bold;
+    padding-left: 1vw;
+    box-sizing: border-box;
+    margin-top: 4vh;
+}
+.three .btn_left{
+    height: 100%;
+    width: 10vw;
+    float: left;
+    background: #00B050;
+    color: whitesmoke;
+    font-size: 3.5vh;
+    margin-left: 30vw;
+    margin-top: 35vh;
+    border: none;
+
+}
+.btn_div {
+    display: inline-block;
+    width: 12vw;
+    margin: 0px 0.5vw;
+}
+.btn_div button {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-size: 1.2vw;
+    letter-spacing: 0.1vw;
+    border-radius: 3px;
+    height: 5vh;
+    margin-left: 2.5%;
+    background-color: #00a65a;
+    color: whitesmoke;
+    border: 0px;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+.three .btn_right {
+    height: 100%;
+    width: 10vw;
+    float: right;
+    background: #00B050;
+    color: whitesmoke;
+    font-size: 3.5vh;
+    margin-right: 30vw;
+    margin-top: 35vh;
+    border: none;
+
+}
+.topMessage{
+    position: absolute;
+}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    width: 880px;
+    /*background-color: #009944;*/
+}
+
+.ui-jqgrid-hbox {
+    width: 100%;
+    padding-right: 0 !important;
+}
+
+#jqGridPager_right {
+    text-align: left;
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+.ui-widget.ui-widget-content{
+    margin-left: 1vw;
+}
+.ui-jqgrid .ui-jqgrid-view {
+    left: 0 !important;
+    margin-left: 0 !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#pg_jqGridPager{
+    border-width: 0.5px;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    margin: 0px 1.4vw;
+}
+.ui-jqgrid tr.ui-row-ltr td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+    border: 2px solid #ccc !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+
+.one {
+    width: 100% !important;
+    height: 10%;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+    display: inline-block;
+    margin-right: 1vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+.point{
+    position: absolute;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10vw;
+    height: 5%;
+}
+/*2020/12/28 9.0 cuikailin add start*/
+#jqGrid_usrId .ui-jqgrid-resize{
+    display: none;
+}
+/*2020/12/28 9.0 cuikailin add end*/
+#point{
+    /*border: 1px solid #d4d4d4!important;*/
+    border: 1px solid black!important;
+
+}

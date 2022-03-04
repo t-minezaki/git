@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <#include "/header.html" />
+        <title>F08001</title>
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+        <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+        <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F08009.css">
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="message" class="topMessage"></div>
+        <div class="one">
+            <div>
+                <ul class="one-ul">
+                    <li>イベント管理</li>
+                    <li>  ＞   配信設定/状況確認</li>
+                </ul>
+            </div>
+        </div>
+        <div class="div_body">
+            <div class="div_head">
+                <button id="updateitem">表示項目変更</button>
+                <button id="search">検索</button>
+                <div id="head_right">
+                    <button id="schedule_show" onclick="window.location.href = 'F08013.html';">
+                        <img src="../img/icon_menu2.png"/>
+                    </button>
+                    <button id="list_show">
+                        <img src="../img/icon_menu1.png"/>
+                    </button>
+                </div>
+            </div>
+            <div class="div_main">
+                <div class="first_div">
+                    <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="${request.contextPath}/js/manager/F08009.js"></script>
+</html>

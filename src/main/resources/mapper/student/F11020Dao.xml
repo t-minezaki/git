@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11020Dao">
+    <select id="getAskAndTalk" resultType="jp.learningpark.modules.student.dto.F11020Dto">
+        select
+            b.message_title,
+            d.item_type_div,
+            d.ask_num,
+            d.answer_relt_cont,
+	        d.answer_type_div,
+            a.ask_disp_flg,
+            a.talk_disp_flg,
+            a.reading_sts_div,
+            e.cod_value,
+            d.question_name,
+            c.note_cont
+        from
+            (SELECT
+            *
+            from
+            talk_reading_sts
+            where message_id = #{messageId}
+            and deliver_id = #{deliverId}
+            and del_flg = 0
+            ) a
+        inner join
+            mst_message b on(a.message_id = b.id and b.del_flg = 0)
+        inner join
+            talk_record_h c on(b.talk_id = c.id and c.del_flg = 0)
+        left join
+            talk_record_d d on(d.talk_id = c.id and d.question_name is not null
+            and d.question_name <![CDATA[ <> ]]> ''
+            and d.answer_type_div is not null
+            and d.answer_type_div <![CDATA[ <> ]]> '' and d.del_flg = 0)
+        left join
+            mst_cod_d e on(e.cod_key = 'ITEM_TYPE_DIV' and e.del_flg = 0 and e.cod_cd = d.item_type_div)
+        WHERE
+            c.stu_id = #{stuId}
+        ORDER BY
+            d.item_type_div,
+            d.ask_num
+    </select>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30410Dao">
+    <select id="getGuardEventApplySts" resultType="jp.learningpark.modules.guard.dto.F30410Dto">
+        SELECT
+            ms.flnm_nm || '　' || ms.flnm_lnm AS stuName,
+            CASE
+            WHEN #{refType} IN('0','1')
+            THEN espd.sgd_start_datime
+            WHEN #{refType} = '2'
+            THEN trh.TALK_DATIME
+            ELSE NULL
+            END AS sgdStartTime,
+            geas.reply_cnt AS replyCnt
+        FROM
+            guard_event_apply_sts AS geas
+            INNER JOIN mst_stu AS ms ON ms.stu_id = geas.stu_id
+            AND geas.event_id = #{eventId}
+        	AND geas.guard_id = #{guardId}
+        	AND geas.stu_id = #{stuId}
+            AND geas.reply_sts_div = '1'
+            AND geas.del_flg = 0
+            AND ms.del_flg = 0
+            INNER JOIN mst_event AS me ON geas.event_id = me.id AND me.del_flg = 0
+            <!-- 2020/12/18 V9.0 cuikailin modify start -->
+            LEFT JOIN event_sche_plan_del AS espd ON espd.id = geas.event_sche_del_id AND #{refType} in('0','1')
+            AND espd.del_flg = 0
+            LEFT JOIN talk_record_h AS trh ON trh.stu_id = geas.stu_id  AND trh.guard_id = geas.guard_id AND trh.event_id = geas.event_id
+                AND trh.talk_apply_sts_div = '0' AND trh.del_flg = 0 AND #{refType} = '2'
+            <!-- 2020/12/18 V9.0 cuikailin modify end -->
+    </select>
+    <select id="getDeleteOne" resultType="jp.learningpark.modules.common.entity.GuardEventApplyStsEntity">
+        SELECT
+            *
+        FROM
+            guard_event_apply_sts AS geas
+            WHERE geas.event_id = #{eventId}
+
+            AND geas.guard_id = #{guardId}
+
+            AND geas.stu_id = #{stuId}
+
+            AND geas.del_flg = 0
+    </select>
+</mapper>

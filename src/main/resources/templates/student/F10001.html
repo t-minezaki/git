@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒基本情報登録画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10001.css"/>
+    <!-- layer -->
+</head>
+<body>
+<header style="padding: 0 1vw">
+    <div class="header_logo" onclick="window.location.href='./F10301.html'">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout.png" alt="logout" />
+        </li>
+    </ul>
+</header>
+<div class="content" id="rrapp" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="info_mine">
+        <h4>ユーザ情報登録·確認</h4>
+        <ul>
+            <div style="padding: 1vw 0;border-bottom: 1px solid #ccc; width: 100%">
+                <h3>登録情報に誤りがないかご確認の上、「次へ」をタップしてください。</h3>
+                <h3>誤りがある場合は修正してください。</h3>
+            </div>
+            <li>
+                <p>塾</p>
+                <div>
+                    <input type="text" :value="(orgId!=undefined && stu.orgNm!=undefined) ? orgId+' '+stu.orgNm : ''" disabled>
+                </div>
+            </li>
+            <li>
+                <p class="required">名前</p>
+                <div>
+                    <input type="text" name="stuFnm" id="stuFnm" :value="stu.stuFnm" maxlength="10">
+                    <input type="text" name="stuLnm" id="stuLnm" :value="stu.stuLnm" maxlength="10">
+                </div>
+            </li>
+            <li>
+                <p class="required">カナ</p>
+                <div>
+                    <input type="text" name="flnmKnNm" id="flnmKnNm" :value="stu.flnmKnNm" maxlength="10">
+                    <input type="text" name="flnmKnLnm" id="flnmKnLnm" :value="stu.flnmKnLnm" maxlength="10">
+                </div>
+            </li>
+            <li>
+                <p class="required">
+                    生年月日
+                </p>
+                <div>
+                    <form name="date">
+                        <select id="year" name="year" onchange="selectYear(this.value)">
+                            <option value=""></option>
+                        </select>
+                        <span>/</span>
+                        <select id="month" name="month" onchange="selectMonth(this.value)">
+                            <option value=""></option>
+                        </select>
+                        <span>/</span>
+                        <select id="day" name="day">
+                            <option value=""></option>
+                        </select>
+                    </form>
+                </div>
+            </li>
+            <li>
+                <p class="required">
+                    性別
+                </p>
+                <div>
+                    <select id="gendr" name="gendr">
+                        <option v-for="gendr in gendrList" :value="gendr.codCd" :selected="gendr.codCd == stu.gendrDiv ? 'selected' : ''" v-text="gendr.codValue"></option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <p>学校</p>
+                <div>
+                    <!--<select id="sch" name="sch">-->
+                    <!--<option value="">選択くしてださい</option>-->
+                    <!--<option v-for="sch in schList" :value="sch.schCd" :selected="stu.schCd == sch.schCd ? 'selected' : ''" v-text="sch.schNm"></option>-->
+                    <!--</select>-->
+                    <input type="text" id="sch" name="sch" :value="stu.schNm!=null?stu.schNm.trim():''">
+                </div>
+            </li>
+            <li>
+                <p>学年</p>
+                <div>
+                    <input type="text" :value="stu.schy!=null?stu.schy:''" disabled>
+                    <!--<p>*</p>-->
+                    <!--<select id="schy" name="schy">-->
+                    <!--<option value="">選択くしてださい</option>-->
+                    <!--<option v-for="schy in schyList" :value="schy.codCd" :selected="stu.schyDiv == schy.codCd ? 'selected' : ''" v-text="schy.codValue"></option>-->
+                    <!--</select>-->
+                </div>
+            </li>
+            <li class="endLi">
+                <p></p>
+                <div>
+                    <input type="text" value="「*」は入力必須項目です。" disabled>
+                </div>
+            </li>
+        </ul>
+        <ul class="ulbottom">
+            <li class="libor">
+                <button class="save_btn save_btn_libor" id="retu"  @click="returnFn">戻る</button>
+                <button class="save_btn" id="update" @click="saveOrUpdate">変更</button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="popId" class="disNone">
+    <div class="popDiv">
+        <img src="../img/triangle.png" alt="">
+        <ul>
+            <li>
+                写真を撮る
+                <input type="file" accept="image/*" capture="camera" onchange="uploadpImg(this,'preview','1')">
+
+            </li>
+            <li>
+                フォトライブラリから選択
+                <input type="file" accept="image/*" onchange="uploadpImg(this,'preview','2')">
+            </li>
+            <li style="border: 0;color: #EA331B" class="cancelFn">キャンセル</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/student/F10001.js"></script>
+
+
+</html>

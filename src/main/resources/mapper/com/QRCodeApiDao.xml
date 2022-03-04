@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.QRCodeApiDao">
+    <!--画面．ＩＤがユーザ基本マスタに存在すること。-->
+    <select id="selectOne" resultType="jp.learningpark.modules.com.dto.QRCodeApiDto" parameterType="String">
+        <!--NWT　楊　2021/09/15　MANAMIRU1-782　Edit　Start-->
+        SELECT
+        mu.org_id,
+        ms.*,
+        mo.org_nm,
+        mg.mailad AS mailAddr,
+        mcd.cod_value,
+        mcd.cod_cd
+        FROM
+        mst_stu AS ms
+        INNER JOIN mst_usr AS mu ON ms.stu_id = mu.usr_id
+        AND mu.del_flg = 0
+        INNER JOIN mst_org AS mo ON mo.org_id = mu.org_id
+        AND mo.del_flg = 0
+        LEFT JOIN mst_guard AS mg ON mg.guard_id = ms.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_cod_d AS mcd ON mcd.cod_cd = ms.schy_div
+        AND mcd.del_flg = 0
+        WHERE
+        ( ms.qr_cod = #{stuId} OR oria_cd = #{stuId} OR stu_id = #{stuId} )
+        AND mcd.cod_key = 'SCHY_DIV'
+        <!--NWT　楊　2021/09/15　MANAMIRU1-782　Edit　End-->
+    </select>
+
+    <!--  ユーザマスタから該当登録者の存在をチェック  -->
+    <select id="selectLoginUsers" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        SELECT
+        mu.*
+        ,mo.org_nm
+        FROM
+        mst_usr mu
+        INNER JOIN
+        mst_org mo ON mu.org_id = mo.org_id AND mo.del_flg = 0
+        WHERE
+        mu.after_usr_id = #{afterUsrId}
+        AND
+        mu.del_flg = '0'
+        AND
+        trim(mu.role_div) in ('1','2')
+        AND
+        <if test="testFlag == 0">
+        mu.org_id = #{orgId}
+        </if>
+        <if test="testFlag == 1">
+        mo.brand_cd = #{orgId}
+        </if>
+    </select>
+    <!--NWT　楊　2021/07/02　MANAMIRU1-703　Edit　Start-->
+    <select id="selectUserByLoginIdAndOrgId" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        select mu.*,c.cod_value as roleName,mo.org_nm as orgNm,mo.brand_cd
+        from mst_usr mu
+        inner join mst_org mo on mu.org_id = mo.org_id and mo.del_flg = 0
+        left join mst_cod_d c on c.cod_cd = mu.role_div and c.cod_key = 'ROLE_DIV' and c.del_flg = 0
+        <if test="gidFlag == 1 and tchCdFlg == 1">
+            inner join mst_manager mm on mu.usr_id = mm.mgr_id and mm.del_flg = 0
+            and mm.tch_cd = #{userCd}
+        </if>
+        <where>
+            and mu.del_flg = 0
+            <if test="gidFlag == 0">
+                and mu.after_usr_id = #{userCd}
+            </if>
+            <if test="gidFlag == 1 and tchCdFlg == 0">
+                and mu.gidpk = #{userCd}
+            </if>
+            <!--NWT　楊　2021/07/13　MANAMIRU1-703　Edit　Start-->
+                and mu.spec_auth_flg in ('0','1')
+            <if test="testFlag == 0">
+                and mu.org_id = #{orgId}
+            </if>
+            <if test="testFlag == 1">
+                and mo.brand_cd = #{orgId}
+            <!--NWT　楊　2021/07/13　MANAMIRU1-703　Edit　End-->
+            </if>
+            <if test="gidFlag != null">
+                AND mu.gid_flg = #{gidFlag}
+            </if>
+            <if test="gidFlag == 1 and tchCdFlg == 1">
+                and mm.tch_cd = #{userCd}
+            </if>
+        </where>
+        ORDER BY
+        mu.cret_datime
+    </select>
+    <!--NWT　楊　2021/07/02　MANAMIRU1-703　Edit　End-->
+</mapper>

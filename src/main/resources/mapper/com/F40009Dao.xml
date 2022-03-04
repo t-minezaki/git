@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40009Dao">
+    <!--画面．ＩＤがユーザ基本マスタに存在すること。-->
+    <select id="selectOne" resultType="jp.learningpark.modules.common.entity.MstUsrEntity" parameterType="String">
+        SELECT
+            um.id,
+          um.usr_id,
+            um.role_div
+        FROM
+            mst_usr um
+            INNER JOIN mst_org om ON um.org_id = om.org_id
+            AND om.brand_cd = #{brandCd}
+            AND om.del_flg=0
+        WHERE
+            um.after_usr_id = #{afterUsrId}
+            AND um.usr_sts = '1'
+            AND um.del_flg=0
+        limit 1
+    </select>
+
+    <select id="selectWithGuard" parameterType="String" resultType="jp.learningpark.modules.common.entity.MstStuEntity">
+        SELECT
+            sm.flnm_nm,
+	        sm.flnm_lnm
+        FROM
+            mst_guard gm
+            INNER JOIN mst_stu sm ON sm.stu_id = #{usrId}
+            AND sm.guard_id=gm.guard_id
+          AND sm.del_flg=0
+        WHERE
+            gm.mailad = #{email}
+            AND gm.del_flg=0
+    </select>
+</mapper>

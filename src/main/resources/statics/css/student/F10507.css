@@ -1,0 +1,123 @@
+.content{
+	height: auto;
+	width: 100%;
+}
+.disPlayNone {
+	display: none;
+}
+*{
+	box-sizing: border-box;
+}
+.content ul{
+	padding: 0.5vw 0;
+	height: 3.6vw;
+	width: 100%;
+	overflow: hidden;
+}
+.content ul.title_tab_two{
+	padding: 4px 20px;
+}
+.content ul li{
+	width: 50%;
+	height: 2.6vw;
+	float: left;
+	background: none;
+	border: 0.15vw solid #009944;
+	border-left: 0;
+	color: #009944;
+	line-height: 2.6vw;
+	text-align: center;
+	font-size: 0.9vw;
+}
+.content ul li.title_li_one{
+	border-left: 0.3vw solid #009944;
+	border-radius: 3vw 0 0 3vw;
+}
+.content ul li.title_li_end{
+	border-radius: 0 3vw 3vw 0;
+}
+.content ul li.active{
+	background: #009944;
+	color: #fff;
+}
+.content_div{
+	padding: 0 10px;
+	width: 100%;
+	height: auto;
+}
+.title{
+	width: 100%;
+	height: 3.5vw;
+	padding: 0 0 0.5vw 0;
+}
+button {
+	background: none;
+	border: 0.2vw solid #009944;
+	color: #009944;
+}
+.title button{
+	border-radius: 3vw;
+	width: 16vw;
+	height: 3vw;
+	line-height: 2vw;
+	font-size: 1vw;
+}
+.ui-jqgrid .ui-jqgrid-view button{
+	text-decoration: none;
+	color: #EA331B;
+	width: 40%;
+	height: 22px;
+	margin-left: 6%;
+	border-radius: 22px;
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    font-size: 14px;
+    height: 25px;
+    line-height: 25px;
+}
+.ui-jqgrid .ui-jqgrid-view button.edit{
+	color: #009944;
+	border: 2px solid #009944;
+}
+.ui-jqgrid tr.ui-row-ltr td{
+	font-size: 16px;
+	height: 50px;
+	border-right: 1px dotted #BEBEBE;
+	border-bottom: 1px solid #BEBEBE;
+}
+.ui-jqgrid .ui-jqgrid-hdiv {
+	background: #def4ff;
+	border-top: 1px solid #BEBEBE!important;
+	border-bottom: 1.5px solid #707070!important;
+	border-radius: 0;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+	border-right: 1px dotted #ccc;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr:last-child {
+	border-right: 0;
+}
+.ui-jqgrid tr.ui-row-ltr td:last-child {
+	border-right: 0;
+}
+.titlePage {
+	float: right;
+	width: 30%;
+}
+.titlePage div {
+    white-space: pre;
+    float: left;
+    height: 2.5vw;
+    width: 23%;
+    line-height: 2.5vw;
+    border: 1px solid #A0A0A0;
+    border-radius: 1vw;
+    margin-top: 0.3vw;
+    margin-left: 2%;
+    color: #A0A0A0;
+}
+.prev_jqGridPager,.first_jqGridPager{
+    text-align: left;
+}.next_jqGridPager,.last_jqGridPager{
+     text-align: right;
+ }

@@ -1,0 +1,208 @@
+.header_operat{
+    width: auto;
+}
+.btn_div{
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+#table{
+    width: 100%;
+}
+.btn_div button{
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 9%;
+    margin-left: 2vw;
+    padding-right: 1vw;
+}
+
+.inputMessage input {
+    height: 4vh;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    padding: 0 0.4vw;
+    width: 14.5%;
+    border: 1px solid #000;
+}
+
+.inputMessage img {
+    height: 4vh;
+    float: left;
+}
+
+.inputMessage select {
+    background: white;
+    height: 4vh;
+    line-height: 1.6vw;
+    float: left;
+    margin-right: 1vw;
+    width: 14.5%;
+}
+.list{
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+    border-top: 1px solid #009944;
+}
+.oneTd table{
+    border-bottom: 0;
+    border-right: 0;
+}
+.oneTd th,.oneTd td{
+    text-align: center;
+    height: 2.2vw;
+    font-weight: 500;
+    font-size: 0.9vw;
+    padding: 0;
+}
+.oneTd td{
+    color: #666;
+}
+.oneTd td a{
+    color: #1322a3;
+    text-decoration: underline;
+    cursor: pointer;
+}
+td button{
+    background: none;
+    color: #1322a3;
+    width: auto;
+    border: 0;
+    font-size: 0.9vw;
+    text-decoration: underline;
+    cursor: pointer;
+}
+[v-cloak]{
+    display: none;
+}
+.layui-laydate-list>li{
+    width: 50%!important;
+}
+.layui-laydate-list>li:last-child{display: none}
+.laydate-time-list ol li{width: 150%!important;padding-left: 55px!important;}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+.ui-jqgrid tr.ui-row-ltr td {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ui-jqgrid-hbox{
+    width: 100%;
+    padding-right: 0 !important;
+}
+#jqGridPager_right{
+    text-align: left;
+}
+.ui-jqgrid .ui-jqgrid-hdiv {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.btn_search a{
+    margin-left: 4vw;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+    text-decoration: underline;
+    color: blue;
+}
+.btn_search button{
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 13.3%;
+    height: 2.2vw;
+    padding: 0 1.6vw;
+    margin-left: 61vw;
+    margin-top: 0.5vw;
+    margin-bottom: 1vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+#jqGrid_orgId,#jqGrid_orgNm,#jqGrid_afterUsrId,#jqGrid_stuName,#jqGrid_usrStatus,#jqGrid_crmSts,#jqGrid_moveYmd,#jqGrid_tabEnd{
+    font-weight: bold !important;
+}
+
+.inputMessage div img{
+    position: absolute;
+    width: 2.6rem;
+    height: 2.6rem;
+    top: 0.2rem;
+    right: 0;
+    z-index: 9;
+}
+#time{
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    right: 16.5vw;
+    z-index: 99;
+    opacity: 0;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}

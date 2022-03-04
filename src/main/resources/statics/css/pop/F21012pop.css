@@ -1,0 +1,61 @@
+.text{
+    font-size: initial;
+    color: red;
+    margin: 3vh 0 1vh 3vw;
+    text-align: left;
+}
+.content {
+    padding-top: 0vh!important;
+    padding-left: 0!important;
+    width: 91vw;
+    display: table;
+    margin: 0 auto;
+    overflow-y: auto;
+}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0!important;
+}
+.layui-layer-title{
+    background-color: #F0F0F0 !important;
+    border-bottom: unset !important;
+    color: black !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    font-size: 1.2vw !important;
+    letter-spacing: 0.1vw !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+#jqGrid {
+    border-collapse: collapse !important;
+}
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    height: 16px!important;
+}
+/* 2021/01/21 UT-159 cuikailin add start */
+div.ui-jqgrid-hdiv.ui-state-default.ui-corner-top{
+    border: none;
+}
+thead{
+    border-bottom: 1px solid #cccccc;
+}
+/* 2021/01/21 UT-159 cuikailin add end */
+/* 2021/01/22 UT-159 liyuhuan add start */
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    background-color: white !important;
+}
+/* 2021/01/22 UT-159 liyuhuan add end */

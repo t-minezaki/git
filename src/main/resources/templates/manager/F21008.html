@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <#include "/header.html" />
+        <title>F21008</title>
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+        <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+        <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21008.css">
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="message" class="topMessage"></div>
+        <div id="main"  v-cloak>
+            <div class="one" id="one">
+                <div>
+                    <ul class="one-ul">
+                        <li>出席簿管理</li>
+                        <li>  ＞   出席簿一覧</li>
+                        <li>  ＞   出席簿入力</li>
+                        <li id="tgtYmd" class="headItems" >{{tgtYmd}}</li>
+                        <li id="grpNm" style="width: 18vw" class="headItems">{{grpNm}}</li>
+                        <li id="timesNum" class="headItems">{{timesNum}} 回数</li>
+                        <li id="stuCount" style="margin-left: 9vw;" class="headItems">対象者：{{stuCount}}名</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="div_body" id="div_body">
+                <div class="div_head" id="div_head">
+                    <div id="showFlg">
+                        <p>絞り込み</p>
+                        <select  id="absDiv">
+                            <option v-for="absdiv in absDiv" :value = "absdiv.codCd">{{absdiv.codValue}}</option>
+                        </select>
+                    </div>
+                    <button id="additem" onclick="toStuChoose()">対象者追加</button>
+                    <button id="deleteitem" onclick="stuDelete()">対象者削除</button>
+                    <button class="info" id="contentInfo" :disabled="pageDiv==='1'" :style="pageDiv==1?style:''" onclick="reloadControl(2)">指導内容登録へ</button>
+                    <button class="info" onclick="reloadControl(3)">表示項目変更</button>
+                </div>
+                <div class="div_main">
+                    <div class="first_div">
+                        <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                    </div>
+                </div>
+            </div>
+            <div class="div_footer" id="div_footer">
+                <button class="lastBnt" id="backBtn" onclick="reloadControl(1)" style="margin-left: 0">戻る</button>
+                <button class="lastBnt" id="login" @click="submit()" >登録</button>
+            </div>
+        </div>
+    </body>
+    <script src="${request.contextPath}/js/manager/F21008.js"></script>
+</html>

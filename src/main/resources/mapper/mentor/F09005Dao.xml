@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F09005Dao">
+    <select id="init" parameterType="java.util.Map" resultType="jp.learningpark.modules.manager.dto.F09005Dto">
+        SELECT
+        MO.org_nm AS org_cd
+        , MU.usr_id
+        , MU.after_usr_id as stuId
+        , MS.stu_id as stuId1
+        , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+        , MS.guard_id
+        , MCD.cod_value AS schy_div
+        , MCD1.cod_value AS dx
+        , CASE WHEN SP.stu_id = NULL THEN NULL ELSE SP.point END AS point
+        FROM
+        mst_usr MU
+        INNER JOIN mst_stu MS ON ( MU.usr_id = MS.stu_id AND MS.del_flg = 0 )
+        INNER JOIN mst_org MO ON ( MU.org_id = MO.org_id AND MO.del_flg = 0 )
+        INNER JOIN mst_cod_d MCD ON ( MS.schy_div = MCD.cod_cd AND MCD.cod_key = 'SCHY_DIV' AND MCD.del_flg = 0 )
+        LEFT JOIN stu_point SP ON ( MU.usr_id = SP.stu_id AND SP.del_flg = 0)
+        INNER JOIN mst_cod_d MCD1 ON ( MCD1.cod_cd = #{status} AND MCD1.cod_key = 'ENTRY_FLG_DIV' and MCD1.del_flg = 0 )
+        WHERE
+        MU.del_flg = 0
+        AND MU.usr_id IN
+        <foreach collection="stuidlist" item ="stuid" index="i" open="(" close=")" separator=",">
+            #{stuid}
+        </foreach>
+
+
+    </select>
+    <select id="getlist" parameterType="java.util.Map" resultType="jp.learningpark.modules.manager.dto.F09005Dto">
+        select
+        eeh.id
+        ,eeh.entry_flg
+        ,eeh.entry_dt
+        from
+        entry_exit_hst eeh
+        where
+        eeh.del_flg = 0
+        and eeh.org_id = #{orgId}
+        and eeh.stu_id in
+        <foreach collection="stuidlist" item ="stuid" index="i" open="(" close=")" separator=",">
+            #{stuid}
+        </foreach>
+        <!--    2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start    -->
+        and eeh.entry_dt >= #{startTime} and #{endTime} > eeh.entry_dt
+        <!--    2021/10/25　MANAMIRU1-809 huangxinliang　Edit　End    -->
+        order by
+        eeh.entry_dt asc
+    </select>
+</mapper>

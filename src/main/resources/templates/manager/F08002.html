@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>イベント新規・編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08002.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/demo.css" type="text/css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/select2/css/select2.css" type="text/css">
+    <script type="text/javascript" src="${request.contextPath}/plugins/select2/js/select2.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.excheck.js"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor-event.config.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.all.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/lang/jp/jp_event.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/exif/exif.js" charset="utf-8"></script>
+</head>
+<body style="width: 100%">
+<div class="one">
+    <div class="topMessage" id="message"></div>
+    <div>
+        <ul class="one-ul">
+            <li>イベント管理　＞　</li>
+            <li>イベント作成　＞　</li>
+            <li>作成</li>
+        </ul>
+    </div>
+</div>
+<div class="main" id="main" style="overflow: auto;height: 94%;width: 100%">
+    <div class="template_area">
+        <div id="temp_label">テンプレート</div>
+        <div>
+            <select id="temp_nm">
+                <option></option>
+                <option v-for="temp in mstTmplateEntityList" :value="temp.id">{{temp.tmplateTitle}}</option>
+            </select>
+        </div>
+        <div id="apply_area">
+            <button id="apply_btn" class="checkItems">適用</button>
+        </div>
+    </div>
+    <div class="four">
+        <div id="cygn_label">カテゴリ名</div>
+        <div class="asterisk" style="margin-left: 6vh">*</div>
+        <div>
+            <input id="event_category" class="checkItems" placeholder="カテゴリ名を入力" style="height: 4vh;border: 1px solid #d2d2d2;">
+        </div>
+    </div>
+    <div class="six">
+        <div id="title_label">タイトル</div>
+        <div class="asterisk" style="margin-left: 6vh">*</div>
+        <div>
+            <input id="event_title" class="checkItems" placeholder="タイトルを入力" style="height: 4vh;border: 1px solid #d2d2d2;">
+        </div>
+        <div>
+            <button id="cpop">プレビュー</button>
+        </div>
+    </div>
+    <div class="seven">
+        <div id="content_label">本文</div>
+        <div class="asterisk" style="margin-left: 6vh">*</div>
+        <div class="mail_content">
+            <div id="editor" name="editor" type="text/plain"></div>
+        </div>
+    </div>
+    <div class="file_drag">
+        <div id="file_label">添付ファイル</div>
+        <div class="drag_area">
+            <input type="text" id="showPath1" class="checkItems" placeholder="ドラッグ＆ドロップ" disabled> <input type="file" multiple class="checkItems" id="btn_file" accept=".png,.jpg,.jpeg,.gif,.bmp,.pdf,.xlsx,.xls,.csv,.pptx,.docx">
+        </div>
+        <button id="file_btn" type="button" class="checkItems" onclick="F_Open_dialog()">ファイル選択</button>
+    </div>
+    <div id="zTree_area" class="zTreeDemoBackground left">
+        <label id="org_label" style="width: 11.8vw">配信先組織選択</label>
+        <div id="chk_area">
+            <input type="checkbox" id="selectAll" checked="checked">
+        </div>
+        <span style="font-size: 0.9em;font-weight: bold;">全体</span>
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <div class="object_area">
+        <div id="object_area">イベント種別</div>
+        <div id="checkSelect" style="padding-top: 1vh">
+            <input type="radio" name="dan" value="0" id="dan1" onclick="getMsg()" v-model="selectObject"><span>教室</span>
+            <input type="radio" name="dan" value="1" id="dan2" onclick="getMsg()" v-model="selectObject"><span>先生</span>
+            <input type="radio" name="dan" value="2" id="dan3" onclick="getMsg()" v-model="selectObject"><span>アンケート</span>
+        </div>
+    </div>
+    <div class="time_choose">
+        <div id="time_area">１コマあたりの分数</div>
+        <select id="unit_time" :disabled="unitTimeDisabled"  v-model="unitTime" :class="classOfUnitTime">
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+            <option value="60">60</option>
+        </select>
+    </div>
+    <div class="ask-talk-container">
+        <ul class="div_five askItems">
+            <li>
+                <label>質問事項</label>
+                <input type="radio" class="checkItems" name="useRadio1" value = '1' id="askUseDiv1" v-model="useDiv1" onclick="toBeAlive('askItems')"> <span>利用する</span>
+                <input type="radio" class="checkItems" name="useRadio1" value = '0' id="askUseDiv0" v-model="useDiv1" onclick="toBeDisabled('askItems')"> <span>利用しない</span>
+                <p class="prompt">欄内には最大５０文字入ります</p>
+            </li>
+            <ask-talk-template v-for="askTalkEntity in askEntityList" :ask-talk-entity="askTalkEntity" :ref="askTalkEntity.itemTypeDiv + '.' + askTalkEntity.askNum"></ask-talk-template>
+        </ul>
+        <ul class="div_five talkItems" :class="{banned: isBanned}">
+            <li>
+                <label>面談事項</label>
+                <input type="radio" class="checkItems" name="useRadio2" value = '1' id="talkUseDiv1" v-model="useDiv2" onclick="toBeAlive('talkItems')"> <span>利用する</span>
+                <input type="radio" class="checkItems" name="useRadio2" value = '0' id="talkUseDiv0" v-model="useDiv2" onclick="toBeDisabled('talkItems')"> <span>利用しない</span>
+                <p class="prompt">欄内には最大５０文字入ります</p>
+            </li>
+            <li class="getMsg">
+                <p class="prompt" style="margin-left: 34.5vw;!important;">※本項目はユーザーには表示されません</p>
+            </li>
+            <ask-talk-template v-for="askTalkEntity in talkEntityList" :ask-talk-entity="askTalkEntity" :ref="askTalkEntity.itemTypeDiv + '.' + askTalkEntity.askNum"></ask-talk-template>
+        </ul>
+    </div>
+    <div class="eight">
+        <div style="width: 50%;text-align: center">
+            <button id="turn_back" >戻る</button>
+        </div>
+        <div style="width: 50%;text-align: center">
+            <button id="saveBtn" style="">登録</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08017AskTalkTemplate.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08002.js"></script>
+</html>

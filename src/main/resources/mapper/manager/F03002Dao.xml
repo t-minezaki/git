@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F03002Dao">
+    <select id="selectTexdiff" resultType="jp.learningpark.modules.manager.dto.F03002Dto">
+        SELECT
+            tdti.upd_datime,
+            tdti.id as tdtiId,
+            um.id as unitId,
+            tm.subjt_div,
+            tm.schy_div,
+            tm.publisher_div,
+            cd.cod_value as schy,
+            cd1.cod_value as subjt,
+            um.unit_nm,
+            cd2.cod_value as publisher,
+            tm.textb_nm,
+            tdti.dispy_order,
+            tdti.chapt_no,
+            tdti.sectn_no,
+            tdti.unit_no,
+            um.chapt_nm,
+            um.sectn_nm,
+            tdti.unit_dispy_nm,
+            tdti.textb_page,
+            tdti.plan_learn_seasn,
+            slm.learn_seasn_start_dy,
+            tdti.plan_learn_tm,
+            tm.upd_datime as textbUpdatime
+        FROM
+            mst_textb tm
+            INNER JOIN textb_def_time_info tdti ON tdti.textb_id = tm.textb_id
+            AND tdti.del_flg = 0
+            INNER JOIN mst_unit um ON um.ID = tdti.unit_id
+            AND um.del_flg = 0
+            INNER JOIN mst_learn_seasn slm ON slm.plan_learn_seasn = tdti.plan_learn_seasn
+            AND slm.del_flg = 0
+            AND slm.crm_learn_prd_id = #{crmLearnPrdId}
+            INNER JOIN mst_cod_d cd ON cd.cod_cd = tm.schy_div
+            AND cd.cod_key = 'SCHY_DIV'
+            AND cd.del_flg = 0
+            INNER JOIN mst_cod_d cd1 ON cd1.cod_cd = tm.subjt_div
+            AND cd1.cod_key = 'SUBJT_DIV'
+            AND cd1.del_flg = 0
+            INNER JOIN mst_cod_d cd2 ON cd2.cod_cd = tm.publisher_div
+            AND cd2.cod_key = 'PUBLISHER_DIV'
+            AND cd2.del_flg = 0
+        WHERE
+            tm.textb_id = #{textbId}
+            AND tm.del_flg = 0
+        ORDER BY
+            tdti.dispy_order
+    </select>
+    <select id="selectPlanReg" resultType="Integer" parameterType="Integer">
+        SELECT
+            tdti.unit_id
+        FROM
+            textb_def_time_info tdti
+            INNER JOIN stu_term_plan tp ON tp.textb_def_unit_id = tdti.ID
+            AND tp.plan_reg_flg = '1'
+            AND tp.del_flg=0
+            AND tp.textb_def_unit_id = #{tdtiId}
+    </select>
+
+    <select id="selectStuOfPlanedCountList" parameterType="Integer" resultType="jp.learningpark.modules.manager.dto.F0300202Dto">
+        SELECT DISTINCT
+            a.stu_id ,case when b.planedCount is null then 0 else b.planedCount end as planedCount
+        FROM
+            stu_term_plan a
+            LEFT OUTER JOIN (
+        SELECT
+            count( tp.plan_reg_flg ) as planedCount,
+            tp.stu_id
+        FROM
+            stu_term_plan tp
+        WHERE
+            tp.textb_def_unit_id = #{textbDefaultId}
+            AND tp.plan_reg_flg = '1'
+        GROUP BY
+            tp.stu_id
+            ) b ON a.stu_id = b.stu_id
+        WHERE
+            a.textb_def_unit_id = #{textbDefaultId}
+            AND a.del_flg =0
+    </select>
+</mapper>

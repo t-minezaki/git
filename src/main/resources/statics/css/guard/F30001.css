@@ -1,0 +1,886 @@
+html, body {
+    overflow-x: hidden;
+}
+
+.content {
+    width: 100%;
+    height: calc(100% - 48px);
+    padding-top: 44px;
+}
+
+.title {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.title div {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+}
+
+.title p {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    color: #666;
+    height: 20px;
+    line-height: 20px;
+    text-indent: 6px;
+}
+
+.mian, ul {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.mian li {
+    width: 100%;
+    height: 70px;
+    padding: 0 6px;
+    position: relative;
+    /*padding-right: 20px;*/
+}
+
+.mian li p {
+    text-align: left;
+    font-size: 12px;
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+    color: #666;
+    width: auto;
+    float: left;
+}
+
+.mian li input {
+    width: calc(65vw - 102px);
+    font-size: calc(46px / 3);
+    float: left;
+    /*height: 20px;*/
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0;
+}
+
+.mian li input:disabled {
+    background: none;
+    border: 0;
+}
+
+.mian li input.two {
+    width: calc(34% - 5px);
+    margin-right: 10px;
+    border-radius: 0 !important;
+}
+
+.mian li input.three {
+    width: calc(22% - 14px);
+    margin-right: 10px;
+}
+
+.mian li input.noRight {
+    margin-right: 0;
+}
+
+.mian li span {
+    float: left;
+    height: 34px;
+    line-height: 34px;
+    width: 75%;
+    font-size: 12px;
+}
+
+.mian li span.end {
+    left: calc(74% + 1px);
+}
+
+.mian li button {
+    width: 20vw;
+    min-width: 60px;
+    border: 2px solid #8CC134;
+    color: #8CC134;
+    height: 25px;
+    border-radius: 21px;
+    line-height: 21px;
+    background: none;
+    font-size: calc(32px / 3);
+    padding: 0 0;
+    font-weight: bold;
+}
+
+/*.mian li.more{*/
+/*height: 64px;*/
+/*}*/
+.mian li div {
+    width: 100%;
+    height: 14px;
+    color: #EA331B;
+    font-size: 10px;
+    text-align: left;
+    line-height: 14px;
+    float: left;
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.mian li select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20%;
+    float: left;
+    height: 30px;
+    margin-top: 10px;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+    padding: 0 3px;
+    background: none;
+}
+
+.mian li.small {
+    height: 22px;
+    border: 0;
+}
+
+.mian li.small p {
+    height: 22px;
+    line-height: 22px;
+}
+
+.theme_btn {
+    width: 100%;
+    height: 80px;
+    padding: 20px 20% 0 20%;
+}
+
+.theme_btn button {
+    width: 45%;
+    height: 36px;
+    border: 2px solid #8CC134;
+    color: #8CC134;
+    background: none;
+    float: left;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: calc(46px / 3);
+    line-height: 30px;
+}
+
+.theme_btn button.one {
+    border: 0;
+    width: 50%;
+    color: red;
+    text-align: left;
+}
+
+.shortInput {
+    width: 37vw !important;
+}
+
+.more span {
+
+}
+
+#postcd {
+    width: 34vw;
+    min-width: 50px;
+    margin-right: 0px;
+    height: 30px;
+}
+
+#adr1, #adr2 {
+    width: 80%;
+}
+
+.chooseChild {
+    width: 28px;
+    height: 28px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 50vw;
+}
+
+.chooseChild img {
+    width: 100%;
+    height: 100%;
+}
+
+.contentTitle {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    font-size: 18px;
+    /*font-family: Hiragino sans-serif !important;*/
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    background: #8CC134;
+    color: white;
+    position: fixed;
+    z-index: 999;
+    font-weight: bold;
+}
+
+#back {
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 6px;
+    float: left;
+}
+
+input {
+    border-radius: 0 !important;
+}
+
+button#confirm {
+    position: absolute;
+    left: 60%;
+    bottom: 4px;
+}
+
+div#email {
+    color: black;
+    height: 31px;
+    width: 64%;
+    float: left;
+    word-break: break-word;
+    line-height: 40px;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    font-size: calc(46px / 3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+    html, body {
+        overflow-x: hidden;
+    }
+
+    .content {
+        width: 100%;
+        height: calc(100% - 48px);
+        padding-top: 44px;
+    }
+
+    .title {
+        width: 100%;
+        height: auto;
+        margin-top: 5rem;
+    }
+
+    .title div {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+        color: #000;
+        text-align: center;
+    }
+
+    .title p {
+        width: 100%;
+        margin: 0;
+        text-align: left;
+        font-size: 12px;
+        letter-spacing: -0.5px;
+        height: 12px;
+        line-height: 0px;
+        text-indent: 6px;
+        color: black;
+    }
+
+    .mian, ul {
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+
+    .mian li {
+        width: 100%;
+        height: 3.7rem;
+        padding: 0 6px;
+        position: relative;
+        /*padding-right: 20px;*/
+    }
+
+    .mian li p {
+        text-align: left;
+        font-size: 12px;
+        margin: 0;
+        height: 29px;
+        line-height: 30px;
+        color: #666;
+        width: auto;
+        float: left;
+    }
+
+    .mian li input {
+        width: calc(65vw - 102px);
+        font-size: calc(45px / 3);
+        float: left;
+        /*height: 20px;*/
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 0px;
+        padding-left: 4px;
+    }
+
+    .mian li input:disabled {
+        background: none;
+        border: 0;
+    }
+
+    .mian li input.two {
+        width: calc(40% - 10px);
+        margin-right: 20px;
+        border-radius: 0 !important;
+        line-height: 22px;
+    }
+
+    .mian li input.three {
+        width: calc(22% - 14px);
+        margin-right: 10px;
+    }
+
+    .mian li input.noRight {
+        margin-right: 0;
+    }
+
+    .mian li span {
+        float: left;
+        height: 34px;
+        line-height: 30px;
+        width: 75%;
+        font-size: 12px;
+    }
+
+    .mian li span.end {
+        left: calc(74% + 1px);
+    }
+
+    .mian li button {
+        width: 4rem;
+        min-width: 60px;
+        border: 2px solid #8CC134;
+        color: #8CC134;
+        height: 28px;
+        border-radius: 21px;
+        line-height: 25px;
+        background: none;
+        font-size: 0.7rem;
+        padding: 0 0;
+        font-weight: bold;
+        margin-top: -32px;
+        margin-left: 24px;
+        margin-bottom: 16px;
+    }
+
+    /*.mian li.more{*/
+    /*height: 64px;*/
+    /*}*/
+    .mian li div {
+        width: 100%;
+        height: 3px;
+        color: red;
+        font-size: .7rem;
+        text-align: left;
+        line-height: 14px;
+        float: left;
+        position: absolute;
+        bottom: 12px;
+        left: 7px;
+        padding-left: 4px;
+        padding-right: 6px;
+    }
+
+    .mian li select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 20%;
+        float: left;
+        height: 30px;
+        margin-top: 10px;
+        border: 1px solid #ccc !important;
+        border-radius: 4px;
+        padding: 0 3px;
+        background: none;
+    }
+
+    .mian li.small {
+        height: 12px;
+        border: 0;
+    }
+
+    .mian li.small p {
+        height: 22px;
+        line-height: 22px;
+    }
+
+    .theme_btn {
+        width: 100%;
+        height: 80px;
+        padding: 16px 20% 0 22%;
+    }
+
+    .theme_btn button {
+        width: 46%;
+        height: 2.8rem;
+        border: 2px solid #8CC134;
+        color: #8CC134;
+        background: none;
+        float: left;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1rem;
+        line-height: 2.2rem;
+        letter-spacing: 1px;
+    }
+
+    .theme_btn button.one {
+        border: 0;
+        width: 50%;
+        color: red;
+        text-align: left;
+        font-weight: unset;
+        font-size: 1rem;
+    }
+
+    .shortInput {
+        width: calc(40% - 10px) !important;
+    }
+
+    .more span {
+
+    }
+
+    #postcd {
+        width: calc(40% - 10px);
+        min-width: 50px;
+        margin-right: 0px;
+        height: 21px;
+    }
+
+    #adr1, #adr2 {
+        width: 80%;
+        line-height: 19px;
+    }
+
+    .chooseChild {
+        width: 28px;
+        height: 28px;
+        float: left;
+        margin-top: 5px;
+        margin-left: 50vw;
+    }
+
+    .chooseChild img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .contentTitle {
+        overflow: hidden;
+        position: fixed;
+        top: 44px;
+        z-index: 999;
+        padding-right: 38.5px;
+        letter-spacing: 0;
+        border-bottom: unset;
+        text-align: center;
+        background: #8CC134;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    #back {
+        width: 1.8vw;
+        margin-top: 13px;
+        margin-left: 29px;
+        height: unset;
+    }
+
+    input {
+        border-radius: 0 !important;
+    }
+
+    button#confirm {
+        position: absolute;
+        right: 0rem;
+        bottom: 0px;
+        width: 9rem !important;
+        padding: 0 2%;
+    }
+
+    div#email {
+        color: black;
+        height: 34px;
+        width: 50%;
+        float: left;
+        word-break: break-word;
+        line-height: 47px;
+        border-bottom: 1px solid rgb(204, 204, 204);
+        font-size: calc(45px / 3);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .div_bottom{
+        height: 48px !important;
+    }
+
+    .div_header{
+        height: 44px !important;
+    }
+
+    .div_content{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .required{
+        width: 3.2rem!important;
+    }
+
+    p.required::after{
+        padding-left: .5rem;
+        right: unset;
+    }
+
+    #required{
+        width: 4rem!important;
+    }
+
+    .span1{
+        margin-left: -1%;
+    }
+
+    .span2{
+        margin-left: -1%;
+    }
+}
+/*ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+    html, body {
+        overflow-x: hidden;
+    }
+
+    .content {
+        width: 100%;
+        height: calc(100% - 60px);
+        padding-top: 108px;
+    }
+
+    .title {
+        width: 100%;
+        height: auto;
+        margin-top: 53px;
+    }
+
+    .title div {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+        color: #000;
+        text-align: center;
+    }
+
+    .title p {
+        width: 100%;
+        margin: 0;
+        text-align: left;
+        font-size: 15px;
+        letter-spacing: -0.5px;
+        height: 20px;
+        line-height: 0px;
+        text-indent: 6px;
+        color: black;
+    }
+
+    .mian, ul {
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+
+    .mian li {
+        width: 100%;
+        height: 78px;
+        padding: 0 6px;
+        position: relative;
+        /*padding-right: 20px;*/
+    }
+
+    .mian li p {
+        text-align: left;
+        font-size: 16px;
+        margin: 0;
+        height: 34px;
+        line-height: 34px;
+        color: #666;
+        width: auto;
+        float: left;
+    }
+
+    .mian li input {
+        width: calc(65vw - 102px);
+        font-size: calc(60px / 3);
+        float: left;
+        /*height: 20px;*/
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 0px;
+        padding-left: 4px;
+    }
+
+    .mian li input:disabled {
+        background: none;
+        border: 0;
+    }
+
+    .mian li input.two {
+        width: calc(40% - 10px);
+        margin-right: 20px;
+        border-radius: 0 !important;
+        line-height: 26px;
+    }
+
+    .mian li input.three {
+        width: calc(22% - 14px);
+        margin-right: 10px;
+    }
+
+    .mian li input.noRight {
+        margin-right: 0;
+    }
+
+    .mian li span {
+        float: left;
+        height: 34px;
+        line-height: 34px;
+        width: 75%;
+        font-size: 15px;
+    }
+
+    .mian li span.end {
+        left: calc(74% + 1px);
+    }
+
+    .mian li button {
+        width: 5rem;
+        min-width: 60px;
+        border: 2px solid #8CC134;
+        color: #8CC134;
+        height: 35px;
+        border-radius: 21px;
+        line-height: 21px;
+        background: none;
+        font-size: .85rem;
+        padding: 0 0;
+        font-weight: bold;
+        margin-top: -36px;
+        margin-left: 30px;
+        margin-bottom: 13px;
+    }
+
+    /*.mian li.more{*/
+    /*height: 64px;*/
+    /*}*/
+    .mian li div {
+        width: 100%;
+        height: 3px;
+        color: red;
+        font-size: .9rem;
+        text-align: left;
+        line-height: 14px;
+        float: left;
+        position: absolute;
+        bottom: 16px;
+        left: 7px;
+        padding-left: 4px;
+        padding-right: 6px;
+    }
+
+    .mian li select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 20%;
+        float: left;
+        height: 30px;
+        margin-top: 10px;
+        border: 1px solid #ccc !important;
+        border-radius: 4px;
+        padding: 0 3px;
+        background: none;
+    }
+
+    .mian li.small {
+        height: 22px;
+        border: 0;
+    }
+
+    .mian li.small p {
+        height: 22px;
+        line-height: 22px;
+    }
+
+    .theme_btn {
+        width: 100%;
+        height: 80px;
+        padding: 16px 20% 0 22%;
+    }
+
+    .theme_btn button {
+        width: 40%;
+        height: 52px;
+        border: 2px solid #8CC134;
+        color: #8CC134;
+        background: none;
+        float: left;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        line-height: 30px;
+        letter-spacing: 1px;
+    }
+
+    .theme_btn button.one {
+        border: 0;
+        width: 50%;
+        color: red;
+        text-align: left;
+        font-weight: unset;
+        font-size: 1.2rem;
+    }
+
+    .shortInput {
+        width: calc(40% - 10px) !important;
+    }
+
+    .more span {
+
+    }
+
+    #postcd {
+        width: calc(40% - 10px);
+        min-width: 50px;
+        margin-right: 0px;
+        height: 30px;
+    }
+
+    #adr1, #adr2 {
+        width: 80%;
+        line-height: 26px;
+    }
+
+    .chooseChild {
+        width: 28px;
+        height: 28px;
+        float: left;
+        margin-top: 5px;
+        margin-left: 50vw;
+    }
+
+    .chooseChild img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .contentTitle {
+        overflow: hidden;
+        position: fixed;
+        top: 56px;
+        z-index: 999;
+        padding-right: 52px;
+        letter-spacing: 0;
+        border-bottom: unset;
+    }
+
+    #back {
+        width: 1.7vw;
+        margin-top: 16px;
+        margin-left: 39px;
+        height: unset;
+    }
+
+    input {
+        border-radius: 0 !important;
+    }
+
+    button#confirm {
+        position: absolute;
+        right: 0rem;
+        bottom: 4px;
+        width: 10rem !important;
+        padding: 0 2%;
+    }
+
+    div#email {
+        color: black;
+        height: 34px;
+        width: 50%;
+        float: left;
+        word-break: break-word;
+        line-height: 40px;
+        border-bottom: 1px solid rgb(204, 204, 204);
+        font-size: calc(54px / 3);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .div_bottom{
+        height: 60px !important;
+    }
+
+    .div_header{
+        height: 56px !important;
+    }
+
+    .div_content{
+        padding-left: 9%;
+        padding-right: 9%;
+    }
+
+    .required{
+        width: 4rem!important;
+    }
+
+    p.required::after{
+        padding-left: .5rem;
+        right: unset;
+    }
+
+    #required{
+        width: 5rem!important;
+    }
+
+    .span1{
+        margin-left: -1%;
+    }
+
+    .span2{
+        margin-left: -1%;
+    }
+}
+

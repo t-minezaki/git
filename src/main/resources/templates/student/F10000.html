@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <#include "/header.html" />
+    <title>生徒基本情報登録画面（スマホ）</title>
+    <link href="${request.contextPath}/css/student/common.css" rel="stylesheet"/>
+    <link
+            href="${request.contextPath}/css/student/F10000.css"
+            rel="stylesheet"
+    />
+    <!-- layer -->
+</head>
+<body>
+<div class="div_header">
+    <div>
+        <div class="logo" onclick="window.location.href='./F11004.html'">
+            <img src="../img/logo.png"/>
+        </div>
+        <div class="logout" onclick="openUrl('logout')">
+            <img alt="logout" src="../img/logout1.png"/>
+        </div>
+    </div>
+</div>
+<div class="content" id="rrapp" v-cloak>
+    <div class="info_mine" id="infoMain">
+        <h4 id="title">ユーザー情報登録・変更：基本情報</h4>
+        <div class="notice" id="notice">
+            <h3>
+                修正したい内容を変更の上、[変更]をタップしてください
+            </h3>
+        </div>
+        <div class="content-list">
+            <ul>
+                <li>
+                    <p>塾</p>
+                    <div>
+                        <input
+                                :value="(orgId!=undefined && stu.orgNm!=undefined) ? orgId+' '+stu.orgNm : ''"
+                                disabled
+                                type="text"
+                        />
+                    </div>
+                </li>
+                <li>
+                    <p class="required">名前</p>
+                    <div>
+                        <input
+                                :value="stu.stuFnm"
+                                id="stuFnm"
+                                maxlength="10"
+                                name="stuFnm"
+                                type="text"
+                        />
+                        <input
+                                :value="stu.stuLnm"
+                                id="stuLnm"
+                                maxlength="10"
+                                name="stuLnm"
+                                type="text"
+                        />
+                    </div>
+                </li>
+                <li>
+                    <p class="required">カナ</p>
+                    <div>
+                        <input
+                                :value="stu.flnmKnNm"
+                                id="flnmKnNm"
+                                maxlength="10"
+                                name="flnmKnNm"
+                                type="text"
+                        />
+                        <input
+                                :value="stu.flnmKnLnm"
+                                id="flnmKnLnm"
+                                maxlength="10"
+                                name="flnmKnLnm"
+                                type="text"
+                        />
+                    </div>
+                </li>
+                <li>
+                    <p class="required">
+                        生年月日
+                    </p>
+                    <div>
+                        <form name="date">
+                            <select id="year" name="year" onchange="selectYear(this.value)">
+                                <option value=""></option>
+                            </select>
+                            <span>/</span>
+                            <select
+                                    id="month"
+                                    name="month"
+                                    onchange="selectMonth(this.value)"
+                            >
+                                <option value=""></option>
+                            </select>
+                            <span>/</span>
+                            <select id="day" name="day">
+                                <option value=""></option>
+                            </select>
+                        </form>
+                    </div>
+                </li>
+                <li>
+                    <p class="required">
+                        性別
+                    </p>
+                    <div>
+                        <select id="gendr" name="gendr">
+                            <option
+                                    :selected="gendr.codCd == stu.gendrDiv ? 'selected' : ''"
+                                    :value="gendr.codCd"
+                                    v-for="gendr in gendrList"
+                                    v-text="gendr.codValue"
+                            ></option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <p>学校</p>
+                    <div>
+                        <input
+                                :value="stu.schNm!=null?stu.schNm.trim():''"
+                                id="sch"
+                                name="sch"
+                                type="text"
+                        />
+                    </div>
+                </li>
+                <li>
+                    <p>学年</p>
+                    <div>
+                        <input :value="stu.schy!=null?stu.schy:''" disabled type="text"/>
+                    </div>
+                </li>
+                <li class="endLi">
+                    <p></p>
+                    <div>
+                        <input disabled type="text" value="「*」は入力必須項目です。"/>
+                    </div>
+                </li>
+            </ul>
+            <ul class="ulbottom">
+                <li class="libor">
+                    <button @click="returnFn" class="save_btn save_btn_libor" id="retu">
+                        戻る
+                    </button>
+                    <button @click="saveOrUpdate" class="save_btn" id="update">
+                        変更
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<script
+        src="${request.contextPath}/js/student/F10000.js"
+        type="text/javascript"
+></script>
+</html>

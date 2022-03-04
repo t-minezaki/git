@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>塾からの連絡通知一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30112.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content_Title commonTabTitle">
+        ホーム
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul id="titleUl">
+                <li @click="showData()" class="active" id="notice_tab">お知らせ<div class="count">{{noticeCount}}</div></li>
+                <li onclick="window.location.href='F30419.html'" class="active">マナミルチャンネル<div class="count1"></div></li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <ul class="oneCont" >
+                <li v-for="list in showList" :style="list.readStsDiv == '0' || list.readingStsDiv == '0' ? '':'background:#F5F5F5;'">
+                    <div class="img" @click="toDetail(list)">
+                        <img :style="list.style" :src="list.noticeImgPath != null && list.noticeImgPath != '' ? list.noticeImgPath:imgPath" onerror="this.src = vm.imgPath">
+                    </div>
+                    <div class="cont" @click="toDetail(list)">
+                        <!--保護者画面「お知らせ」で未読記事タイトルが太字にならない 2020/11/03 Modify yang-->
+                        <div class="textArea"  :style="list.readStsDiv == '0' || list.readingStsDiv == '0' ? 'font-weight:bolder;':''"  disabled>
+                            {{list.noticeTitle}}
+                        </div>
+                        <div class="pubtime">{{showStartDt(list.pubStartDt)}}</div>
+                        <div class="important" :style="show(list.noticeLevDiv)">重要</div>
+                        <div class="corrspdSts" v-if="list.corrspdSts == '1'" :style="isCorrspd(list)">確認済</div>
+                        <div class="corrspdSts" v-if="list.corrspdSts != '1'" :style="isCorrspd(list)">確認中</div>
+                        <div style="margin-top: 5px">
+                            <div class="go_right">
+                                <img src="${request.contextPath}/img/goRight.png">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="pageChange">
+                <div @click="pageChange(0)" id="prev">前のページ</div>
+                <div @click="pageChange(1)" id="next">次のページ</div>
+            </div>
+            <div id="pageFoot"></div>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40004.html?id=F30112" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30112.js"></script>
+</html>

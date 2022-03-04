@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21020Dao">
+    <select id="selectInitList" resultType="jp.learningpark.modules.manager.dto.F21020Dto">
+        SELECT
+            scm.compliment_dt as complimentDt,
+            mcd.cod_cd as stamp,
+            mcd.cod_value as stampImg,
+            scm.compliment_cont,
+	        mcd.cod_value_2,
+            CASE WHEN grs.reading_sts_div = '0'
+                THEN '未読'
+                ELSE '既読'
+            END as readingStsDiv,
+            ms.guard_id
+        FROM stu_compliment_mst scm
+        inner join mst_notice mn on cast(mn.notice_cont as int8) = scm.id and mn.notice_type_div = '7' and mn.del_flg = 0
+        inner join guard_reading_sts grs on grs.notice_id = mn.id and grs.stu_id = #{stuId} and grs.del_flg = 0
+        inner join mst_stu ms on ms.stu_id = scm.stu_id and ms.del_flg = 0
+        left join mst_cod_d mcd on mcd.cod_key = 'PRAISE_STAMP_LIST' and mcd.cod_cd = scm.compliment_div and mcd.del_flg = 0
+        WHERE
+            scm.org_id = #{orgId}
+            and scm.stu_id = #{stuId}
+            and scm.compliment_dt >= CURRENT_TIMESTAMP::timestamp - INTERVAL'60 day'
+            and scm.del_flg = 0
+        ORDER BY scm.compliment_dt desc
+        LIMIT #{limit} OFFSET #{page}
+    </select>
+    <select id="selectInitListCount" resultType="java.lang.Integer">
+        SELECT
+            count (A.complimentDt)
+        FROM
+        (
+            SELECT
+                to_char(scm.compliment_dt,'mm/dd') as complimentDt,
+                mcd.cod_cd as stamp,
+                mcd.cod_value as stampImg,
+                scm.compliment_cont,
+                mcd.cod_value_2,
+                CASE WHEN grs.reading_sts_div = '0'
+                    THEN '未読'
+                    ELSE '既読'
+                END as readingStsDiv,
+                ms.guard_id
+            FROM stu_compliment_mst scm
+            inner join mst_notice mn on cast(mn.notice_cont as int8) = scm.id and mn.notice_type_div = '7' and mn.del_flg = 0
+            inner join guard_reading_sts grs on grs.notice_id = mn.id and grs.stu_id = #{stuId} and grs.del_flg = 0
+            inner join mst_stu ms on ms.stu_id = scm.stu_id and ms.del_flg = 0
+            left join mst_cod_d mcd on mcd.cod_key = 'PRAISE_STAMP_LIST' and mcd.cod_cd = scm.compliment_div and mcd.del_flg = 0
+            WHERE
+                scm.org_id = #{orgId}
+                and scm.stu_id = #{stuId}
+                and scm.compliment_dt >= CURRENT_TIMESTAMP::timestamp - INTERVAL'60 day'
+                and scm.del_flg = 0
+            ORDER BY scm.compliment_dt
+        ) A
+    </select>
+</mapper>

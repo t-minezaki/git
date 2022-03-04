@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>生徒学習実績検索一覧画面（日別）</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21028.css">
+</head>
+<body id="body">
+<div id="message" class="topMessage hasHeight"></div>
+<div id="one" class="one">
+    <div>
+        <ul class="one-ul">
+            <li>生徒一覧</li>
+            <li> ＞ ヒ一トマップ</li>
+        </ul>
+    </div>
+</div>
+<div id="content" v-cloak>
+    <div id="div-select" class="selectRow row">
+        <div class="left-item column">
+            <label class="label">学年</label>
+            <select id="schySelect" class="select input" v-model = 'schyDiv'>
+                <option v-for="idx in schyList" :value="idx.codCD">{{idx.codValue}}</option>
+            </select>
+        </div>
+        <div class="left-item column">
+            <div class="label">グループ</div>
+            <select id="grpSelect" class="select input" v-model = 'grpId'>
+                <option v-for="idx in grpList" :value="idx.grpId">{{idx.grpNm}}</option>
+            </select>
+        </div>
+        <div class="left-item column">
+            <div class="label">生徒名</div>
+            <input class="input" id="stuNmInput" :value="stuNm"/>
+        </div>
+        <div class="head_button">
+            <button id="schedule_show" onclick="window.location.href = 'F21028.html';">
+                <img src="../img/icon_menu2.png"/>
+            </button>
+            <button id="list_show" onclick="window.location.href = 'F21033.html';">
+                <img src="../img/icon_menu1.png"/>
+            </button>
+        </div>
+        <div class="right-item column">
+            <button class="button stand-set-btn" id="standSet">しきい値設定</button>
+        </div>
+        <div class="right-item column">
+            <button class="button search-btn" id="search">検索</button>
+        </div>
+    </div>
+    <div id="div-reload" class="reloadRow row">
+        <div class="left-item">
+            <img src="../img/listleft.png" class="img" id="nextWeek"/>
+            <div id="dateRange" class="date-range">{{dateRange}}</div>
+            <img src="../img/listright.png" class="img" id="preWeek"/>
+        </div>
+        <div class="right-item">
+            <button class="button view-change-btn left-item this-view" id="dayView">日</button>
+            <button class="button view-change-btn left-item" id="weekView">週</button>
+            <button class="button view-change-btn left-item" id="monthView">月</button>
+        </div>
+    </div>
+    <div id="div-grid" class="listContentRow row">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21028.js"></script>
+</html>

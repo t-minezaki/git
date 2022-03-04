@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.LateAbsHstDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.LateAbsHstEntity" id="lateAbsHstMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="guardId" column="guard_id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="absSts" column="abs_sts"/>
+        <result property="lateTm" column="late_tm"/>
+        <result property="tgtYmd" column="tgt_ymd"/>
+        <result property="absReason" column="abs_reason"/>
+        <result property="bikou" column="bikou"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+        <result property="corrspdSts" column="corrspd_sts"/>
+        <result property="corrspdDatime" column="corrspd_datime"/>
+        <result property="noticeId" column="notice_id"/>
+    </resultMap>
+
+</mapper>

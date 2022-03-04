@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30301Dao">
+    <!--お知らせ未読カウント数-->
+    <select id="getNewsCount" resultType="Integer">
+        SELECT
+        count( DISTINCT notice.id )
+        FROM
+        mst_notice notice,
+        mst_notice_deliver deliver,
+        guard_reading_sts guard
+        WHERE
+        deliver.notice_id = notice.id
+        AND deliver.org_id = #{orgId}
+        AND notice.pub_plan_start_dt &lt;= ( SELECT now( ) ) AND notice.pub_plan_end_dt >= ( SELECT now( ) )
+        AND notice.notice_type_div = '1'
+        AND notice.id = guard.notice_id
+        AND guard.guard_id = #{guardId}
+        AND guard.stu_id = #{stuId}
+        AND guard.reading_sts_div = '0'
+        AND notice.del_flg = 0
+        AND deliver.del_flg = 0
+        AND guard.del_flg = 0
+    </select>
+</mapper>

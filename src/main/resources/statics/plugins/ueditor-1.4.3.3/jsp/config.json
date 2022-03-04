@@ -1,0 +1,79 @@
+/* 前後端の通信に関する配置は、複数の方法を使用することを許可する */
+{
+    /* 画像の配置項目をアップロードする */
+    "imageActionName": "uploadimage", /* アップロード画像のactionの名前を実行する */
+    "imageFieldName": "upfile", /* 提出された画像の表の名前 */
+    "imageMaxSize": 5242880, /* アップロードサイズの制限、単位B */
+    "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], /* 画像をアップロードする */
+    "imageCompressEnable": true, /* 画像を圧縮するかどうかは、デフォルトはtrueである */
+    "imageCompressBorder": 1600, /* 画像を最も長い間制限する */
+    "imageInsertAlign": "none", /* 挿入された画像の浮動方式 */
+    "imageUrlPrefix": "uriPrefixPlacement", /* 画像アクセスパスの前置き */
+    /* "imageUrlPrefix": "http://win-afl9kl3m0g1:8080", */
+    "imagePathFormat": "/gakken/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 保存経路をアップロードし、保存経路とファイル名フォーマットをカスタマイズすることができます。 */
+
+    /* 落書き画像のアップロード */
+    "scrawlActionName": "uploadscrawl", /* アップロードされたグラフィックスの名前を実行する */
+    "scrawlFieldName": "upfile", /* 提出された画像の表の名前 */
+    "scrawlPathFormat": "/gakken/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 保存経路をアップロードし、保存経路とファイル名フォーマットをカスタマイズすることができます。 */
+    "scrawlMaxSize": 2048000, /* 画像を最も長い間制限する */
+    "scrawlUrlPrefix": "", /* 画像アクセスパスの前置き */
+    "scrawlInsertAlign": "none",
+
+    /* カットツールアップロード */
+    "snapscreenActionName": "uploadimage",
+    "snapscreenPathFormat": "/gakken/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+    "snapscreenUrlPrefix": "",
+    "snapscreenInsertAlign": "none",
+
+    /* リモート画像の配置を取り付ける */
+    "catcherLocalDomain": ["127.0.0.1", "localhost", "img.baidu.com"],
+    "catcherActionName": "catchimage",
+    "catcherFieldName": "source",
+    "catcherPathFormat": "/gakken/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+    "catcherUrlPrefix": "",
+    "catcherMaxSize": 2048000,
+    "catcherAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
+
+    /* 動画のアップロード */
+    "videoActionName": "uploadvideo",
+    "videoFieldName": "upfile",
+    "videoPathFormat": "/gakken/video/{yyyy}{mm}{dd}/{time}{rand:6}",
+    "videoUrlPrefix": "uriPrefixPlacement",
+    "videoMaxSize": 1073741824,
+    "videoAllowFiles": [
+        ".flv", ".swf", ".mkv", ".avi", ".rm", ".rmvb", ".rmvb", ".mpg",
+        ".ogg", ".ogv", ".mov", ".wmv", ".mp4", ".webm", ".mp3", ".wav", ".mid"],
+
+    /* アップロードファイルの配置 */
+    "fileActionName": "uploadfile",
+    "fileFieldName": "upfile",
+    "filePathFormat": "/gakken/file/{yyyy}{mm}{dd}/{time}{rand:6}",
+    "fileUrlPrefix": "uriPrefixPlacement",
+    "fileMaxSize": 262144000,
+    "fileAllowFiles": [
+        ".docx",".pptx", ".pdf"
+    ],
+
+    /* 指定されたディレクトリの画像を作成する */
+    "imageManagerActionName": "listimage",
+    "imageManagerListPath": "/plugins/ueditor-1.4.3.3/jsp/upload/image/",
+    "imageManagerListSize": 20,
+    "imageManagerUrlPrefix": "",
+    "imageManagerInsertAlign": "none",
+    "imageManagerAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"],
+
+    /* 指定されたディレクトリのファイルを作成する */
+    "fileManagerActionName": "listfile",
+    "fileManagerListPath": "/plugins/ueditor-1.4.3.3/jsp/upload/file/",
+    "fileManagerUrlPrefix": "",
+    "fileManagerListSize": 20,
+    "fileManagerAllowFiles": [
+        ".png", ".jpg", ".jpeg", ".gif", ".bmp",
+        ".flv", ".swf", ".mkv", ".avi", ".rm", ".rmvb", ".mpeg", ".mpg",
+        ".ogg", ".ogv", ".mov", ".wmv", ".mp4", ".webm", ".mp3", ".wav", ".mid",
+        ".rar", ".zip", ".tar", ".gz", ".7z", ".bz2", ".cab", ".iso",
+        ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".pdf", ".txt", ".md", ".xml"
+    ]
+
+}

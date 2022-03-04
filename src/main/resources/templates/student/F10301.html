@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>ウィークリープラン計画管理</title>
+    <!-- common js lib -->
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <!-- fullcalendar -->
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-ja.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+
+    <script src="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.css" type="text/css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10301.css?ver=2.0.0"/>
+
+</head>
+<body style="height: 100%">
+<header>
+    <iframe id="iframe" src="../common/F40002.html" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div id="message" class="topMessage"></div>
+<div id="pageF10301" class="content" style="height: 100%;overflow: hidden">
+    <div class="calendar" style="height:100%;">
+        <div id="left_menu">
+            <div class="tab_menu_block">
+                <ul class="tab_menu" id="main_menu">
+                    <li id="planAreaBtn" class="active">ウィークリープラン</li>
+                    <li id="fixedAreaBtn" class="rightLi">繰り返す予定</li>
+                </ul>
+                <div class="printingDiv">
+                    <a id="todayPrintBtn" href="#"><img src="../img/printing.png" alt="当日～">
+                        <p>当日～</p></a>
+                </div>
+                <div class="printingDiv">
+                    <a id="printBtn" href="#"><img src="../img/printing-blue.png" alt="月曜～">
+                        <p>月曜～</p></a>
+                </div>
+            </div>
+            <div class="fc-toolbar fc-header-toolbar">
+                <div class="fc-left">
+                    <div class="tab_menu_block" style="width: 12vw">
+                        <ul class="tab_menu" id="sub_menu">
+                            <li class="active" id="planBtn">計画</li>
+                            <li id="perfBtn" class="rightLi"><a href="F10302.html">実行</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fc-right">
+                    <div class="fc-button-group">
+                        <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left" aria-label="prev">
+                            <span class="fc-icon fc-icon-left-single-arrow"></span></button>
+                    </div>
+                    <h2><span v-text="dateTitle"></span></h2>
+                    <div class="fc-button-group">
+                        <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right" aria-label="next">
+                            <span class="fc-icon fc-icon-right-single-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="calendar"></div>
+    </div>
+    <div id="right_div" style="width:20%;height:100%;float:left;">
+        <div class="right_container" id="external-events">
+            <ul class="tab_menu learn_events" id="main_event_menu">
+                <li class="learn_events active">学習のブロック</li>
+                <li class="other_events rightLi">生活のブロック</li>
+            </ul>
+        </div>
+        <div id="learn_events" style="height:100%;margin-top: 1.5vh;">
+            <div v-show="stuTextbChocEntityListLength > 0" class="swiper-container learn_seasn">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="d in seasnList" v-text="d.label" :data-startdy="d.startDy" :data-thisweek="d.thisWeek" :data-seasn_id="d.seasnId" v-bind:class="{'selected':d.thisWeek == 1}"></div>
+                </div>
+            </div>
+
+            <div class="block-div" style="max-height:100%; overflow-y:scroll;background:rgb(222, 244, 255);">
+                <div v-show="stuTextbChocEntityListLength > 0">
+                    <div v-show="weekStartDay == tgtYmd" style="minHeight:110px;">
+                        <div class="fc-event event_item_2 remainBlock" v-for="(d, k) in planPerf" v-if="isRemain(d)" v-bind:class="getClass(d, '1')" data-remain_flg="1" :data-plan_pref_id="d.planPrefId" :data-json="JSON.stringify(d)">
+                            <div class="event_item_2_inner" :style="'background:' + d.colorId+';color:'+d.fontColor">
+                                <p class="item_title" v-text="d.blockDispyNm"></p>
+                                <p class="item_content" v-text="d.blockContext"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="seperate_line" v-if="weekStartDay == tgtYmd"><span>ここまで積み残し</span></div>
+                    <div class="fc-event event_item_2 learnBlock" v-bind:class="getClass(d, '0')" v-for="d in termPlan[tgtYmd]" data-remainflg="0" :data-json="JSON.stringify(d)">
+                        <div class="event_item_2_inner" :style="'background:' + d.colorId+';color:'+d.fontColor">
+                            <p class="item_title" v-text="d.blockDispyNm"></p>
+                            <p class="item_content" v-text="d.blockContext"></p>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="stuTextbChocEntityListLength <= 0">
+                    <div class="fc-event reviewBlock event_item_2 reviewBlock unplan" v-for="d in reviewBlock" :data-json="JSON.stringify(d)">
+                        <div class="event_item_2_inner" :style="'background:' + d.colorId+';color:'+d.fontColor">
+                            <p class="item_title" style="text-align: center;" v-text="d.blockDispyNm"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div v-show="stuTextbChocEntityListLength <= 0">-->
+                <!--<div class="review_block_div" style="background: rgb(222,244,255)">-->
+                    <!--<div class="unitBtn" style="visibility: hidden">-->
+                        <!--<div>-->
+                            <!--<button>＜&nbsp;&nbsp;遅れている単元</button>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<button class="right">進んでいる単元&nbsp;&nbsp;＞</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-container review_block" style="visibility: hidden">-->
+                        <!--<div class="swiper-wrapper">-->
+                            <!--<div class="swiper-slide swiper-no-swiping" v-for="d in reviewBlock">-->
+                                <!--<div class="fc-event reviewBlock event_item_3 reviewBlock unplan" :data-json="JSON.stringify(d)">-->
+                                    <!--<div class="event_item_3_inner" >-->
+                                        <!--<p class="item_title" v-text="d.blockDispyNm"></p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="swiper-pagination" style="position:static;margin-bottom: 5px;"></div>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="review_block_div" v-if="stuTextbChocEntityListLength > 0">
+                <div class="unitBtn">
+                    <div>
+                        <button id="gotoFrist">＜&nbsp;&nbsp;遅れている単元</button>
+                    </div>
+                    <div>
+                        <button id="gotoLast" class="right">進んでいる単元&nbsp;&nbsp;＞</button>
+                    </div>
+                </div>
+                <div class="swiper-container review_block">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide swiper-no-swiping" v-for="d in reviewBlock">
+                            <div class="fc-event reviewBlock event_item_3 reviewBlock unplan" :data-json="JSON.stringify(d)">
+                                <div class="event_item_3_inner"
+                                     :style="'background:' + d.colorId +';color:'+d.fontColor ">
+                                    <p class="item_title" v-text="d.blockDispyNm"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination" style="position:static;margin-bottom: 5px;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="other_events" style="display:none;">
+            <div class="menu_container other">
+                <div class="fc-event event_item_1" v-for="d in otherBlock" v-bind:class="{'userBlock':d.upplevBlockId != null, 'otherBlock':(d.upplevBlockId == null)}"
+                        :data-json="JSON.stringify(d)"
+                     :style="'background-image: url(../img/' + d.blockPicDiv + ');background-color:'+d.colorId+';color:'+d.fontColor"
+                     :title="d.blockDispyNm">
+                    <span v-text="d.blockDispyNm"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popNew">
+        <div class="popH">未計画のブロックがあります</div>
+        <div class="popMain">
+            <div>先週以前に未計画の単元が</div>
+            <div class="popC" v-text="unPlanCnt + '個'"></div>
+            <div>あります</div>
+        </div>
+        <div class="popBtn">
+            <button id="popBtnClose">閉じる</button>
+            <button id="popBtnGo" class="btnR">最も古いブロックへ</button>
+        </div>
+    </div>
+</div>
+<form id="downloadPdf" method="post" action="${request.contextPath}/student/F10301/download">
+    <input type="hidden" name="fileName" id="fileName">
+</form>
+</body>
+<script type="text/javascript">
+
+</script>
+<script src="${request.contextPath}/js/student/F10301.js" type="text/javascript" charset="utf-8"></script>
+</html>

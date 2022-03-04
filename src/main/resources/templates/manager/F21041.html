@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>F21041_学生カルテ（個人詳細）の棒グラフ（日）</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21041.css">
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/echarts-4.2.0/echarts.min.js"></script>
+</head>
+<body id="body">
+<div id="page">
+<div id="message" class="topMessage hasHeight"></div>
+<div id="one" class="one">
+    <div>
+        <ul class="one-ul">
+            <li>生徒一覧></li>
+            <li id="stuNm">{{stuNm}}</li>
+        </ul>
+    </div>
+</div>
+<div id="content" style="height: 87vh;">
+    <div id="left" style="width:56%;float: left;margin-left: 2vw;height: 87vh;">
+        <div id="div-reload" class="reloadRow row">
+            <div class="left-item">
+                <img src="../img/listleft.png" class="img" id="preWeek"/>
+                <div id="dateRange" class="date-range">{{dateRange}}</div>
+                <img src="../img/listright.png" class="img" id="nextWeek"/>
+            </div>
+            <div class="right-item">
+                <button class="button view-change-btn left-item this-view" id="dayView"  onclick="getDay()">日</button>
+                <button class="button view-change-btn left-item" id="weekView"  onclick="getWeek()">週</button>
+                <button class="button view-change-btn left-item" id="monthView"  onclick="getMonth()">月</button>
+            </div>
+        </div>
+
+        <div class="degree">
+            <div class="content_main">
+                <div class="content_title">
+                    <div class="main">
+                        <div id="degree" style="width: 100%;height:77vh;background-color: white;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="right" style="width: 39%;float: right;background-color: white;margin-right: 2vw;height: 69vh;margin-top: calc(3% + 2.7vh);">
+        <div class="rightBtn">
+            <button class="topBtn" value="1" style="color: #1B9848;" id="askTalk" onclick="F21060()">面談記録</button>
+            <button class="topBtn" value="2" style="color: #C6C6C6;" onclick="window.location.href = './F20002.html'">
+                基本情報
+            </button>
+            <button class="topBtn" value="3" style="color: #C6C6C6;" id="askAbout" onclick="F21049()">問合せ記録</button>
+            <!--<button class="topBtn" id="score" onclick="toF10507()" style="color: #FF1818;" value="4">成績管理</button>-->
+            <button class="topBtn" id="add" onclick="infoPop()" style="color: #1B9848;display: none"
+                    value="5">新規登録
+            </button>
+        </div>
+        <!--<div class="initInfo">-->
+            <!--<div id="eventTime">-->
+                <!--<p v-for="talkTime in talkDate" class="talkTime" href="">-->
+                <!--{{talkTime}}-->
+                <!--</p>-->
+            <!--</div>-->
+            <!--<div id="eventTitle">-->
+                <!--<p v-for="title in getTalk" class="title" :value ="title.id" @click="infoPop(title.id)">-->
+                    <!--{{title.eventTitle}}-->
+                <!--</p>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <div id="div-grid" class="div_main" style="margin-top: 2vh">
+            <div class="first_div">
+                <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                <div id="jqGridPager"></div>
+            </div>
+        </div>
+        <div class="">
+
+        </div>
+    </div>
+
+</div>
+    <div class="bottom">
+        <button class="back" onclick="back()">戻る</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21041.js"></script>
+</html>

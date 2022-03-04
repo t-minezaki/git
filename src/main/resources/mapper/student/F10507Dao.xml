@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10507Dao">
+    <select id="selectGoalResultList" resultType="jp.learningpark.modules.student.form.F10507Form">
+        SELECT
+        A.cod_value schyVal,
+        B.cod_value testTypeVal,
+        C.cod_value testKindVal,
+        grh.test_tgt_y testTgtY,
+        grh.test_tgt_m testTgtM,
+        grh.id,
+        grh.upd_datime updateTm
+        FROM
+        stu_test_goal_result_h grh
+        INNER JOIN mst_cod_d A ON grh.schy_div = A.cod_cd
+        AND A.cod_key = 'SCHY_DIV'
+        AND A.del_flg = 0
+        INNER JOIN mst_cod_d B ON grh.test_type_div = B.cod_cd
+        AND B.cod_key = 'TEST_TYPE_DIV'
+        AND B.del_flg = 0
+        left JOIN mst_cod_d C ON grh.test_kind_div = C.cod_cd
+        AND C.cod_key = 'TEST_KIND_DIV'
+        AND C.del_flg = 0
+        WHERE
+        grh.stu_id = #{stuId}
+        AND grh.del_flg = 0
+        order by schyVal,testTypeVal,testKindVal,testTgtY,testTgtM
+        <if test="startRow!=null">
+            LIMIT 20 OFFSET #{startRow}
+        </if>
+    </select>
+    <select id="selectGoalResultCount" resultType="Integer">
+        SELECT DISTINCT COUNT
+        ( * )
+        FROM
+        (
+        SELECT A
+        .cod_value schyVal,
+        B.cod_value testTypeVal,
+        C.cod_value testKindVal,
+        grh.test_tgt_y testTgtY,
+        grh.test_tgt_m testTgtM,
+        grh.ID,
+        grh.upd_datime updateTm
+        FROM
+        stu_test_goal_result_h grh
+        INNER JOIN mst_cod_d A ON grh.schy_div = A.cod_cd
+        AND A.cod_key = 'SCHY_DIV'
+        AND A.del_flg = 0
+        INNER JOIN mst_cod_d B ON grh.test_type_div = B.cod_cd
+        AND B.cod_key = 'TEST_TYPE_DIV'
+        AND B.del_flg = 0
+        LEFT JOIN mst_cod_d C ON grh.test_kind_div = C.cod_cd
+        AND C.cod_key = 'TEST_KIND_DIV'
+        AND C.del_flg = 0
+        WHERE
+        grh.stu_id = #{stuId}
+        AND grh.del_flg = 0
+        ORDER BY
+        A.cod_value,
+        B.cod_value,
+        C.cod_value,
+        grh.test_tgt_y,
+        grh.test_tgt_m
+        <if test="startRow!=null">
+            LIMIT 20 OFFSET #{startRow}
+        </if>
+        ) ls
+    </select>
+</mapper>

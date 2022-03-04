@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F21057Dao">
+    <select id="selectDetail" resultType="jp.learningpark.modules.pop.dto.F21057Dto">
+        SELECT
+            mm.id,
+            mm.message_title,
+            mm.message_cont,
+            trs.reading_sts_div,
+            mu.usr_nm,
+            mm.attach_file_path
+        FROM
+            mst_message mm
+        INNER JOIN talk_reading_sts trs ON ( mm.id = trs.message_id AND trs.del_flg = 0 AND trs.deliver_id = #{usrId} AND mm.id = #{messageId})
+        LEFT JOIN mst_usr mu ON ( mu.del_flg = 0 AND mu.usr_id = mm.upd_usr_id )
+        WHERE
+            mm.del_flg = 0
+            AND mm.message_type_div = '2'
+    </select>
+</mapper>

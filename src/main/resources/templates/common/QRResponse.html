@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>QR解答集アプリとの連携API</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+</head>
+<body id="body">
+<div id="content">
+    <div>
+        <textarea id="sendMsg" style="width: 50%;height: 40vh;resize: none;">
+{
+    "type": "checkver",
+    "verinfo": [
+        {
+            "kyokacd": "EA01",
+            "verdatetime": "202001121200"
+        },
+        {
+            "kyokacd": "EA02",
+            "verdatetime": "201901121210"
+        },
+        {
+            "kyokacd": "EA03",
+            "verdatetime": "202005121210"
+        }
+    ],
+    "appv": 1.1
+}
+        </textarea>
+        <textarea id="login" style="width: 50%;height: 40vh;resize: none;float: left;">
+{
+    "type": "qrdllogin",
+    "loginId":"CCC111",
+    "password":"CCC111"
+
+}
+        </textarea>
+    </div>
+    <div id="div-check">
+        <button @click="checkUpdate()">発送JSON1</button>
+        <button @click="login()" style="float: left;">LOGIN</button>
+    </div>
+    <textarea id="json" style="width: 50%;height: 40vh;resize: none;">{{json}}</textarea>
+    <button @click="updatePwd()">全システムの初期パスワードを更新</button>
+    <div id="loginResult">{{loginResult}}</div>
+    <div v-for="downloadInfo in downloadList" v-if="downloadInfo.downloadflg == '1'">
+        <a @click="download(downloadInfo.downloadurl, downloadInfo.token)">{{downloadInfo.downloadurl}}</a>
+        <button @click="download(downloadInfo.downloadurl, downloadInfo.token)">
+            ダウンロード
+        </button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js" charset="UTF-8"></script>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/common/QRResponse.js"></script>
+</html>

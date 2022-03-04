@@ -1,0 +1,84 @@
+.header_manager {
+    position: absolute;
+    left: 250px;
+}
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.one{
+    height: 38px;
+}
+
+.one div{
+    height: 100%;
+    float: left;
+}
+
+.one-ul{
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li{
+    height: 100%;
+    float: left;
+    font-size: 1.6em;
+    color: grey;
+    font-weight: bold;
+}
+
+.three *{
+    height: 3vw;
+}
+
+.select1 {
+
+    border: 1px solid #808080 !important;
+    -webkit-appearance: none;
+    background:url('../../img/select.png') no-repeat right center;
+    background-size: 30px 30px;
+    color: grey;
+}
+.input1 {
+    background-position: 10px 100px;
+}
+.button1 {
+    background-color: #4BC783;
+    border: none;
+    color: white;
+    padding: 10px 80px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 2vw;
+}
+.button2 {
+    background-color: #4CB77C;
+    border: none;
+    color: white;
+    padding: 2vw 2vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 2vw;
+}

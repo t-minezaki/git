@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>チャンネル詳細</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/newtui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30420.css"/>
+</head>
+<body>
+<div class="newt-layout-body" id="main">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="topTitle commonTabTitle">
+        マナミルチャンネル
+    </div>
+    <div class="content">
+        <div class="title2">
+            <div class="back" onclick="window.location.href='./F30419.html'">
+                <img src="../img/left.png">
+            </div>
+            <div id="title">
+            </div>
+        </div>
+        <div class="content_div">
+            <div class="div_img"></div>
+            <p class="description"></p>
+            <div class="div_files"></div>
+        </div>
+        <!-- 2020/11/12 cuikailin V9.0 add start -->
+        <div id="confirmContainer" hidden>
+            <div class="line newt-layout-line"></div>
+            <button id="confirm" @click="confirm">確認しました</button>
+        </div>
+        <!-- 2020/11/12 cuikailin V9.0 add end -->
+    </div>
+    <div class="newt-layout-fixed div_bottom">
+        <iframe src="../common/F40004.html?id=F30419" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/hammer/hammer.js"></script>
+<script src="${request.contextPath}/js/guard/F30420.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=yes"/>
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09022.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40011-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="back" onclick="window.location.href = 'F09019.html'">
+            <img src="../img/left.png">
+        </div>
+        <p class="topTitle">配信状況一覧</p>
+        <div id="head">
+            <button class="headBtns active" id="btn1">未読</button>
+            <button class="headBtns" id="btn2">全員</button>
+        </div>
+        <div id="datas">
+            <div class="stu-list" v-for="dto in stuList">
+                <div class="cont_div">
+                    <div class="stu-name">{{dto.stuName}}</div>
+                    <span class="schy">{{dto.codValue}}</span><span class="segmentation"
+                                                                    v-if="dto.telnum && dto.telnum !== ''"> | </span><a
+                        :href="'tel://' + dto.telnum" class="telnumber" v-if="dto.telnum && dto.telnum !== ''">{{getDisplayTelNumber(dto.telnum)}}</a>
+                </div>
+                <div class="btn_div">
+                    <button class="stsDiv" v-if="dto.readingStsDiv && dto.readingStsDiv !== ''">{{dto.readingStsDiv}}
+                    </button>
+                </div>
+            </div>
+            <button @click="insert()" class="insert" v-if="showFlg == true">更に読み込む</button>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40011.html?id=F09018" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F09022.js"></script>
+</html>

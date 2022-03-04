@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F21075Dao">
+	<select id="getTalkItems" resultType="jp.learningpark.modules.pop.dto.F21075Dto">
+        SELECT
+            mate.id
+            , mate.item_type_div
+            , mate.ask_num
+            , mate.question_name
+            , mate.answer_type_div
+            , mate.opt_cont1
+            , mate.opt_cont2
+            , mate.opt_cont3
+            , mate.opt_cont4
+            , mate.opt_cont5
+        FROM mst_event me
+        INNER JOIN mst_ask_talk_event mate
+            on me.id = mate.event_id
+            and mate.question_name is not null
+            and mate.question_name <![CDATA[ <> ]]> ''
+            and mate.answer_type_div is not null
+            and mate.answer_type_div <![CDATA[ <> ]]> ''
+            <if test="div == 0">
+                and mate.item_type_div = '0'
+            </if>
+            <if test="div == 1">
+                and mate.item_type_div = '1'
+            </if>
+            and mate.use_div = '1'
+            and mate.del_flg = 0
+        WHERE
+            me.id = #{eventId}
+            and me.del_flg =0
+		ORDER BY
+            mate.ask_num
+    </select>
+    <select id="getProxyFlg" resultType="boolean">
+        SELECT
+            case when geas.proxy_flg = '1' or seas.proxy_flg = '1'
+                then 1
+                else 0
+            end as proxy_flg
+        FROM
+            talk_record_h AS trh
+            LEFT JOIN guard_event_apply_sts AS geas ON geas.event_id = trh.event_id
+            AND geas.stu_id = trh.stu_id
+            AND geas.guard_id = trh.guard_id
+            AND geas.del_flg = 0
+            LEFT JOIN stu_event_apply_sts AS seas ON seas.event_id = trh.event_id
+            AND seas.stu_id = trh.stu_id
+            AND seas.guard_id = trh.guard_id
+            AND seas.del_flg = 0
+        WHERE
+            trh.id = #{trhId}
+            AND trh.del_flg = 0
+    </select>
+</mapper>

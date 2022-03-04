@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F40026Dao">
+    <select id="getInfo" resultType="jp.learningpark.modules.pop.dto.F40026Dto">
+        SELECT
+        <if test="messageTypeDiv==0">
+            mn.id as id,
+            mn.notice_title as title,
+            mn.pub_plan_start_dt as pubStartDt,
+            mn.pub_plan_end_dt as pubEndDt,
+            mn.title_img_path as titleImgPath,
+            mo.org_nm as orgNm
+        </if>
+        <if test="messageTypeDiv==1">
+            me.id as id,
+            me.event_title as title,
+            me.pub_start_dt as pubStartDt,
+            me.pub_end_dt as pubEndDt,
+            me.title_img_path as titleImgPath,
+            mo.org_nm as orgNm
+        </if>
+        <if test="messageTypeDiv==2">
+            mm.id as id,
+            mm.message_title as title,
+            mm.pub_plan_start_dt as pubStartDt,
+            mm.pub_plan_end_dt as pubEndDt,
+            mm.title_img_path as titleImgPath,
+            mo.org_nm as orgNm
+        </if>
+        <if test="messageTypeDiv==0">
+            FROM
+            mst_notice mn
+            INNER JOIN mst_org AS mo ON mo.org_id = mn.org_id
+            AND mo.del_flg = 0
+            WHERE
+            mn.id = #{msgId}
+            and mn.del_flg = 0
+        </if>
+        <if test="messageTypeDiv==1">
+            from mst_event me
+            INNER JOIN mst_org AS mo ON mo.org_id = me.org_id
+            AND mo.del_flg = 0
+            where me.id = #{msgId}
+            and me.del_flg = 0
+        </if>
+        <if test="messageTypeDiv==2">
+            from
+            mst_message mm
+            INNER JOIN mst_org AS mo ON mo.org_id = mm.org_id
+            AND mo.del_flg = 0
+            where
+            mm.id = #{msgId}
+            and mm.del_flg = 0
+        </if>
+    </select>
+    <select id="failedUserList" resultType="jp.learningpark.modules.pop.dto.F40026Dto">
+        SELECT
+        mu1.after_usr_id,
+        mu1.usr_id || ',' || mu.usr_id AS usrId,
+        mu.role_div,
+        ped.id,
+        concat( mg.flnm_nm, ' ', mg.flnm_lnm ) AS userName,
+        concat( ms.flnm_nm, ' ', ms.flnm_lnm ) AS stuNm,
+        mu.after_usr_id AS stuAfterId
+        FROM
+        mst_usr mu
+        INNER JOIN PUSH_ERR_DAT ped ON ped.stu_id = mu.usr_id
+        AND ped.MSG_TYPE_DIV = #{msgTypeDiv}
+        AND ped.MSG_ID = #{msgId}
+        AND ped.org_id = #{orgId}
+        AND ped.resend_sts = '1'
+        AND ped.del_flg = 0
+        LEFT JOIN mst_stu ms ON ms.stu_id = mu.usr_id
+        AND ms.del_flg = 0
+        LEFT JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu1 ON mg.guard_id  = mu1.usr_id
+        AND mu1.del_flg = 0
+        <if test="offset!=null and limit!=null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+	</select>
+    <update id="errDataUpdate">
+        UPDATE push_err_dat SET resend_sts = '2' WHERE id = #{id}
+    </update>
+
+    <!--modify at 2021/09/17 for V9.02 UT-0029 by NWT yang-->
+    <select id="selectDeliverInfo" resultType="jp.learningpark.modules.pop.dto.F40026Dto">
+        SELECT
+            ped.deliver_id,
+            ped.stu_id,
+            ped.device_id,
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuNm,
+            TRIM ( mu.role_div ) AS roleDiv
+        FROM
+            push_err_dat AS ped
+        INNER JOIN mst_usr AS mu ON mu.usr_id = ped.deliver_id
+        AND mu.del_flg = 0
+        INNER JOIN mst_stu AS ms ON ped.stu_id = ms.stu_id
+        AND ms.del_flg = 0
+        WHERE
+            ped.ID IN
+            <foreach collection="errorIdList" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </select>
+    <!--modify at 2021/09/17 for V9.02 UT-0029 by NWT yang-->
+</mapper>

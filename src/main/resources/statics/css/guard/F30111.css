@@ -1,0 +1,151 @@
+.description img {
+    max-width: 100%;
+    /*display: block;*/
+    /*margin: 0 auto;*/
+}
+
+.description video {
+    width: 100%;
+}
+
+.title {
+    width: 80%;
+    font-size: 15px;
+    color: #444;
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 10%;
+}
+
+.oneTitle {
+    width: 100%;
+    background-color: white;
+    padding: 10px 5px 0 5px;
+    height: 41px;
+    position: fixed;
+}
+
+.oneTitle ul {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.count {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cf2d28;
+    color: #fff;
+    font-size: 10px;
+    right: 15px;
+    top: 10px;
+    line-height: 18px;
+    display: none;
+}
+
+.oneTitle li {
+    width: 50%;
+    height: 100%;
+    float: left;
+    color: #009944;
+    background: none;
+    font-size: 13px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.oneTitle li.active {
+    color: #555;
+    border-bottom: 4px solid #555;
+}
+
+.oneTitle li.active1 {
+    color: #009944;
+    border-bottom: 4px solid #009944;
+}
+
+.content {
+    width: 100%;
+    padding: 4px;
+    overflow: auto;
+    padding-top: 44px;
+    /*position: fixed;*/
+}
+
+.content_div {
+    height: auto;
+    min-height: 150.6vw;
+    width: 100%;
+    overflow: auto;
+    padding-bottom: 12vh;
+    /*padding-top: 41px;*/
+    /*overflow-x: hidden;*/
+}
+
+.description {
+    width: 90%;
+    font-size: 15px;
+    color: #555;
+    margin-left: 5%;
+    /*overflow: hidden;*/
+}
+
+.description p {
+    word-wrap: break-word;
+    word-break: break-all;
+    /*overflow: hidden;*/
+}
+
+p > span {
+    line-height: 170%;
+}
+
+.title_div {
+    width: 100%;
+    float: left;
+}
+
+.div_files {
+    margin-top: 2vh;
+    text-align: center;
+}
+
+.div_files a {
+    color: red;
+    text-decoration: none;
+    border-bottom: 0.5vh solid red;
+}
+
+.back {
+    margin-top: 10px;
+    width: 28px;
+    height: 28px;
+    float: left;
+    position: fixed;
+}
+
+.back img {
+    width: 100%;
+    height: 100%;
+}
+
+.url {
+    font-size: 12px;
+    padding: 5px;
+    float: right;
+    text-align: center;
+    border: 2px solid #009944;
+    border-radius: 5px;
+    color: #009944;
+    margin-top: 10px;
+}
+
+.updateTime {
+    float: right;
+    font-size: 12px;
+    color: #555;
+    margin-top: 10px;
+}

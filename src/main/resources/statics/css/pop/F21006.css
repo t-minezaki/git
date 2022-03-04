@@ -1,0 +1,203 @@
+body,html{
+    background: white !important;
+    height: 100%;
+}
+.content{
+    height: 100%;
+    position: relative;
+}
+.subjt{
+    /*margin: 2vw;*/
+    border: 1px solid #7F7F7F;
+    width: 25%;
+    margin: 1% calc(25% / 6);
+    text-align: center;
+    height: 10vh;
+    float: left;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    color: white;
+    border-radius: 1vw;
+}
+.absStsDiv{
+    width: 35%;
+    text-align: center;
+    height: 17vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 5vw;
+}
+.homeWkDiv{
+    width: 35%;
+    text-align: center;
+    height: 23vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 5vw;
+}
+#numInput{
+    height: 16vh;
+    border-radius: 0.3em;
+    border: 1px solid;
+    margin-top: 4vh;
+    text-align: center;
+    margin-bottom: 2vh;
+    font-size: 2em;
+    width: 38vw;
+}
+.number{
+    margin: 1vw;
+    border: 1px solid #7F7F7F;
+    width: 24%;
+    text-align: center;
+    height: 16vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    color: white;
+    border-radius: 1vw;
+}
+.careDiv{
+    width: 35%;
+    text-align: center;
+    height: 23vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 5vw;
+}
+.lastTimeHwtDiv{
+    width: 38%;
+    text-align: center;
+    height: 22vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 2.5vw 3vw;
+}
+.schStsDiv{
+    width: 38%;
+    text-align: center;
+    height: 22vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 2.5vw 3vw;
+}
+.lectShapeDiv{
+    width: 38%;
+    text-align: center;
+    height: 18vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 2vw;
+    margin-left: 7vw;
+}
+/*add at 2021/08/12 for V9.02 by NWT wen START*/
+.testPassKbnDiv{
+    width: 35%;
+    text-align: center;
+    height: 23vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 5vw;
+}
+/*add at 2021/08/12 for V9.02 by NWT wen END*/
+.remove{
+    float: right;
+    width: 20%;
+    height: 18vh;
+    font-size: 2em;
+    margin: 2vw;
+    margin-right: 8vw;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    background-color: #CCCCCC;
+}
+.submit{
+    float: left;
+    width: 20%;
+    height: 18vh;
+    font-size: 2em;
+    margin: 2vw;
+    margin-left: 7vw;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+}
+.absSts{
+    width: 38%;
+    text-align: center;
+    height: 22vh;
+    font-size: 2em;
+    line-height: 10vh;
+    background-color: #CCCCCC;
+    border: 1px solid #7F7F7F;
+    color: white;
+    border-radius: 1vw;
+    float: left;
+    margin: 3vw;
+}
+#div-subjt {
+    overflow: auto;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 86vw;
+    text-align: center;
+    top: 50%;
+    transform: translate(0, calc(-50% + 21px));
+}
+.otherSubjt{
+    background: none;
+    overflow: hidden;
+    resize: none;
+    color: grey;
+}
+::-webkit-scrollbar{
+    width: 0 !important;
+}
+/*2021/01/12 liyuhuan add start*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+/*2021/01/12 liyuhuan add end*/

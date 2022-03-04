@@ -1,0 +1,196 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body {
+    height: 100%;
+    user-select: none;
+}
+
+html, body, p {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+/*
+* 9.0品質向上ut-059
+*/
+textarea {
+    resize: none;
+}
+
+.topMessage {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: red;
+    font-size: 10px;
+    text-align: center;
+    overflow: hidden;
+    display: none;
+}
+
+select {
+    border: 1px solid #999 !important;
+    background: url(../../img/select_ico.png) no-repeat right center/20px;
+}
+
+.div_header {
+    width: 100%;
+    background: white;
+    /*padding: 4px 2%;*/
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    height: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+@media screen and (max-device-width: 533px) {
+    .div_header {
+        height: 44px;
+    }
+}
+
+.div_header .logo {
+    width: auto;
+    height: 100%;
+    float: left;
+}
+
+.div_header .logout {
+    width: 28px;
+    height: 28px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 1vw;
+}
+
+.div_header .logo img {
+    height: 20px;
+    width: 100px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.div_header .logout img {
+    height: 100%;
+    width: 100%;
+}
+
+.div_bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 58px;
+    background: #fff;
+    z-index: 9999;
+}
+
+.headerBtn {
+    float: right;
+    margin-top: .4em;
+    /*margin-right: .2em;*/
+    height: 1.6em;
+}
+
+/*.headerBtn button {*/
+/*background-color: #fff !important;*/
+/*color: #009944;*/
+/*border: 1px solid #009944;*/
+/*border-radius: .2em;*/
+/*font-size: 12px;*/
+/*height: 100%;*/
+/*}*/
+
+.headerBtn {
+    float: right;
+    width: auto;
+    height: 28px;
+    margin-top: 5px;
+}
+.headerBtn button {
+    background-color: #fff !important;
+    color: #009944;
+    border: 1px solid #009944;
+    border-radius: 4px;
+    font-size: 10px;
+    height: 100%;
+}
+
+.required{
+    padding-right: 2%;
+    position: relative;
+}
+
+.required:after{
+    content: '*';
+    color: #EA331B;
+    position: absolute;
+    right: 6%;
+}
+[v-cloak]{
+    display: none;
+}
+.pop_bottom{
+    width: 20%;
+    position: fixed;
+    bottom: -36px !important;
+    right: 3% !important;
+    height: auto;
+    margin: auto;
+    z-index: 999;
+    background: white;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-dialog {
+    max-width: 400px;
+    width: auto !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+.layui-layer-btn{
+    text-align: center;
+}
+/*GKGCpopボックス共通*/
+.out .layui-layer-title  {
+    background-color: #8CC11F !important;
+    border: 0 !important;
+}
+.out a.layui-layer-btn0 {
+    background-color: white !important;
+    border: 1px solid #8CC11F !important;
+    border-radius: 19px;
+    color: #8CC11F !important;
+}
+.out a.layui-layer-btn1 {
+    background-color: white !important;
+    border: 1px solid #8CC11F !important;
+    border-radius: 19px;
+    color: #8CC11F !important;
+}

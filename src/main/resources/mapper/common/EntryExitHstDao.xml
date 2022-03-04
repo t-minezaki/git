@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.EntryExitHstDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.EntryExitHstEntity" id="entryExitHstMap">
+        <result property="id" column="id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="entryDt" column="entry_dt"/>
+        <result property="entryFlg" column="entry_flg"/>
+        <result property="entryUserId" column="entry_user_id"/>
+        <result property="noticeSts" column="notice_sts"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+        <result property="orgId" column="org_id"/>
+    </resultMap>
+
+</mapper>

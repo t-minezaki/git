@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00002Dao">
+    <!--  管理者基本マスタから取得し -->
+    <select id="getManager" resultType="jp.learningpark.modules.common.entity.MstManagerEntity">
+    SELECT
+        *
+    FROM
+        mst_manager
+    WHERE
+        mgr_id = #{managerId}
+    </select>
+    <update id="updateManagerInfo">
+        UPDATE
+            mst_manager
+        SET
+            flnm_nm = #{entity.flnmNm}
+            , flnm_lnm = #{entity.flnmLnm}
+            , flnm_kn_nm = #{entity.flnmKnNm}
+            , flnm_kn_lnm = #{entity.flnmKnLnm}
+            , telnum = #{entity.telnum}
+            , upd_datime = #{entity.updDatime}
+            , upd_usr_id = #{entity.updUsrId}
+        WhERE
+            mgr_id
+        IN (
+            SELECT
+                usr_id
+            FROM
+                mst_usr
+            WHERE
+                after_usr_id = #{entity.afterUsrId}
+                )
+    </update>
+    <update id="updateMentorInfo">
+        UPDATE
+            mst_mentor
+        SET
+            flnm_nm = #{entity.flnmNm}
+          , flnm_lnm = #{entity.flnmLnm}
+          , flnm_kn_nm = #{entity.flnmKnNm}
+          , flnm_kn_lnm = #{entity.flnmKnLnm}
+          , telnum = #{entity.telnum}
+          , upd_datime = #{entity.updDatime}
+          , upd_usr_id = #{entity.updUsrId}
+        WhERE
+                mentor_id
+                IN (
+                    SELECT
+                        usr_id
+                    FROM
+                        mst_usr
+                    WHERE
+                        after_usr_id = #{entity.afterUsrId}
+                )
+    </update>
+</mapper>

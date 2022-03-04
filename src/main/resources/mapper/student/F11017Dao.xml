@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11017Dao">
+    <select id="getInitApplyData" resultType="jp.learningpark.modules.student.dto.F11017Dto">
+        (SELECT
+            seas.id as applyId,
+            seas.event_id,
+            ms.flnm_nm,
+            ms.flnm_lnm,
+            concat(ms.flnm_nm, ' ', ms.flnm_lnm) as stuNm,
+            espd.sgd_plan_date,
+            espd.sgd_start_datime,
+            me.chg_limt_days,
+            me.apply_end_dt
+        <!--         2020/11/18 V9.0 cuikailin add start-->
+            ,trd.ask_num as askNum
+            ,trd.question_name as questionName
+            ,trd.answer_type_div as answerTypeDiv
+            ,trd.answer_relt_cont as answerReltCont
+            ,trh.note_cont as noteCont
+            ,trh.id as talkId
+        <!--         2020/11/18 V9.0 cuikailin add end -->
+            ,me.ref_type as refType
+        FROM stu_event_apply_sts seas
+        inner join talk_record_h trh
+            on trh.stu_id = seas.stu_id
+            and trh.guard_id = seas.guard_id
+            and trh.event_id = seas.event_id
+            <if test="flg == 1 ">
+                and trh.talk_apply_sts_div = '0'
+            </if>
+            <if test="flg == 2 ">
+                and trh.talk_apply_sts_div in  ('2','3')
+            </if>
+            and trh.del_flg = 0
+        inner join mst_stu ms
+            on ms.stu_id = seas.stu_id
+            and ms.del_flg = 0
+        inner join event_sche_plan_del espd
+            on espd.id = seas.event_sche_del_id
+            <if test="flg == 1 ">
+                AND espd.sgd_start_datime <![CDATA[ > ]]> now()
+            </if>
+            <if test="flg == 2 ">
+                AND espd.sgd_start_datime <![CDATA[ <= ]]> now()
+            </if>
+            and espd.del_flg = 0
+        inner join mst_event me
+            on me.id = seas.event_id
+            and me.del_flg = 0
+            AND me.ref_type in ('0','1')
+        <!--2020/11/18 V9.0 cuikailin add start -->
+        LEFT JOIN talk_record_d trd
+            on trd.talk_id = trh.id
+            and trd.item_type_div = '0'
+        <!-- 2020/11/18 V9.0 cuikailin add end -->
+        WHERE
+            seas.stu_id = #{stuId}
+            and seas.reply_sts_div = '1'
+            and seas.del_flg = 0
+        <!-- 2020/11/18 V9.0 cuikailin add start -->
+        ORDER BY
+            trd.ask_num asc,
+            espd.sgd_start_datime asc
+        <!-- 2020/11/18 V9.0 cuikailin add end -->
+<!-- 2020/12/30 V9.0 cuikailin add start -->
+        )UNION ALL(
+        SELECT
+            seas.id as applyId,
+            seas.event_id,
+            ms.flnm_nm,
+            ms.flnm_lnm,
+            concat(ms.flnm_nm, ' ', ms.flnm_lnm) as stuNm,
+            trh.TALK_DATIME AS sgdStartDatime,
+            trh.TALK_DATIME AS sgdPlanDate,
+            me.chg_limt_days,
+            me.apply_end_dt
+            ,trd.ask_num as askNum
+            ,trd.question_name as questionName
+            ,trd.answer_type_div as answerTypeDiv
+            ,trd.answer_relt_cont as answerReltCont
+            ,trh.note_cont as noteCont
+            ,trh.id as talkId
+            ,me.ref_type as refType
+        FROM stu_event_apply_sts seas
+        inner join talk_record_h trh
+            on trh.stu_id = seas.stu_id
+            and trh.guard_id = seas.guard_id
+            and trh.event_id = seas.event_id
+            and trh.talk_apply_sts_div <![CDATA[ <> ]]> '1'
+            and trh.del_flg = 0
+        inner join mst_stu ms
+            on ms.stu_id = seas.stu_id
+            and ms.del_flg = 0
+        inner join mst_event me
+            on me.id = seas.event_id
+            and me.del_flg = 0
+            AND me.ref_type = '2'
+            <if test="flg == 1 ">
+                AND me.apply_end_dt >= now()
+            </if>
+            <if test="flg == 2 ">
+                AND now() >= me.apply_end_dt
+            </if>
+        INNER JOIN talk_record_d trd
+            on trd.talk_id = trh.id
+            and trd.item_type_div = '0'
+        WHERE
+            seas.stu_id = #{stuId}
+            and seas.reply_sts_div = '1'
+            and seas.del_flg = 0
+        ORDER BY
+            trd.ask_num asc
+        )
+<!-- 2020/12/30 V9.0 cuikailin add end -->
+    </select>
+</mapper>

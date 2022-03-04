@@ -1,0 +1,225 @@
+.header_operat{
+    width: auto;
+}
+.btn_div{
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+#table{
+    width: 100%;
+}
+.btn_div button{
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 8%;
+    padding-right: 1vw;
+}
+
+.inputMessage input {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 10%;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.inputMessage img {
+    height: 1.5vw;
+    float: left;
+    padding-left: 0.65vw;
+}
+
+.buttonDiv{
+    width: 100%;
+    height: auto;
+    float: left;
+    padding: 1vw 0;
+    position: relative;
+}
+.buttonDiv button{
+    width: 14vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    color: #009944;
+    border: 2px solid #009944;
+    font-size: 0.9vw;
+    border-radius: 4px;
+}
+.buttonDiv div{
+    width: 12vw;
+    height: 2.2vw;
+    float: left;
+    margin: 0 1vw;
+    color: #333;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+}
+.buttonDiv input{
+    width: 14vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    font-size: 0.9vw;
+    color: #333;
+    border: 2px solid #aaa;
+    padding: 0 0.4vw;
+}
+.buttonDiv input.chooseFile{
+    position: absolute;
+    top: 1vw;
+    left: 31vw;
+    z-index: 999;
+    margin: 0;
+    width: 14vw;
+    opacity: 0;
+}
+.list{
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+    border-top: 1px solid #009944;
+}
+.oneTd table{
+    border-bottom: 0;
+    border-right: 0;
+}
+.oneTd th,.oneTd td{
+    text-align: center;
+    height: 2.2vw;
+    font-weight: 500;
+    font-size: 0.9vw;
+    padding: 0;
+}
+.oneTd td{
+    color: #666;
+}
+.oneTd td a{
+    color: #1322a3;
+    text-decoration: underline;
+    cursor: pointer;
+}
+td button{
+    background: none;
+    color: #1322a3;
+    width: auto;
+    border: 0;
+    font-size: 0.9vw;
+    text-decoration: underline;
+    cursor: pointer;
+}
+[v-cloak]{
+    display: none;
+}
+/* 2020/11/30 V9.0 liguangxin modify start */
+.layui-laydate-list>li{
+    width: 25%!important;
+    margin: 10px 0!important;
+}
+/*.layui-laydate-list>li:last-child{display: none}*/
+.laydate-month-list>li{
+    margin: 10px!important;
+}
+/* 2020/11/30 V9.0 liguangxin modify end */
+.ui-jqgrid-hbox{
+    width: 100%;
+    padding-right: 0 !important;
+}
+#jqGridPager_right{
+    text-align: left;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+}
+.laydate-btns-now{
+    display: none !important;
+}
+.titleDiv{
+    margin-left: 1vw !important;
+}
+/* 2020/12/23 UT-042 cuikailin add start */
+.ui-jqgrid-bdiv {
+    width: auto !important;
+    overflow-x: unset !important;
+}
+/* 2020/12/23 UT-042 cuikailin add start */
+/* 2021/01/04 UT-095 cuikailin add start */
+.layui-laydate-list.laydate-time-list>li{
+    width: 33%!important;
+}
+/* 2021/01/04 UT-095 cuikailin add end */

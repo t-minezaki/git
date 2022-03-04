@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>配信設定編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <!--<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>-->
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08010.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body style="width: 100%;height: 100%;overflow-y: auto;overflow-x: hidden;">
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>イベント管理　＞　</li>
+            <li>配信設定/状況確認　＞　</li>
+            <li>配信設定</li>
+        </ul>
+    </div>
+</div>
+<div class="topMessage" id="message"></div>
+<div class="main" id="app" style="width: 100%;overflow-y: auto">
+
+    <div class="div_input">
+        <label class="title">公開有無</label>
+        <div class="inputMessage" id="public">
+            <span v-for="(obj,index) in eventStsDivList">
+                <input type="radio" class="my_radio" name="public" :class="{'noFocus':noFocus===true}"
+                       :value="obj.codCd" v-model="eventStsDiv" :disabled="replyFlg == '1'?true:false"/>
+                <span>{{ obj.codValue }}</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="div_input">
+        <label class="title">配信対象</label>
+        <div class="inputMessage" id="deliverTarget">
+            <span>
+                <input type="radio" class="my_radio" name="target" value="0" v-model="deliverTargetDiv"/>
+                <span>保護者</span>
+            </span><span>
+                <input type="radio" class="my_radio" name="target" value="1" v-model="deliverTargetDiv"/>
+                <span>生徒</span>
+            </span>
+        </div>
+    </div>
+
+    <div id="object_div">
+        <button id="search" class="search">配信先設定</button>
+        <div class="div_select">
+            <div class="div_title">
+                配信対象一覧
+            </div>
+            <!--<div class="div_content">-->
+            <!--<table id="jqGrid"></table>-->
+            <!--<div id="jqGridPager"></div>-->
+            <!--&lt;!&ndash;<li v-for="obj in guardAndStudentList">&ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="a_main" href="javascript:;">{{ obj.stuNm }}</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--</div>-->
+        </div>
+    </div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div class="div_input" style="margin-top: 3vh">
+        <label class="time_title">公開期間</label>
+        <div class="inputMessage" style="width: 80%">
+            <div class="time_div">
+                <div class="img_div">
+                    <img src="../img/timeBtn2.png" alt="" id="timeOne">
+                </div>
+                <input :value="timeFormat(mstEventEntity.pubStartDt)" type="text" id="pubStartDt" class="time_input"
+                       name="cretTimeStart" style="width: 18%" readonly>
+            </div>
+            <div class="time_split">～</div>
+            <div class="time_div">
+                <div class="img_div">
+                    <img src="../img/timeBtn2.png" alt="" id="timeTwo">
+                </div>
+                <input :value="timeFormat(mstEventEntity.pubEndDt)" type="text" id="pubEndDt" class="time_input"
+                       name="cretTimeEnd" style="width: 18%" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_input" style="margin-top: 1vh">
+        <label class="time_title">申込可能期間</label>
+        <div class="inputMessage" style="width: 80%">
+            <div class="time_div">
+                <div class="img_div">
+                    <img src="../img/timeBtn2.png" alt="" id="timeThree">
+                </div>
+                <input :value="timeFormat(mstEventEntity.applyStartDt)" type="text" id="applyStartDt" class="time_input"
+                       name="cretTimeStart" style="width: 18%" readonly>
+            </div>
+            <div class="time_split">～</div>
+            <div class="time_div">
+                <div class="img_div">
+                    <img src="../img/timeBtn2.png" alt="" id="timeFour">
+                </div>
+                <input :value="timeFormat(mstEventEntity.applyEndDt)" type="text" id="applyEndDt" class="time_input"
+                       name="cretTimeEnd" style="width: 18%" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_input" style="margin-top: 1vh">
+        <label class="time_title">変更可能期間</label>
+        <div class="inputMessage">
+            予約日の
+            <input style="font-size: 0.8em;text-align: center;width: 3vw;height: 4vh;border: 1px solid grey !important;" type="text" :value="mstEventEntity.chgLimtDays"id="changeTime" class="changeTime"/>
+            日前
+        </div>
+    </div>
+
+    <div class="div_input" style="margin-top: 1vh">
+        <label class="title">登録通知有無</label>
+        <div class="inputMessage" id="loginnotify">
+            <input id="login_no" type="radio" class="my_radio" name="loginnotify" value="0"
+                   v-model="mstEventEntity.noitceFlg"/>
+            <span>なし</span>
+            <input id="login_yes" type="radio" class="my_radio" name="loginnotify" value="1"
+                   v-model="mstEventEntity.noitceFlg" checked/>
+            <span>あり</span>
+        </div>
+    </div>
+
+    <div class="div_input" style="margin-top: 1vh">
+        <label class="title">リマインド通知有無</label>
+        <div class="inputMessage" id="remandnotify">
+            <input id="remand_no" type="radio" class="my_radio" name="remandnotify" value="0"
+                   v-model="mstEventEntity.remandFlg"/>
+            <span>なし</span>
+            <input id="remand_yes" type="radio" class="my_radio" name="remandnotify" value="1"
+                   v-model="mstEventEntity.remandFlg" checked/>
+            <span>あり</span>
+        </div>
+    </div>
+
+    <div class="div_btn" style="width: calc(100% - 4vw)">
+        <button id="btn_cancel" style="margin-right: 10vw;">戻る</button>
+        <button id="btn_ok">登録</button>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08010.js"></script>
+</html>

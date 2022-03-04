@@ -1,0 +1,257 @@
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.idMessage {
+    width: auto;
+    float: left;
+    padding: 0 4vw 0 1vw;
+    height: auto;
+}
+
+.buttonDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    z-index: 999;
+    position: relative;
+}
+
+.buttonDiv button {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 15%;
+    margin: 0 4%;
+    height: 100%;
+    padding: 0 1.6vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+.buttonDiv div {
+    width: 80%;
+    height: 2.2vw;
+    float: left;
+    margin: 0 1vw;
+    color: #333;
+    font-size: 0.9vw;
+    text-align: center;
+    line-height: 2.2vw;
+}
+
+.buttonDiv input {
+    width: 8vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    font-size: 0.9vw;
+    color: #333;
+    border: 2px solid #aaa;
+    padding: 0 0.4vw;
+}
+
+.listTitle {
+    margin-left: 0.4vw;
+    font-weight: bold;
+    font-size: 0.9vw;
+    text-align: left;
+    position: relative;
+}
+
+#pg_jqGridPager {
+    margin-left: 1vw !important;
+    margin-right: 0 !important;
+}
+
+.ui-pg-selbox {
+    height: 21px !important;
+}
+
+.popDiv {
+    width: 100%;
+    height: 100%;
+    padding: 6px 30px;
+}
+
+.popDiv .popButtonDiv {
+    height: 40px;
+    width: 100%;
+}
+
+.popDiv .popButtonDiv p {
+    width: 16%;
+    float: left;
+    line-height: 40px;
+    height: 40px;
+    color: #000;
+    font-size: 12px;
+}
+
+.popDiv .popButtonDiv input {
+    width: 34%;
+    height: 26px;
+    line-height: 26px;
+    color: #000;
+    font-size: 12px;
+    float: left;
+    margin-top: 7px;
+    border: 1px solid #000;
+}
+
+.popDiv .popButtonDiv button {
+    width: 20%;
+    height: 26px;
+    line-height: 26px;
+    color: #009944;
+    font-size: 12px;
+    float: left;
+    margin-top: 7px;
+    border: 1px solid #009944;
+    border-radius: 4px;
+    margin-left: 5%;
+    background: none;
+}
+
+.popDiv .popButtonDiv button.red {
+    color: #EA331B;
+    border: 0;
+}
+
+.disNone {
+    display: none;
+}
+
+.one {
+    width: 100%;
+    height: 2.2vw;
+    margin-top: .5vw;
+    position: relative;
+    padding: 0 5vw;
+}
+
+.oneRight {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.one input {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.input_area {
+    width: 12vw;
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.objectName {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 14%;
+    padding-right: 1vw;
+}
+
+.upLevOrg {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    float: left;
+    padding: 0 0.4vw;
+    width: 12vw;
+    -webkit-appearance: none;
+}
+
+.btn button {
+    float: right !important;
+}
+
+.roleUl {
+    width: 100%;
+    height: 2.2vw;
+    font-size: .9vw;
+}
+
+.roleUl li {
+    float: left;
+    width: 10rem;
+    line-height: 2.2vw;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    /*height: 4vh !important;*/
+    font-size: 1.1em !important;
+}

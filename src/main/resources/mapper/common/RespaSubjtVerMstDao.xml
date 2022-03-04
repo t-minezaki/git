@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.RespaSubjtVerMstDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.RespaSubjtVerMstEntity" id="respaSubjtVerMstMap">
+        <result property="id" column="id"/>
+        <result property="subjtCod" column="subjt_cod"/>
+        <result property="gradeDiv" column="grade_div"/>
+        <result property="subjtNm" column="subjt_nm"/>
+        <result property="newVerDatime" column="new_ver_datime"/>
+        <result property="downStartDatime" column="down_start_datime"/>
+        <result property="subjtZipFileNm" column="subjt_zip_file_nm"/>
+        <result property="subjtZipFilePath" column="subjt_zip_file_path"/>
+        <result property="downldUrl" column="downld_url"/>
+        <result property="fileGetPassword" column="file_get_password"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

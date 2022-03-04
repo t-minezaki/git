@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21018Dao">
+    <!--  生徒IDに基づいて生徒情報を取得する  -->
+    <select id="selectStuInfo" resultType="jp.learningpark.modules.manager.dto.F21018Dto">
+    SELECT
+        a.sch,
+        a.guard_id,
+        a.guard1_id,
+        a.guard2_id,
+        a.guard3_id,
+        a.guard4_id,
+        a.flnm_nm||' '||a.flnm_lnm as stuNm,
+        a.flnm_kn_nm||' '||a.flnm_kn_lnm as stuKnNm,
+        b.cod_value as schy,
+        a.schy_div,
+        a.birthd,
+        a.phot_path,
+        a.english_nm,
+        a.dayweek_div,
+        a.memo_cont,
+        a.qr_cod,
+        <!--MANAMIRU1-197 会員コード 会員番号の表示 20201217 modify yang start-->
+        a.upd_datime,
+        a.member_cd,
+        a.admission_date
+        <!--MANAMIRU1-197 会員コード 会員番号の表示 20201217 modify yang end-->
+        FROM
+        (SELECT
+        *
+        FROM
+        mst_stu
+        WHERE
+        stu_id = #{stuId}
+        AND
+        del_flg = 0) a
+        LEFT JOIN
+        mst_cod_d b
+        ON
+        a.schy_div = b.cod_cd
+        AND
+        b.cod_key = 'SCHY_DIV'
+        AND
+        b.del_flg = 0
+    </select>
+    <!--  保護者IDに基づいて保護者情報を取得する  -->
+    <select id="selectGuardInfo" resultType="jp.learningpark.modules.manager.dto.F21018Dto">
+        SELECT
+        a.mailad,
+        a.flnm_nm||' '||a.flnm_lnm as guardNm,
+        a.telnum,
+        a.reltnsp_div,
+        a.urg_telnum,
+        a.guard_id,
+        <!--modify at 2021/08/10 for V9.02 by NWT LiGX START -->
+        d.cod_value as guardLoginStatus
+        <!--modify at 2021/08/10 for V9.02 by NWT LiGX END-->
+        FROM
+        mst_guard a
+        <!--modify at 2021/08/10 for V9.02 by NWT LiGX START -->
+        INNER JOIN mst_usr b ON a.guard_id = b.usr_id
+        INNER JOIN mst_cod_d d ON d.cod_cd = b.fst_login_flg
+        <!--modify at 2021/08/10 for V9.02 by NWT LiGX END-->
+        WHERE
+        a.del_flg = 0
+        <!--modify at 2021/08/10 for V9.02 by NWT LiGX START -->
+        AND b.del_flg = 0
+        AND d.del_flg = 0
+        AND d.cod_key = 'FST_LOGIN_DIV'
+        <!--modify at 2021/08/10 for V9.02 by NWT LiGX END-->
+        <if test='guardIdList != null and guardIdList.size() != 0'>
+            AND
+            a.guard_id
+            IN
+            <foreach collection="guardIdList" index="index" item="guardId" open="(" separator="," close=")">
+                #{guardId}
+            </foreach>
+        </if>
+        ORDER BY
+        a.reltnsp_div
+    </select>
+    <select id="selectAfterIdByUsrId" parameterType="String" resultType="String">
+        SELECT
+            after_usr_id
+        FROM
+            mst_usr
+        WHERE
+            usr_id = #{usrId}
+            AND del_flg = 0
+    </select>
+</mapper>

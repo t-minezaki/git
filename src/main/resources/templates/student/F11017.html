@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>生徒面談の申込内容変更・キャンセル画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/sys/bootstrap.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11017.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11017" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="main">
+        <div class="div_name">
+            <div class="div_back" onclick="window.location.href = './F11016.html'">
+                <img src="../img/left.png" alt="">
+            </div>
+            <p>申込内容の確認・変更</p>
+        </div>
+        <div class="div_event_span">
+            <ul>
+                <li id="now" @click="getInfo(1)">参加予定</li>
+                <li id="past" @click="getInfo(2)">過去の参加履歴</li>
+            </ul>
+        </div>
+        <div class="div_content">
+            <!--2020/11/18 V9.0 cuikailin modify start-->
+            <!--<ul>-->
+                <!--<li class="li_record" v-for="stu in f11017Dtos">-->
+                    <!--<div class="div_title">-->
+                        <!--<span></span>-->
+                        <!--<p>生徒面談</p>-->
+                    <!--</div>-->
+                    <!--<div class="div_stu">-->
+                        <!--<span>生徒氏名</span>-->
+                        <!--<p>{{stu.stuNm}}</p>-->
+                    <!--</div>-->
+                    <!--<div class="div_time">-->
+                        <!--<span>日時</span>-->
+                        <!--<p>{{stu.displayTime}}</p>-->
+                    <!--</div>-->
+                    <!--<div v-if="stu.errorMsg!=null && stu.flg == 1" class="div_msg">-->
+                        <!--{{stu.errorMsg}}-->
+                    <!--</div>-->
+                    <!--<div v-if=" stu.errorMsg==null && stu.flg == 1" class="div_btn">-->
+                        <!--<button @click="change(stu.eventId,stu.applyId)">申込を変更</button>-->
+                        <!--<button @click="cancel(stu.applyId)">申込をキャンセル</button>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <!--2020/11/18 V9.0 cuikailin modify end-->
+        </div>
+    </div>
+    <!-- 2020/11/18 V9.0 cuikailin add start -->
+    <div class="image-container" id="imageContainer" style="display: none;">
+    </div>
+    <!-- 2020/11/18 V9.0 cuikailin add end -->
+    <div class="div_bottom">
+        <iframe id="bottom" src="${request.contextPath}/common/F40012.html?id=F11016" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F11017.js"></script>
+</html>

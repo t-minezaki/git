@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08012Dao">
+    <select id="selectGuardAndStudent" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08012Dto">
+		SELECT
+			MU.usr_id AS stu_id
+			, MS.guard_id
+			, MU.after_usr_id
+			, MS.flnm_nm || ' ' || MS.flnm_lnm AS stuName
+			, mcd2.cod_value as schy_div
+			, MS.schy_div as codCd
+			, MU.after_usr_id || ',' || MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+		FROM
+			mst_usr MU
+			INNER JOIN mst_stu MS   ON ( MS.stu_id = MU.usr_id 		AND MS.del_flg = 0 )
+-- 	保護者ID空ではない
+			INNER JOIN mst_guard MG ON ( MS.guard_id = MG.guard_id AND MG.del_flg = 0 )
+			LEFT JOIN mst_cod_d as mcd2 on mcd2.cod_cd = MS.schy_div and mcd2.cod_key = 'SCHY_DIV' and mcd2.del_flg = 0
+			<if test='params.radioType != null and params.radioType == "1"'>
+				INNER JOIN mst_cod_d MCD   ON ( MCD.cod_cd = MS.schy_div AND MCD.del_flg = 0 )
+			</if>
+			<if test='params.radioType != null and params.radioType == "2"'>
+				INNER JOIN stu_grp SG   ON ( SG.stu_id = MU.usr_id 		AND SG.del_flg = 0 )
+			</if>
+		WHERE
+			MU.org_id = #{orgId}
+			AND MU.del_flg = 0
+			AND MU.usr_sts = '1'
+			<if test='params.radioType != null and params.radioType == "1"'>
+				AND MCD.cod_key = 'SCHY_DIV'
+				<if test='schyDivList != null and schyDivList != ""'>
+					AND MS.schy_div = #{schyDivList}
+				</if>
+			</if>
+			<if test='params.radioType != null and params.radioType == "2"'>
+				<if test='grpIdList != null and grpIdList.size() > 0'>
+					AND SG.grp_id IN
+					<foreach item="item" collection="grpIdList" separator="," open="(" close=")" index="">
+						#{item, jdbcType=INTEGER}
+					</foreach>
+				</if>
+			</if>
+		ORDER BY
+			ms.id
+    </select>
+</mapper>

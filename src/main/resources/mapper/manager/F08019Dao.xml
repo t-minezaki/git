@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08019Dao">
+    <select id="getGEASList" resultType="jp.learningpark.modules.manager.dto.F08019Dto">
+        SELECT
+            MUB.after_usr_id as guard_after_id
+            , MUB.usr_id as guardId
+            , MG.flnm_nm || ' ' || MG.flnm_lnm AS guard_nm
+            , MUA.after_usr_id as stu_after_id
+            , MUA.usr_id as stuId
+            , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+            , mcd3.cod_value as schyDiv
+            , GEAS.reading_sts_div
+            , GEAS.reply_sts_div
+            ,
+            case when GEAS.reply_sts_div = '1' or GEAS.reply_sts_div = '2'
+                then mcd2.cod_value
+                else mcd1.cod_value
+            end as status
+            , MG.mailad AS mail_address
+            , MO.brand_cd
+            , GEAS.org_id
+            , trh.talk_apply_sts_div
+            ,
+            case when trh.talk_apply_sts_div = '0' then '未実施'
+                when trh.talk_apply_sts_div = '1' then 'キャンセル'
+                when trh.talk_apply_sts_div = '2' then '実施済'
+                when trh.talk_apply_sts_div = '3' then '配信済'
+            end as statusDiv
+            , trh.id as talkId
+        FROM guard_event_apply_sts GEAS
+        LEFT JOIN mst_usr MUB
+            ON MUB.usr_id = GEAS.guard_id
+            AND MUB.del_flg = 0
+        LEFT JOIN mst_guard MG
+            ON MG.guard_id = GEAS.guard_id
+            AND MG.del_flg = 0
+        INNER JOIN mst_stu MS
+            ON MS.stu_id = GEAS.stu_id
+            AND MS.del_flg = 0
+        INNER JOIN mst_usr MUA
+            ON MUA.usr_id = GEAS.stu_id
+            AND MUA.del_flg = 0
+        inner join mst_cod_d mcd3
+            on mcd3.cod_key = 'SCHY_DIV'
+            and mcd3.cod_cd = MS.schy_div
+            and mcd3.del_flg = 0
+        INNER JOIN mst_org MO
+            ON MO.org_id = GEAS.org_id
+            AND MO.del_flg = 0
+        inner join mst_event me
+            on me.id = geas.event_id
+            <!--and me.ref_type != '2'-->
+            and me.del_flg = 0
+        left join TALK_RECORD_H trh
+            on trh.event_id = geas.event_id
+            and trh.guard_id = geas.guard_id
+            and trh.stu_id = geas.stu_id
+            and trh.del_flg = 0
+        <if test='div != null and div != 5'>
+            and trh.talk_apply_sts_div <![CDATA[ <> ]]> '1'
+        </if>
+        inner join mst_cod_d mcd1
+            on mcd1.cod_key = 'READING_STS_DIV'
+            and mcd1.cod_cd = geas.reading_sts_div
+            and mcd1.del_flg = 0
+        inner join mst_cod_d mcd2
+            on mcd2.cod_key = 'REPLY_STS_DIV'
+            and mcd2.cod_cd = geas.reply_sts_div
+            and mcd2.del_flg = 0
+        WHERE
+            GEAS.del_flg = 0
+            AND GEAS.event_id = #{eventId}
+            AND GEAS.org_id = #{orgId}
+            <if test='div != null and div == 2'>
+                AND GEAS.reading_sts_div = '0'
+            </if>
+            <if test='div != null and div == 3'>
+                AND GEAS.reading_sts_div = '1'
+            </if>
+            <if test='div != null and div == 4'>
+                AND GEAS.reply_sts_div in ('0', '2')
+            </if>
+            <if test='div != null and div == 5'>
+                AND GEAS.reply_sts_div = '1'
+            </if>
+        ORDER BY
+            MUA.after_usr_id
+            , MUB.after_usr_id
+        <if test="offset!=null and limit!=null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getStuApplyList" resultType="jp.learningpark.modules.manager.dto.F08019Dto">
+        SELECT
+            MUB.after_usr_id as guard_after_id
+            , MUB.usr_id as guardId
+            , MG.flnm_nm || ' ' || MG.flnm_lnm AS guard_nm
+            , MUA.after_usr_id as stu_after_id
+            , MUA.usr_id as stuId
+            , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+            , MS.schy_div
+            , mcd3.cod_value as schyDiv
+            , GEAS.reading_sts_div
+            , GEAS.reply_sts_div
+            ,
+            case when GEAS.reply_sts_div = '1' or GEAS.reply_sts_div = '2'
+                then mcd2.cod_value
+                else mcd1.cod_value
+            end as status
+            , MG.mailad AS mail_address
+            , MO.brand_cd
+            , GEAS.org_id
+            , trh.talk_apply_sts_div
+            , case when trh.talk_apply_sts_div = '0' then '未実施'
+                when trh.talk_apply_sts_div = '1' then 'キャンセル'
+                when trh.talk_apply_sts_div = '2' then '実施済'
+                when trh.talk_apply_sts_div = '3' then '配信済'
+            end as statusDiv
+            , trh.id as talkId
+        FROM stu_event_apply_sts GEAS
+        LEFT JOIN mst_usr MUB
+            ON MUB.usr_id = GEAS.guard_id
+            AND MUB.del_flg = 0
+        LEFT JOIN mst_guard MG
+            ON MG.guard_id = GEAS.guard_id
+            AND MG.del_flg = 0
+        INNER JOIN mst_stu MS
+            ON MS.stu_id = GEAS.stu_id
+            AND MS.del_flg = 0
+        INNER JOIN mst_usr MUA
+            ON MUA.usr_id = GEAS.stu_id
+            AND MUA.del_flg = 0
+        inner join mst_cod_d mcd3
+            on mcd3.cod_key = 'SCHY_DIV'
+            and mcd3.cod_cd = MS.schy_div
+            and mcd3.del_flg = 0
+        INNER JOIN mst_org MO
+            ON MO.org_id = GEAS.org_id
+            AND MO.del_flg = 0
+        inner join mst_event me
+            on me.id = geas.event_id
+            <!--and me.ref_type != '2'-->
+            and me.del_flg = 0
+        left join TALK_RECORD_H trh
+            on trh.event_id = geas.event_id
+            and trh.guard_id = geas.guard_id
+            and trh.stu_id = geas.stu_id
+            and trh.del_flg = 0
+            <if test='div != null and div != 5'>
+                and trh.talk_apply_sts_div <![CDATA[ <> ]]> '1'
+            </if>
+        inner join mst_cod_d mcd1
+            on mcd1.cod_key = 'READING_STS_DIV'
+            and mcd1.cod_cd = geas.reading_sts_div
+            and mcd1.del_flg = 0
+        inner join mst_cod_d mcd2
+            on mcd2.cod_key = 'REPLY_STS_DIV'
+            and mcd2.cod_cd = geas.reply_sts_div
+            and mcd2.del_flg = 0
+        WHERE
+            GEAS.del_flg = 0
+            AND GEAS.event_id = #{eventId}
+            AND GEAS.org_id = #{orgId}
+            <if test='div != null and div == 2'>
+                AND GEAS.reading_sts_div = '0'
+            </if>
+            <if test='div != null and div == 3'>
+                AND GEAS.reading_sts_div = '1'
+            </if>
+            <if test='div != null and div == 4'>
+                AND GEAS.reply_sts_div in ('0', '2')
+            </if>
+            <if test='div != null and div == 5'>
+                AND GEAS.reply_sts_div = '1'
+            </if>
+        ORDER BY
+            MUA.after_usr_id
+            , MUB.after_usr_id
+        <if test="offset!=null and limit!=null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getDownloadInfo" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08019Dto">
+        SELECT
+        ME.ctgy_nm
+        , ME.event_title
+        , ESPD.sgd_plan_date
+        , MG.guard_id
+        , MG.flnm_nm || ' ' || MG.flnm_lnm AS guard_nm
+        , MS.stu_id
+        , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+        , MM.flnm_nm || ' ' || MM.flnm_lnm AS mentor_nm
+        , MO.org_nm
+        , trh.id as trh_id
+        , trh.note_cont as reply_cnt
+        , ESPD.ref_type_div
+        , ESPD.sgd_start_datime
+        FROM guard_event_apply_sts GEAS
+        LEFT JOIN event_sche_plan_del ESPD
+            ON GEAS.event_sche_del_id = ESPD.id
+            AND ESPD.del_flg = 0
+        INNER JOIN mst_event ME
+            ON GEAS.event_id = ME.id
+            <!--and me.ref_type != '2'-->
+            AND ME.del_flg = 0
+        LEFT JOIN mst_mentor MM
+            ON MM.del_flg = 0
+            AND ESPD.ref_id = MM.mentor_id
+        LEFT JOIN mst_org MO
+            ON MO.del_flg = 0
+            AND ESPD.ref_id = MO.org_id
+        INNER JOIN mst_stu MS
+            ON GEAS.stu_id = MS.stu_id
+            AND MS.del_flg = 0
+        LEFT JOIN mst_guard MG
+            ON GEAS.guard_id = MG.guard_id
+            AND MG.del_flg = 0
+        INNER JOIN mst_usr MUA
+            ON GEAS.stu_id = MUA.usr_id
+            AND MUA.del_flg = 0
+        LEFT JOIN mst_usr MUB
+            ON GEAS.guard_id = MUB.usr_id
+            AND MUB.del_flg = 0
+        LEFT JOIN talk_record_h trh
+            ON trh.event_id = GEAS.event_id
+            AND trh.stu_id = GEAS.stu_id
+            AND trh.del_flg = 0
+        <if test='div != null and div != 5'>
+            and trh.talk_apply_sts_div <![CDATA[ <> ]]> '1'
+        </if>
+        WHERE
+            GEAS.del_flg = 0
+            AND GEAS.event_id = #{eventId}
+            AND GEAS.org_id = #{orgId}
+            <if test='div != null and div == 2'>
+                AND GEAS.reading_sts_div = '0'
+            </if>
+            <if test='div != null and div == 3'>
+                AND GEAS.reading_sts_div = '1'
+            </if>
+            <if test='div != null and div == 4'>
+                AND GEAS.reply_sts_div in ('0', '2')
+            </if>
+            <if test='div != null and div == 5'>
+                AND GEAS.reply_sts_div = '1'
+            </if>
+            AND GEAS.stu_id IN
+            <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+            AND ME.ref_type IN ( '0', '1', '2' )
+        ORDER BY
+            ME.ctgy_nm,
+            ME.event_title,
+            ESPD.sgd_plan_date,
+            MUA.after_usr_id,
+            MUB.after_usr_id
+    </select>
+
+    <select id="getStuDownloadInfo" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08019Dto">
+        SELECT
+            ME.ctgy_nm
+            , ME.event_title
+            , ESPD.sgd_plan_date
+            , MG.guard_id
+            , MG.flnm_nm || ' ' || MG.flnm_lnm AS guard_nm
+            , MS.stu_id
+            , MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+            , MM.flnm_nm || ' ' || MM.flnm_lnm AS mentor_nm
+            , MO.org_nm
+            , trh.id as trh_id
+            , trh.note_cont as reply_cnt
+            , ESPD.ref_type_div
+            , ESPD.sgd_start_datime
+        FROM stu_event_apply_sts GEAS
+        LEFT JOIN event_sche_plan_del ESPD
+            ON GEAS.event_sche_del_id = ESPD.id
+            AND ESPD.del_flg = 0
+        INNER JOIN mst_event ME
+            ON GEAS.event_id = ME.id
+            <!--and me.ref_type != '2'-->
+            AND ME.del_flg = 0
+        LEFT JOIN mst_mentor MM
+            ON MM.del_flg = 0
+            AND ESPD.ref_id = MM.mentor_id
+        LEFT JOIN mst_org MO
+            ON MO.del_flg = 0
+            AND ESPD.ref_id = MO.org_id
+        INNER JOIN mst_stu MS
+            ON GEAS.stu_id = MS.stu_id
+            AND MS.del_flg = 0
+        LEFT JOIN mst_guard MG
+            ON GEAS.guard_id = MG.guard_id
+            AND MG.del_flg = 0
+        INNER JOIN mst_usr MUA
+            ON GEAS.stu_id = MUA.usr_id
+            AND MUA.del_flg = 0
+        LEFT JOIN mst_usr MUB
+            ON GEAS.guard_id = MUB.usr_id
+            AND MUB.del_flg = 0
+        LEFT JOIN talk_record_h trh
+            ON trh.event_id = GEAS.event_id
+            AND trh.stu_id = GEAS.stu_id
+            AND trh.del_flg = 0
+        <if test='div != null and div != 5'>
+            and trh.talk_apply_sts_div <![CDATA[ <> ]]> '1'
+        </if>
+        WHERE
+            GEAS.del_flg = 0
+            AND GEAS.event_id = #{eventId}
+            AND GEAS.org_id = #{orgId}
+            <if test='div != null and div == 2'>
+                AND GEAS.reading_sts_div = '0'
+            </if>
+            <if test='div != null and div == 3'>
+                AND GEAS.reading_sts_div = '1'
+            </if>
+            <if test='div != null and div == 4'>
+                AND GEAS.reply_sts_div in ('0', '2')
+            </if>
+            <if test='div != null and div == 5'>
+                AND GEAS.reply_sts_div = '1'
+            </if>
+            AND GEAS.stu_id IN
+            <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+            AND ME.ref_type IN ( '0', '1', '2' )
+        ORDER BY
+            ME.ctgy_nm,
+            ME.event_title,
+            ESPD.sgd_plan_date,
+            MUA.after_usr_id,
+            MUB.after_usr_id
+    </select>
+    <select id="getTalkRecordDetails" resultType="jp.learningpark.modules.manager.dto.F08019TalkRecordDetails">
+        SELECT
+            trh.id||';'||trh.stu_id||';'||trd.item_type_div||';'||trd.ask_num as detailsKey
+            , trd.answer_relt_cont as detailsValue
+        FROM
+            talk_record_h trh
+        INNER JOIN talk_record_d trd
+            ON trh.id = trd.talk_id
+            AND trh.event_id = #{eventId}
+            AND trd.del_flg = 0
+        INNER JOIN
+            mst_ask_talk_event mate
+            ON trd.answer_type_div = mate.answer_type_div
+            AND trd.ask_num = mate.ask_num
+            AND mate.event_id = #{eventId}
+            AND mate.del_flg = 0
+            AND mate.use_div = '1'
+            AND trd.item_type_div = mate.item_type_div
+        WHERE
+            trh.del_flg = 0
+    </select>
+</mapper>

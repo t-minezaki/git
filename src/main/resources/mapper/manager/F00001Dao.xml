@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00001Dao">
+    <!--  管理者基本マスタから取得し -->
+    <select id="getUserFunList" resultType="jp.learningpark.modules.manager.dto.F00001Dto">
+        SELECT
+                mf.mgr_div_nm AS mgrDivNm,
+                mf.fun_div_nm AS funDivNm,
+                mf.fun_nm AS funNm,
+                mf.fun_id AS funId,
+                mf.mgr_flg AS mgrFlg,
+                mf.ment_flg AS mentFlg
+        FROM
+                mst_user_nm_fun_list AS munfl
+                        INNER JOIN mst_fun AS mf ON munfl.fun_id = mf.fun_id AND mf.del_flg = 0
+        WHERE
+                munfl.user_id = #{userId}
+          AND munfl.del_flg = 0
+        ORDER BY
+                mf.junban_num ASC
+    </select>
+    <!-- 上層組織リスト-->
+    <select id="getUpLvOrgList" resultType="jp.learningpark.modules.manager.dto.F00001Dto">
+        WITH RECURSIVE cte AS (
+                SELECT
+                        a1.*,
+                        a1.org_id || ' ' || a1.org_nm AS orgNmDisplay,
+                        '1' AS orgDiv
+                FROM
+                        mst_org a1
+                WHERE
+                        a1.org_id = #{orgId}
+                  AND a1.brand_cd = #{brandCd}
+                  AND a1.del_flg = 0 UNION ALL
+                SELECT
+                        a2.*,
+                        a2.UPPLEV_ORG_ID || ' ' || a2.org_nm AS orgNmDisplay,
+                        '2' AS orgDiv
+                FROM
+                        cte C
+                                INNER JOIN mst_org a2 ON C.upplev_org_id = a2.org_id
+                                AND a2.del_flg = 0
+                ) SELECT DISTINCT
+                s.*
+        FROM
+                cte s
+        ORDER BY
+                s.LEVEL DESC,
+                s.org_id
+    </select>
+    <!--組織別機能一覧取得処理-->
+    <select id="getOrgFunList" resultType="jp.learningpark.modules.manager.dto.F00001Dto">
+        SELECT
+        mf.mgr_div_nm AS mgrDivNm,
+        mf.fun_div_nm AS funDivNm,
+        mf.fun_nm AS funNm,
+        mf.fun_id AS funId,
+        mofl.mgr_flg AS mgrFlg,
+        mofl.ment_flg AS mentFlg
+        FROM
+        mst_org_fun_list AS mofl
+        INNER JOIN mst_fun AS mf ON mf.fun_id = mofl.fun_id
+        AND mf.del_flg = 0
+        WHERE
+        mofl.org_id = #{orgId}
+        <if test="roleDiv ==1">
+            and mofl.mgr_flg = '1'
+        </if>
+        <if test="roleDiv ==2">
+            and mofl.ment_flg = '1'
+        </if>
+        AND mofl.del_flg = 0
+        ORDER BY
+        mf.junban_num ASC
+    </select>
+    <!--機能マスタから全機能一覧を取得する-->
+    <select id="getAllFunList" resultType="jp.learningpark.modules.manager.dto.F00001Dto">
+        SELECT
+        mgr_div_nm AS mgrDivNm,
+        fun_div_nm AS funDivNm,
+        fun_nm AS funNm,
+        fun_id AS funId,
+        mgr_flg AS mgrFlg,
+        ment_flg AS mentFlg
+        FROM
+        MST_FUN
+        <where>
+            <if test="roleDiv ==1">
+                and mgr_flg = '1'
+            </if>
+            <if test="roleDiv ==2">
+                and ment_flg = '1'
+            </if>
+            AND del_flg = 0
+        </where>
+        ORDER BY
+        junban_num ASC
+    </select>
+    <select id="getThisOrgId" resultType="jp.learningpark.modules.manager.dto.F00001Dto">
+        select
+        mo.*
+        FROM
+        mst_org mo
+        inner join mst_usr mu on (mo.org_id = mu.org_id and mu.del_flg = 0)
+        <if test='gid == "1" and tchCd != "" and tchCd != null '>
+            INNER join mst_manager mm on mu.usr_id = mm.mgr_id
+            and mm.tch_cd = #{tchCd}
+        </if>
+        WHERE
+        mo.del_flg = 0
+        <if test='manaFlag == "0" and manaFlag != ""'>
+            AND mo.brand_cd = #{brandCd}
+        </if>
+        <if test='gid == "1" and (tchCd == "" or tchCd == null) '>
+            and mu.gidpk = #{gidPk}
+        </if>
+        <if test='gid != "1"'>
+            and mu.after_usr_id = #{userId}
+        </if>
+        ORDER BY
+        mo.LEVEL asc,
+        mo.org_id
+    </select>
+
+</mapper>

@@ -1,0 +1,122 @@
+.time_div {
+    font-size: 0.9vw !important;
+    width: 12vw !important;
+    height: 1.6vw !important;
+    line-height: 7vh !important;
+    float: left !important;
+    border: 1px #000 solid;
+    background: white;
+    margin-top: 2px;
+}
+img#timeBtn{
+    height: 4vw;
+    position: absolute;
+    margin-left: -65vw;
+}
+
+.img_div {
+    height: 4vh !important;
+    line-height: 3.5vh !important;
+    z-index: 999;
+    padding-right: 0.5vw !important;
+    float: right;
+}
+.time_input {
+    width: 30vw !important;
+    height: 8vh;
+}
+div#page {
+    height: 100%;
+}
+.content {
+    height: 100%;
+    margin-left: 1vw;
+    border-top: 1px solid #c6c6c6;
+}
+.topInput {
+    height: 10%;
+    border-bottom: 1px solid #c6c6c6;
+    margin-top: 2vw;
+}
+input.title {
+    margin-left: 2vw;
+    width: 94%;
+    height: 4vw;
+}
+.time {
+    height: 10%;
+    margin-top: 1vw;
+    margin-left: 2vw;
+}
+.bottomInput {
+    margin-left: 2vw;
+    height: 55%;
+}
+textarea.detail {
+    width: 95%;
+    height: 100%;
+    resize: none;
+}
+.areaInput{
+    height: 100%;
+}
+.bottomBtn{
+    text-align: center;
+    margin-top: 1vw;
+}
+.btn{
+    border: 0px;
+    width: 15%;
+    height: 4vw;
+    color: white;
+    background-color: #009944;
+    border-radius: 4px;
+    margin-left: 3vw;
+    margin-right: 3vw;
+}
+.timeCon {
+    position: absolute;
+    z-index: 999;
+    right: 1vw;
+    top: 1vw;
+    opacity: 0;
+    width: 7vw;
+    overflow: hidden;
+    height: 7vw;
+    background: red;
+    color: black;
+}
+.layui-laydate-content>.layui-laydate-list {
+    padding-bottom: 0px;
+    overflow: hidden;
+}
+.layui-laydate-content>.layui-laydate-list>li{
+    width:50%
+}
+
+.merge-box .scrollbox .merge-list {
+    padding-bottom: 5px;
+}
+.layui-layer-shade{
+    background-color: white !important;
+}
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+.layui-layer-btn {
+    text-align: center !important;
+}

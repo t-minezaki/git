@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>学年追加・編集</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F07002.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+</HEAD>
+<body>
+<div class="main">
+    <div class="page">
+        <div id="message" class="topMessage"></div>
+        <div class="popTitleValue">学年追加・編集画面</div>
+        <div class="topSessionTitleValue">
+            <div id="orgId">組織ID:</div>
+            <div v-text="org.orgId"></div>
+            <div id="orgNm">組織名:</div>
+            <div v-text="org.orgNm"></div>
+        </div>
+    </div>
+    <div class="app">
+        <form id="f07002Form">
+            <div class="one">
+                <div class="schyName">学年名</div>
+
+                <div id="schyInput">
+                    <div class=asterisk>*</div>
+                    <input id="schy" class="schy" name="schy" :value="schy" type="text">
+                </div>
+                <div class="sort">ソート</div>
+
+                <div id="sortInput">
+                    <div class=asterisk>*</div>
+                    <input id="sortValue" class="sortValue" name="sortValue" :value="sortValue" type="text">
+                </div>
+            </div>
+        </form>
+        <div class="button">
+            <button id="loadButton" @click="submitButton">登録</button>
+            <button id="cancel" @click="cancel">キャンセル</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F07002.js"></script>
+</HTML>

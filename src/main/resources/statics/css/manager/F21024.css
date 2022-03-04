@@ -1,0 +1,294 @@
+html, body, #page {
+    height: 100%;
+    margin: 0;
+    background: white !important;
+}
+
+.content {
+    width: 100% !important;
+    height: calc(100% - 10% - 54px) !important;
+    padding: 3vw 1vw 0 1vw;
+    width: 100%;
+    overflow: hidden;
+}
+
+#head {
+    height: 7%;
+    width: 96vw;
+    text-align: center;
+    font-size: 0;
+    margin-left: 1vw;
+}
+
+.headBtns {
+    width: 50%;
+    height: 100%;
+    background: none;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid #E6E5E4;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 0;
+    color: #676767;
+}
+
+.active {
+    background: #FF80A5;
+    color: white;
+    border: 1px solid #FF80A5;
+}
+
+#btnDiv {
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 999px;
+    background: #E6E5E4;
+    height: 100%;
+}
+
+.div_header {
+    width: 100%;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    height: 10%;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.div_main {
+    margin-top: 1vh;
+    height: calc(93% - 1vh);
+}
+
+.div_bottom {
+    height: 54px !important;
+    overflow: hidden;
+}
+
+.ui-jqgrid-bdiv {
+    /*height: 600px !important;*/
+    width: 100% !important;
+}
+
+.ui-paging-info {
+    margin-right: 3vw !important;
+}
+
+.ui-widget-overlay {
+    display: none;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+#load_jqGrid {
+    display: none !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 1px solid #ccc !important;
+    color: black !important;
+    height: 23px;
+    padding: 4px 2px;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 1px solid #ccc !important;
+    border-top: 0 !important;
+    overflow-x: hidden!important;
+    padding: 0!important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border: 1px solid #ccc !important;
+}
+
+#jqGrid {
+    border: 1px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #FFE2EA !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: unset !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view::-webkit-scrollbar {
+    width: 0px !important;
+    height: 10px;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+    border-top: 0 !important;
+}
+
+.topMessage {
+    position: absolute;
+}
+
+.layui-layer {
+    box-shadow: 1px 1px 10px 5px #777;
+    background: #F0F0F0;
+    border-radius: 10px;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    background: #00a65a;
+    color: white;
+    width: 10vw;
+    height: 5vh;
+    border: none;
+    border-radius: 3px;
+    font-size: 1vw;
+    cursor: pointer;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv {
+    width: auto !important;
+    /*NWT　楊　2021/06/21　MANAMIRU1-684　Edit　Start*/
+    pointer-events: none;
+    /*NWT　楊　2021/06/21　MANAMIRU1-684　Edit　End*/
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    width: auto !important;
+}
+
+#gbox_MyGrid .s-ico span {
+    display: none;
+}
+
+.ui-jqgrid .ui-jqgrid-view {
+    max-width: 99vw !important;
+    margin-left: 2vw;
+    padding: 0.5vw;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    color: #3E93CB;
+    font-size: 13px;
+}
+
+ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+#jqGridPager_right {
+    text-align: left;
+    display: none !important;
+}
+
+#pg_jqGridPager {
+    background: white;
+    border-top: 1px solid #aaa;
+    border-width: 0.5px;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    margin: 0px 1.4vw;
+}
+
+.layui-layer-iframe iframe {
+    -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+    border-radius: 10px;
+}
+
+#jqGridPager_left {
+    display: none;
+}
+
+.insert {
+    width: 40% !important;
+    height: 10% !important;
+    float: left !important;
+    color: #009944 !important;
+    background: none !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    border: 2px solid #009944 !important;
+    vertical-align: middle !important;
+    margin-left: 30% !important;
+    margin-top: 4% !important;
+    border-radius: 8px !important;
+    margin-bottom: 2% !important;
+    text-decoration: none !important;
+}
+
+.grid-date {
+    -webkit-transform: scale(0.8) !important;
+    text-overflow:unset!important;
+    overflow-x: unset!important;
+    display: inline-block!important;
+    padding: 0px;
+}
+
+@media screen and (max-width: 1100px) {
+    .layui-layer-iframe {
+        overflow-y: visible;
+        overflow-x: visible;
+    }
+}
+
+.layui-layer-close2 {
+    background: url(../../img/clear.png) no-repeat;
+    border-radius: 999px;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+    background-position: 0 0 !important;
+    background-size: 30px 30px;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    vertical-align: middle !important;
+}
+
+.ui-widget.ui-widget-content {
+    background: white !important;
+}
+
+/*th#jqGrid_tgtYmd {*/
+    /*text-align: left;*/
+/*}*/
+
+div#jqgh_jqGrid_tgtYmd {
+    margin-left: 5%;
+    font-size: 12px !important;
+    -webkit-transform: scale(0.8) !important;
+    -webkit-transform-origin-X: left;
+}
+
+tr.jqgfirstrow {
+    visibility: collapse;
+}
+.ui-state-highlight, .ui-widget-content .ui-state-highlight{
+    background: white!important;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus{
+    background: white!important;
+}

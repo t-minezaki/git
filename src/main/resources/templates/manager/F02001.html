@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>単元情報インポート・エクスポート画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F02001.css"/>
+</head>
+<body>
+<div class="content">
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">単元情報の導入・修正設定</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div v-text="org.orgId!=null ? org.orgId : ''"></div>
+        <div>組織名:</div>
+        <div v-text="org.orgNm!=null ? getOrgName(org.orgNm) : ''"></div>
+    </div>
+    <div class="main">
+        <div class="showS one">
+            <div>学年</div>
+            <select name="" id="schyDiv"></select>
+            <div>教科</div>
+            <select name="" id="subjtDiv"></select>
+            <button id="addMstUnit">個別単元追加</button>
+        </div>
+        <div class="one">
+            <div>単元情報ファイル</div>
+            <input type="text" id="showPath1" disabled>
+            <form id="form1" class="fileForm">
+                <input type="file" value="" id="getPath1" class="getFile">
+            </form>
+            <button>選択</button>
+        </div>
+        <div class="two">
+            <div class="left"></div>
+            <div class="center">
+                <div class="center_top">新規・修正</div>
+                <div class="center_center">IDが重複する場合</div>
+                <div class="center_bottom">
+                    <input class="newtui-radio-one nolabel" type="radio" name="dan" value="0" id="dan1" title="エラーとする" checked>
+                    <!--<label for="dan1" style="cursor:pointer">-->
+                        <!--<p>エラーとする</p>-->
+                    <!--</label>-->
+                    <input class="newtui-radio-one nolabel" type="radio" name="dan" value="1" id="dan2" title="上書きする">
+                    <!--<label for="dan2" style="cursor:pointer">-->
+                        <!--<p>上書きする</p>-->
+                    <!--</label>-->
+                </div>
+            </div>
+        </div>
+        <div class="one">
+            <div></div>
+            <div class="onecen">
+                <input class="newtui-radio-one nolabel" type="radio" name="dan" value="2" id="dan3" title="削除">
+                <!--<label for="dan3" style="cursor:pointer">-->
+                    <!--<p>削除</p>-->
+                <!--</label>-->
+            </div>
+            <button id="import">インポート</button>
+            <a onclick="getTemplate(0)" >テンプレート</a>
+            <button id="export">エクスポート</button>
+        </div>
+    </div>
+</div>
+<form id="exportForm" method="post" action="${request.contextPath}/manager/F02001/download">
+    <input type="hidden" id="fileNm" name="fileNm">
+    <input type="hidden" id="div" name="div">
+</form>
+<form id="getTemplate" method="post" action="${request.contextPath}/manager/F02001/getTemplate">
+    <input type="hidden" name="div">
+</form>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F02001.js"></script>
+</html>

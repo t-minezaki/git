@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>マナミル</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <script src="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.css" type="text/css" rel="stylesheet"/>
+    <style>
+        html, body, .main {
+            height: 100%;
+            background: white;
+            overflow: hidden;
+        }
+
+        #page {
+            text-align: center;
+            width: 100%;
+            height: 18px;
+            line-height: 12px;
+            position: absolute;
+            bottom: 10px;
+        }
+
+        #page input {
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+            text-align: center;
+            cursor: pointer;
+            background: white;
+            margin-left: 2px;
+            margin-right: 2px;
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            border-radius: 50%;
+            padding: 0;
+            border: 0;
+        }
+
+        #page input::before {
+            content: '\25CB';
+            display: inline-block;
+            font-size: 12px;
+            color: #707070 !important;
+        }
+
+        .active::before {
+            content: '\25CF' !important;
+        }
+
+        @media screen and (orientation: portrait) {
+            img {
+                height: 67%;
+            }
+        }
+
+        @media screen and (orientation: landscape) {
+            img {
+                height: 90%;
+            }
+        }
+
+    </style>
+</HEAD>
+<body>
+<div class="main">
+    <!--NWT　楊　2021/08/24　MANAMIRU1-756　Edit　Start-->
+    <div style="height: 80%;    margin-top: 6%;" @touchstart="start($event)" @touchmove="move($event)" @touchend="paging($event)">
+    <!--NWT　楊　2021/08/24　MANAMIRU1-756　Edit　End-->
+        <div v-for="dto in mstCodDEntityListLimit" style="width: 33%;height: 33%;float: left;text-align: center">
+            <img :src="dto.codValue" :id="dto.codCd" @click="to21020(dto.codCd,dto.codValue)" style="width: 70%;"/>
+        </div>
+    </div>
+    <!-- 2021/08/16 manamiru1-756 cuikl edit start -->
+    <div id="page" @touchstart="start($event)" @touchmove="move($event)" @touchend="paging($event)">
+    <!-- 2021/08/16 manamiru1-756 cuikl edit end -->
+        <input :id="'page' + index" :value="index" @click="getInfo(index)" class="pageBtn" type="checkbox"
+               v-for="(item,index) of length">
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F21021.js"></script>
+<!--NWT　楊　2021/08/24　MANAMIRU1-756　Edit　Start-->
+<script type="text/javascript" src="${request.contextPath}/plugins/hammer/hammer.js"></script>
+<!--NWT　楊　2021/08/24　MANAMIRU1-756　Edit　End-->
+</HTML>

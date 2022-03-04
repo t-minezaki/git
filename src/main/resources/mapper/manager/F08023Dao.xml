@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08023Dao">
+    <select id="getGrsList" resultType="jp.learningpark.modules.manager.dto.F08023Dto">
+        SELECT
+            u1.after_usr_id as stu_login_id,
+            u2.after_usr_id as guard_login_id,
+            u1.usr_id as stu_usr_id,
+            u2.usr_id as guard_usr_id,
+            m1.flnm_nm||' ' ||m1.flnm_lnm as guard_nm,
+            s1.flnm_nm||' ' ||s1.flnm_lnm as stu_nm,
+            g2.reading_sts_div,
+            m1.mailad as mailad
+        FROM
+            guid_repr_deliver g1
+            inner join guid_repr_apply_sts g2
+            on g1.guid_repr_deliver_cd = g2.guid_repr_deliver_cd
+            and g1.org_id = g2.org_id
+            and g2.del_flg = '0'
+            inner join mst_guard m1
+            on g2.guard_id = m1.guard_id
+            and m1.del_flg = '0'
+            inner join mst_usr u2
+            on u2.usr_id = m1.guard_id
+            and m1.del_flg = '0'
+            inner join mst_stu s1
+            on g2.stu_id = s1.stu_id
+            and s1.del_flg = '0'
+            inner join mst_usr u1
+            on u1.usr_id = s1.stu_id
+            and u1.del_flg = '0'
+        WHERE
+            g1.org_id = #{orgId}
+            <if test="div != -1">
+              and g2.reading_sts_div = #{div}
+            </if>
+            and g2.guid_repr_deliver_cd = #{guidReprDeliverCd}
+            and g1.del_flg = '0'
+        ORDER BY
+            u2.after_usr_id,
+            u1.after_usr_id
+    </select>
+
+    <select id="getDownloadInfo" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08023Dto">
+        SELECT
+            u1.after_usr_id AS stu_login_id,
+            u2.after_usr_id AS guard_login_id,
+            u1.usr_id AS stu_usr_id,
+            u2.usr_id AS guard_usr_id,
+            s1.sch,
+            mcd.cod_value AS SCHY_DIV,
+            mcd1.cod_value AS GENDR_DIV,
+            m1.flnm_nm || ' ' || m1.flnm_lnm AS guard_nm,
+            s1.flnm_nm || ' ' || s1.flnm_lnm AS stu_nm,
+            g2.reading_sts_div,
+            m1.mailad AS mailad,
+            m1.telnum,
+            g2.guid_repr_deliver_cd
+        FROM
+            guid_repr_deliver g1
+            inner join guid_repr_apply_sts g2
+            on g1.guid_repr_deliver_cd = g2.guid_repr_deliver_cd
+            and g2.del_flg = '0'
+            inner join mst_guard m1
+            on g2.guard_id = m1.guard_id
+            and m1.del_flg = '0'
+            inner join mst_usr u2
+            on u2.usr_id = m1.guard_id
+            and m1.del_flg = '0'
+            inner join mst_stu s1
+            on g2.stu_id = s1.stu_id
+            and s1.del_flg = '0'
+            and s1.stu_id IN
+            <foreach item="item" collection="stuIdList" separator="," open="(" close=")" index="">
+                #{item, jdbcType=VARCHAR}
+            </foreach>
+            inner join mst_usr u1
+            on u1.usr_id = s1.stu_id
+            and u1.del_flg = '0'
+            INNER JOIN mst_cod_d mcd ON mcd.cod_key = 'SCHY_DIV'
+            AND mcd.cod_cd = s1.schy_div
+            AND mcd.del_flg = 0
+            INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'GENDR_DIV'
+            AND mcd1.cod_cd = s1.gendr_div
+            AND mcd1.del_flg = 0
+        WHERE
+            g1.org_id = #{orgId}
+            <if test="div != -1">
+                and g2.reading_sts_div = #{div}
+            </if>
+            and g2.guid_repr_deliver_cd = #{guidReprDeliverCd}
+            and g1.del_flg = '0'
+        ORDER BY
+            u2.after_usr_id,
+            u1.after_usr_id
+    </select>
+</mapper>

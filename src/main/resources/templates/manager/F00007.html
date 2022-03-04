@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒集計画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00007.css"/>
+	<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+	<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+	<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="content" id="vue" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">生徒集計画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div>{{orgId}}</div>
+        <div>組織名:</div>
+        <div>{{orgNm}}</div>
+    </div>
+    <div class="main">
+        <div class="one">
+            <div>組織</div>
+            <select name="" id="org">
+                <option selected></option>
+                <option v-for="idx in lowerLevList" :value="idx.orgId">{{idx.orgId}}&nbsp;&nbsp;{{idx.orgNm}}</option>
+            </select>
+            <button @click="exportBtn" class="other">生徒ステータスエクスポート</button>
+            <form id="exportForm" method="post" action="${request.contextPath}/manager/F00007/download">
+                <input id="exportInput" type="hidden" name="fileNm">
+            </form>
+            <button onclick="f00007select()">検索</button>
+        </div>
+    </div>
+    <div class="bottom">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00007.js"></script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>塾掲示板一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30110.css"/>
+</head>
+<body>
+<div id="pageF30104">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul>
+                <li class="active" onclick="window.location.href='F30301.html'">ニュース</li>
+                <li onclick="location.reload();" class="active1">掲示板<div class="count">{{count}}</div></li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <ul class="oneCont" >
+                <li v-for="list in showList">
+                    <div class="img" @click="toF30111(list.id)">
+                        <img style="width: 100%;" :src="list.noticeImgPath">
+                    </div>
+                    <div class="cont" @click="toF30111(list.id)">
+                        <div id="textArea" :style="list.readStsDiv == '0' ? 'font-weight:bold;' : 'font-weight: normal;'" >{{list.noticeTitle}}</div>
+                        <div><div class="important" :style="show(list.noticeLevDiv)">重要</div>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: 125px">
+                    <div class="pageChange">
+                        <div @click="pageChange(0)" id="prev">前のページ</div>
+                        <div @click="pageChange(1)" id="next">次のページ</div>
+                    </div>
+                    <div id="pageFoot"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40004.html?id=F30110" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30110.js"></script>
+</html>

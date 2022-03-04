@@ -1,0 +1,375 @@
+#additem, #deleteitem {
+
+    background-color: #00a65a;
+    border-radius: 5px;
+    width: 10vw;
+    min-width: 80px;
+    text-align: center;
+    font-size: 0.9vw;
+    color: whitesmoke;
+    margin-left: 1vw;
+    height: 5vh;
+    line-height: 2vh;
+    border: 0px;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    float: left;
+}
+
+#showFlg {
+    width: 40vw;
+    margin-left: 3vw;
+    height: 3vh;
+}
+
+#showFlg p {
+    width: 6vw;
+    font-size: 0.9vw;
+    float: left;
+    height: 4vh;
+    line-height: 4vh;
+}
+
+.info {
+    background-color: #00a65a;
+    border-radius: 5px;
+    width: 10vw;
+    min-width: 80px;
+    text-align: center;
+    font-size: 0.9vw;
+    color: whitesmoke;
+    margin-left: 1vw;
+    height: 5vh;
+    line-height: 2vh;
+    border: 0px;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    float: right;
+}
+
+#absDiv {
+    width: 12vw;
+    float: left;
+    height: 3.5vh;
+    -webkit-appearance: none;
+}
+
+.lastBnt {
+    background-color: #00a65a;
+    border-radius: 5px;
+    width: 10vw;
+    min-width: 80px;
+    text-align: center;
+    font-size: 0.9vw;
+    color: whitesmoke;
+    margin-left: 3vw;
+    height: 5vh;
+    line-height: 2vh;
+    border: 0px;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    height: 3vh !important;
+    width: 8vw !important;
+    text-align: center !important;
+    border: 1px grey solid !important;
+    text-decoration: unset !important;
+    color: black;
+    padding: 0px;
+    margin-top: 1vh;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 1vh;
+}
+.ui-jqgrid .ui-jqgrid-htable{
+    border:0 !important;
+    border-bottom: 2px #ccc solid !important;
+}
+.ui-jqgrid .ui-jqgrid-htable th div {
+    overflow: unset !important;
+}
+
+.div_head {
+    padding-top: 4vh;
+    margin-bottom: 10px;
+    height: 9vh;
+}
+
+ul li {
+
+    display: inline-block;
+    margin-right: 0.5vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+
+.header_operat {
+
+    width: auto;
+}
+
+
+.ui-jqgrid-bdiv {
+
+    /*height: 600px !important;*/
+    width: 100% !important;
+}
+
+.ui-paging-info {
+
+    margin-right: 3vw !important;
+}
+
+.ui-widget-overlay {
+
+    display: none;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+
+    padding: 0px 0px;
+}
+
+#jqGridPager_right {
+
+    text-align: left;
+}
+
+#pg_jqGridPager {
+
+    background: white;
+}
+
+.one {
+
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+    text-align: center;
+    width: 100%;
+}
+
+.one p {
+    float: left;
+}
+
+#headInfo {
+    text-align: center;
+    float: left;
+    height: 5vh;
+    font-size: 1.7rem;
+    width: 65%;
+    margin-top: 1vh;
+    color: #959595;
+    font-weight: bold;
+}
+
+#stuCount {
+    margin-left: 24vw;
+    color: black;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+    width: 35%;
+    float: left;
+}
+
+.one-ul li {
+
+    height: 100%;
+    float: left;
+    font-size: 0.9vw;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+#load_jqGrid {
+
+    display: none !important;
+}
+
+a {
+
+    text-decoration: underline;
+}
+
+.ui-th-ltr p {
+    border-bottom: 2px solid #CCC !important;
+    width: 100% !important;
+    padding: unset !important;
+    height: 3vh !important;
+    line-height: 2vh !important;
+    font-size: 1.1rem;
+}
+
+.detail_btn {
+
+    letter-spacing: -4px
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 10vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    padding: unset;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+    border-top: 0!important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+    border: 0 !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.s-ico:before {
+
+}
+
+.autowidth {
+
+    width: 98vw;
+    height: 75vh;
+    position: relative;
+    left: 2vw;
+    overflow-x: scroll;
+    overflow-y: auto;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+
+    overflow-x: hidden !important;
+    border-bottom: 2px solid #ccc;
+}
+
+
+::-webkit-scrollbar-thumb {
+    height: 0px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    background: rgba(120, 120, 120, 1);
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+    border-radius: 0;
+    background: #eee;
+}
+
+.ui-jqgrid .ui-jqgrid-view::-webkit-scrollbar {
+    width: 0px !important;
+    height: 10px;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+.layui-layer {
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 10px 5px #777;
+    overflow: hidden;
+}
+
+.layui-layer-myskin .layui-layer-title {
+
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 2em;
+    font-weight: bolder;
+    margin-top: 0.8vh;
+}
+#layui-layer-iframe100002{
+    background: white;
+}
+
+.eventCont {
+
+    height: 40px;
+    overflow-y: auto;
+}
+.ui-jqgrid-sortable button{
+    margin-top: 0 !important;
+}
+#contentInfo{
+    margin-right: 2vw;
+}
+.changeShowItems{
+    background-color: white;
+    color: rgba(100, 100, 100, 1);
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+.allSet{
+    border-radius: 12px;
+    line-height: 3vh !important;
+}
+#layui-layer100003{
+    overflow-y: unset !important;
+}
+.jqg-third-row-header>th>div {
+    position: unset!important;
+}
+span.ui-jqgrid-resize.ui-jqgrid-resize-ltr {
+    display: none;
+    height: calc(3vh + 10px)!important;
+}
+.jqg-third-row-header>th {
+    height: calc(3vh + 10px)!important;
+}
+.ui-th-div {
+    position: unset!important;
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    margin-top: 0 !important;
+    height: calc(3vh) !important;
+    line-height: 3vh;
+}
+.div_footer {
+    text-align: center;
+    margin-bottom: 1vh;
+    width: 100%;
+    height: calc(5vh + 10px);
+    line-height: calc(5vh + 10px);
+}
+html, body, #main{
+    height: 100%;
+}
+.topMessage {
+    position: absolute;
+}
+.layui-layer-btn a{
+    font-size: 13px;
+}
+.ui-widget-content {
+    border: 1px solid #dddddd !important;
+    background: #ffffff;
+    color: #333333;
+}

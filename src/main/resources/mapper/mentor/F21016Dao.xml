@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.pop.dao.F21016Dao">
+    <select id="getGuardList" resultType="jp.learningpark.modules.pop.dto.F21016GuardDto">
+        select
+            concat(b.flnm_nm, ' ', b.flnm_lnm) as guardName,
+            concat(b.flnm_kn_nm, ' ', b.flnm_kn_lnm) as guardKnName,
+            b.guard_id as guardId
+        from
+            (select usr_id from mst_usr where org_id = #{orgId} and role_div = '3' and del_flg = 0) a
+        inner join
+            mst_guard b
+        on
+            a.usr_id = b.guard_id
+        where
+            concat(b.flnm_nm, ' ', b.flnm_lnm, ' ', b.flnm_kn_nm, ' ', b.flnm_kn_lnm) like #{guardName}
+    </select>
+    <select id="getStudentList" resultType="jp.learningpark.modules.pop.dto.F21016StudentDto">
+        select
+            concat(b.flnm_nm, ' ', b.flnm_lnm) as stuName,
+            concat(b.flnm_kn_nm, ' ', b.flnm_kn_lnm) as stuKnName,
+            b.stu_id as stuId
+        from
+			(select usr_id from mst_usr where org_id = #{orgId} and role_div = '4' and del_flg = 0) a
+        inner join
+            mst_stu b
+        on
+            a.usr_id = b.stu_id
+        where
+            b.schy_div = #{schy}
+        and
+            concat(b.flnm_nm, ' ', b.flnm_lnm, ' ', b.flnm_kn_nm, ' ', b.flnm_kn_lnm) like #{stuName}
+    </select>
+    <select id="getSchy" resultType="jp.learningpark.modules.pop.dto.F21016SchyDto">
+        SELECT
+            cod_cd as codCD, cod_value as codValue
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'SCHY_DIV'
+        order by sort
+    </select>
+</mapper>

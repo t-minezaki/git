@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F05002Dao">
+    <select id="selectStuAndGuardList" resultType="jp.learningpark.modules.manager.dto.F05002Dto">
+        SELECT
+        mg.flnm_nm || ' ' || mg.flnm_lnm    AS g_flnm
+        , ms.flnm_nm || ' ' || ms.flnm_lnm  AS s_flnm
+        , mu.usr_id
+        , mu.org_id
+        , mu.after_usr_id
+        FROM
+        mst_usr mu
+        INNER JOIN
+        mst_stu ms
+        ON
+        mu.usr_id = ms.stu_id
+        AND
+        ms.del_flg = 0
+        INNER JOIN
+        mst_guard mg
+        ON
+        mg.guard_id = ms.guard_id
+        AND
+        ms.del_flg = 0
+        INNER JOIN
+        mst_usr mu2
+        ON
+        mu2.usr_id = mg.guard_id
+        WHERE
+        ms.stu_id
+        IN
+        <if test="stuIdList!=null">
+            <foreach collection="stuIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+    </select>
+    <!-- hujiaixng: add -->
+    <select id="selectStuByIdList" resultType="jp.learningpark.modules.manager.dto.F05002DtoIn">
+        SELECT
+        mg.flnm_nm || ' ' || mg.flnm_lnm      AS g_flnm
+        , mu2.after_usr_id                    AS gId
+        , ms.flnm_nm || ' ' || ms.flnm_lnm    AS s_flnm
+        , mu.usr_id                           AS usrId
+        , mu.org_id                           AS orgId
+        , mu.after_usr_id                     AS sId
+        , mu2.usr_id                          AS gUserId
+        FROM
+        mst_usr mu
+        INNER JOIN
+        mst_stu ms
+        ON
+        mu.usr_id = ms.stu_id
+        AND
+        ms.del_flg = 0
+        INNER JOIN
+        mst_guard mg
+        ON
+        mg.guard_id = ms.guard_id
+        AND
+        ms.del_flg = 0
+        INNER JOIN
+        mst_usr mu2
+        ON
+        mu2.usr_id = mg.guard_id
+        WHERE
+        ms.stu_id
+        IN
+        <if test="stuIdList!=null">
+            <foreach collection="stuIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        ORDER BY
+        ms.flnm_nm,ms.flnm_lnm
+    </select>
+</mapper>

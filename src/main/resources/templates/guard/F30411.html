@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>遅刻・欠席連絡入力画面</title>
+    <!-- fullcalendar -->
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css"
+          media='print'/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30411.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+</head>
+<body id="body">
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<!--2021/02/25 manamiri1-526 cuikailin start-->
+<div class="title top commonTabTitle" id="title1">遅刻・欠席連絡</div>
+<!--2021/02/25 manamiri1-526 cuikailin end-->
+<div class="content" id="content" v-cloak>
+    <div class="row" id="contentDiv" >
+        <div class="right float">
+            <button v-for="(content, index) in contents" onclick="choose(this)" class="float btn"
+                    :class="{'active first':index==0}" :id="getId(content.codCd)" @click="hidden()">{{content.codValue}}
+            </button>
+        </div>
+    </div>
+    <div class="row" id="dayDiv" style="border-bottom:1px solid #E7E7E7;border-top: 1px solid #E7E7E7;width: 90%;margin-left: 10%;">
+        <div style="width: 100%;">
+            <div class="showTime selectDiv">
+                <img src="../img/cal1.png" class="dayPic date" id="dayPic">
+                <select @change="nowTime()" @click="hidden()" class="selectBtn">
+                    <option :value="year" v-for="year in years">{{year}}</option>
+                </select>
+                <div  id="starTime"  @click="starTime" style="width: 40%; text-align: left" type="text"></div>
+                <!--modify at 2021/08/11 for V9.02 by NWT LiGX START -->
+                <button class="btnChoose" @click="starTime">対象日時</button>
+                <!--modify at 2021/08/11 for V9.02 by NWT LiGX END -->
+            </div>
+            <div class="check_starTime disNone">
+                <select id="dom_starTime2" type="text" name="demo_select2">
+                </select>
+                <select id="dom_starTime1" type="text" name="demo_select1">
+                </select>
+                <select id="dom_starTime" type="text" name="demo_select">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="reasonDiv" style="border-bottom:1px solid #E7E7E7;width: 90%;margin-left: 10%;height: calc(140px / 3);">
+        <div style="width: 100%;float: left;height: 100%;padding: 5px 0 5px 0;">
+            <img src="../img/reason.png" class="dayPic"  style="position: relative;float: left;top: 50%;transform: translateY(-50%);padding: 0;text-align:left;height: calc(58px /3);width: calc(60.85px / 3);">
+            <select class="input" id="reason" @click="hidden(0)" style="background:none;width: 80%;height: 100%;padding:0 !important;border: none !important;color:#7e7e7e;margin-left: 7%;font-size: 4.2vw;">
+                <!--<option style="display: none;color: #7e7e7e"></option>-->
+                <option style="display: none;" value="" disabled selected>理由を選択する</option>
+                <option v-for="reason in reasons" :value="reason.codCd">{{reason.codValue}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row" id="remarkDiv" style="height: 40%;text-align: center;border-bottom:unset!important;">
+        <textarea class="textarea" id="remark" maxlength="200"  @click="hidden()">
+
+        </textarea>
+    </div>
+    <div class="btnRow" id="btnDiv">
+        <div style="width: 70%;calc(100% - 58px);margin-left: 15%" class="btnRow2">
+            <button class="backBtn" onclick="back()">キャンセル</button>
+            <button class="float submit-btn btn" onclick="submit()">登録</button>
+        </div>
+    </div>
+</div>
+<div class="div_bottom" id="div_bottom">
+    <iframe src="../common/F40004.html?id=F30411" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<!-- fullcalendar -->
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-all.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js" charset="UTF-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/js/guard/F30411.js"></script>
+</html>

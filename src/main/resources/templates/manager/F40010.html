@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>権限付与メンテナンス画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F40010.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js"></script>
+    <script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app">
+    <label class="title" v-if="pageDiv==1">ロール別機能権限設定画面</label>
+    <label class="title" v-if="pageDiv==2">個人別機能權限設定画面</label>
+    <div class="div_input" style="border-bottom: 2px solid #777;height: 4vh;margin-top: 4vh;">
+        <label class="div_title" style="margin-left: 4vw">機能一覧</label>
+        <div class="select">
+            <input type="checkbox" id="manager_select_all"/>
+            <span>管理者機能既定値</span>
+        </div>
+        <div class="select">
+            <input type="checkbox" id="mentor_select_all"/>
+            <span>先生機能既定値</span>
+        </div>
+    </div>
+
+    <div id="div_info">
+
+        <div class="div_input" style="margin-left: 4vw;">
+            <div class="managerType" v-for="managerType in managerTypeList">
+                <label class="managerType_label">{{ managerType.name }}</label>
+                <div class="functionType_div">
+                    <div class="functionType" v-for="functionType in managerType.functionTypeList">
+                        <label class="functionType_label" :style="{visibility:(managerType.name==functionType.name?'hidden':'visible')}">{{ functionType.name }}</label>
+                        <div class="func" v-for="func in functionType.functionList">
+                                <input type="checkbox" class="function_check" :value="func.id" :class="func.type"/>
+                                <span class="func_span">{{ func.name }}</span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_bottom" v-if="pageDiv==1">
+        <div class="div_input">
+            <label class="radio_title">権限付与ロール指定</label>
+            <div class="div_radio">
+                <input class="funcType " type="radio" name="type" value="0" v-model="managerOrMentor"/><p>管理者</p>
+            </div>
+
+            <div class="div_radio">
+                <input class="funcType " type="radio" name="type" value="1" v-model="managerOrMentor"/><p>先生</p>
+            </div>
+        </div>
+
+        <div class="div_input">
+            <label class="radio_title">個別組織指定<span class="tip">(必須ではない)</span></label>
+            <button id="btn_org_select">組織選択</button>
+            <button id="btn_ok">設定</button>
+        </div>
+    </div>
+
+    <div class="div_bottom" v-if="pageDiv==2">
+        <div class="div_input">
+            <button id="btn_user_select">指定者選択</button>
+            <button id="btn_ok" class="btn_okPage2">設定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="${request.contextPath}/js/manager/F40010.js"></script>
+</html>

@@ -1,0 +1,161 @@
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+.one{
+    height: 38px;
+}
+
+.one div{
+    height: 100%;
+    float: left;
+}
+
+.one-ul{
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li{
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+}
+
+.two{
+    margin-top: 1.0vh;
+    height: auto;
+
+}
+
+.two .div_a{
+    float: right;
+    margin-right: 1vh;
+    height:3vh;
+    margin-top: 3vh;
+    width: 3vh;
+}
+
+.two .div_a a{
+    font-size: 15px;
+    padding-left: 8px;
+}
+
+.two .div_skip{
+    float: right;
+    margin-right: 20px;
+    height:3vh;
+    margin-top: 3.0vh;
+    /*background: #8A97CC;*/
+    border-radius:45px;
+    width: 3vh;
+}
+
+.two .div_skip .png{
+    height: 3vh;
+    width: 3vh;
+}
+
+.two .div_skip .pnglarge{
+    height: 3vh;
+    width: 3vh;
+    /*margin-top: 5px;*/
+    /*margin-left: 5px;*/
+}
+
+.two .body_operat{
+    clear: both;
+}
+
+.two .body_operat ul{
+    height: 100%;
+    width: 100%;
+    margin-top: 2vh;
+}
+
+.two .btn_divtwo{
+    margin-top: 1.0vw;
+    height: 4vh;
+    margin-left: 8.2vw;
+    width: 8vw;
+    float: left;
+}
+
+.two .btn_divtwo button{
+    background: none;
+    color: white;
+    border: 1px solid ;
+    border-radius: 2px;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9vw;
+    padding: 0 1.6vw;
+}
+
+.three{
+    margin-top: 5vh;
+}
+
+.three .table{
+    padding-top: 2.5vh;
+    width: 80%;
+    margin-left: 8vw;
+
+}
+
+.three .table_btn {
+    width: 4vw;
+    height: 3.5vh;
+    margin-left: 0.7vw;
+    top: 0.5vh;
+    float: left;
+}
+
+.three .table_btn button{
+    background:#002060;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 18px;
+}
+
+.three td,th{
+    border: 1px solid grey!important;
+    height: 5vh;
+    text-align: center!important;
+}
+
+.return
+{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.return button{
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: #4BC783;
+    color: white;
+}

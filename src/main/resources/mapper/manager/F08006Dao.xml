@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08006Dao">
+    <select id="getMentorList" resultType="jp.learningpark.modules.manager.dto.F08006Dto">
+        select
+        mst_mentor.flnm_nm || flnm_lnm as mentorName,
+        mst_usr.usr_id
+        from mst_usr
+        INNER JOIN mst_mentor on mst_mentor.mentor_id = mst_usr.usr_id
+        <if test="mentorName != null and mentorName != '' ">
+            and mst_mentor.flnm_nm || mst_mentor.flnm_lnm like CONCAT('%',trim(#{mentorName}),'%')
+        </if>
+        where mst_usr.org_id = #{orgId}
+        and mst_usr.del_flg=0
+        and mst_mentor.del_flg=0
+    </select>
+
+    <select id="getmentorEntity" resultType="jp.learningpark.modules.manager.dto.F08006Dto">
+        SELECT
+        *
+        from event_schedule
+        inner join mst_mentor on event_schedule.ref_id = mst_mentor.mentor_id
+        WHERE event_schedule.event_id = #{eventId}
+        and event_schedule.ref_type = '1'
+        and (mst_mentor.flnm_nm || mst_mentor.flnm_lnm) =#{mentorname}
+        <if test="scheduleId != null and scheduleId != '' ">
+            event_schedule.id != #{scheduleId}
+        </if>
+        and event_schedule.del_flg=0
+        and mst_mentor.del_flg=0
+    </select>
+    <select id="getuserEntity" resultType="jp.learningpark.modules.manager.dto.F08006Dto">
+        SELECT mu.usr_id as usrId
+        from mst_usr mu inner join mst_mentor mm on mu.usr_id = mm.mentor_id
+        where mu.org_id = #{orgId}
+        and mu.usr_id = #{mentorId}
+        and mm.del_flg = 0
+        and mu.del_flg = 0
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40020Dao">
+    <select id="getDiv" resultType="jp.learningpark.modules.com.dto.F40020Dto">
+        SELECT
+            mu.fst_login_flg,
+            mu.role_div,
+            mu.system_kbn,
+            mo.web_use_flg,
+            mu.pw_up_flg
+        FROM
+            mst_usr mu,
+            mst_org mo
+        WHERE
+            mu.org_id = mo.org_id
+          AND mu.usr_id = #{userId}
+    </select>
+</mapper>

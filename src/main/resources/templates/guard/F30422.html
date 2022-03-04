@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>その他ディフォルト画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30422.css"/>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content">
+        <div class="title commonTabTitle">
+            登録情報変更
+        </div>
+        <ul class="operate_ul">
+            <li style="border-top: 1px solid #BABABA;" onclick="window.location.href = '../guard/F30416.html'">
+                    <img src="../img/guard_op1.png" alt="" />
+                    <p>会員プロフィール <img class="goRight" src="../img/goRight.png"></p>
+            </li>
+            <li onclick="window.location.href = 'https://gsignup.learningpark.jp/enrollment/login/GC?external_browser=1'">
+                    <img src="../img/guard_op2.png" alt="" style="width:27px" class="Li_img"/>
+                    <p>登録情報変更 <img class="goRight" src="../img/goRight.png"></p>
+            </li>
+            <li onclick="window.location.href = '../guard/F30409.html'">
+                    <img src="../img/guard_op3.png" alt="" />
+                    <p>面談・イベント予約確認 <img class="goRight" src="../img/goRight.png"></p>
+            </li>
+<!--            <li onclick="window.location.href = '../guard/F30417.html'">-->
+<!--                    <img src="../img/guard_op4.png" alt="" />-->
+<!--                    <p>バージョン情報 <img class="goRight" src="../img/goRight.png"></p>-->
+<!--            </li>-->
+<!--            <li onclick="window.location.href = '../guard/F30418.html'">-->
+<!--                    <img src="../img/guard_op5.png" alt=""/>-->
+<!--                    <p >利用規約 <img class="goRight" src="../img/goRight.png"></p>-->
+<!--            </li>-->
+        </ul>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40004.html?id=F30422" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+</html>

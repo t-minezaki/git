@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F04006Dao">
+    <!--「組織ID」＝セッションデータ．組織IDの場合 -->
+    <select id="selectReadCountByOrgId" resultType="jp.learningpark.modules.manager.dto.F04006Dto">
+        SELECT
+            a.org_id , b.org_nm , b.level , count(a.*) as allCount
+            , sum(CASE WHEN a.reading_sts_div = '1' THEN 1 else 0 end) as readCount
+            , sum(CASE WHEN a.reading_sts_div = '0' THEN 1 else 0 end) as notReadCount
+            , sum(CASE WHEN C.resend_sts = '1' THEN 1 else 0 end) as errorDataList
+            , sum(CASE WHEN a.opened_flg = '0' THEN 1 else 0 end) as notOpenedCount
+            , sum(CASE WHEN a.opened_flg = '1' THEN 1 else 0 end) as openedCount
+        FROM guard_reading_sts a
+        inner join mst_org b on b.org_id = a.org_id and b.del_flg = 0
+        left join push_err_dat c on c.msg_id = a.notice_id AND c.resend_sts = '1' AND C.stu_id = A.stu_id AND C.org_id = A.org_id and c.del_flg = 0
+        WHERE a.notice_id = #{noticeId} and a.del_flg = 0
+        GROUP BY a.org_id , b.org_nm , b.level
+        ORDER BY b.level , a.org_id
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="selectCountByOrgId" resultType="java.lang.Integer">
+        select count(*) from(SELECT  a.org_id,b.org_nm,b.level,count(a.*) as allCount,
+        (select count(*) from guard_reading_sts c where c.org_id = a.org_id and c.notice_id = #{noticeId} and c.reading_sts_div = '1' and c.del_flg = 0) as readCount,
+        (select count(*) from guard_reading_sts c where c.org_id = a.org_id and c.notice_id = #{noticeId} and c.reading_sts_div = '0' and c.del_flg = 0) as notReadCount
+        FROM
+        guard_reading_sts a
+        inner join mst_org b on b.org_id = a.org_id and b.del_flg = 0
+        WHERE
+        a.notice_id = #{noticeId}
+        and a.del_flg = 0
+        GROUP BY a.org_id,b.org_nm,b.level) as count
+    </select>
+    <!-- 本組織及び下位組織リストの取得 -->
+    <select id="selectAllLowLevOrgListByOrgId" resultType="jp.learningpark.modules.manager.dto.F04006Dto">
+        with RECURSIVE cte as
+        (
+            select
+                1 orgFlg
+                , *
+            from mst_org om
+            where
+                om.org_id = #{orgId}
+                and om.brand_cd = #{brandCd}
+                and om.del_flg = 0
+            union all
+            select
+                3 orgFlg
+                , d.*
+            from cte c
+            inner join mst_org d
+                on d.upplev_org_id = c.org_id
+                and d.del_flg = 0
+        )
+        select DISTINCT
+            s.level,
+            s.orgFlg,
+            s.org_id,
+            s.org_nm
+        from cte s
+        order by s.level,s.org_id
+    </select>
+    <!-- 本組織の下層組織対応する配信先組織の既読未読集計一覧を取得する。 -->
+    <select id="selectReadCountByLowLevOrgId" resultType="jp.learningpark.modules.manager.dto.F04006Dto">
+        SELECT
+            a.org_id
+            , b.org_nm
+            , b.level
+            , count(a.*) as allCount
+            , sum(CASE WHEN a.reading_sts_div = '1' THEN 1 else 0 end) as readCount
+            , sum(CASE WHEN a.reading_sts_div = '0' THEN 1 else 0 end) as notReadCount
+            , count(d.*) as errorDataList
+            , sum(CASE WHEN a.opened_flg = '0' THEN 1 else 0 end) as notOpenedCount
+            , sum(CASE WHEN a.opened_flg = '1' THEN 1 else 0 end) as openedCount
+        FROM guard_reading_sts a
+        inner join mst_org b
+            on b.org_id in
+            <foreach collection="orgIdList" item="orgId" index="index"
+                     open="(" close=")" separator=",">
+                #{orgId}
+            </foreach>
+            and b.org_id = a.org_id
+            and b.del_flg = 0
+        left join push_err_dat d
+            on d.org_id = a.org_id
+            and d.msg_id = #{noticeId}
+            and d.msg_type_div = '0'
+            and d.del_flg = 0
+        WHERE
+            a.notice_id = #{noticeId}
+            and a.del_flg = 0
+        GROUP BY
+            a.org_id
+            , b.org_nm
+            , b.level
+        ORDER BY
+            b.level
+            , a.org_id
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="selectCountByLowLevOrgId" resultType="java.lang.Integer">
+        select count(*) from(SELECT a.org_id,b.org_nm,b.level,count(a.*) as allCount,
+        (select count(*) from guard_reading_sts c where c.org_id = a.org_id and c.notice_id = #{noticeId} and c.reading_sts_div = '1' and c.del_flg =
+        0) as readCount,
+        (select count(*) from guard_reading_sts c where c.org_id = a.org_id and c.notice_id = #{noticeId} and c.reading_sts_div = '0' and c.del_flg =
+        0) as notReadCount
+        FROM
+        guard_reading_sts a
+        inner join mst_org b on b.org_id in
+        <foreach collection="orgIdList" item="orgId" index="index"
+                 open="(" close=")" separator=",">
+            #{orgId}
+        </foreach>
+        and b.org_id = a.org_id and b.del_flg = 0
+        WHERE
+        a.notice_id = #{noticeId}
+        and a.del_flg = 0
+        GROUP BY a.org_id,b.org_nm,b.level) as count
+    </select>
+    <!-- 既読未読集計一覧を取得する。 -->
+    <select id="getReadStsDatas" resultType="jp.learningpark.modules.manager.dto.F04006Dto">
+        with RECURSIVE cte as
+        (
+            select
+                1 orgFlg
+                , *
+            from mst_org om
+            where
+                om.org_id = #{orgId}
+                and om.brand_cd = #{brandCd}
+                and om.del_flg = 0
+            union all
+            select
+                3 orgFlg
+                , d.*
+            from cte c
+            inner join mst_org d
+                on d.upplev_org_id = c.org_id
+                and d.del_flg = 0
+        )
+        select
+            a.org_id
+            , s.org_nm
+            , s.level
+            , count(a.*) as allCount
+            , sum(CASE WHEN a.reading_sts_div = '1' THEN 1 else 0 end) as readCount
+            , sum(CASE WHEN a.reading_sts_div = '0' THEN 1 else 0 end) as notReadCount
+            , count(d.*) as errorDataList
+            , sum(CASE WHEN a.opened_flg = '0' THEN 1 else 0 end) as notOpenedCount
+            , sum(CASE WHEN a.opened_flg = '1' THEN 1 else 0 end) as openedCount
+        from cte s
+        inner join guard_reading_sts a on a.notice_id = #{noticeId} and a.org_id = s.org_id and a.del_flg = 0
+        left join push_err_dat d on d.org_id = a.org_id and d.msg_id = a.notice_id and d.msg_type_div = '0' and d.del_flg = 0
+        GROUP BY a.org_id, s.org_nm, s.level
+        ORDER BY s.level, a.org_id
+    </select>
+</mapper>

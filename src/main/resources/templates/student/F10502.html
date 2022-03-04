@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<#include "/header.html" />
+	<title>テスト目標結果登録画面</title>
+	<link rel="stylesheet" href="${request.contextPath}/css/common/common.css" />
+	<link rel="stylesheet" href="${request.contextPath}/css/student/F10502.css" />
+	<style>
+	</style>
+</head>
+<body>
+<header id="_title"><iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe></iframe></header>
+<div class="content" id="app">
+	<div id="message" class="topMessage"></div>
+	<ul class="contentBtn">
+		<li class="left active" @click="toF10507">目標と結果の入力</li>
+		<li class="right" @click="toF10503">結果の確認</li>
+	</ul>
+	<div class="contentback">
+		<div class="contentInfo">
+			<div class="contentTitle">1. 学年を選択してください &nbsp <span>*</span></div>
+			<div class="contentMain">
+				<div class="contentDiv">
+					<div class="divLft">学年</div>
+					<div id="schyDiv" name="schyDiv" :desc="schyDiv != null ? schyDiv : ''" v-text="schy!='' ? schy : '選択してください'" :class="schy!='' ? 'divRight popTitle' : 'divRight popTitle grey'" data = "0"></div>
+				</div>
+			</div>
+		</div>
+		<div class="contentInfo">
+			<div class="contentTitle">2. 入力対象のテストを選択してください &nbsp <span>*</span></div>
+			<div class="contentMain">
+				<div class="contentDiv">
+					<div class="divLft">テスト分類</div>
+					<div id="testPrd" name="testPrd" :desc="stuTextH.testTypeDiv != null ? stuTextH.testTypeDiv : ''" v-text="testType!='' ? testType : '選択してください'" :class="testType!='' ? 'divRight popTitle' : 'divRight popTitle grey'" data = "1"></div>
+				</div>
+				<div :class="stuTextH.testKindDiv==null?'contentDiv disNone':'contentDiv'" id="triggleDiv" >
+					<div class="divLft">テスト種別</div>
+					<div id="testDiv" name="testDiv" :desc="stuTextH.testKindDiv != null ? stuTextH.testKindDiv : ''" v-text="testKind!='' ? testKind : '選択してください'" :class="testKind!='' ? 'divRight popTitle' : 'divRight popTitle grey'"  data = "2"></div>
+				</div>
+			</div>
+		</div>
+		<div class="contentInfo">
+			<div class="contentTitle">3. 実施時期を入力してください &nbsp <span>*</span></div>
+			<div class="contentMain">
+				<div class="contentDiv">
+					<div id="testTgtY" name="testTgtY" :desc="stuTextH.testTgtY != null ? stuTextH.testTgtY:''" v-text="stuTextH.testTgtY != null ? stuTextH.testTgtY : '選択してください'" maxlength="4" :class="stuTextH.testTgtY!=null ? 'divRight popTitle' : 'divRight popTitle grey'" data = "3"></div><p>年</p>
+					<div id="testTgtM" name="testTgtM" :desc="stuTextH.testTgtM != null ? stuTextH.testTgtM:''" v-text="stuTextH.testTgtM != null ? stuTextH.testTgtM : '選択してください'" maxlength="2" :class="stuTextH.testTgtM!=null ? 'divRight popTitle' : 'divRight popTitle grey'"  data = "4"></div><p>月</p>
+				</div>
+			</div>
+		</div>
+		<div class="contentInfo">
+			<div class="contentTitle" data = "3">4. 次回の各教科・科目の点数目標を入力してください</div>
+			<div class="contentMain grade">
+				<!--更新する-->
+				<div class="contentDiv contentDivT goal" v-if="stuTextDList" v-for="sub in stuTextDList" :subjtDiv="sub.codCd" :subjtNm="sub.codValue">
+					<div :style="'background:'+sub.codValue2"><img :src="sub.codValue3" alt=""><span v-text="sub.codValue"></span></div>
+					<input type="number" :id="getGoalClass(sub.codCd)" onkeyup="this.value=this.value.replace(/\D/g,'')"
+						   oninput="if(value.length>5)value=value.slice(0,5)"
+						   :value="sub.goalPoints" maxlength="5" placeholder="目標得点">
+					<p>点</p>
+				</div>
+				<!--新規-->
+				<div class="contentDiv contentDivT goal" v-if="!stuTextDList" :subjtDiv="subjt_num1.codCd" :subjtNm="subjt_num1.codValue">
+					<!--<div :style="'background:'+subjt_num1.codValue2"><img :src="subjt_num1.codValue3" alt=""><span v-text="subjt_num1.codValue"></span></div>-->
+					<img src="" style="position: relative;left: -36%;width: 1.6vw;height: 1.6vw;margin-top: 0.4vw;">
+					<select name="subjt_list" id="goalSelect_0" class="sub_select"
+							style="color: white;border: 0 !important;text-align:center;text-align-last: center;padding-left: 5%;"
+							onchange="selectChange(this)"></select>
+					<input type="number" :id="getGoalClass(subjt_num1.codCd)" onkeyup="this.value=this.value.replace(/\D/g,'')"
+						   oninput="if(value.length>5)value=value.slice(0,5)" maxlength="5" placeholder="目標得点">
+					<p>点</p>
+				</div>
+			</div>
+			<div id="div_add">
+				<button id="add_subjt" @click="addResult(0)">＋</button>
+				<p>&nbsp;追加</p>
+			</div>
+		</div>
+		<div class="contentInfo" id="subject">
+			<div class="contentTitle">5. 各教科・科目の満点、あなたの得点、順位、平均点を入力してください</div>
+			<div class="contentMain grade div5">
+				<!--更新する-->
+				<div class="contentDiv contentDivT result" v-if="stuTextDList" v-for="sub in stuTextDList">
+					<div :style="'background:'+sub.codValue2"><img :src="sub.codValue3" alt=""><span v-text="sub.codValue"></span></div>
+					<input type="number" onkeyup="this.value=this.value.replace(/\D/g,'')" oninput="if(value.length>5)value=value.slice(0,5)" :value="sub.resultPerfectPoints" maxlength="5" placeholder="満点">
+					<p>点</p>
+					<input type="number" :id="getActualClass(sub.codCd)" onkeyup="this.value=this.value.replace(/\D/g,'')" oninput="if(value.length>5)value=value.slice(0,5)" :value="sub.resultPoints" maxlength="5" placeholder="あなたの得点">
+					<p>点</p>
+					<input type="number" onkeyup="this.value=this.value.replace(/\D/g,'')" oninput="if(value.length>6)value=value.slice(0,6)" :value="sub.resultRank" maxlength="6" placeholder="順位">
+					<p>位</p>
+					<input type="text" :value="sub.resultAvg" maxlength="7" placeholder="平均点">
+					<p>点</p>
+                    <input type="text" :value="sub.devionValue" maxlength="4" placeholder="偏差値">
+				</div>
+				<!--新規-->
+				<div class="contentDiv contentDivT result" v-if="!stuTextDList">
+					<div :style="'background:'+subjt_num1.codValue2" id="resultSelect_0"><img :src="subjt_num1.codValue3" alt=""><span
+							v-text="subjt_num1.codValue"></span></div>
+					<input type="number" onkeyup="this.value=this.value.replace(/\D/g,'')" oninput="if(value.length>5)value=value.slice(0,5)" maxlength="5" placeholder="満点">
+					<p>点</p>
+					<input type="number" :id="getActualClass(subjt_num1.codCd)" onkeyup="this.value=this.value.replace(/\D/g,'')" oninput="if(value.length>5)value=value.slice(0,5)" maxlength="5" placeholder="あなたの得点">
+					<p>点</p>
+					<input type="number" onkeyup="this.value=this.value.replace(/\D/g,'')" oninput="if(value.length>6)value=value.slice(0,6)" maxlength="6" placeholder="順位">
+					<p>位</p>
+					<input type="text" maxlength="7" placeholder="平均点">
+					<p>点</p>
+                    <input type="text" maxlength="4" placeholder="偏差値">
+				</div>
+			</div>
+		</div>
+		<div class="theme_btn"><button class="left" @click="cancelFn">キャンセル</button><button @click="submitFn">登録</button></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/plugins/echarts-4.2.0/echarts.min.js"></script>
+<script src="${request.contextPath}/js/student/F10502.js" charset="utf-8"></script>
+</html>

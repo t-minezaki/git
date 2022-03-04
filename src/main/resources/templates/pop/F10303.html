@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>復習教科選択画面(POP)</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F10303.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+</head>
+<body>
+<div class="theme_selec" id="app" v-cloak>
+    <h2>復習する教科を選択できる</h2>
+    <div class="popDiv">
+        <div class="showteach showtF">
+            <p>教科</p>
+            <!--2020/11/12 zhangminghao modify start-->
+            <div id="subjt">{{ defaultSubject.codValue }}</div>
+            <!--2020/11/12 zhangminghao modify end-->
+        </div>
+        <div class="check_sub disNone">
+            <select id="dom_sub" name="select1">
+                <option v-for="sub in subjtlist" :value="sub.codCd" >{{sub.codValue}}</option>
+            </select>
+        </div>
+        <div class="showIput">
+            <p>メモ：</p>
+            <textarea name="" id="memo"></textarea>
+        </div>
+        <div class="showteach" @click="showTime">
+            <p>計画時間</p>
+            <div class="showTimeRight"></div>
+        </div>
+        <div class="check_time disNone">
+            <select id="demo_select" type="text" name="demo_select"></select>
+        </div>
+    </div>
+    <div class="theme_btn">
+        <button @click="cancelFn" class="theme_btn_left">
+            キャンセル
+        </button>
+        <button @click="submitFn">
+            登録
+        </button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F10303.js">
+</script>
+</html>

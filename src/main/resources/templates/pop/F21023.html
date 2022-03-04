@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>学年追加・編集</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <style>
+        .main{
+            height: 180px;
+        }
+        #page{
+            text-align: center;
+            width: 100%;
+            height: 36px;
+            line-height: 36px;
+        }
+        #page button{
+            width: 13px;
+            height: 14px;
+            border-radius: 10px;
+            background: white;
+            border: 1px #BFBFBF solid;
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+        .active{
+            background: #009944 !important;
+        }
+    </style>
+</HEAD>
+<body>
+<div class="main">
+    <div style="height: 80%;">
+        <div v-for="dto in mstCodDEntityListLimit" style="width: 33%;height: 33%;float: left;text-align: center">
+            <img  :src="dto.codValue" :id="dto.codCd" @click="to21022(dto.codCd,dto.codValue)" style="width: 50%;height: 90%;"/>
+        </div>
+    </div>
+    <div id="page">
+        <button v-for="(item,index) of length" :value="index" @click="getInfo(index)" :id="'page' + index" class="pageBtn"></button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F21023.js"></script>
+</HTML>

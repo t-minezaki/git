@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>保護者面談記録詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30424.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html?id=F30424" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="topTitle">
+        お知らせ
+    </div>
+    <div class="content">
+        <div class="title_div" style="display: block">
+            <div class="back" onclick="back()">
+                <img src="../img/left.png">
+            </div>
+            <span id="title">{{f30424Dto.messageTitle}}</span>
+        </div>
+        <div style="height: calc(100% - 6vh);overflow-y: auto">
+            <div v-for="item in mstCodDEntities" class="items_div">
+                <div v-if="item.codCd == '0' && f30424Dto.askDispFlg == '1'">
+                    <span>{{item.codValue}}</span>
+                    <ul>
+                        <li v-for="ask in talkRecordDEntityAskList">
+                            <p>{{ask.questionName}}</p>
+                            <div v-if="ask.answerTypeDiv !== '3'||ask.answerReltCont ===null">
+                                <p class="answer">{{ask.answerReltCont}}</p>
+                            </div>
+                            <div v-else id="imgDiv">
+                                <img :src="ask.answerReltCont" @click="previewImg(ask.answerReltCont)" class="imgStyle">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="item.codCd == '1' && f30424Dto.talkDispFlg == '1'">
+                    <span>{{item.codValue}}</span>
+                    <ul>
+                        <li v-for="talk in talkRecordDEntityTalkList">
+                            <p>{{talk.questionName}}</p>
+                            <p>{{talk.answerReltCont}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="items_div" id="noteCont">
+                <p>備考</p>
+                <p>{{f30424Dto.noteCont}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40004.html?id=F30424" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30424.js"></script>
+</html>

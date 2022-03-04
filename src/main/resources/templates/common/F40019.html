@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40019.css"/>
+    <title>_ワンタイムパスワード認証結果（失敗）</title>
+</head>
+<!--デフォルトの背景色を置き換える-->
+<body style="background-color: #ffffff">
+<div class="all">
+    <div class="photo">
+        <img src="../img/logo.png">
+    </div>
+    <!--検証失敗詳細データ-->
+    <div class="noticeFalse">
+        <div class=" showNotice">ワンタイムパスワード認証に</div>
+        <div class=" showNotice">失敗しました。</div>
+    </div>
+    <div class="noticeFa">
+        <div class="noticeF">パスワードが間違っている、</div>
+    </div>
+    <div class="noticeMay">
+        <div class="showNotice">もしくは有効期限を過ぎている</div>
+        <div class="showNotice">可能性があります。</div>
+    </div>
+    <!--F40018ページに戻るためのキャンセルボタン-->
+    <div class="btn">
+        <button onclick="window.location.href='../common/F40018.html'">戻る</button>
+    </div>
+</div>
+</body>
+</html>

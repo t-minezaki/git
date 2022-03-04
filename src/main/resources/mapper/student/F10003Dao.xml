@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10003Dao">
+
+    <resultMap id="TextDtoMap" type="jp.learningpark.modules.student.dto.F10003Dto">
+        <result property="imgPath" column="imgpath"/>
+        <result property="subjtDiv" column="subjt_div"/>
+        <result property="codValue" column="cod_value"/>
+        <result property="schyDiv" column="schy_div"/>
+        <result property="crmschId" column="crmsch_id"/>
+        <result property="codValue2" column="codvalue2"/>
+        <result property="codValue3" column="codvalue3"/>
+        <collection property="f10003TextListDtos" ofType="jp.learningpark.modules.student.dto.F10003TextListDto">
+            <result property="textbId" column="textbid"/>
+            <result property="textbNm" column="textbnm"/>
+            <result property="selFlg" column="selflg"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectTextbDtoListOfSchByStuId" resultMap="TextDtoMap" parameterType="String">
+        SELECT
+            cmd.cod_value,
+            COALESCE( mcb.color_id, cmd.cod_value_2 ) AS codValue2,
+            cmd.cod_value_3 AS imgpath,
+            tm.textb_id AS textbId,
+            cmd1.cod_value || ' ' || tm.textb_nm AS textbnm,
+            tm.publisher_div,
+            tm.subjt_div,
+            tm.schy_div,
+            cmd.sort
+        FROM
+            mst_textb tm
+            INNER JOIN mst_stu sm ON sm.schy_div = tm.schy_div
+            AND sm.del_flg = 0
+            AND sm.stu_id = #{stuId}
+            INNER JOIN mst_cod_d cmd ON cmd.cod_cd = tm.subjt_div
+            AND cmd.cod_key = 'SUBJT_DIV'
+            AND cmd.del_flg = 0
+            INNER JOIN mst_cod_d cmd1 ON cmd1.cod_cd = tm.publisher_div
+            AND cmd1.cod_key = 'PUBLISHER_DIV'
+            AND cmd1.del_flg = 0
+            left JOIN mst_color_block mcb ON mcb.stu_id = sm.stu_id
+            AND tm.subjt_div = mcb.subjt_div
+            AND mcb.del_flg = 0
+        WHERE
+            tm.org_id=#{orgId}
+            AND tm.del_flg = 0
+        ORDER BY
+            cmd.sort
+    </select>
+
+    <select id="selectCrmschLearnPrdId" parameterType="String"
+            resultType="jp.learningpark.modules.common.entity.MstCrmschLearnPrdEntity">
+          SELECT
+            clpm.id
+        FROM
+            mst_crmsch_learn_prd clpm
+        WHERE
+            ( clpm.org_id = #{orgId} OR clpm.org_id = ( SELECT upplev_org_id FROM mst_org WHERE org_id = #{orgId} AND del_flg = 0 ) )
+            AND clpm.del_flg =0
+    </select>
+
+    <select id="selectTextbListOfStuByStuIdAndOrgIdAndSchyDiv" parameterType="map"
+            resultType="jp.learningpark.modules.common.entity.MstTextbEntity">
+        SELECT
+	      textb.textb_id,
+	      choc.upd_datime
+        FROM
+            stu_textb_choc choc
+            INNER JOIN mst_crmsch_learn_prd clpm ON choc.crm_learn_prd_id = clpm.id
+            AND clpm.del_flg = 0
+            INNER JOIN mst_cod_d cmd ON cmd.cod_cd = choc.subjt_div
+            AND cmd.cod_key = 'SUBJT_DIV'
+            AND cmd.del_flg = 0
+            INNER JOIN mst_textb textb ON textb.schy_div = #{schyDiv}
+            AND textb.textb_id = choc.textb_id
+            AND textb.del_flg = 0
+        WHERE
+            choc.stu_id = #{stuId}
+            AND choc.crm_learn_prd_id=#{crmLearnPrdId}
+            AND choc.del_flg=0
+    </select>
+
+    <select id="selectCurrentChocList" parameterType="map" resultType="int">
+        SELECT
+	      textb.textb_id
+        FROM
+            stu_textb_choc choc
+            INNER JOIN mst_crmsch_learn_prd clpm ON choc.crm_learn_prd_id = clpm.id
+            AND clpm.del_flg = 0
+            INNER JOIN mst_cod_d cmd ON cmd.cod_cd = choc.subjt_div
+            AND cmd.cod_key = 'SUBJT_DIV'
+            AND cmd.del_flg = 0
+            INNER JOIN mst_textb textb ON textb.schy_div = #{schyDiv}
+            AND textb.textb_id = choc.textb_id
+            AND textb.del_flg = 0
+        WHERE
+            choc.stu_id = #{stuId}
+            AND choc.crm_learn_prd_id=#{crmLearnPrdId}
+            AND choc.del_flg=0
+    </select>
+
+    <select id="selectAboutWeekly" resultType="jp.learningpark.modules.student.dto.F10003Dto">
+        SELECT
+        tm.textb_nm,
+        tm.subjt_div
+        FROM
+        stu_term_plan tp
+        INNER JOIN textb_def_time_info tdti ON tdti.id = tp.textb_def_unit_id
+        AND tdti.del_flg = 0
+        AND tdti.textb_id IN
+        <foreach collection="textbIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        INNER JOIN mst_textb tm ON tm.textb_id = tdti.textb_id
+        AND tm.del_flg = 0
+        WHERE
+        tp.stu_id = #{stuId}
+        AND tp.del_flg = 0
+        AND tp.plan_reg_flg = '1'
+    </select>
+
+    <delete id="deleteTerm">
+        DELETE
+        FROM
+            stu_term_plan tp
+        WHERE
+            tp.stu_id = #{stuId}
+            AND tp.textb_def_unit_id IN
+            ( SELECT tdti.id FROM textb_def_time_info tdti WHERE tdti.textb_id = #{textbId} AND tdti.del_flg = 0 )
+    </delete>
+
+    <select id="selectTexdeffExtend" resultType="jp.learningpark.modules.student.dto.F10003Dto">
+        SELECT
+            A.unit_id,
+            A.id as planLearnSeasnId,
+            A.chapt_nm,
+            A.planLearnSeasn,
+            A.flag
+        FROM
+            (
+        SELECT
+            tdti.unit_id,
+            tdti.plan_learn_seasn AS planLearnSeasn,
+            pls.id,
+            um.chapt_nm,
+            CEILING( sum( tdti.plan_learn_tm ) / 30.0 ) AS flag
+        FROM
+            textb_def_time_info tdti
+            INNER JOIN mst_learn_seasn pls ON pls.plan_learn_seasn = tdti.plan_learn_seasn
+            AND pls.crm_learn_prd_id = #{crmschLearnPrdId}
+            AND pls.del_flg = 0
+            INNER JOIN mst_unit um ON um.ID = tdti.unit_id
+            AND um.del_flg = 0
+        WHERE
+            tdti.org_id = #{orgId}
+            AND tdti.textb_id = #{textbId}
+            AND tdti.del_flg = 0
+        GROUP BY
+            tdti.unit_id,
+            tdti.plan_learn_seasn,
+            pls.id,
+            um.chapt_nm
+            ) AS A
+        GROUP BY
+            A.unit_id,
+            A.planLearnSeasn,
+            A.id,
+            A.chapt_nm,
+            A.flag
+    </select>
+</mapper>

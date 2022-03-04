@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.NoticeApiDao">
+    <!--画面．ＩＤがユーザ基本マスタに存在すること。-->
+    <select id="getUserEntity" resultType="jp.learningpark.modules.common.entity.MstUsrEntity" parameterType="String">
+        SELECT
+            mu.usr_id,
+            mu.after_usr_id,
+            mu.role_div,
+            mu.org_id
+        FROM
+            mst_usr AS mu
+            INNER JOIN mst_org AS mo ON mu.org_id = mo.org_id
+        WHERE
+            mu.after_usr_id = #{loginId}
+            AND mu.usr_password = #{password}
+            AND mo.brand_cd = #{brandCd}
+            AND mu.usr_sts = '1'
+            AND mu.del_flg = 0
+    </select>
+
+    <!--add at 2021/08/16 for V9.02 by NWT wen START-->
+    <select id="selectDeviceInfo" resultType="jp.learningpark.modules.common.entity.MstDeviceTokenEntity">
+        <!--SELECT-->
+            <!--list.device_id-->
+            <!--, list.usr_id-->
+        <!--FROM-->
+        <!--(-->
+            <!--SELECT-->
+                <!--ROW_NUMBER ( ) OVER ( PARTITION BY mdt.usr_id ORDER BY mdt.upd_datime DESC ) rowNow,-->
+                <!--mdt.usr_id,-->
+                <!--mdt.device_id,-->
+                <!--to_char( mdt.upd_datime, 'yyyy-MM-dd HH24:mm:ss' ) as updateTime,-->
+                <!--EXTRACT(epoch FROM CAST( to_char(mdt.upd_datime, 'yyyy-MM-dd HH24:mm:ss') AS TIMESTAMP)) as latest,-->
+                <!--EXTRACT(epoch FROM CAST( to_char(now(), 'yyyy-MM-dd HH24:mm:ss') AS TIMESTAMP)) as cur-->
+            <!--FROM mst_device_token mdt-->
+            <!--<where>-->
+                <!--and mdt.del_flg = 0-->
+                <!--and mdt.usr_id in-->
+                <!--<foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">-->
+                    <!--#{userId}-->
+                <!--</foreach>-->
+            <!--</where>-->
+        <!--) list-->
+        <!--left join mst_cod_d mcd on mcd.cod_key = 'SAFE_EFT_TIME'-->
+        <!--left join mst_cod_d push on push.cod_key = 'PUSH_MAX_NUM'-->
+        <!--where (list.cur::INTEGER - list.latest::INTEGER) <![CDATA[ < ]]> mcd.cod_value::INTEGER and list.rowNow <![CDATA[ <= ]]> push.cod_value::INTEGER-->
+        <!--add at 2021/10/08 for V9.02 by NWT LiGX START-->
+        SELECT
+            mdt.device_id,
+            mdt.usr_id
+        FROM
+            mst_device_token mdt
+        WHERE
+        <choose>
+            <when test="null != userIdList and userIdList.size > 0">
+            mdt.usr_id in
+            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+                #{userId}
+            </foreach>
+            </when>
+            <otherwise>
+                mdt.usr_id is null
+            </otherwise>
+        </choose>
+            AND mdt.del_flg = 0
+        <!--add at 2021/10/08 for V9.02 by NWT LiGX END-->
+    </select>
+    <!--add at 2021/08/16 for V9.02 by NWT wen END-->
+    <!--add at 2021/09/29 for V9.02 by NWT HuangXL START-->
+    <update id="updateDelFlgByUsrId">
+        UPDATE mst_device_token
+        SET del_flg = 1,
+            upd_usr_id = #{usrId},
+            upd_datime = now()
+        WHERE
+        device_token IN (
+        SELECT
+                device_token
+        FROM
+                (
+                        SELECT ROW_NUMBER
+                                       ( ) OVER ( PARTITION BY usr_id ORDER BY upd_datime DESC ) AS ROW_NUMBER, *
+                        FROM
+                                mst_device_token
+                        WHERE
+                                del_flg = 0
+                          AND usr_id = #{usrId}
+                        ) mdt
+        WHERE
+                mdt.ROW_NUMBER > ( SELECT to_number( cod_value, '9' ) FROM mst_cod_d WHERE cod_key = 'PUSH_MAX_NUM' AND del_flg = 0 )
+        )
+        AND del_flg = 0
+    </update>
+    <!--add at 2021/09/29 for V9.02 by NWT HuangXL END-->
+</mapper>

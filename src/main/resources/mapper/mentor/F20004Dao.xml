@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F20004Dao">
+
+    <select id="selectStuInfo" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F20004Dto">
+        SELECT
+            SM.stu_id AS stuId,
+            SM.flnm_nm || ' ' || SM.flnm_lnm AS stuNm,
+            SM.schy_div AS schyDiv,
+            cmd.cod_value AS schy,
+            OM.org_id AS orgId,
+            OM.org_nm AS orgNm,
+            SM.sch AS schNm
+--             sch.ID AS schId
+        FROM
+            mst_stu SM
+--             INNER JOIN mst_sch SCH ON SM.sch_cd = SCH.sch_cd
+--             AND SCH.del_flg = 0
+--             INNER JOIN mentor_stu CSM ON CSM.stu_id = SM.stu_id
+--             AND CSM.del_flg = 0
+            INNER JOIN mst_org OM ON OM.org_id = #{orgId}
+--             AND CSM.crmsch_id = org_id
+            AND OM.del_flg = 0
+            INNER JOIN mst_cod_d CMD ON CMD.cod_cd = SM.schy_div
+            AND CMD.cod_key = 'SCHY_DIV'
+            AND CMD.del_flg = 0
+        WHERE
+            SM.stu_id = #{stuId}
+            AND SM.del_flg =0
+    </select>
+
+    <select id="selectStuWeeklyLearnTmInfo" resultType="jp.learningpark.modules.manager.dto.F20004Dto">
+        SELECT SUM
+            ( C.plan_learn_tm ) AS plan_learn_tm,
+            b.learn_seasn_start_dy AS learn_seasn_start_dy,
+            b.plan_learn_seasn
+        FROM
+            mst_crmsch_learn_prd
+            A INNER JOIN mst_learn_seasn b ON A.ID = b.crm_learn_prd_id
+            AND b.del_flg = 0
+            LEFT OUTER JOIN stu_term_plan C ON b.ID = C.plan_learn_seasn_id
+            AND C.del_flg = 0
+            AND C.stu_id = #{stuId}
+        WHERE
+            A.use_flg = '1'
+            AND A.id=#{crmLearnPrdId}
+        GROUP BY
+            C.plan_learn_seasn_id,
+            b.learn_seasn_start_dy,
+            b.plan_learn_seasn
+        ORDER BY
+            b.learn_seasn_start_dy
+    </select>
+</mapper>

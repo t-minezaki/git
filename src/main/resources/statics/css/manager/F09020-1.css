@@ -1,0 +1,637 @@
+/**
+ * <p>作用描述</p>
+ * <p></p>
+ *
+ * @author NWT : xie <br />
+ * 変更履歴 <br />
+ * 2020/8/7 : xie: 新規<br />
+ * @version 1.0
+ */
+.cont1 body, html {
+    width: 100%;
+    height: 100%;
+}
+
+html, body {
+    margin: unset !important;
+    background-color: white;
+}
+
+.div_header {
+    width: 100%;
+    box-sizing: border-box;
+    height: 10%;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.content1 {
+    padding: 4vw 9vw 0 9vw;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.im {
+    font-size: 4vw;
+    float: left;
+    width: 20%;
+    align-self: center;
+}
+
+.im1 {
+    font-size: 17px;
+    color: #949494;
+    float: left;
+    width: 20%;
+    height: 5vw;
+    align-self: center;
+    padding-left: 2%;
+    height: 5vw;
+    line-height: 5vw;
+}
+.input2{
+    overflow: hidden;
+}
+.input3 {
+    display: flex;
+    height: 5vw;
+}
+
+.input-container {
+    overflow: hidden;
+    width: 55%;
+    border: 1px solid #E8E8E8 !important;
+    float: left;
+    margin-right: 19%;
+    margin-top: 4%;
+}
+
+input {
+    width: 100%;
+    height: 10vw;
+    border: 0;
+}
+
+.input3 input {
+    width: auto;
+    height: 7vw;
+}
+
+.ti {
+    font-size: 17px;
+    color: #949494;
+    padding-left: 2%;
+    float: left;
+    width: 26%;
+    margin-top: 4%;
+}
+
+.btn {
+    display: flex;
+    height: 5vw;
+}
+
+#ntd {
+    width: 35.3%;
+    margin-left: 3vw;
+    background: #E5E5E5;
+    height: 7vw;
+}
+
+.select-div-day {
+    margin-top: 2vw;
+    margin-left: 0px;
+    height: 15vw;
+}
+
+.left-item {
+    float: left;
+}
+
+.label {
+    font-size: 17px;
+    color: #949494;
+    width: 20%;
+    padding-left: 2%;
+    letter-spacing: 0.1vw;
+    margin: 0 1vw 0 0;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+    border: 0;
+    padding-left: 3%;
+    font-size: 14px;
+}
+
+img {
+    margin-left: 3vw;
+    height: 2.5vw;
+    align-self: center;
+}
+
+img#camera {
+    border-radius: 50%;
+}
+
+.select-div-day .input {
+    width: 40%;
+    height: 6vw;
+    background-color: #F0F0F0;
+}
+
+#dayS {
+    margin-left: 4vw;
+    margin-top: 1.25vw;
+    height: 2.5vw;
+}
+
+#t1 {
+    width: 100%;
+    height: 5vw;
+    line-height: 7vh;
+}
+
+#t2 {
+    width: 100%;
+    height: 5vw;
+    line-height: 5vw;
+}
+
+.kg {
+    margin-top: 2vw;
+}
+
+#dayE {
+    margin-left: 4vw;
+    margin-top: 1.25vw;
+    height: 2.5vw;
+}
+
+p {
+    margin: 0;
+    float: left;
+}
+
+.footDiv {
+    width: 100%;
+    height: 20%;
+    margin-bottom: 10px;
+}
+
+.circle {
+    height: 2.5vw;
+    width: 2.5vw;
+    display: flex;
+    box-sizing: border-box;
+    margin-left: 5vw;
+    align-self: center;
+}
+
+.circle button {
+    height: 2.5vw;
+    width: 2.5vw;
+    font-size: 18px;
+    border-radius: 50%;
+    background-color: #E5E5E5;
+    color: #8C8E90;
+    padding: 0;
+    border: 0;
+    line-height: calc(2.5vw + 2px);
+}
+
+#import1 {
+    width: 2.5vw;
+    height: 2.5vw;
+    margin-left: 5vw;
+    margin-top: 1.25vw;
+    background: white;
+    border: 1px solid #DBDBDB ! important;
+}
+
+.footDiv .footAuto {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.selectBtn {
+    border-radius: 4px;
+    width: 12vw;
+    height: 2vw;
+    font-size: 4vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+    margin-bottom: 5vh;
+}
+.footAuto{
+    text-align: center;
+}
+
+#back {
+    margin-top: 1.5vh;
+    margin-right: 2vw;
+    margin-left: 3vw;
+    background: #E5E5E5;
+    color: #555555;
+    border: 0;
+    height: 6vh;
+    width: 18%;
+}
+
+#go {
+    background: #159748;
+    color: white;
+    border: 0;
+    border-bottom: 3px solid #347844;
+    height: 6vh;
+    width: 18%;
+    margin-left: 2vw;
+    margin-right: 3vw;
+}
+
+html, body, #page {
+    height: 100%;
+    margin: 0;
+    overflow: unset !important;
+}
+
+.btn1 {
+    width: 20%;
+    font-size: 17px;
+    color: #949494;
+    align-self: center;
+    padding-left: 2%;
+
+}
+
+.cont1 {
+    height: calc(90% - 54px);
+    overflow-y: scroll;
+}
+
+.div_bottom {
+    height: 54px;
+    overflow: hidden;
+}
+
+#btn_file {
+    opacity: 0;
+    width: 0;
+}
+
+#showPath1 {
+    width: 28vw;
+    background-color: white;
+    border-collapse: collapse !important;
+    white-space: pre;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 7vw;
+    line-height: 7vw;
+    margin-left: 5px;
+}
+
+.sp {
+    height: 7vw;
+}
+
+.btnz {
+    display: flex;
+    height: 5vw;
+    margin-top: 2vw;
+}
+
+.filepath {
+    width: 12vw;
+    opacity: 0;
+    z-index: 999;
+    height: 10vw;
+    position: relative;
+    top: 31.5vw;
+    right: -8.5vw;
+    border-radius: 6vw;
+}
+
+#soh {
+    margin-left: 5vw;
+}
+
+#day1, #day2 {
+    background-color: white;
+    margin-left: 3%;
+    padding-left: 0;
+    font-size: 1.5rem;
+    line-height: 5vw;
+    color: #949494;
+}
+
+@media screen and (min-device-width: 768px) and (orientation: portrait) {
+    #name {
+        height: 5vw;
+    }
+
+    textarea {
+        height: 20vw;
+    }
+
+    .selectBtn {
+        height: 100%;
+        font-size: 2.7vw;
+        line-height: 3.5vw;
+    }
+
+    .footDiv .footAuto {
+        padding-bottom: 2%;
+    }
+}
+
+@media screen and (min-device-width: 768px) and (orientation: landscape) {
+    #name {
+        height: 4vw;
+    }
+
+    textarea {
+        height: 11vw !important;
+    }
+
+    .footDiv .footAuto {
+        padding-bottom: 2%;
+    }
+
+    .selectBtn {
+        height: 100%;
+        font-size: 2.7vw;
+        line-height: 3.5vw;
+    }
+}
+
+@media screen and (min-device-width: 534px) and (orientation: landscape) {
+    .selectBtn {
+        font-size: 1.5vw;
+        line-height: 3vw;
+    }
+}
+
+.laydate-time-list > li:last-child {
+    display: none;
+}
+
+.layui-laydate-list > li {
+    width: 50% !important;
+}
+
+.laydate-time-list ol li {
+    width: 100% !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+}
+
+.layui-laydate-list > li > p {
+    float: none !important;
+}
+
+.laydate-time-list ol {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.title {
+    font-size: 22px;
+    color: #5a5a5a;
+    font-weight: bold;
+}
+
+input#name {
+    padding-left: 3%;
+    font-size: 14px;
+}
+
+p#stuCount {
+    color: #949494;
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv {
+    width: auto !important;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    width: auto !important;
+}
+/*2020/11/17 LiYuHuan add start*/
+.check_starTime {
+    text-align: center;
+    overflow: hidden;
+    margin-right: 1vw;
+    margin-top: 15vw;
+}
+.check_endTime {
+    text-align: center;
+    overflow: hidden;
+    margin-right: 1vw;
+    margin-top: 15vw;
+}
+.mbsc-mobiscroll{
+    width:36%;
+    float:right;
+    margin:0 auto;
+}
+.dwwr{
+    min-width: 100%!important;
+    height: 26vh;
+    border: 1px solid #00b050!important;
+    margin: 0 auto;
+    float: left;
+}
+.dw-ul{
+    /*NWT　楊　2021/08/25　MANAMIRU1-765　Edit　Start*/
+    margin-top: 10vw!important;
+    /*NWT　楊　2021/08/25　MANAMIRU1-765　Edit　End*/
+}
+.dww{
+    height: 30vw!important;
+}
+.mbsc-mobiscroll{
+    /*NWT　楊　2021/08/20　MANAMIRU1-765　Edit　Start*/
+    width: 25%;
+    /*NWT　楊　2021/08/20　MANAMIRU1-765　Edit　End*/
+    margin-top: -6vw;
+    height: 24vh;
+}
+.mbsc-mobiscroll .dwwr{
+    background: none;
+}
+#demo_select{
+    width:100%;
+    height:140px;
+    border:0!important;
+}
+.dwwr{
+    min-width: 100%!important;
+    height: 26vh;
+    border: 0!important;
+    margin: 0 auto;
+    float: left;
+}
+.mbsc-mobiscroll .dwwol{
+    border-top: 1px solid #eee!important;
+    border-bottom: 1px solid #eee!important;
+    /*NWT　楊　2021/08/26　MANAMIRU1-765　Add　Start*/
+    margin-top: -159% !important;
+    /*NWT　楊　2021/08/26　MANAMIRU1-765　Add　End*/
+}
+/*NWT　楊　2021/08/25　MANAMIRU1-765　Delete　Start*/
+/*NWT　楊　2021/08/25　MANAMIRU1-765　Delete　End*/
+.mbsc-mobiscroll .dwfl{
+    padding: 0;
+    background: #fff;
+}
+.dw-li{
+    opacity: 0.5!important;
+}
+.dw-sel{
+    /*NWT　楊　2021/08/25　MANAMIRU1-765　Add　Start*/
+    height: 30px!important;
+    line-height: 30px !important;
+    /*NWT　楊　2021/08/25　MANAMIRU1-765　Add　End*/
+    opacity: 1!important;
+}
+.dw-i{
+    font-size: 14px;
+}
+.mbsc-mobiscroll .dwwr{
+    background: none;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+    border-radius: 1px;
+    background-color: #dadada;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+    background-color: #AAAAAA;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+.mbsc-control.mbsc-control-ev {
+    display: none;
+}
+.disNone {
+    display: none;
+}
+.dwl {
+    display: none;
+}
+/*NWT　楊　2021/08/20　MANAMIRU1-765　Edit　Start*/
+select#dom_starTime,#dom_starTime1,#dom_starTime2,#dom_starTime3,#dom_starTime4,#dom_starTime5,#dom_starTime6,#dom_starTime7{
+/*NWT　楊　2021/08/20　MANAMIRU1-765　Edit　End*/
+    display: none !important;
+}
+.img {
+    width: auto;
+    float: right;
+    margin-right: 4vw;
+    background-color: white;
+    border: 2px solid #8CC11F;
+    color: #8CC11F;
+    border-radius: 999px;
+    font-weight: bold;
+    padding: 2px 9px 2px 9px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.selectBtnStar,.selectBtnEnd {
+    -webkit-appearance: none;
+    width: auto;
+    z-index: 999;
+    border: 0 !important;
+    background: unset;
+    float: left;
+    font-size: .9rem;
+    height: 100%;
+    color: rgb(126, 126, 126);
+    padding: 0;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    border-radius: 0px !important;
+}
+#starTime,#endTime {
+    position: relative;
+    margin-top: 0.5vh;
+    /* transform: translateY(-50%); */
+    float: left;
+    background-color: white;
+    color: rgb(126, 126, 126);
+    border: 0px solid white !important;
+    /*NWT　楊　2021/08/26　MANAMIRU1-765　Edit　Start*/
+    font-size: 14px;
+    height: 6vh;
+    width: 35% !important;
+    margin-left: 2%;
+    /*NWT　楊　2021/08/26　MANAMIRU1-765　Edit　End*/
+}
+.check_starTime,.check_endTime {
+    text-align: center;
+    overflow: hidden;
+    /*NWT　楊　2021/08/25　MANAMIRU1-765　Edit　Start*/
+    margin-top: 0;
+    /*NWT　楊　2021/08/25　MANAMIRU1-765　Edit　End*/
+    float: left;
+    width: calc(100% - 5vw);
+    height: 230%;
+}
+html{
+    -webkit-tap-highlight-color: transparent;
+}
+.input{
+    -webkit-appearance: none;
+}
+div#dateSelect {
+    line-height: 0px;
+}
+.showTime.selectDiv {
+    line-height: 5vh;
+}
+/*NWT　楊　2021/08/25　MANAMIRU1-765　Delete　Start*/
+/*NWT　楊　2021/08/25　MANAMIRU1-765　Delete　End*/
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+}
+/*2020/11/17 LiYuHuan add end*/
+/*NWT　楊　2021/08/03　MANAMIRU1-754　Add　Start*/
+.edui-default .edui-editor{
+    border: 0!important;
+}
+#edui1_toolbarbox,#edui1_bottombar,#edui1_scalelayer{
+    display: none;
+}
+#edui1_iframeholder{
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    overflow: hidden;
+}
+#name::-webkit-input-placeholder{
+    color: rgb(205, 205, 205);
+}
+/*NWT　楊　2021/08/03　MANAMIRU1-754　Add　End*/
+/*NWT　楊　2021/08/04　MANAMIRU1-754　Add　Start*/
+.edui-contextmenu,.edui-shortcutmenu,.edui-wordpastepop {
+    display: none;
+}
+/*NWT　楊　2021/08/04　MANAMIRU1-754　Add　End*/

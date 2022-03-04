@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00044Dao">
+    <select id="schySearch" resultType="jp.learningpark.modules.manager.dto.F00044Dto">
+       SELECT mst_cod_d.cod_cd codCd,mst_cod_d.cod_value codValue
+       from
+       mst_cod_d
+       where
+       mst_cod_d.cod_key = 'SCHY_DIV'
+       order by
+       mst_cod_d.sort
+    </select>
+    <select id="search" resultType="jp.learningpark.modules.manager.dto.F00044Dto">
+        with a as ((SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.id,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        ms.guard_id firstGuard,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        1 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        LEFT JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId1 != null and stuId1 != ''">
+                AND mu1.after_usr_id = trim(#{stuId1})
+            </if>
+            <if test="guardId1 != null and guardId1 != ''">
+                AND mu2.after_usr_id = trim(#{guardId1})
+            </if>
+            <if test="stuName1 != null and stuName1 != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName1}),'%')
+            </if>
+            <if test="guardName1 != null and guardName1 != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName1}),'%')
+            </if>
+            <if test="Schy1 != null and Schy1 != ''">
+                AND ms.schy_div = #{Schy1}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.id,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        null as firstGuard,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        2 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard1_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId1 != null and stuId1 != ''">
+                AND mu1.after_usr_id = trim(#{stuId1})
+            </if>
+            <if test="guardId1 != null and guardId1 != ''">
+                AND mu2.after_usr_id = trim(#{guardId1})
+            </if>
+            <if test="stuName1 != null and stuName1 != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName1}),'%')
+            </if>
+            <if test="guardName1 != null and guardName1 != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName1}),'%')
+            </if>
+            <if test="Schy1 != null and Schy1 != ''">
+                AND ms.schy_div = #{Schy1}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.id,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        null as firstGuard,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        3 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard2_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId1 != null and stuId1 != ''">
+                AND mu1.after_usr_id = trim(#{stuId1})
+            </if>
+            <if test="guardId1 != null and guardId1 != ''">
+                AND mu2.after_usr_id = trim(#{guardId1})
+            </if>
+            <if test="stuName1 != null and stuName1 != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName1}),'%')
+            </if>
+            <if test="guardName1 != null and guardName1 != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName1}),'%')
+            </if>
+            <if test="Schy1 != null and Schy1 != ''">
+                AND ms.schy_div = #{Schy1}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.id,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        null as firstGuard,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        4 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard3_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId1 != null and stuId1 != ''">
+                AND mu1.after_usr_id = trim(#{stuId1})
+            </if>
+            <if test="guardId1 != null and guardId1 != ''">
+                AND mu2.after_usr_id = trim(#{guardId1})
+            </if>
+            <if test="stuName1 != null and stuName1 != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName1}),'%')
+            </if>
+            <if test="guardName1 != null and guardName1 != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName1}),'%')
+            </if>
+            <if test="Schy1 != null and Schy1 != ''">
+                AND ms.schy_div = #{Schy1}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.id,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        null as firstGuard,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        5 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard4_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId1 != null and stuId1 != ''">
+                AND mu1.after_usr_id = trim(#{stuId1})
+            </if>
+            <if test="guardId1 != null and guardId1 != ''">
+                AND mu2.after_usr_id = trim(#{guardId1})
+            </if>
+            <if test="stuName1 != null and stuName1 != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName1}),'%')
+            </if>
+            <if test="guardName1 != null and guardName1 != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName1}),'%')
+            </if>
+            <if test="Schy1 != null and Schy1 != ''">
+                AND ms.schy_div = #{Schy1}
+            </if>
+        </where>
+        ))
+        select * from a
+        ORDER BY
+        a.org_nm,
+        a.id,
+        A.guardIndex
+        <if test="page1 != null">
+            Limit #{limit1} offset #{page1}
+        </if>
+    </select>
+    <select id="totalCount" resultType="Integer">
+        with a as ((SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        1 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        LEFT JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId != null and stuId != ''">
+                AND mu1.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="guardId != null and guardId != ''">
+                AND mu2.after_usr_id = trim(#{guardId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName}),'%')
+            </if>
+            <if test="guardName != null and guardName != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName}),'%')
+            </if>
+            <if test="Schy != null and Schy != ''">
+                AND ms.schy_div = #{Schy}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        2 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard1_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId != null and stuId != ''">
+                AND mu1.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="guardId != null and guardId != ''">
+                AND mu2.after_usr_id = trim(#{guardId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName}),'%')
+            </if>
+            <if test="guardName != null and guardName != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName}),'%')
+            </if>
+            <if test="Schy != null and Schy != ''">
+                AND ms.schy_div = #{Schy}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        3 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard2_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId != null and stuId != ''">
+                AND mu1.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="guardId != null and guardId != ''">
+                AND mu2.after_usr_id = trim(#{guardId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName}),'%')
+            </if>
+            <if test="guardName != null and guardName != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName}),'%')
+            </if>
+            <if test="Schy != null and Schy != ''">
+                AND ms.schy_div = #{Schy}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        4 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard3_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId != null and stuId != ''">
+                AND mu1.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="guardId != null and guardId != ''">
+                AND mu2.after_usr_id = trim(#{guardId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName}),'%')
+            </if>
+            <if test="guardName != null and guardName != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName}),'%')
+            </if>
+            <if test="Schy != null and Schy != ''">
+                AND ms.schy_div = #{Schy}
+            </if>
+        </where>)
+        union all
+        (SELECT
+        mu1.after_usr_id stuId,
+        mu1.usr_id stuUi,
+        ms.flnm_nm stuNm,
+        ms.flnm_lnm stuLnm,
+        ms.birthd,
+        ms.guard_id stuGuardId,
+        mu2.after_usr_id guardId,
+        mu2.usr_id guardUi,
+        mg.flnm_nm guardNm,
+        mg.flnm_lnm guardLnm,
+        mcd3.cod_value AS reltnspDiv,
+        mg.mailad,
+        mg.postcd_mnum,
+        mg.postcd_bnum,
+        mg.adr1,
+        mg.adr2,
+        mcd1.cod_value schy,
+        mcd2.cod_value gendr,
+        MO.org_nm,
+        5 AS guardIndex
+        FROM
+        mst_usr mu1
+        INNER JOIN mst_stu ms ON mu1.usr_id = ms.stu_id
+        AND mu1.usr_sts = '1'
+        <if test="orgIdList.size != 0">
+            AND mu1.org_id in
+            <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+                #{orgId}
+            </foreach>
+        </if>
+        AND mu1.del_flg = 0
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard4_id = mg.guard_id
+        AND mg.del_flg = 0
+        LEFT JOIN mst_usr mu2 ON mg.guard_id = mu2.usr_id
+        AND mu2.usr_sts = '1'
+        AND mu2.del_flg = 0
+        INNER JOIN mst_cod_d mcd1 ON mcd1.cod_key = 'SCHY_DIV'
+        AND mcd1.cod_cd = ms.schy_div
+        AND mcd1.del_flg = 0
+        left JOIN mst_cod_d mcd2 ON mcd2.cod_key = 'GENDR_DIV'
+        AND mcd2.cod_cd = ms.gendr_div
+        AND mcd2.del_flg = 0
+        INNER JOIN mst_org AS MO ON MO.org_id = MU1.org_id
+        AND MO.del_flg = 0
+        LEFT JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+        AND mcd3.cod_cd = mg.reltnsp_div
+        AND mcd3.del_flg = 0
+        <where>
+            <if test="stuId != null and stuId != ''">
+                AND mu1.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="guardId != null and guardId != ''">
+                AND mu2.after_usr_id = trim(#{guardId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                AND ms.flnm_nm || ms.flnm_lnm LIKE CONCAT('%',trim(#{stuName}),'%')
+            </if>
+            <if test="guardName != null and guardName != ''">
+                AND mg.flnm_nm || mg.flnm_lnm LIKE CONCAT('%',trim(#{guardName}),'%')
+            </if>
+            <if test="Schy != null and Schy != ''">
+                AND ms.schy_div = #{Schy}
+            </if>
+        </where>))
+        select count(*) from a
+    </select>
+</mapper>

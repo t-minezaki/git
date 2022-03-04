@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>未読・未回答者送信一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F08019.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app" v-cloak>
+    <div class="one">
+        <div>
+            <ul class="one-ul">
+                <li>イベント管理</li>
+                <li>  ＞   配信設定/状況確認</li>
+                <li>  ＞   {{ title }}画面</li>
+                <li v-if = "menuStatus == 2">  ＞   送信対象者</li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_body">
+        <div class="div_head">
+
+            <div class="div_head_title" v-if = "menuStatus == 2">
+                {{ headMsg }}
+            </div>
+            <div class="div_head_title">
+                <span class="span_div" v-if = "menuStatus == 1">{{ title }}</span>
+                <span class="span_div" v-if = "menuStatus == 2">送信</span>
+                対象者一覧: {{ objSum }}名
+            </div>
+            <div>
+                <button v-if = "menuStatus == 1 && div != 5 && flg != 2" id="sendMsg" >再通知</button>
+                <button v-if = "menuStatus == 1" id="objDownload">対象者ダウンロード</button>
+                <button v-if = "menuStatus == 1 && div == 5" id="deliver" >評価配信</button>
+            </div>
+        </div>
+        <div id="div_main">
+            <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+            <div id="jqGridPager"></div>
+        </div>
+        <div class="bottomBtn">
+            <button v-if = "menuStatus == 2" id="sendMsg_down">再通知</button>
+            <button id="btn_cancel">戻る</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F08019.js"></script>
+</html>

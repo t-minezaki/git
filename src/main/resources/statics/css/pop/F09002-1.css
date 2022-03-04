@@ -1,0 +1,64 @@
+#app {
+    margin-left: 2vw;
+}
+
+#title_cont {
+    font-size: 1.2em;
+}
+
+.div_select {
+    margin-top: 5vh;
+}
+
+#row_select, #col_select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin-left: 4vw;
+    width: 25vw;
+    height: 20px;
+    font-size: 0.8em;
+    -webkit-appearance: none;
+    -webkit-padding-start: 8px;
+    background: url(../../img/QRselect.png) 100% 50% / auto 75% no-repeat !important;
+    border: 1px solid #878787 !important;
+}
+
+.span_select {
+    font-size: 1.2em;
+    line-height: 25px;
+    display: block;
+    float: right;
+    height: 25px;
+    margin-right: 50%;
+}
+
+#div_bottom {
+    width: 100%;
+    text-align: center;
+}
+
+#btn_ok {
+    border-radius: 4px;
+    width: 95px;
+    text-align: center;
+    font-size: 1.2em;
+    height: 30px;
+    background: #00a65a;
+    color: whitesmoke;
+    cursor: pointer;
+    margin-top: 8vh;
+    line-height: 28px;
+    border: 0;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+#span_info {
+    font-size: 0.9vw;
+    width: 95%;
+    text-align: center;
+}
+
+html, body {
+    height: 100%;
+}

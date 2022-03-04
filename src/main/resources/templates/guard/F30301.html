@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>ニュース一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30301.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="content" v-cloak>
+    <div class="oneTitle">
+        <ul>
+            <li class="active" onclick="location.reload();">ニュース</li>
+            <li onclick="window.location='../guard/F30110.html'" class="active1">掲示板<div class="count">{{count}}</div></li>
+        </ul>
+    </div>
+    <div class="content_all">
+    <div class="content_div">
+        <ul>
+            <li v-for="content in contents" @click="f30302init(content)">
+                <div class="left">
+                    <img :src="content.image_urls[0] == null ? imgPath : content.image_urls[0]" alt="" style="" >
+                </div>
+                <div class="right">
+                    <div class="top"> {{content.title}}</div>
+                    <div class="bottom"> {{content.sourceName}}</div>
+                </div>
+            </li>
+            <li class="insert" @click="insert()">更に読み込む</li>
+        </ul>
+    </div>
+    </div>
+</div>
+<div class="div_bottom">
+    <iframe src="../common/F40004.html?id=F30301" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30301.js"></script>
+</html>

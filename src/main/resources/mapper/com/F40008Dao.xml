@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40008Dao">
+    <!-- 更新条件 -->
+    <select id="selectById" resultType="jp.learningpark.modules.common.entity.MstUsrEntity" parameterType="String">
+        SELECT
+            *
+        FROM
+            mst_usr
+        WHERE
+            usr_id = #{id}
+    </select>
+    <select id="selectUsr" resultType="jp.learningpark.modules.common.entity.MstUsrEntity">
+        SELECT
+        ms.*
+        FROM
+        mst_usr ms
+        INNER join mst_org mo on ms.org_id = mo.org_id and mo.del_flg = 0
+        WHERE
+        ms.del_flg = 0
+        and mo.brand_cd = #{brand}
+        and ms.after_usr_id = #{afterId}
+    </select>
+    <!--変更後ユーザＩＤの重複チェック-->
+    <select id="selectCountById" resultType="Integer" parameterType="String">
+        SELECT COUNT
+            ( * )
+        FROM
+            mst_usr usr,
+            mst_org org
+        WHERE
+	        usr.after_usr_id = #{id}
+	        and usr.del_flg = 0
+	        and org.del_flg = 0
+    </select>
+    <update id="updateAfterUserId">
+        update
+            mst_usr
+        set
+            after_usr_id = #{newAfterUserId}
+        where
+            after_usr_id = #{oldAfterUserId}
+    </update>
+    <!-- 2021/03/09 manamiru4-33 add start -->
+    <select id="selectTchCod" resultType="Integer" parameterType="String">
+        SELECT
+            COUNT (tch_cd)
+        FROM
+            mst_manager
+        WHERE
+            mgr_id = #{usrId}
+            AND del_flg = 0
+            AND tch_cd is not null
+            AND tch_cd <![CDATA[<>]]> ''
+    </select>
+    <!-- 2021/03/09 manamiru4-33 add start -->
+</mapper>

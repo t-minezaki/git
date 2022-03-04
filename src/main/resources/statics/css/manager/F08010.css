@@ -1,0 +1,509 @@
+.one {
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1em;
+    font-weight: bold;
+    width: auto !important;
+}
+
+.topMessage {
+    width: 100%;
+    height: 2.6vw;
+    line-height: 2.6vw;
+    color: red;
+    font-size: 1.4vw;
+    text-align: center;
+    display: none;
+}
+
+.inputMessage {
+    display: inline-block;
+    width: 50%;
+    height: auto;
+    left: 2vw;
+}
+
+#btn_ok, #btn_cancel {
+    width: 12vw;
+    height: 5vh;
+    border: none;
+    border-radius: 4px;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.div_btn {
+    margin-top: 5vh;
+    height: 7vh;
+    /*text-align: center;*/
+    margin-left: 11%;
+}
+
+.box {
+    height: 20vh;
+    width: 65vw;
+}
+
+.box select {
+    background: none;
+    width: 100%;
+    height: 100%;
+}
+
+.time_input {
+    width: 12vw !important;
+    height: 4vh;
+    font-size: 12px;
+    text-indent: 1em;
+    line-height: 4vh;
+    pointer-events: none;
+    border: 0px;
+    border-radius: 4px;
+    float: left;
+    text-overflow: ellipsis;
+    background: none !important;
+}
+
+.inputMessage img {
+    width: 2.5vh;
+    height: 2.5vh;
+}
+
+.inputMessage input[type = "radio"] {
+    margin-left: 2vw;
+    position: relative;
+    bottom: 0.2vh;
+}
+
+label.title {
+    font-size: 1em;
+    display: inline-block;
+    text-align: left;
+    width: auto;
+    height: auto;
+    line-height: 3vh;
+}
+
+.btn_del {
+
+    float: left;
+    height: 1vh;
+    line-height: 1vh;
+    position: relative;
+    top: 0.8vh;
+    display: inline-block;
+}
+
+.noFocus {
+    pointer-events: none;
+    background: #ccc !important;
+}
+
+.noFocusS {
+    pointer-events: none;
+}
+
+input[type="radio"] {
+
+    outline: none;
+    vertical-align: middle;
+    width: 15px;
+    height: 15px;
+}
+
+input[type="radio"] + span {
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 1vh;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 0px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    background: rgba(120, 120, 120, 1);
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+    border-radius: 0;
+    background: #eee;
+}
+
+.autowidth::-webkit-scrollbar {
+    width: 0px !important;
+    height: 10px;
+}
+
+html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100%;
+}
+
+html::-webkit-scrollbar {
+    width: 0px !important;
+    height: 10px;
+}
+
+.div_title {
+    height: 6vh;
+    line-height: 6vh;
+    color: white;
+    font-size: 1.3em;
+    width: 56%;
+    background: grey;
+    text-indent: 1em;
+    border: 1px grey solid;
+}
+
+.div_content {
+    width: 56%;
+    background: #eee;
+    border: 1px grey solid;
+    min-height: 5vh;
+    max-height: 20vh;
+    overflow-y: scroll;
+}
+
+#app {
+    width: 100%;
+    height: calc(100% - 38px - 1vh) !important;
+    margin-left: 2vw;
+    margin-top: 1vh;
+    overflow-x: hidden;
+}
+
+.ui-jqgrid-hbox {
+    padding: unset !important;
+    width: 100%;
+}
+
+#gbox_jqGrid {
+    width: 56% !important;
+}
+
+#gview_jqGrid {
+    width: 100% !important;
+}
+
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    width: 100% !important;
+}
+
+@media screen and (device-width: 1280px) {
+    .ui-jqgrid-bdiv {
+        width: 100% !important;
+        /*height: 75% !important;*/
+    }
+}
+
+@media screen and (device-width: 1920px) {
+    .ui-jqgrid-bdiv {
+        width: 100% !important;
+        /*height: 84% !important;*/
+    }
+}
+
+.ui-jqgrid-bdiv > div:first-child {
+    height: 100%;
+    border-left: 2px solid #CCC;
+    border-right: 2px solid #CCC;
+    background: white;
+}
+
+#jqGridPager {
+    width: 100% !important;
+    /*border-top: 2px solid #ccc;*/
+}
+
+.ui-jqgrid-htable.ui-common-table {
+    width: 100% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table th {
+    width: 33.33% !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+    border-top: 0 !important;
+}
+
+#jqGrid_schyDiv {
+    border-right: 0 none !important;
+}
+
+.ui-jqgrid-view {
+    margin-left: unset !important;
+}
+
+#jqGrid_stuId {
+    visibility: hidden !important;
+    width: 0 !important;
+}
+
+#jqGrid {
+    width: calc(100% + 1px) !important;
+    border-collapse: collapse !important;
+    height: 100% !important;
+}
+
+#jqGrid td {
+    width: 33.33%;
+}
+
+.jqgrow.ui-row-ltr.ui-widget-content > td:nth-child(4) {
+    visibility: hidden !important;
+    width: 0 !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-right: 1px solid #ccc !important;
+    color: black !important;
+}
+
+.ui-jqgrid-resize.ui-jqgrid-resize-ltr {
+    display: none !important;
+}
+
+.jqgfirstrow {
+    display: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable {
+    table-layout: unset !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: white !important;
+    border: 1px solid #c5c5c5 !important;
+    color: #454545 !important;
+}
+
+#jqGrid tr {
+    pointer-events: unset !important;
+}
+
+.div_content li {
+    height: 5vh;
+    line-height: 5vh;
+    text-indent: 1vw;
+    border-bottom: 1px grey solid;
+}
+
+.layui-nav-child {
+    left: 2vw !important;
+    top: unset !important;
+    line-height: unset !important;
+    min-width: unset !important;
+    width: 52%;
+    border: 1px grey solid !important;
+    padding: 0px !important;
+    color: unset !important;
+}
+
+.a_main {
+    font-size: 1em;
+}
+
+.layui-icon {
+    margin-right: 1vw;
+}
+
+.layui-nav-itemed > a {
+    color: unset !important;
+}
+
+.layui-nav-child dt {
+    border-bottom: 2px #ccc dotted;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 85px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+
+.count {
+    width: 2.5em;
+    display: inline-block;
+}
+
+#object_div {
+    margin-top: 1vh;
+}
+
+.my_radio {
+    -webkit-appearance: none;
+    background: url(../../img/icons/radio.png) no-repeat center/100%;
+    border-radius: 100px;
+}
+
+.my_radio:checked {
+    background: url(../../img/icons/radio_checked.png) no-repeat center/100%;
+}
+
+#search {
+    border-radius: 4px;
+    width: 10vw;
+    padding: 5px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.0vw;
+    margin-left: 1vw;
+    height: 5vh;
+    line-height: 2vh;
+    margin-bottom: 2vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.div_input {
+    margin-top: 3vh;
+}
+
+.time_title {
+    font-size: 1em;
+    display: block;
+    text-align: left;
+    width: 10vw;
+    height: auto;
+    line-height: 3vh;
+    margin-bottom: 1vh;
+}
+
+.time_div {
+    font-size: 0.8em !important;
+    width: 15vw !important;
+    height: 4vh !important;
+    line-height: 7vh !important;
+    float: left !important;
+    border: 1px grey solid;
+    background: none;
+}
+
+.img_div {
+    height: 4vh !important;
+    line-height: 3.5vh !important;
+    /* width: 2vw !important; */
+    z-index: 999;
+    /* text-align: right; */
+    padding-right: 0.5vw !important;
+    float: right;
+}
+
+.time_split {
+    width: 12vw !important;
+    font-size: 1.5em !important;
+    font-weight: bolder;
+    text-align: center;
+    float: left;
+    height: 4vh !important;
+    padding-right: 0vw !important;
+}
+
+.layui-layer-myskin .layui-layer-title {
+
+    background-color: #F0F0F0 !important;
+    color: #444 !important;
+    text-align: center !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 1.2em !important;
+    font-weight: bolder;
+}
+
+.layui-layer {
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 10px 5px #777;
+}
+
+.laydate-btns-now {
+    display: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view {
+    font-size: 13px !important;
+}
+
+/*lay_date*/
+.layui-laydate-content > .layui-laydate-list {
+    padding-bottom: 0 !important;
+    overflow: hidden !important;
+}
+
+/* 2020/12/04 V9.0 liguangxin modify start */
+/*.layui-laydate-content>.layui-laydate-list>li{*/
+/*width: 50% !important;*/
+/*}*/
+.layui-laydate-list > li {
+    width: 33% !important;
+    margin: 5px 0 !important;
+}
+
+/* 2020/12/04 V9.0 liguangxin modify end */
+
+.merge-box .scrollbox .merge-list {
+    padding-bottom: 5px !important;
+}
+
+.laydate-time-list ol li {
+    padding-left: calc(50% - 8px) !important;
+}
+
+.ui-jqgrid-bdiv {
+    width: 100% !important;
+}
+
+#jqGridPager_right {
+    text-align: right !important;
+}

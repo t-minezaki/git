@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body, #page {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: unset;
+}
+
+p {
+    margin: unset;
+}
+
+.div_top {
+    position: fixed;
+    width: 100%;
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    height: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.main {
+    height: 90%;
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    padding-top: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+}
+
+.div_back {
+    width: 4vh;
+    height: 4vh;
+    float: left;
+    margin-top: 1vh;
+    position: fixed;
+}
+
+.div_back img {
+    width: 100%;
+    height: 100%;
+}
+
+.div_name{
+    height: 6vh;
+}
+
+.div_name p {
+    width: 100%;
+    line-height: 6vh;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.div_event_span {
+    height: 5vh;
+    background: #EEEEEE;
+}
+
+.div_event_span p {
+    height: 5vh;
+    line-height: 5vh;
+    text-indent: 1em;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.div_content ul {
+    padding-left: unset;
+}
+
+.div_content ul li {
+    list-style: none;
+    height: 8vh;
+    border-bottom: 1px solid #ccc;
+}
+
+.div_content ul li a {
+    float: left;
+    display: inline-block;
+    width: 100%;
+    height: 8vh;
+    line-height: 8vh;
+    text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.div_content ul li img {
+    display: inline-block;
+    line-height: 8vh;
+    text-decoration: none;
+    color: black;
+    width: 4vh;
+    margin-left: 4vw;
+    margin-right: 6vw;
+    float: left;
+    position: relative;
+    top: 1.9vh;
+}
+
+.div_bottom {
+    height: 10%;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: auto;
+    min-width: 85px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}

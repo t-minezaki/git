@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<#include "/header.html" />
+    <title>定期テスト結果確認画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10503.css" />
+</head>
+<body>
+	<header id="_title"><iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe></header>
+	<div class="content" id="el" v-cloak>
+		<ul class="title_tab_one">
+			<li class="title_li_one" @click="goalBtn">目標と結果の入力</li>
+			<li class="title_li_end active" @click="resultBtn">結果の確認</li>
+		</ul>
+		<ul class="title_tab_two">
+			<li class="title_li_one active" @click="typeBtn('1')">定期テスト</li>
+			<li @click="typeBtn('4')">実力テスト</li>
+			<li @click="typeBtn('3')">模擬試験</li>
+			<li @click="typeBtn('2')" class="title_li_end">通知表</li>
+			<!--<li id="tomorrow" class="title_li_end">明日の学力</li>-->
+		</ul>
+		<div class="contentDiv">
+			<div class="contentTitle">
+				<select v-model="stuSchy.schyVal" name="" id="schySelect" @change="schyChange(schyList)">
+					<option v-for="idx in schyList">{{idx.schyVal}}</option>
+				</select>
+			</div>
+			<div id="message" class="topMessage"></div>
+			<div class="contentT">
+				<table cellspacing="0">
+					<tr class="trTitle" style="display: none">
+						<th v-if="subjtTitle.length != 0" colspan="3" class="first"></th>
+						<th v-for="(data, i) in subjtTitle">
+							<span v-if="i <= subjtTitle.length">{{subjtTitle[i].subjtVal}}</span>
+							<span v-else="i > subjtTitle.length"></span>
+						</th>
+					</tr>
+					<tbody v-for="i in pointList">
+					<tr class="topSolid textRight">
+						<th colspan="2" rowspan="3" class="tableTitle first">{{i.seasnTitle}}</th>
+						<th class="pointTitle">得点</th>
+						<td v-for="(data, a) in subjtTitle">
+							<div v-for="(dd, index) in i.resultPointsAreaMap" v-if="data.subjtDiv == i.resultPointsAreaMap[index].subjtDiv">
+								{{i.resultPointsAreaMap[index].resultPoints}} / {{i.resultPointsAreaMap[index].resultPerfectPoints}}
+								<!--<span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[index].resultPoints != null" style="color: green">{{i.resultPointsAreaMap[index].resultPoints}}</span>-->
+								<!--<span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[index].resultPoints == null" style="color: green"></span>-->
+								<!--<span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[index].resultPoints != null">/</span>-->
+								<!--<span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[index].resultPerfectPoints != null">{{i.resultPointsAreaMap[index].resultPerfectPoints}}</span>-->
+								<!--<span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[index].resultPerfectPoints == null"></span>-->
+							</div>
+						</td>
+					</tr>
+					<tr class="textRight">
+						<th class="pointTitle">平均点</th>
+						<td v-for="(data, a) in subjtTitle">
+							<div v-for="(dd, index) in i.resultPointsAreaMap" v-if="data.subjtDiv == i.resultPointsAreaMap[index].subjtDiv">
+								{{i.resultPointsAreaMap[index].resultAvg}}
+							</div>
+                            <!--<span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a].resultAvg != null">{{i.resultPointsAreaMap[a].resultAvg}}</span>-->
+                            <!--<span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a].resultAvg == null"></span>-->
+                            <!--<span v-if="(a == 6 || a == 11) && a <= i.resultPointsAreaMap.length &&-->
+                            <!--i.resultPointsAreaMap[a].resultAvg != null && i.resultPointsAreaMap[a].goalPerfectPoints != null">/</span>-->
+                            <!--<span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a].goalPerfectPoints != null && (a == 6 || a ==11)">{{i.resultPointsAreaMap[a].goalPerfectPoints}}</span>-->
+                            <!--<span v-if="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a].goalPerfectPoints == null && (a == 6 || a ==11)"></span>-->
+						</td>
+					</tr>
+					<tr class="textRight">
+						<th class="pointTitle">順位</th>
+						<td v-for="(data, a) in subjtTitle">
+							<div v-for="(dd, index) in i.resultPointsAreaMap" v-if="data.subjtDiv == i.resultPointsAreaMap[index].subjtDiv">
+								{{i.resultPointsAreaMap[index].resultRank}}
+							</div>
+                            <!--<span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a].resultRank != null">{{i.resultPointsAreaMap[a].resultRank}}</span>-->
+                            <!--<span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a].resultRank == null"></span>-->
+                        </td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="${request.contextPath}/js/student/F10503.js"></script>
+</html>

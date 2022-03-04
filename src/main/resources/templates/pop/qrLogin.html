@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>QR入退室ログインID統合指定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/qrLogin.css" />
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="all" id="app">
+    <div class="header">QR入退室ログインID統合指定</div>
+    <div class="content">
+        <div>
+            <div v-for="user in aftUsrIds">
+                <input class="radio" name ='org' type="radio" :value="user.afterUsrId"><p>{{user.afterUsrId}}</p>
+            </div>
+            <div>
+                <input class="radio others" name ='org' type="radio" value="その他" ><p class="other">その他</p>
+                <input type="text" class="text" disabled="disabled">
+            </div>
+        </div>
+    </div>
+    <div class="theme_btn">
+        <button @click="cancelFn()" style="margin-left: 16%;">キャンセル</button>
+        <button @click="submit()">登録</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/qrLogin.js"></script>
+</html>

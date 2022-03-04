@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.OnLineApiDao">
+    <select id="selectGurdId" parameterType="String" resultType="jp.learningpark.modules.common.entity.MstStuEntity">
+        SELECT
+                usr.usr_id AS stuId,
+                stu.guard_id AS guardId
+        FROM
+                mst_usr usr
+                        LEFT JOIN mst_stu stu ON usr.usr_id = stu.stu_id
+        WHERE
+                usr.del_flg = '0'
+          AND usr.after_usr_id = #{afterUsrId}
+        LIMIT 1;
+    </select>
+
+    <update id="updateStudentInfo">
+        UPDATE
+                mst_stu
+        SET
+                flnm_nm = #{entity.flnmNm}
+                , flnm_lnm = #{entity.flnmLnm}
+                , flnm_kn_nm = #{entity.flnmKnNm}
+                , flnm_kn_lnm = #{entity.flnmKnLnm}
+                , sch = #{entity.sch}
+                , guard_id = #{entity.guardId}
+                , gendr_div = #{entity.gendrDiv}
+                , birthd = #{entity.birthd}
+                , schy_div = #{entity.schyDiv}
+                , upd_datime = #{entity.updDatime}
+                , upd_usr_id = #{entity.updUsrId}
+        WhERE
+                stu_id = #{entity.stuId}
+    </update>
+
+    <update id="updateGuardInfo">
+        UPDATE
+        mst_guard
+        SET
+        flnm_nm = #{entity.flnmNm}
+        , flnm_lnm = #{entity.flnmLnm}
+        , flnm_kn_nm = #{entity.flnmKnNm}
+        , flnm_kn_lnm = #{entity.flnmKnLnm}
+        , mailad = #{entity.mailad}
+        <if test="entity.postcdMnum != null and entity.postcdMnum != '' ">
+            , postcd_mnum = #{entity.postcdMnum}
+        </if>
+        <if test="entity.postcdBnum != null and entity.postcdBnum != '' ">
+            , postcd_bnum = #{entity.postcdBnum}
+        </if>
+        <if test="entity.adr1 != null and entity.adr1 != '' ">
+            , adr1 = #{entity.adr1}
+        </if>
+        <if test="entity.adr2 != null and entity.adr2 != '' ">
+            , adr2 = #{entity.adr2}
+        </if>
+        , telnum = #{entity.telnum}
+        , urg_telnum = #{entity.urgTelnum}
+        , reltnsp_div = #{entity.reltnspDiv}
+        , upd_datime = #{entity.updDatime}
+        , upd_usr_id = #{entity.updUsrId}
+        WhERE
+        guard_id = #{entity.guardId}
+    </update>
+
+    <update id="updateUsrInfo">
+        UPDATE
+        mst_usr
+        SET
+        usr_sts = #{entity.usrSts}
+        , upd_datime = #{entity.updDatime}
+        , upd_usr_id = #{entity.updUsrId}
+        WhERE
+        <choose>
+            <when test="entity.role == 3">
+                usr_id  = #{entity.usrId}
+            </when>
+            <otherwise>
+                after_usr_id = #{entity.afterUsrid}
+            </otherwise>
+        </choose>
+    </update>
+    <update id="updateMstGrp">
+        UPDATE
+                mst_grp
+        SET
+                dayweek_div = #{entity.dayweekDiv}
+                , grp_nm = #{entity.grpNm}
+                , upd_datime = #{entity.updDatime}
+                , upd_usr_id = #{entity.updUsrId}
+        WhERE
+                grp_cod = #{entity.grpCod}
+    </update>
+    <delete id="deleteStuGrpByStuId">
+        DELETE
+        FROM stu_grp
+        WHERE stu_id =  #{stuId}
+    </delete>
+</mapper>

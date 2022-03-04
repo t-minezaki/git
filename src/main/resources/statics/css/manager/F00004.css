@@ -1,0 +1,218 @@
+.header_operat{
+	width: auto;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	font-size: 0.9vw;
+	padding: 0 1.6vw;
+}
+.content{
+	width: 100%;
+	height: auto;
+	padding: 0;
+	overflow: auto;
+}
+.sim{
+	width: 100%;
+	border-bottom: 1px solid #000;
+}
+.two{
+	width: 100%;
+	height: auto;
+	padding: 1vw 2.2vw;
+}
+input#dan5 {
+	width: 8vw;
+}
+.top{
+	width: 100%;
+	height: 2.2vw;
+}
+.top_div{
+	border:1px dashed #000;
+	width: auto;
+	height: 2.2vw;
+	float: left;
+	padding: 0 0.2vw;
+}
+.top input[type="radio"]{
+	font-size: 0.8vw;
+}
+div>label{
+	position: relative;
+	margin-right: 1vw;
+	float: left;
+}
+div>label>p{
+	height: 100%;
+	width: auto;
+	font-size: 0.9vw;
+	margin: 0;
+	padding: 0;
+	line-height: 2.2vw;
+	float: left;
+}
+div>label::before{
+	display: inline-block;
+	content: "";
+	width: 0.8vw;
+	height: 0.8vw;
+	border-radius: 100%;
+	border: 1px solid #ccc;
+	margin-right: 0.5vw;
+	vertical-align: bottom;
+	margin-top: 0.5vw;
+	float: left;
+	background: white;
+}
+div>input:checked+label::after{
+	display: inline-block;
+	content: "";
+	width: 0.4vw;
+	height: 0.4vw;
+	border-radius: 50%;
+	position: absolute;
+	left: 0.3vw;
+	bottom: 0.9vw;
+	background-color: #2e2e2e;
+	float: left;
+}
+.center{
+	width: 100%;
+	height: 4vw;
+	padding: 1vw 0;
+	position: relative;
+}
+.center div{
+	width: 12%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	float: left;
+	font-size: 0.9vw;
+}
+.center input{
+	width: 48%;
+	height: 2.2vw;
+	border: 1px solid #000;
+	font-size: 0.9vw;
+	padding: 0 0.5vw;
+	border-radius: 4px;
+}
+.center input:disabled{
+	background: none;
+}
+.center button{
+	width: 8%;
+	height: 2.2vw;
+	background: white;
+	border-radius: 4px;
+	border: 1px solid grey;
+	margin-left: 2%;
+	color: rgba(100, 100, 100, 1);
+	font-size: 0.9vw;
+	border-bottom: 3px grey solid;
+}
+.bottom a,.center a{
+	width: 8%;
+	height: 2.2vw;
+	margin-left: 2.2vw;
+	text-decoration: underline;
+	color: blue;
+	font-size: 0.9vw;
+}
+.bottom{
+	width: 100%;
+	height: 6vw;
+	padding: 1vw 0;
+}
+.bottom .left{
+	width: 12%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	float: left;
+	font-size: 0.9vw;
+}
+.bottom button{
+	width: 8%;
+	height: 2.2vw;
+	background: white;
+	border-radius: 4px;
+	border: 1px solid grey;
+	margin-left: 2%;
+	color: rgba(100, 100, 100, 1);
+	font-size: 0.9vw;
+	border-bottom: 3px grey solid;
+}
+.content_bottom{
+	width: 48%;
+	height: 4vw;
+	float: left;
+}
+.rigPo{
+	float: left;
+	width: 38%;
+	height: 2.2vw;
+}
+.con_bottom{
+	width: 100%;
+	height: 4.4vw;
+	border: 1px dashed #000;
+	border-radius: 0.1vw;
+	padding: 0 0.3vw;
+}
+.con_bottom .title{
+	width: 100%;
+	float: left;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+}
+.con_bottom .radio_div{
+	width: 50%;
+	float: left;
+	height: 2.2vw;
+}
+.content_bottom1{
+	height: 2.2vw;
+}
+.bottom1{
+	height: 4vw;
+}
+.top_title{
+	width: 100%;
+	font-size: 0.9vw;
+	height: 2.2vw;
+	line-height: 2.2vw;
+}
+.four{
+	padding: 0 2.2vw 1vw 2.2vw;
+}
+.fileForm{
+	width: 8%;
+	height: 2.2vw;
+	position: absolute;
+	top: 1vw;
+	left: 62.3%;
+	opacity: 0;
+}
+.center input.getFile {
+	width: 100%;
+	height: 2.2vw;
+}
+/*2021/02/01 liyuhuan add start */
+.layui-layer-molv4 .layui-layer-content {
+	text-align: center !important;
+}
+/*2021/02/01 liyuhuan add end */

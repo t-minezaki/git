@@ -1,0 +1,108 @@
+html, body {
+    height: 100%;
+}
+
+#div_bottom {
+    margin-top: 35px;
+    /*text-align: center;*/
+    margin-left: 10vw;
+}
+
+.select {
+    width: 8vw;
+    height: 1.6vw;
+    font-size: 0.9vw;
+    padding-left: 1vw;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+}
+
+textarea {
+    resize: none;
+    background-position: 30px 100px;
+    height: 80px;
+    width: 400px;
+    font-size: 0.9vw;
+}
+
+.p {
+    display: table-cell;
+    padding-left: 0.5vw;
+    font-size: 15px;
+}
+
+.one {
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+    display: inline-block;
+    margin-right: 0.5vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+
+#btn_ok {
+    background: #00a65a;
+    border-radius: 4px;
+    width: 10vw;
+    min-width: 80px;
+    text-align: center;
+    font-size: 0.9vw;
+    color: whitesmoke;
+    height: 2.2vw;
+    border: 0;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    position: absolute;
+    bottom: 10vh;
+    left: 45vw;
+}
+
+.left-item {
+    float: left;
+    display: table-cell;
+    width: 17vw;
+    font-size: 1.2vw;
+}
+
+.left-item p {
+    text-align:right;
+    margin-right: 1vw;
+}
+
+.row {
+    margin-top: 2vh;
+    display: table;
+}
+
+.right-item {
+    display: table-cell;
+}
+
+.topMessage {
+    position: absolute;
+}

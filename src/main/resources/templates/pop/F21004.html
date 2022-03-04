@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>F21004確認連絡</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21004.css"/>
+</head>
+<body id="body">
+<div class="content" id="content">
+    <div class="row" id="dayDiv">
+        <div class="left float">保護者名</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="dayVal">{{guardName}}</div>
+    </div>
+    <div class="line" id="line1"></div>
+    <div class="row" id="contentDiv">
+        <div class="left float">内容</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="contentVal">{{content}}</div>
+    </div>
+    <div class="line" id="line3"></div>
+    <div class="row" id="reasonDiv">
+        <div class="left float">理由</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="reasonVal">{{reason}}</div>
+    </div>
+    <div class="line" id="line4"></div>
+    <div class="row" id="remarkDiv">
+        <div class="left float">備考</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="remarkVal">{{remark}}</div>
+    </div>
+    <div class="line" id="line5"></div>
+    <div class="btnRow" id="btnDiv">
+        <div>
+            <button class="float back-btn btn" onclick="back()">戻る</button>
+            <button class="float submit-btn btn" onclick="submit()">「確認しました」保護者へ送信</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="${request.contextPath}/js/pop/F21004.js"></script>
+</html>

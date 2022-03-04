@@ -1,0 +1,322 @@
+.content{
+    width: 100%;
+    height: auto;
+    padding-top: 44px;
+}
+.contentTitle{
+    width: 100%;
+    height: 40px;
+    line-height:40px;
+    overflow: hidden;
+    font-size: 18px;
+    /*font-family: Hiragino sans-serif !important;*/
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    background: #8CC11F;
+    color: white;
+    margin-bottom: 3vh;
+    font-weight: bold;
+}
+.list_content{
+    height: 70px;
+    width: 100%;
+    padding: 0 10px;
+    position: relative;
+}
+.list_content img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-top: 11px;
+    float: left;
+    object-fit: cover;
+}
+.list_content p{
+    width: auto;
+    max-width: calc(70% - 40px);
+    height: 55%;
+    line-height: 60px;
+    font-size: 16px;
+    float: left;
+    text-align: left;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.list_content span{
+    width: calc(90% - 40px);
+    height: 30%;
+    line-height: 20px;
+    font-size: 12px;
+    float: left;
+    text-align: left;
+    padding-left: 20px;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+.go_right {
+    width: unset !important;
+    height: 14px !important;
+    position: relative !important;
+    bottom: 33% !important;
+    float: right !important;
+    margin-top: 16px !important;
+}
+.haveMess{
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 26px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    right: 32px;
+    top:23px;
+}
+.list_content:nth-child(0){
+    margin-top: 3vh;
+}
+.san{
+    font-size: small!important;
+    padding-left: 0!important;
+}
+
+/*Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+    .div_header {
+        height: 44px;
+    }
+    .commonTabTitle {
+        height: 40px;
+        background: #8CC11F;
+        line-height: 40px;
+        color: white;
+        text-align: center;
+        font-size: 1.1rem;
+        width: 100%;
+        font-weight: bold;
+        letter-spacing: 2px;
+        border: none;
+        margin-bottom: 0;
+    }
+
+    .content {
+        width: 100%;
+        height: auto;
+        padding-top: 40px;
+    }
+
+    .contentTitle {
+        position: fixed;
+        z-index: 1;
+    }
+
+    .list_content {
+        height: 88px;
+        width: 100%;
+        padding: .5rem 2.8rem;
+        position: relative;
+        margin-bottom: -0.2rem;
+    }
+
+    .list_content:nth-child(2){
+        margin-top: 4rem;
+    }
+
+    .list_content img {
+        width: 4.2rem;
+        height: 4.2rem;
+        border-radius: 100%;
+        float: left;
+        margin-top: 0px;
+    }
+
+    .list_content p {
+        height: 50%;
+        line-height: 56px;
+        font-size: 1rem !important;
+        float: left;
+        text-align: left;
+        padding-left: 20px;
+        max-width: calc(100% - 20px - 11rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: 1px;
+        width: auto;
+    }
+
+    .list_content span {
+        width: calc(90% - 5.5rem);
+        height: 30%;
+        line-height: 24px;
+        font-size: 0.8rem;
+        float: left;
+        text-align: left;
+        padding-left: 20px;
+        color: #585858;
+        overflow: hidden;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+
+    .go_right {
+        width: unset !important;
+        height: 17px !important;
+        position: relative !important;
+        bottom: 31% !important;
+        float: right !important;
+        margin-top: 12px !important;
+    }
+
+    .haveMess {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 1.5rem;
+        background: red;
+        color: white;
+        font-size: 11px;
+        right: 5rem;
+        top: 2rem;
+    }
+
+    .list_content:nth-child(0) {
+        margin-top: 3vh;
+    }
+
+    .san {
+        padding-left: 0 !important;
+    }
+}
+/*ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+    .div_header {
+        height: 56px;
+    }
+    .commonTabTitle {
+        height: 52px;
+        background: #8CC11F;
+        line-height: 52px;
+        color: white;
+        text-align: center;
+        font-size: 1.5rem;
+        width: 100%;
+        font-weight: bold;
+        letter-spacing: 2px;
+        border: none;
+        margin-bottom: 0;
+    }
+
+    .content {
+        width: 100%;
+        height: auto;
+        padding-top: 56px;
+    }
+
+    .contentTitle {
+        position: fixed;
+        z-index: 1;
+    }
+
+    .list_content {
+        height: 100px;
+        width: 100%;
+        padding: .5rem 2.8rem ;
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+
+    .list_content:nth-child(2){
+        margin-top: 5rem;
+    }
+
+    .list_content img {
+        width: 5.5rem;
+        height: 5.5rem;
+        border-radius: 100%;
+        float: left;
+        margin-top: 0;
+    }
+
+    .list_content p {
+        height: 50%;
+        line-height: 50px;
+        font-size: 1.25rem !important;
+        float: left;
+        text-align: left;
+        padding-left: 20px;
+        max-width: calc(100% - 20px - 11rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: 1px;
+        width: auto;
+    }
+
+    .list_content span {
+        width: calc(90% - 5.5rem);
+        height: 30%;
+        line-height: 25px;
+        font-size: 1rem;
+        float: left;
+        text-align: left;
+        padding-left: 20px;
+        color: #585858;
+        overflow: hidden;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+
+    .go_right {
+        width: unset !important;
+        height: 20px !important;
+        position: relative !important;
+        bottom: 33% !important;
+        float: right !important;
+        margin-top: 12px !important;
+    }
+
+    .haveMess {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 2;
+        background: red;
+        color: white;
+        font-size: 15px;
+        right: 5rem;
+        top: 30px;
+    }
+
+    .list_content:nth-child(0) {
+        margin-top: 3vh;
+    }
+
+    .san {
+        padding-left: 0 !important;
+    }
+}
+.layui-layer-content.layui-layer-loading1 {
+    margin-left: calc((100% - 37px)/2) !important;
+}

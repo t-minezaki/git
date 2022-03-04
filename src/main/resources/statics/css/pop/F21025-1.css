@@ -1,0 +1,105 @@
+html, body {
+    background: white;
+}
+
+.float {
+    float: left;
+}
+
+.row {
+    overflow: hidden;
+    margin-bottom: 2vw;
+}
+
+.line {
+    height: 2vh;
+}
+
+.content {
+    padding: 5vh 0;
+    height: 100%;
+}
+
+.left {
+    width: 30%;
+    text-align: left;
+    padding-left: 8vw;
+    font-weight: bold;
+    color: #555555;
+}
+
+.mid {
+    margin-right: 20px;
+    width: 5%;
+}
+
+.right {
+    width: calc(100% - 30% - 5% - 8vw - 20px);
+    text-align: left;
+    color: #555555;
+}
+
+.btnRow {
+    width: 100%;
+    height: calc(76vh - 180px);
+}
+
+.btnRow div {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.back-btn {
+    background: #00a65a;
+}
+
+.submit-btn {
+    background: #159748;
+}
+
+.btn {
+    border-radius: 5px;
+    width: 60%;
+    text-align: center;
+    font-size: 0.8em;
+    color: white;
+    border: 0;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 10px 0;
+}
+
+.topMessage {
+    position: absolute;
+}
+
+body#body {
+    padding: 5vh 0;
+}
+
+.content {
+    padding: 0;
+    height: 100%;
+    overflow-y: scroll;
+}
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}

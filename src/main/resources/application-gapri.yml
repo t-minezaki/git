@@ -1,0 +1,48 @@
+#LE-pro本番環境
+spring:
+  datasource:
+    jndi-name: gakken_app
+server:
+  servlet:
+    context-path: /
+ans-url:
+  NOTICE_REMOTE_URL_appLoginCheck: https://gsignup-dev.learningpark.jp/ans/v1/2/device
+  NOTICE_REMOTE_URL_unReadGet: https://gsignup-dev.learningpark.jp/ans/v1/2/message/unread
+  NOTICE_REMOTE_URL_sendMessage: https://gsignup-dev.learningpark.jp/ans/v1/2/message
+  NOTICE_REMOTE_URL_errorData: https://gsignup-dev.learningpark.jp/ans/v1/2/message/errorData
+  token: cGjBIojCBt/nz8qfBWWrh97/Q0RNUN/1Cz2gJa0MuvfVW8JTR5Ok9UTp0HitgqMh
+
+# 检证API
+# 学研API
+gakken-api:
+  #本仮APIフラグ（是否正式调用api）
+  realApi: false
+  #REQUEST_URL
+  requestUrl: https://idgear-qas.x.itecgw.jp/gid/services/
+  #SOAP認証用UsernameToken
+  user: GEDWESUNTQ
+  #SOAP認証用Password
+  password: c56de89c45dcf40d0d76418abdf7ad2a
+  #特権アクセストークン
+  priToken: 5fb8cf8936b8v62f802fc6b8a0cd3b28
+  #サービスサイトコード
+  serviceCd: GEDWESSSIQ
+  #サービスショップコード
+  shopCd: GEDWESSSHQ
+  #GakkenTID履歴キー
+  gakkenTidHistKey: get_info_hist
+  #メールアドレスキー
+  gakkenMailKey: get_mail_address
+  #指導者コードキー
+  teacherCodeKey: get_teacher_code_01
+  #サービスサイトコード2
+  serviceCd2: GEDWESSSIP
+
+#domain
+learningpark-domain:
+  #  客様の本番環境
+  domain: https://gapri.learningpark.jp
+
+ueditor:
+  urlPrefix: https://gapri.learningpark.jp
+localFlag: false

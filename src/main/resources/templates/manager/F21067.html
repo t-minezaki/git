@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <#include "/header.html" />
+    <meta charset="UTF-8">
+    <title>メッセージ照会画面</title>
+    <link href="${request.contextPath}/css/common/common_pc.css" rel="stylesheet"/>
+    <link href="${request.contextPath}/css/manager/F21067.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="page" v-cloak="">
+    <div class="message" id="topMessage"></div>
+    <div class="popTitle">メッセージ照会画面</div>
+    <div class="topSessionTitle">
+        <div class="bold">組織ID:</div>
+        <div>{{mstOrgEntity.orgId}}</div>
+        <div class="bold">組織名:</div>
+        <div>{{mstOrgEntity.orgNm}}</div>
+        <div class="right">{{mstMessageEntity.updDatime}}</div>
+        <div class="right bold">最新更新日時:</div>
+    </div>
+    <div class="div_main">
+        <div class="one">
+            <div class="mailLabel">メッセージ名</div>
+            <div id="messageTitle"
+                 v-text="mstMessageEntity.messageTitle==null ? '' : mstMessageEntity.messageTitle"></div>
+            <p :style="mstMessageEntity.messageLevelDiv == '2' ? 'color:red;' : 'display:none' " class="messageLevelDiv"
+               v-if="mstMessageEntity.messageLevelDiv!=null">★</p>
+        </div>
+        <div class="two">
+            <div class="mailLabel">内容</div>
+            <div class="messageCont" id="messageCont"></div>
+        </div>
+        <div class="file_drag">
+            <div id="file_label">添付ファイル</div>
+            <div class="drag_area">
+                <!--<a :href='mstMessageEntity.attachFilePath' id="showPath1">{{path}}</a>-->
+            </div>
+        </div>
+        <div class="content_warp" style="height: 16vh;">
+            <div class="mailLabel" style="float: left;">配信先</div>
+            <ul class="stu" style="float: left">
+                <li v-for="stu in stuList">{{stu.stuId}} {{stu.stunm}}</li>
+            </ul>
+        </div>
+        <div class="three">
+            <div class="mailLabel">掲載開始日時</div>
+            <p class="timeCon oneBtn"
+               v-text="mstMessageEntity.pubPlanStartDt==null ? '' : mstMessageEntity.pubPlanStartDt"></p>
+            <div style="...">～</div>
+            <div class="mailLabel" id="end_label">掲載終了日時</div>
+            <p class="tmeCon twoBtn"
+               v-text="mstMessageEntity.pubPlanEndDt==null ? '' : mstMessageEntity.pubPlanEndDt"></p>
+        </div>
+        <div class="four">
+            <button id="backBtn">戻る</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js" type="text/javascript"></script>
+<script src="${request.contextPath}/js/manager/F21067.js" type="text/javascript"></script>
+</html>

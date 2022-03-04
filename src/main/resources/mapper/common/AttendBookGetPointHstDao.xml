@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.AttendBookGetPointHstDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.AttendBookGetPointHstEntity" id="attendBookGetPointHstMap">
+        <result property="id" column="id"/>
+        <result property="tgtYmd" column="tgt_ymd"/>
+        <result property="attendBookId" column="attend_book_id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="passScorePoint" column="pass_score_point"/>
+        <result property="fullScorePoint" column="full_score_point"/>
+        <result property="hworkOutPoint" column="hwork_out_point"/>
+        <result property="absLoginPoint" column="abs_login_point"/>
+        <result property="getPointDatime" column="get_point_datime"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+    <select id="selectAllPointByStuIdAndOrgId" resultType="jp.learningpark.modules.common.entity.AttendBookGetPointHstEntity">
+        select stu_id,
+               org_id,
+               sum(pass_score_point) as pass_score_point,
+               sum(full_score_point) as full_score_point,
+               sum(hwork_out_point) as hwork_out_point,
+               sum(abs_login_point) as abs_login_point
+        from attend_book_get_point_hst
+        where stu_id = #{stuId}
+          and org_id = #{orgId}
+          and create_time > #{resetDatime}
+        group by stu_id, org_id
+    </select>
+</mapper>

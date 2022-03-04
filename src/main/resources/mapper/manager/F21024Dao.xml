@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21024Dao">
+    <select id="init" resultType="jp.learningpark.modules.manager.dto.F21024Dto">
+        SELECT
+          LAH.tgt_ymd
+          ,LAH.corrspd_sts
+          ,LAH.id
+          ,LAH.notice_id
+          ,to_char(LAH.cret_datime, 'yy/MM/dd') as cretDatime
+          ,MG.flnm_nm
+          ,MG.flnm_lnm
+          ,MG.mailad
+          ,MG.telnum
+          ,MS.flnm_nm as stuFN
+          ,MS.stu_id
+          ,MS.flnm_lnm as stuFLn
+          ,MCD.cod_value
+        FROM
+          late_abs_hst LAH
+            INNER JOIN mst_guard MG ON (MG.guard_id = LAH.guard_id AND MG.del_flg = 0)
+            <if test="roleDiv == 1">
+                INNER JOIN mst_stu MS ON ( LAH.stu_id = MS.stu_id AND MS.del_flg = 0 )
+            </if>
+            <if test="roleDiv == 2">
+                INNER JOIN mst_stu MS ON (MS.del_flg = 0)
+              INNER JOIN mentor_stu MS1 ON (MS1.stu_id = LAH.stu_id AND MS1.del_flg = 0 AND MS.stu_id = LAH.stu_id)
+            </if>
+            INNER JOIN mst_cod_d MCD ON (MS.schy_div = MCD.cod_cd AND MCD.cod_key = 'SCHY_DIV' AND MCD.del_flg = 0)
+        WHERE
+          LAH.del_flg = 0
+        <if test="roleDiv == 1">
+            AND LAH.org_id = #{orgId}
+        </if>
+        <if test="roleDiv == 2">
+             AND MS1.mentor_id = #{userId}
+            AND MS1.crmsch_id = #{orgId}
+            AND LAH.org_id = #{orgId}
+        </if>
+        <if test="corrspdSts == 0">
+            AND LAH.corrspd_sts in ('0','3')
+        </if>
+        <if test="corrspdSts == 1">
+            AND LAH.corrspd_sts in ('1','2')
+        </if>
+        ORDER BY
+        <if test="corrspdSts == 0 ">
+            LAH.cret_datime ASC
+        </if>
+        <if test="corrspdSts == 1 ">
+            LAH.tgt_ymd desc ,
+            COALESCE ( MS.flnm_kn_nm, '' ) || COALESCE ( MS.flnm_kn_lnm, '' ) COLLATE "ja_JP.utf8" ,
+            cretDatime desc
+        </if>
+        <if test="limit != null ">
+            offset #{offset} limit #{limit}
+        </if>
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        late_abs_hst LAH
+        INNER JOIN mst_guard MG ON (MG.guard_id = LAH.guard_id AND MG.del_flg = 0)
+        <if test="roleDiv == 1">
+            INNER JOIN mst_stu MS ON ( LAH.stu_id = MS.stu_id AND MS.del_flg = 0 )
+        </if>
+        <if test="roleDiv == 2">
+            INNER JOIN mst_stu MS ON (MS.del_flg = 0)
+            INNER JOIN mentor_stu MS1 ON (MS1.stu_id = LAH.stu_id AND MS1.del_flg = 0 AND MS.stu_id = LAH.stu_id)
+        </if>
+        INNER JOIN mst_cod_d MCD ON (MS.schy_div = MCD.cod_cd AND MCD.cod_key = 'SCHY_DIV' AND MCD.del_flg = 0)
+        WHERE
+        LAH.del_flg = 0
+        <if test="roleDiv == 1">
+            AND LAH.org_id = #{orgId}
+        </if>
+        <if test="roleDiv == 2">
+            AND MS1.mentor_id = #{userId}
+            AND MS1.crmsch_id = #{orgId}
+            AND LAH.org_id = #{orgId}
+        </if>
+        <if test="corrspdSts == 0">
+            AND LAH.corrspd_sts in ('0','3')
+        </if>
+        <if test="corrspdSts == 1">
+            AND LAH.corrspd_sts in ('1','2')
+        </if>
+    </select>
+</mapper>

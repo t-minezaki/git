@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>メニュー管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <#include "/sys/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/metroStyle/metroStyle.css">
+    
+    <link rel="stylesheet" href="${request.contextPath}/css/sys/bootstrap-table.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/treegrid/jquery.treegrid.css">
+
+    <script src="${request.contextPath}/js/sys/libs/bootstrap-table.min.js"></script>
+    <script src="${request.contextPath}/plugins/treegrid/jquery.treegrid.min.js"></script>
+    <script src="${request.contextPath}/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
+    <script src="${request.contextPath}/plugins/treegrid/jquery.treegrid.extension.js"></script>
+    <script src="${request.contextPath}/plugins/treegrid/tree.table.js"></script>
+    <script src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.all.min.js"></script>
+
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新規</a>
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;変更</a>
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;削除</a>
+		</div>
+		<table id="menuTable" data-mobile-responsive="true" data-click-to-select="true">
+			<thead>
+			<tr>
+				<th data-field="selectItem" data-checkbox="true"></th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+
+	<div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2 control-label">タイプ</div>
+				<label class="radio-inline">
+					<input type="radio" name="type" value="0" v-model="menu.type"/> 目次
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="type" value="1" v-model="menu.type"/> メニュー
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="type" value="2" v-model="menu.type"/> ボタン
+				</label>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">メニュー名</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="menu.name" placeholder="メニュー名/ボタン名"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">上層メニュー</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" style="cursor:pointer;" v-model="menu.parentName" @click="menuTree" readonly="readonly"
+						   placeholder="メニュー"/>
+				</div>
+			</div>
+			<div v-if="menu.type == 1" class="form-group">
+				<div class="col-sm-2 control-label">メニューURL</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="menu.url" placeholder="メニューURL"/>
+				</div>
+			</div>
+			<div v-if="menu.type == 1 || menu.type == 2" class="form-group">
+				<div class="col-sm-2 control-label">権限マーク</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="menu.perms" placeholder="カンマで区切り，例：user:list,user:create"/>
+				</div>
+			</div>
+			<div v-if="menu.type != 2" class="form-group">
+				<div class="col-sm-2 control-label">ソート</div>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" v-model="menu.orderNum" placeholder="ソート"/>
+				</div>
+			</div>
+			<div v-if="menu.type != 2" class="form-group">
+				<div class="col-sm-2 control-label">アイコン</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="menu.icon" placeholder="メニューアイコン"/>
+					<code style="margin-top:4px;display: block;">アイコンを取得：http://www.fontawesome.com.cn/faicons/</code>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div>
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="確認"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="戻る"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- メニューを選択する -->
+<div id="menuLayer" style="display: none;padding:10px;">
+	<ul id="menuTree" class="ztree"></ul>
+</div>
+
+<script src="${request.contextPath}/js/sys/menu.js?_${.now?long}"></script>
+</body>
+</html>

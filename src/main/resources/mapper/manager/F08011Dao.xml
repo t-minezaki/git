@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08011Dao">
+    <resultMap id="baseResultMap" type="jp.learningpark.modules.manager.dto.F08011Dto">
+        <id property="talkId" column="talkId" jdbcType="INTEGER"/>
+        <result column="schy" property="schy" jdbcType="VARCHAR"></result>
+        <result column="stu_login_id" property="stuLoginId" jdbcType="VARCHAR"></result>
+        <result column="guard_id" property="guardId" jdbcType="VARCHAR"></result>
+        <result column="guardName" property="guardName" jdbcType="VARCHAR"></result>
+        <result column="stuName" property="stuName" jdbcType="VARCHAR"></result>
+        <result column="readTime" property="readTime" jdbcType="VARCHAR"></result>
+        <result column="replyTime" property="replyTime" jdbcType="VARCHAR"></result>
+        <result column="reply1" property="reply1" jdbcType="VARCHAR"></result>
+        <result column="orgNm" property="orgNm" jdbcType="VARCHAR"></result>
+        <result column="readingStatusDiv" property="readingStatusDiv" jdbcType="VARCHAR"></result>
+        <result column="replyStatusDiv" property="replyStatusDiv" jdbcType="VARCHAR"></result>
+        <result column="readingStatus" property="readingStatus" jdbcType="VARCHAR"></result>
+        <result column="replyStatus" property="replyStatus" jdbcType="VARCHAR"></result>
+        <result column="refType" property="refType" jdbcType="VARCHAR"></result>
+        <result column="eventScheDelId" property="eventScheDelId" jdbcType="VARCHAR"></result>
+        <result column="id" property="id" jdbcType="INTEGER"></result>
+        <result column="stu_id" property="stuId" javaType="String"></result>
+        <result column="event_flag" property="eventFlag" javaType="String"></result>
+        <result column="guard_login_id" property="guardLoginId" javaType="String"></result>
+        <!-- add at 2021/08/31 for V9.02 by NWT wen START -->
+        <result column="download_name" property="downloadName" javaType="String"></result>
+        <!-- add at 2021/08/31 for V9.02 by NWT wen END -->
+        <collection property="talkRecordDEntityList" column="{talkId=talkId,id=id}" ofType="jp.learningpark.modules.common.entity.TalkRecordDEntity" select="selectTalkDetails">
+            <result column="answer_relt_cont" property="answerReltCont" jdbcType="INTEGER"></result>
+            <result column="ask_num" property="askNum" jdbcType="VARCHAR"></result>
+            <result column="question_name" property="questionName" jdbcType="VARCHAR"></result>
+            <result column="answer_type_div" property="answerTypeDiv" jdbcType="VARCHAR"></result>
+        </collection>
+        <!-- add at 2021/08/25 for V9.02 by NWT wen START -->
+        <collection property="interviewList" column="{talkId=talkId,id=id}" ofType="jp.learningpark.modules.common.entity.TalkRecordDEntity" select="selectTalkDetailsForInterview">
+            <result column="answer_relt_cont" property="answerReltCont" jdbcType="INTEGER"></result>
+            <result column="ask_num" property="askNum" jdbcType="VARCHAR"></result>
+            <result column="question_name" property="questionName" jdbcType="VARCHAR"></result>
+            <result column="answer_type_div" property="answerTypeDiv" jdbcType="VARCHAR"></result>
+        </collection>
+        <!-- add at 2021/08/25 for V9.02 by NWT wen END -->
+    </resultMap>
+    <select id="getDeliverList" resultType="jp.learningpark.modules.manager.dto.F08011Dto" resultMap="baseResultMap">
+        SELECT
+            mg.flnm_nm || ' ' || mg.flnm_lnm AS guardName,
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            geas.read_time AS readTime,
+            geas.reply_time AS replyTime,
+            geas.reply_cnt AS reply1,
+            mo.org_nm as orgNm,
+            geas.reading_sts_div as readingStatusDiv,
+            geas.reply_sts_div as replyStatusDiv,
+            A.cod_value as readingStatus,
+            B.cod_value as replyStatus,
+            me.ref_type as refType,
+            geas.event_sche_del_id as eventScheDelId,
+            answer.talkId,
+            me.id,
+            geas.stu_id,
+            geas.guard_id,
+            mu.after_usr_id as stu_login_id,
+            schy_mcd.cod_value as schy,
+            geas.event_flag,
+            mu2.after_usr_id as guard_login_id
+        FROM
+            mst_event AS me
+        left join (
+            SELECT
+                'guard' as event_flag,
+                event_id,
+                guard_id,
+                stu_id,
+                org_id,
+                read_time,
+                reply_time,
+                reply_cnt,
+                reading_sts_div,
+                reply_sts_div,
+                event_sche_del_id
+            FROM guard_event_apply_sts
+            where del_flg = 0
+            union all
+            SELECT
+                'student' as event_flag,
+                event_id,
+                guard_id,
+                stu_id,
+                org_id,
+                read_time,
+                reply_time,
+                reply_cnt,
+                reading_sts_div,
+                reply_sts_div,
+                event_sche_del_id
+            FROM stu_event_apply_sts
+            where del_flg = 0
+        ) as geas ON me.id = geas.event_id
+        LEFT JOIN (
+            SELECT
+                trh.stu_id,
+                trh.id as talkId,
+                trh.talk_apply_sts_div
+            FROM mst_event AS me
+            LEFT JOIN talk_record_h AS trh ON trh.event_id = me.ID
+            WHERE me.ID = #{eventId}
+        ) AS answer ON answer.stu_id = geas.stu_id AND answer.talk_apply_sts_div <![CDATA[<>]]> '1'
+        INNER JOIN mst_guard AS mg ON mg.guard_id = geas.guard_id AND mg.del_flg = 0
+        inner join mst_stu  as ms on ms.stu_id = geas.stu_id and ms.del_flg = 0
+        inner join mst_cod_d as A on A.cod_cd = geas.reading_sts_div and A.cod_key = 'READING_STS_DIV' and A.del_flg = 0
+        inner join mst_cod_d as B on B.cod_cd = geas.reply_sts_div and B.cod_key = 'REPLY_STS_DIV' and B.del_flg = 0
+        inner join mst_cod_d as schy_mcd on schy_mcd.cod_key = 'SCHY_DIV' and schy_mcd.cod_cd = ms.schy_div and schy_mcd.del_flg = 0
+        inner join mst_usr as mu on mu.usr_id = ms.stu_id and mu.del_flg = 0
+        inner join mst_org as mo on mo.org_id = geas.org_id and mo.del_flg = 0
+        inner join mst_usr as mu2 on mu2.usr_id = mg.guard_id and mu2.del_flg = 0
+        WHERE
+            me.id = #{eventId}
+            and geas.org_id = #{orgId}
+            and me.del_flg = 0
+            <if test='paramsMap != null '>
+                <if test='paramsMap.guardName != null and paramsMap.guardName != ""'>
+                    AND mg.flnm_nm ||''|| mg.flnm_lnm like CONCAT('%',trim(#{paramsMap.guardName}),'%')
+                </if>
+                <if test='paramsMap.stuName != null and paramsMap.stuName != ""'>
+                    AND ms.flnm_nm ||''|| ms.flnm_lnm like CONCAT('%',trim(#{paramsMap.stuName}),'%')
+                </if>
+
+                <if test='paramsMap.readTimeStart != null and paramsMap.readTimeStart != ""'>
+                    AND geas.read_time >= '${paramsMap.readTimeStart}'
+                </if>
+                <if test='paramsMap.readTimeEnd != null and paramsMap.readTimeEnd != ""'>
+                    AND '${paramsMap.readTimeEnd}' >= geas.read_time
+                </if>
+                <if test='paramsMap.replyTimeStart != null and paramsMap.replyTimeStart != ""'>
+                    AND geas.reply_time >= '${paramsMap.replyTimeStart}'
+                </if>
+                <if test='paramsMap.replyTimeEnd!= null and paramsMap.replyTimeEnd != ""'>
+                    AND '${paramsMap.replyTimeEnd}'>= geas.reply_time
+                </if>
+                <if test='paramsMap.codKey =="READING_STS_DIV" and paramsMap.codCd != null'>
+                    AND  geas.reading_sts_div = '${paramsMap.codCd}' AND geas.reply_sts_div!='1' AND geas.reply_sts_div!='2'
+                </if>
+                <if test='paramsMap.codKey =="REPLY_STS_DIV" and paramsMap.codCd != null'>
+                    AND  geas.reply_sts_div = '${paramsMap.codCd}'
+                </if>
+            </if>
+    </select>
+    <select id="getApplyDel" resultType="jp.learningpark.modules.manager.dto.F08011Dto">
+        SELECT
+        <if test='paramsMap != null '>
+            <if test='paramsMap.refType == "1"'>
+                mm.flnm_nm || ' ' || mm.flnm_lnm AS teacherName,
+            </if>
+            <if test='paramsMap.refType == "0"'>
+                mo.org_nm AS teacherName,
+            </if>
+        </if>
+            espd.sgd_start_datime AS startTime
+        FROM
+            event_sche_plan_del AS espd
+            inner join mst_event as me on me.id = espd.event_id and me.del_flg = 0
+        <if test='paramsMap != null '>
+            <if test='paramsMap.refType == "1"'>
+                INNER JOIN mst_mentor AS mm ON mm.mentor_id = espd.ref_id
+                AND mm.del_flg = 0
+            </if>
+            <if test='paramsMap.refType == "0"'>
+                INNER JOIN mst_org AS mo ON mo.org_id = me.org_id
+                AND mo.del_flg = 0
+            </if>
+        </if>
+        WHERE
+            espd.id = #{eventScheDelId}
+            AND espd.del_flg = 0
+        <if test='paramsMap != null '>
+            <if test='paramsMap.applyDatimeStart != null and paramsMap.applyDatimeStart != ""'>
+                AND espd.sgd_start_datime >= '${paramsMap.applyDatimeStart}'
+            </if>
+            <if test='paramsMap.applyDatimeEnd!= null and paramsMap.applyDatimeEnd != ""'>
+                AND '${paramsMap.applyDatimeEnd}' >= espd.sgd_start_datime
+            </if>
+            <if test='paramsMap.roleName != null and paramsMap.roleName != ""'>
+                <if test='paramsMap.refType == "0"'>
+                    AND mo.org_nm like CONCAT('%',trim('${paramsMap.roleName}'),'%')
+                </if>
+                <if test='paramsMap.refType == "1"'>
+                    AND mm.flnm_nm||''||mm.flnm_lnm like CONCAT('%',trim('${paramsMap.roleName}'),'%')
+                </if>
+            </if>
+        </if>
+    </select>
+	<select id="getInfoAll" resultType="integer">
+        SELECT
+        count( b.guard_id )
+        FROM
+        MST_EVENT a
+        LEFT JOIN (
+            SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        guard_event_apply_sts
+                        where del_flg = 0
+                        union all
+                        SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        stu_event_apply_sts
+                        where del_flg = 0
+            ) AS b ON a.id = b.event_id
+        WHERE
+        a.id = #{eventId}
+        AND a.del_flg = 0
+        AND b.del_flg = 0
+        AND ( ( a.org_id = #{orgId} ) OR ( a.org_id != #{orgId} AND b.org_id =#{orgId} ) )
+    </select>
+    <select id="getInfoUnread" resultType="integer">
+        SELECT
+        count( b.guard_id )
+        FROM
+        MST_EVENT a
+        LEFT JOIN (
+            SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        guard_event_apply_sts
+                        where del_flg = 0
+                        union all
+                        SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        stu_event_apply_sts
+                        where del_flg = 0
+            ) AS b ON a.id = b.event_id
+        WHERE
+        a.id = #{eventId}
+        AND a.del_flg = 0
+        AND a.id = b.event_id
+        AND b.reading_sts_div = '0'
+        AND b.del_flg = 0
+        AND ( ( a.org_id = #{orgId} ) OR ( a.org_id != #{orgId} AND b.org_id =#{orgId} ) )
+    </select>
+    <select id="getInfoRead" resultType="integer">
+        SELECT
+        count( b.guard_id )
+        FROM
+        MST_EVENT a
+        LEFT JOIN (
+            SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        guard_event_apply_sts
+                        where del_flg = 0
+                        union all
+                        SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        stu_event_apply_sts
+                        where del_flg = 0
+            ) AS b ON a.id = b.event_id
+        WHERE
+        a.id = #{eventId}
+        AND a.del_flg = 0
+        AND a.id = b.event_id
+        AND b.reading_sts_div = '1'
+        AND b.del_flg = 0
+        AND ( ( a.org_id = #{orgId} ) OR ( a.org_id != #{orgId} AND b.org_id =#{orgId} ) )
+    </select>
+    <select id="getInfoDate" resultType="integer">
+        SELECT
+        count( b.guard_id )
+        FROM
+        MST_EVENT a
+        LEFT JOIN (
+            SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        guard_event_apply_sts
+                        where del_flg = 0
+                        union all
+                        SELECT
+                        event_id,
+                        guard_id,
+                        stu_id,
+                        org_id,
+                        read_time,
+                        reply_time,
+                        reply_cnt,
+                        reading_sts_div,
+                        reply_sts_div,
+                        event_sche_del_id,
+                                        del_flg
+                        FROM
+                        stu_event_apply_sts
+                        where del_flg = 0
+            ) AS b ON a.id = b.event_id
+        WHERE
+        a.id = #{eventId}
+        AND a.del_flg = 0
+        AND a.id = b.event_id
+        AND b.reply_sts_div = '1'
+        AND b.del_flg = 0
+        AND ( ( a.org_id = #{orgId} ) OR ( a.org_id != #{orgId} AND b.org_id =#{orgId} ) )
+    </select>
+	<!--  从ユーザ表示項目設定取得行數-->
+	<select id="getDspCount" resultType="java.lang.Integer">
+		SELECT
+			COUNT( * )
+		FROM
+			user_display_item_set UDIS
+		WHERE
+			UDIS.user_id = #{userId}
+			AND UDIS.menu_id = #{menuId}
+			AND UDIS.del_flg=0
+    </select>
+	<!--  ユーザ表示項目設定に登録する -->
+	<select id="insertDspItem" resultType="java.lang.Integer">
+		INSERT INTO user_display_item_set ( user_id, menu_id, display_items, cret_datime, cret_usr_id, upd_datime, upd_usr_id, del_flg )
+		VALUES (#{userId},#{menuId},#{dspItems},#{cretDatime},#{cretUsrId},#{updDatime},#{updUsrId},#{delFlg})
+    </select>
+	<!--  ユーザ表示項目設定に更新する -->
+	<select id="updateDspItem" resultType="java.lang.Integer">
+   		UPDATE user_display_item_set
+		SET display_items = #{dspItems},upd_datime = #{updDatime},upd_usr_id = #{updUsrId}
+		WHERE
+			user_id = #{userId}
+		AND menu_id = #{menuId}
+    </select>
+	<!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+	<select id="selectDspItems" resultType="jp.learningpark.modules.manager.dto.F08011Dto">
+		SELECT DISTINCT COALESCE
+			( UDIS.display_items, MCD.cod_value ) AS dsp_items,
+            MCD.cod_value_2 as mustItems,
+            MCD.cod_value_3 allItems
+		FROM
+			user_display_item_set UDIS
+			RIGHT JOIN mst_cod_d MCD ON ( UDIS.user_id = #{userId} AND UDIS.menu_id = #{menuId} AND UDIS.del_flg = 0)
+		WHERE
+			MCD.cod_key = 'EVENT_ITEM'
+			AND MCD.cod_cd = #{menuId}
+			AND MCD.del_flg = 0
+    </select>
+    <select id="getStatus" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+		SELECT
+            *
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'READING_STS_DIV'
+            AND del_flg = 0 UNION ALL
+        SELECT
+            *
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'REPLY_STS_DIV'
+            AND cod_cd != '0'
+            AND del_flg = 0
+    </select>
+    <select id="selectTalkDetails" resultType="jp.learningpark.modules.common.entity.TalkRecordDEntity">
+            SELECT
+                trd.answer_relt_cont,
+                mate.ask_num,
+                mate.question_name,
+                trd.answer_type_div
+            FROM mst_ask_talk_event AS mate
+            LEFT JOIN talk_record_d AS trd
+                ON trd.talk_id = #{talkId}
+                AND trd.item_type_div = '0'
+                AND trd.del_flg = 0
+                AND trd.ask_num = mate.ask_num
+            WHERE
+                mate.use_div = '1'
+                AND mate.event_id = #{id}
+                AND mate.item_type_div = '0'
+                AND mate.del_flg = 0
+            /* add at 2021/08/25 for V9.02 by NWT wen START */
+            order by mate.ask_num
+            /* add at 2021/08/25 for V9.02 by NWT wen END */
+    </select>
+    <!-- add at 2021/08/25 for V9.02 by NWT wen START -->
+    <select id="selectTalkDetailsForInterview" resultType="jp.learningpark.modules.common.entity.TalkRecordDEntity">
+        SELECT
+            trd.answer_relt_cont,
+            mate.ask_num,
+            mate.question_name,
+            trd.answer_type_div
+        FROM mst_ask_talk_event AS mate
+        LEFT JOIN talk_record_d AS trd
+            ON trd.talk_id = #{talkId}
+            AND trd.item_type_div = '1'
+            AND trd.del_flg = 0
+            AND trd.ask_num = mate.ask_num
+        WHERE
+            mate.use_div = '1'
+            AND mate.event_id = #{id}
+            AND mate.item_type_div = '1'
+            AND mate.del_flg = 0
+        order by mate.ask_num
+    </select>
+    <!-- add at 2021/08/25 for V9.02 by NWT wen END -->
+    <select id="selectCsvData" resultType="jp.learningpark.modules.manager.dto.F08011CsvVo">
+        SELECT
+            mu.after_usr_id as stuId,
+            schymcd.cod_value as schy,
+            sexmcd.cod_value as sex,
+            ms.flnm_nm || ' ' || ms.flnm_lnm as stuNm,
+            mg.flnm_nm || ' ' || mg.flnm_lnm as guardNm,
+            ms.sch,
+            mg.telnum as tel
+        FROM
+            mst_stu ms
+        INNER JOIN mst_usr mu
+        ON(
+            ms.stu_id = mu.usr_id
+            AND mu.del_flg = 0)
+        INNER JOIN mst_guard mg
+        ON(
+            ms.guard_id = mg.guard_id
+            AND mg.del_flg = 0)
+        INNER JOIN mst_cod_d schymcd
+            ON(
+            ms.schy_div = schymcd.cod_cd
+            AND schymcd.cod_key = 'SCHY_DIV'
+            AND schymcd.del_flg = 0)
+        INNER JOIN mst_cod_d sexmcd
+            ON(
+            ms.gendr_div = sexmcd.cod_cd
+            AND sexmcd.cod_key = 'GENDR_DIV'
+            AND sexmcd.del_flg = 0)
+        WHERE
+            ms.del_flg = 0
+            AND ms.stu_id
+            IN
+        <foreach collection="stuIdList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

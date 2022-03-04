@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11002Dao">
+    <select id="getMax" resultType="java.lang.String">
+    SELECT
+      MAX(plan_ymd) as plan_ymd
+    FROM
+      stu_weekly_plan_perf swpp
+    WHERE
+      swpp.stu_id = #{stuId}
+      and swpp.del_flg = 0
+    </select>
+</mapper>

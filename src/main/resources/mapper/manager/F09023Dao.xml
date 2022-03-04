@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F09023Dao">
+    <select id="getRoleDataList" resultType="jp.learningpark.modules.manager.dto.F09023Dto">
+        select
+            <if test="roleDiv == 1 and checkRole == ''">
+                ma.mailad
+                , ma.flnm_nm
+                , ma.flnm_lnm
+                , ma.flnm_kn_nm
+                , ma.flnm_kn_lnm
+                , ma.telnum
+                , mu.role_div
+                , mu.org_id
+                , mu.gidpk
+                , mu.gid_flg
+                , mu.system_kbn
+                , mu.gid_rule_flg
+                , mu.mana_rule_flg
+                , mu.perl_info_rule_flg
+            </if>
+            <if test="roleDiv == 2 and checkRole == ''">
+                mm.mailad
+                , mm.flnm_nm
+                , mm.flnm_lnm
+                , mm.flnm_kn_nm
+                , mm.flnm_kn_lnm
+                , mm.telnum
+                , mm.tch_cd
+                , mu.role_div
+                , mu.org_id
+                , mu.gidpk
+                , mu.gid_flg
+                , mu.system_kbn
+                , mu.gid_rule_flg
+                , mu.mana_rule_flg
+                , mu.perl_info_rule_flg
+            </if>
+            <if test="roleDiv == 3 and checkRole == ''">
+                mg.mailad
+                , mg.flnm_nm
+                , mg.flnm_lnm
+                , mg.flnm_kn_nm
+                , mg.flnm_kn_lnm
+                , mg.reltnsp_div
+                , mg.telnum
+                , mg.urg_telnum
+                , mg.postcd_mnum
+                , mg.postcd_bnum
+                , mg.adr1 as addr1
+                , mg.adr2 as addr2
+                , mu.role_div
+                , mu.org_id
+                , mu.gidpk
+                , mu.gid_flg
+                , mu.system_kbn
+                , mu.gid_rule_flg
+                , mu.mana_rule_flg
+                , mu.perl_info_rule_flg
+            </if>
+            <if test="roleDiv == 4 and checkRole == ''">
+                ms.sch
+                , ms.guard_id
+                , ms.guard1_id
+                , ms.guard2_id
+                , ms.guard3_id
+                , ms.guard4_id
+                , ms.flnm_nm
+                , ms.flnm_lnm
+                , ms.flnm_kn_nm
+                , ms.flnm_kn_lnm
+                , ms.gendr_div
+                , ms.birthd
+                , ms.phot_path
+                , ms.schy_div
+                , ms.qr_cod
+                , ms.oria_cd
+                , ms.english_nm
+                , ms.dayweek_div
+                , ms.memo_cont
+                , ms.respty_nm
+                , ms.study_cont
+                , ms.good_subjt_div
+                , ms.nogood_subjt_div
+                , ms.hope_job_nm
+                , ms.hope_unity_nm
+                , ms.hope_learn_sub
+                , ms.spec_cont
+                , ms.member_cd
+                , mu.role_div
+                , mu.org_id
+                , mu.gidpk
+                , mu.gid_flg
+                , mu.system_kbn
+                , mu.gid_rule_flg
+                , mu.mana_rule_flg
+                , mu.perl_info_rule_flg
+            </if>
+            <if test="roleDiv != '' and checkRole == 'checkRole'">
+                mu.gidpk
+                , mu.gid_flg
+                , mu.system_kbn
+                , mu.org_id
+                , mu.role_div
+            </if>
+            <if test="roleDiv == ''">
+                mu.role_div
+                , mu.usr_id
+            </if>
+            , MO.brand_cd
+        from mst_usr mu
+            left join mst_org mo on mu.org_id = mo.org_id
+        <if test="roleDiv == 1 and checkRole == ''">
+            inner join mst_manager ma
+            on ma.mgr_id = mu.usr_id
+            and ma.del_flg = 0
+        </if>
+        <if test="roleDiv == 2 and checkRole == ''">
+            inner join mst_mentor mm
+            on mm.mentor_id = mu.usr_id
+            and mm.del_flg = 0
+        </if>
+        <if test="roleDiv == 3 and checkRole == ''">
+            inner join mst_guard mg
+            on mg.guard_id = mu.usr_id
+            and mg.del_flg = 0
+        </if>
+        <if test="roleDiv == 4 and checkRole == ''">
+            inner join mst_stu ms
+            on ms.stu_id = mu.usr_id
+            and ms.del_flg = 0
+        </if>
+        where
+            mu.after_usr_id = #{afterUsrId}
+            and mu.del_flg = 0
+            <if test="roleDiv == ''">
+                and mu.org_id = #{orgId}
+            </if>
+            <if test="checkRole != null and checkRole != ''">
+                and mu.org_id <![CDATA[ <> ]]> #{orgId}
+                and mu.role_div = #{roleDiv}
+            </if>
+            and mu.org_id||'_key' = mu.org_comm_key
+    </select>
+
+    <select id="getBrandCode" resultType="java.lang.String">
+        select mo.brand_cd
+        from mst_usr mu
+            left join mst_org mo on mu.org_id = mo.org_id
+        where   mu.after_usr_id = #{userId}
+                and mu.org_id = #{orgId}
+                and mu.del_flg = 0;
+    </select>
+</mapper>

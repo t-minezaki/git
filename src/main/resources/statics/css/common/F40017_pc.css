@@ -1,0 +1,91 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+#vue{
+    padding-top: 6vh;
+    overflow: hidden;
+    height: 100%;
+}
+
+.div_message{
+    float: left;
+    margin-top: 12%;
+    font-size: 1.5vw;
+    width: 100%;
+}
+.div_message_one{
+    margin-left: 13%;
+    width: 11%;
+    float: left;
+    margin-bottom: 2%;
+    text-align: center;
+}
+.div_message_two{
+    width: 65%;
+    float: left;
+}
+.div_message_three{
+    float: left;
+    width: 100%;
+    margin-left: 13%;
+}
+.div_input{
+    float: left;
+    width: 100%;
+    font-size: 1.2vw;
+    margin-top: 6%;
+    font-weight: bold;
+    margin-left: 23%;
+}
+.div_input_two{
+    float: left;
+    width: 42%;
+}
+.div_input_one{
+    float: left;
+    width: 18%;
+    color: #494947;
+    height: 3vw;
+    line-height: 4vw;
+}
+.div_input_two input{
+    width: 100%;
+    height: 4vw;
+    border: 1px solid #b4b4b3;
+    font-size: 1.2vw;
+}
+.div_input_two button{
+    width: 40%;
+    height: 4vw;
+    background: #189746;
+    border: 1px solid #189746;
+    color: white;
+    margin-top: 10%;
+    font-size: 0.9vw;
+    font-weight: bold;
+    cursor: pointer;
+}
+.div_button{
+    float: right;
+    width: 100%;
+    font-size: 1vw;
+    margin-top: 6%;
+}
+.div_button a{
+    text-decoration: underline;
+    color: #189746;
+    font-weight: bold;
+    cursor: pointer;
+    float: left;
+    margin-left: 41%;
+    width: 25%;
+}
+
+input{
+    -webkit-appearance: none;
+}

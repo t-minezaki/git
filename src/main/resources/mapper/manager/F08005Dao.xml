@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08005Dao">
+    <select id="selectUserCheckList" resultType="jp.learningpark.modules.manager.dto.F08005Dto">
+        SELECT
+            mu.usr_id,
+            mm.flnm_nm || ' ' || mm.flnm_lnm as userName
+        FROM mst_usr mu
+        INNER JOIN mst_mentor mm
+            ON mm.mentor_id = mu.usr_id
+            <if test="userName != null and userName != ''">
+                and mm.flnm_nm || ' ' || mm.flnm_lnm like CONCAT('%',trim(#{userName}),'%')
+            </if>
+            AND mm.del_flg = 0
+        WHERE
+            mu.org_id = #{orgId}
+            AND mu.del_flg = 0
+        order BY mu.usr_id
+    </select>
+    <select id="selectScheduleInfo" resultType="jp.learningpark.modules.manager.dto.F08005ScheduleDto">
+        SELECT
+            es.id,
+            es.sgd_plan_date,
+            es.sgd_start_datime,
+            es.sgd_end_datime,
+            es.ref_id,
+            #{orgNm} as displayNm
+        FROM event_schedule es
+        WHERE
+            es.org_id = #{orgId}
+            and es.event_id = #{eventId}
+            and es.sgd_plan_date BETWEEN #{startDate} and #{endDate}
+            and es.del_flg = 0
+            and es.ref_id = #{orgId}
+    </select>
+    <select id="selectMentorScheduleInfo" resultType="jp.learningpark.modules.manager.dto.F08005ScheduleDto">
+        SELECT
+            es.id,
+            es.sgd_plan_date,
+            es.sgd_start_datime,
+            es.sgd_end_datime,
+            es.ref_id,
+            mm.flnm_nm || ' ' || mm.flnm_lnm AS displayNm
+        FROM event_schedule es
+        INNER JOIN mst_mentor mm on mm.del_flg = 0 and es.ref_id = mm.mentor_id
+        WHERE
+            es.org_id = #{orgId}
+            and es.event_id = #{eventId}
+            and es.sgd_plan_date BETWEEN #{startDate} and #{endDate}
+            and es.del_flg = 0
+    </select>
+    <select id="selectMentorMinScheduleDate" resultType="Date">
+        SELECT
+            min (es.sgd_plan_date)
+        FROM event_schedule es
+        INNER JOIN mst_mentor mm
+            on mm.del_flg = 0
+            and es.ref_id = mm.mentor_id
+        WHERE
+            es.org_id = #{orgId}
+            and es.event_id = #{eventId}
+            and es.del_flg = 0
+    </select>
+    <select id="selectScheduleForCheck" resultType="jp.learningpark.modules.common.entity.EventScheduleEntity">
+        SELECT
+            id,
+            org_id,
+            event_id,
+            ref_id,
+            ref_type,
+            sgd_plan_date,
+            sgd_start_datime,
+            sgd_end_datime,
+            persons_limt,
+            unit_time
+        FROM event_schedule
+        WHERE
+            event_id = #{eventId}
+            AND ref_id = #{refId}
+            AND del_flg = 0
+            AND sgd_plan_date = #{sgdPlanDate}
+            and
+            ( sgd_start_datime <![CDATA[ < ]]> #{endTime} AND sgd_end_datime  <![CDATA[ > ]]> #{startTime} )
+    </select>
+</mapper>

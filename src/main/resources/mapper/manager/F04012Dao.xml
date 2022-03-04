@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--マナミルチャンネル新規·編集 Dao-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F04012Dao">
+    <!--楊　2021/08/19　MANAMIRU1-733　Add Start-->
+    <!--お知らせ配信先 insert-->
+    <insert id="doInsertMstNoticeDeliver" parameterType="String">
+        INSERT INTO "public"."mst_notice_deliver" ( "org_id", "notice_id", "mgr_flg", "cret_datime", "cret_usr_id", "upd_datime", "upd_usr_id", "del_flg", "guard_id", "stu_id" )
+        SELECT
+        b.org_id,
+        #{noticeId},
+        C.mgr_flg,
+        #{sysTimestamp},
+        #{userId},
+        #{sysTimestamp},
+        #{userId},
+        0,
+        A.guard_id,
+        A.stu_id
+        FROM
+        mst_stu
+        A INNER JOIN mst_usr b ON ( A.stu_id = b.usr_id )
+        INNER JOIN mst_org C ON ( b.org_id = C.org_id )
+        WHERE
+        b.usr_sts = '1'
+        AND A.guard_id is not null
+        AND A.guard_id != ''
+        AND C.mgr_flg = '0'
+        AND TRIM ( b.role_div ) = '4'
+        <if test="orgIdList!=null and !orgIdList.isEmpty()">
+            AND
+            b.org_id
+            IN
+            <foreach collection="orgIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+    </insert>
+    <!--保護者お知らせ閲覧状況 insert-->
+    <!--2021/08/26　MANAMIRU1-733　Edit Start-->
+    <insert id="doInsertGuardReadingSts">
+        INSERT INTO "public"."guard_reading_sts" ( "org_id", "notice_id", "guard_id", "stu_id", "reading_sts_div", "cret_datime", "cret_usr_id", "upd_datime", "upd_usr_id", "del_flg" )
+        SELECT
+        org_id,
+        notice_id,
+        guard_id,
+        stu_id,
+        '0',
+        cret_datime,
+        cret_usr_id,
+        upd_datime,
+        upd_usr_id,
+        0
+        from mst_notice_deliver
+        where notice_id = #{noticeId};
+        <!--2021/08/26　MANAMIRU1-733　Edit End-->
+    </insert>
+    <!--楊　2021/08/19　MANAMIRU1-733　Add End-->
+
+    <!--  初期化  -->
+    <select id="selectChosenOrgIdList" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT DISTINCT
+            org_id
+        FROM
+            mst_notice_deliver
+        WHERE
+            notice_id = #{id}
+        AND
+            del_flg = 0
+    </select>
+</mapper>

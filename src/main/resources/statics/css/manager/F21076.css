@@ -1,0 +1,334 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+    color: #646464;
+}
+
+html, body, #page {
+    height: 100%;
+    width: 100%;
+    margin: unset;
+}
+
+.topMessage {
+    width: 100%;
+    height: 2.6vw;
+    line-height: 2.6vw;
+    color: red;
+    font-size: 1.4vw;
+    text-align: center;
+    display: none;
+}
+
+.one {
+    width: 100% !important;
+    height: 40px;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 40px;
+    padding: unset;
+    margin: unset;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1vw;
+    font-weight: bold;
+    width: auto !important;
+    list-style: none;
+    color: grey;
+}
+
+.deliver_div {
+    margin-top: 1%;
+    margin-left: 2%;
+    height: 3vh;
+}
+
+.deliver_div > div {
+    height: 100%;
+}
+
+.label_div {
+    width: 5%;
+    float: left;
+    font-size: 1vw;
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    border: 1px solid grey;
+    width: 15px;
+    height: 15px;
+    border-radius: 9px;
+    background: white;
+}
+
+input[type="radio"]:checked::after {
+    content: '●';
+    font-size: 10px;
+    vertical-align: middle;
+    color: black;
+    position: relative;
+    top: -29%;
+    left: 12%;
+}
+
+#dan1:checked:after {
+    left: 15% !important;
+}
+
+#dan2:checked:after {
+    left: 12% !important;
+}
+
+#checkSelect > * {
+    float: left;
+}
+
+#checkSelect > p {
+    font-size: 0.8vw;
+    height: 100%;
+    margin: unset;
+    line-height: 2.5vh;
+}
+
+.mail_list_div {
+    height: 45%;
+}
+
+.jq_title {
+    margin-left: 2%;
+    height: 5vh;
+    line-height: 5vh;
+    background: #808080;
+    color: white;
+    width: calc(75% + 2px);
+    padding-left: 0.5%;
+}
+
+#gbox_jqGrid {
+    margin-left: 2%;
+}
+
+.ui-jqgrid .ui-jqgrid-view {
+    margin-left: unset !important;
+}
+
+.ui-jqgrid-hbox {
+    padding: unset !important;
+    width: 100%;
+}
+
+#gbox_jqGrid {
+    width: 75% !important;
+    height: 88%;
+}
+
+#gview_jqGrid {
+    width: 100% !important;
+    height: 100%;
+}
+
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    width: 100% !important;
+}
+
+.ui-jqgrid-bdiv {
+    width: 100% !important;
+    height: 91% !important;
+    overflow-y: overlay !important;
+}
+
+.ui-jqgrid-bdiv > div:first-child {
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+#jqGridPager {
+    width: 100% !important;
+    /*border-top: 2px solid #ccc;*/
+}
+
+.ui-jqgrid-htable.ui-common-table {
+    width: calc(100% + 0px) !important;
+    border: 1px solid #ccc;
+}
+
+#jqGrid {
+    border: 1px solid #ccc;
+}
+
+.ui-jqgrid-htable.ui-common-table th {
+    width: 20% !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+#jqGrid_stuName {
+    border-right: 0 none !important;
+}
+
+.ui-jqgrid-view {
+    margin-left: unset !important;
+}
+
+#jqGrid {
+    width: calc(100% + 0px) !important;
+    border-collapse: collapse !important;
+}
+
+#jqGrid td {
+    width: 20%;
+}
+
+#jqGrid tr{
+    height: 20px;
+}
+
+/*.jqgrow.ui-row-ltr.ui-widget-content>td:first-child {*/
+/*border-left: 2px solid #ccc;*/
+/*}*/
+
+/*.jqgrow.ui-row-ltr.ui-widget-content>td:last-child {*/
+/*border-right: 3px solid #ccc;*/
+/*}*/
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-right: 1px solid #ccc !important;
+    color: black !important;
+}
+
+.ui-jqgrid-resize.ui-jqgrid-resize-ltr {
+    display: none !important;
+}
+
+.jqgfirstrow {
+    display: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable {
+    table-layout: unset !important;
+}
+
+#jqGridPager_left {
+    width: 30% !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: white !important;
+    border: 1px solid #c5c5c5 !important;
+    color: #454545 !important;
+}
+
+#jqGrid tr {
+    pointer-events: unset !important;
+}
+
+.items_div {
+    height: 10%;
+    width: 100%;
+    margin-top: 3%;
+}
+
+.question_div, .interview_div {
+    margin-left: 2%;
+    width: 100%;
+    height: 50%;
+}
+
+#question_check > input[name="_question"]:checked:after {
+    left: 9% !important;
+}
+
+#interview_check > input[name="_interview"]:checked:after {
+    left: 9% !important;
+}
+
+#question_check > * {
+    float: left;
+}
+
+#interview_check > * {
+    float: left;
+}
+
+#question_check > p {
+    font-size: 0.8vw;
+    height: 100%;
+    margin: unset;
+    line-height: 2.5vh;
+}
+
+#interview_check > p {
+    font-size: 0.8vw;
+    height: 100%;
+    margin: unset;
+    line-height: 2.5vh;
+}
+
+.btn_div {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    height: 5%;
+    text-align: center;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    color: white;
+    background: #009944;
+    border: 0px;
+    border-bottom: 2px solid grey;
+    border-radius: 4px;
+    width: 13%;
+    height: 70%;
+    margin: 0 2% 0 2%;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}

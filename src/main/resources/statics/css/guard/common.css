@@ -1,0 +1,337 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body {
+    height: 100%;
+    /*font-size: 62.5%;*/
+    user-select: none;
+}
+
+html, body, p {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topMessage {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: red;
+    font-size: 10px;
+    text-align: center;
+    overflow: hidden;
+    display: none;
+}
+
+select {
+    border: 1px solid #999 !important;
+    background: url(../../img/select_ico.png) no-repeat right center/20px;
+}
+
+.div_header {
+    width: 100%;
+    background: white;
+    /*padding: 4px 2%;*/
+    height: 44px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.div_header .logo {
+    width: auto;
+    height: 100%;
+    float: left;
+}
+
+.div_header .logout {
+    width: 28px;
+    height: 28px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 1vw;
+}
+
+.div_header .logo img {
+    height: 20px;
+    width: 100px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.div_header .logout img {
+    height: 100%;
+    width: 100%;
+}
+
+.div_bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background: #fff;
+    z-index: 9999;
+}
+
+.headerBtn {
+    float: right;
+    margin-top: .4em;
+    /*margin-right: .2em;*/
+    height: 1.6em;
+}
+
+/*.headerBtn button {*/
+/*background-color: #fff !important;*/
+/*color: #009944;*/
+/*border: 1px solid #009944;*/
+/*border-radius: .2em;*/
+/*font-size: 12px;*/
+/*height: 100%;*/
+/*}*/
+
+.headerBtn {
+    float: right;
+    width: auto;
+    height: 28px;
+    margin-top: 5px;
+}
+
+.headerBtn button {
+    background-color: #fff !important;
+    color: #009944;
+    border: 1px solid #009944;
+    border-radius: 4px;
+    font-size: 10px;
+    height: 100%;
+}
+
+.required {
+    padding-right: 2%;
+    position: relative;
+}
+
+.required:after {
+    content: '*';
+    color: #EA331B;
+    position: absolute;
+    right: 6%;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.pop_bottom {
+    width: 20%;
+    position: fixed;
+    bottom: -36px !important;
+    right: 3% !important;
+    height: auto;
+    margin: auto;
+    z-index: 999;
+    background: white;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #8CC11F !important;
+    border-bottom: 1px solid #8CC11F !important;
+    text-align: center !important;
+}
+
+.layui-layer-dialog {
+    max-width: 400px;
+    width: auto !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #8CC11F !important;
+    background-color: #FFF !important;
+    color: #8CC11F !important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+
+.layui-layer-btn {
+    text-align: center;
+}
+
+/*GKGCpopボックス共通*/
+.out .layui-layer-title {
+    background-color: #8CC11F !important;
+    border: 0 !important;
+}
+
+.out a.layui-layer-btn0 {
+    background-color: white !important;
+    border: 1px solid #8CC11F !important;
+    border-radius: 19px;
+    color: #8CC11F !important;
+}
+
+.out a.layui-layer-btn1 {
+    background-color: white !important;
+    border: 1px solid #8CC11F !important;
+    border-radius: 19px;
+    color: #8CC11F !important;
+}
+
+/* Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width: 534px) and (max-device-width: 768px) {
+    .div_header {
+        height: 44px;
+    }
+
+    .div_header .logo img {
+        height: 20px;
+        margin-top: 12px;
+        margin-left: 15px;
+        width: auto;
+    }
+
+    .layui-layer-dialog {
+        width: 82% !important;
+        max-width: none !important;
+        top: 33%!important;
+    }
+
+    .layui-layer-dialog .layui-layer-title {
+        font-size: .9rem;
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .layui-layer-dialog .layui-layer-setwin {
+        top: 10px;
+    }
+
+    .layui-layer-dialog .layui-layer-content {
+        padding: 30px 25px 40px 25px;
+        font-size:0.87rem;
+    }
+
+    .layui-layer-dialog .layui-layer-btn a {
+        height: 44px;
+        line-height: 44px;
+        font-size: 1rem;
+        width: 7rem;
+        border-radius: 22px;
+        border: 2px solid #8CC11F !important;
+        margin: 5px 5% 0 5%;
+    }
+
+    .layui-layer-dialog .layui-layer-btn {
+        padding: 0 15px 18px;
+    }
+
+    .headerBtn {
+        float: right;
+        width: auto;
+        height: 27px;
+        margin-top: 8px;
+        margin-right: 1rem !important;
+    }
+
+    .div_header .logout {
+        width: 26px;
+        height: 26px;
+        float: right;
+        margin-top: 8px;
+        margin-right: 1rem;
+    }
+
+    .div_header .logout img {
+        height: 26px;
+        width: 26px;
+    }
+
+    .div_bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 46px;
+        background: #fff;
+        z-index: 9999;
+    }
+
+    .commonTabTitle {
+        height: 40px !important;
+        background: #8CC11F !important;
+        line-height: 40px !important;
+        color: white !important;
+        text-align: center !important;
+        font-size: 1.2rem !important;
+        width: 100% !important;
+        font-weight: bold !important;
+        letter-spacing: 2px !important;
+        position: fixed !important;
+        top: 44px !important;
+    }
+}
+
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width: 768px) {
+    .div_header {
+        height: 56px;
+    }
+
+    .layui-layer-dialog {
+        width: 82% !important;
+        max-width: none !important;
+        top: 33%!important;
+    }
+
+    .layui-layer-dialog .layui-layer-title {
+        font-size: 1.18rem;
+        height: 46px;
+        line-height: 46px;
+    }
+
+    .layui-layer-dialog .layui-layer-content {
+        padding: 40px 30px 50px 30px;
+        font-size: 1.15rem;
+    }
+
+    .layui-layer-dialog .layui-layer-btn a {
+        height: 55px;
+        line-height: 53px;
+        font-size: 1.28rem;
+        width: 9rem;
+        border-radius: 25px;
+        border: 2px solid #8CC11F !important;
+        margin: 5px 5% 0 5%;
+    }
+
+    .layui-layer-dialog .layui-layer-btn {
+        padding: 0 15px 20px;
+    }
+
+    .commonTabTitle {
+        height: 52px !important;
+        background: #8CC11F !important;
+        line-height: 52px !important;
+        color: white !important;
+        text-align: center !important;
+        font-size: 1.5rem !important;
+        width: 100% !important;
+        font-weight: bold !important;
+        letter-spacing: 2px !important;
+        top: 56px !important;
+    }
+}

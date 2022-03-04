@@ -1,0 +1,166 @@
+.content{
+	padding: 0;
+	overflow: hidden;
+}
+.header_operat{
+	width: auto;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	font-size: 0.9vw;
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+
+.idDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+}
+.idMessage{
+	width: 100%;
+	float: left;
+	padding: 0 4vw 0 1vw;
+	height: auto;
+	z-index: 999;
+	position: relative;
+	/*border: 2px solid #EA331B;*/
+}
+.idMessage div{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: auto;
+	padding-right: 1.5vw;
+}
+.idMessage div.showData{
+	width: 12%;
+	color: #666;
+}
+.buttonDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+	padding: 1vw 1%;
+	z-index: 999;
+	position: relative;
+}
+.buttonDiv button{
+	width: 8vw;
+	height: 2.2vw;
+	float: right;
+	background: none;
+	margin: 0 3%;
+	font-size: 0.9vw;
+	border-radius: 0.4vw;
+	color: rgba(100, 100, 100, 1);
+	background: white;
+	border: 1px grey solid;
+}
+.buttonDiv div{
+	width: 8vw;
+	height: 2.2vw;
+	float: left;
+	margin: 0 1vw;
+	color: #333;
+	font-size: 0.9vw;
+	text-align: center;
+	line-height: 2.2vw;
+}
+.buttonDiv input{
+	width: 8vw;
+	height: 2.2vw;
+	float: left;
+	background: none;
+	margin: 0 1vw;
+	font-size: 0.9vw;
+	color: #333;
+	border: 2px solid #aaa;
+	padding: 0 0.4vw;
+}
+
+.listTitle{
+	width: 100%;
+	height: 3.4vw;
+	float: left;
+	position: relative;
+	border-top: 1px solid black;
+	z-index: 999;
+}
+.listTitle p{
+	width: 100%;
+	height: 100%;
+	line-height: 3.4vw;
+	text-align: center;
+	margin: 0;
+	font-size: 1vw;
+}
+
+.ui-jqgrid .ui-pg-selbox{
+	height:20px;
+	padding: 0px 0px;
+}
+#gbox_jqGrid{
+	margin-top: 18vh;
+}
+
+.topSessionTitle {
+	height: 2.2vw;
+	margin-top: -0.5vw;
+	width: 100%;
+	border-bottom: none;
+}
+
+.topSessionTitle div {
+	width: auto;
+	height: 100%;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	color: #000;
+	float: left;
+	padding-right: 1vw;
+	margin-left: 0.4vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+	border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+	border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+	border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+	background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+	border: 0;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+	border: 2px solid #ccc !important;
+	color: black !important;
+	height: 6vh;
+	font-weight: 400;
+	border-bottom: none !important;
+	border-left: 1px solid #ccc !important;
+}
+.ui-jqgrid tr.jqgrow {
+	height: 6vh !important;
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstAskTalkTmplateDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstAskTalkTmplateEntity" id="mstAskTalkTmplateMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="tempId" column="temp_id"/>
+        <result property="itemTypeDiv" column="item_type_div"/>
+        <result property="useDiv" column="use_div"/>
+        <result property="askNum" column="ask_num"/>
+        <result property="questionName" column="question_name"/>
+        <result property="answerTypeDiv" column="answer_type_div"/>
+        <result property="optCont1" column="opt_cont1"/>
+        <result property="optCont2" column="opt_cont2"/>
+        <result property="optCont3" column="opt_cont3"/>
+        <result property="optCont4" column="opt_cont4"/>
+        <result property="optCont5" column="opt_cont5"/>
+        <result property="optCont6" column="opt_cont6"/>
+        <result property="optCont7" column="opt_cont7"/>
+        <result property="optCont8" column="opt_cont8"/>
+        <result property="optCont9" column="opt_cont9"/>
+        <result property="optCont10" column="opt_cont10"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

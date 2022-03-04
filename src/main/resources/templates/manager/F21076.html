@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>面談記録結果配信設定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F21076.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="page">
+    <div id="message" class="topMessage"></div>
+    <div class="one">
+        <div>
+            <ul class="one-ul">
+                <li>イベント管理</li>
+                <li> ＞ 配信設定/状況確認</li>
+                <li> ＞ 予約一覧</li>
+                <li> ＞ 面談記録結果配信設定</li>
+            </ul>
+        </div>
+    </div>
+    <div class="deliver_div">
+        <div class="label_div">配信対象</div>
+        <div id="checkSelect">
+            <input type="radio" name="object" value="0" id="dan1" checked>
+            <p>保護者</p>
+            <input type="radio" name="object" value="1" id="dan2">
+            <p>生徒</p>
+            <input type="radio" name="object" value="2" id="dan3">
+            <p>両方</p>
+        </div>
+    </div>
+    <div class="mail_list_div">
+        <div class="jq_title">配信対象一覧</div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <div class="items_div">
+        <div class="question_div">
+            <div class="label_div">質問事項</div>
+            <div id="question_check">
+                <input type="radio" name="_question" value="1" checked>
+                <p>表示する</p>
+                <input type="radio" name="_question" value="0">
+                <p>表示しない</p>
+            </div>
+        </div>
+        <div class="interview_div">
+            <div class="label_div">面談事項</div>
+            <div id="interview_check">
+                <input type="radio" name="_interview" value="1" checked>
+                <p>表示する</p>
+                <input type="radio" name="_interview" value="0">
+                <p>表示しない</p>
+            </div>
+        </div>
+    </div>
+    <div class="btn_div">
+        <button class="btn" id="btn_return" onclick="back()">戻る</button>
+        <button class="btn" id="btn_login" onclick="deliver()">登録</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F21076.js"></script>
+</html>

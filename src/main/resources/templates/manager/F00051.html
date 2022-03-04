@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>運用管理｜グループ管理｜登録・編集</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00051.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</HEAD>
+<BODY>
+<div id="message" class="topMessage"></div>
+<div class="popTitle">運用管理｜グループ管理｜登録・編集</div>
+<div class="topSessionTitle">
+    <div>組織ID:</div>
+    <div id="orgId"></div>
+    <div>組織名:</div>
+    <div id="orgNm"></div>
+</div>
+<div class="div_main">
+    <div class="first_div">
+        <div class="one">
+            <label>グループ名</label>
+            <input id="grp_nm_area" type="text" style="margin-left: 1vw;height: 1.6vw;padding-left: .5vw;">
+            <button id="org_select">組織指定</button>
+        </div>
+        <div class="two">
+            <button id="add">新規追加</button>
+            <button id="select">検索</button>
+            <!--<a id="add_or_export">一括登録＆エクスポート</a>-->
+        </div>
+    </div>
+    <div class="list">
+        <div id="jqGridPager"></div>
+        <table cellspacing="0" class="oneTable" id="jqGrid"></table>
+    </div>
+</div>
+</BODY>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00051.js"></script>
+</HTML>

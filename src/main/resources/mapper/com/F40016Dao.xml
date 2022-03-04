@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40016Dao">
+    <select id="search" resultType="jp.learningpark.modules.com.dto.F40016Dto">
+        SELECT
+            mst_org.org_id,
+            mst_org.org_nm,
+            mst_usr.role_div
+        FROM
+            mst_org
+        JOIN mst_usr ON mst_org.org_id = mst_usr.org_id
+        WHERE
+           mst_usr.del_flg = 0
+          AND mst_usr.AFTER_USR_ID like '%${afterUsrId}%'
+    </select>
+    <select id="searchMore" resultType="jp.learningpark.modules.com.dto.F40016Dto">
+        SELECT
+            mst_org.org_id,
+            mst_org.org_nm,
+            mst_usr.role_div
+        FROM
+            mst_org
+                JOIN mst_usr ON mst_org.org_id = mst_usr.org_id
+        WHERE
+            mst_usr.del_flg = 0
+          AND mst_usr.AFTER_USR_ID like '%${afterUsrId}%'
+              <if test="orgId != null and orgId != ''">
+                  and mst_org.org_id like '%${orgId}%'
+              </if>
+              <if test="orgName != null and orgName != ''">
+                  and mst_org.org_nm like '%${orgName}%'
+              </if>
+            LIMIT #{pageSize}
+            offset 0
+    </select>
+</mapper>

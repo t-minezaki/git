@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30111Dao">
+    <!-- 塾ニュース -->
+    <select id="getNoticeNews" resultType="jp.learningpark.modules.guard.dto.F30111Dto">
+        SELECT
+            guard.id,
+            notice.upd_datime,
+            notice.notice_title,
+            notice.notice_cont,
+            notice.attach_file_path,
+            notice.title_img_path,
+            cod.cod_value,
+            guard.reading_sts_div
+        FROM
+            mst_notice notice,
+            guard_reading_sts guard,
+            mst_cod_d cod
+        WHERE
+            notice.id = #{id}
+            AND notice.id = guard.notice_id
+            AND guard.guard_id = #{guardId}
+            AND guard.stu_id = #{stuId}
+            AND cod.cod_cd = notice.notice_level_div
+            AND cod.cod_key = 'NOTICE_LEVEL_DIV'
+            AND notice.del_flg = 0
+            AND guard.del_flg = 0
+            AND cod.del_flg = 0
+    </select>
+</mapper>

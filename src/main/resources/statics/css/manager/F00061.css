@@ -1,0 +1,242 @@
+body {
+    position: fixed;
+}
+
+.content {
+    padding: 0;
+}
+
+.header_operat {
+    width: auto;
+}
+
+#app {
+    height: 85vh;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.main {
+    width: 100%;
+    height: auto;
+}
+
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 8%;
+    padding-right: 1vw;
+}
+
+.inputMessage input {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.inputMessage img {
+    height: 1.5vw;
+    float: left;
+    padding-left: 0.65vw;
+}
+
+.one {
+    margin-top: 5.2vw;
+    margin-left: 35vw;
+    height: 1.6vw;
+}
+
+.one input:disabled {
+    background: none;
+}
+
+.one button {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 18%;
+    height: 2.2vw;
+    padding: 0 1.6vw;
+    float: left;
+    margin-left: 2vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.bottom {
+    width: 100%;
+    height: auto;
+}
+
+.bottom_title {
+    width: 100%;
+    padding: 0 1.5vw;
+    height: 1.5vw;
+    line-height: 1.5vw;
+    font-size: 0.9vw;
+    border-bottom: 1px dashed #000;
+}
+
+.exprot a {
+    margin-left: 4vw;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+    text-decoration: underline;
+    color: blue;
+}
+
+.second {
+    margin-left: 8vw;
+}
+
+#schy {
+    width: 13.3%;
+    background: white;
+    height: 1.6vw;
+    line-height: 1.6vw;
+}
+
+#orgIdi {
+    width: 13.3%;
+    background: white;
+    height: 1.6vw;
+    line-height: 1.6vw;
+}
+
+#search {
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+#gbox_jqGrid {
+    margin-top: 17vh;
+}
+
+#jqGridPager select {
+    padding: 0px;
+}
+
+#jqGrid a {
+    text-decoration: underline;
+    color: #009944;
+    padding-left: 2vw;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.ui-corner-top {
+    border-bottom: 0 !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+}
+
+.inputMessage button {
+    border: 1px solid #009944;
+    color: #009944;
+    background: white;
+    border-radius: 5px;
+    width: 8%;
+    height: 4vh;
+    line-height: 4vh;
+    margin-left: 8.5%;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 3em;
+    font-weight: bolder;
+    margin-top: 0.8vh;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: white !important;
+    border: 1px solid #c5c5c5 !important;
+    color: #454545 !important;
+}
+
+/*.layui-layer-title {*/
+     /*visibility: hidden !important;*/
+ /*}*/

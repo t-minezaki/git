@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00005Dao">
+    <select id="selectList" parameterType="string" resultType="jp.learningpark.modules.manager.dto.F00005Dto">
+          SELECT * FROM
+            stu_grp sg
+            INNER JOIN mst_usr um on um.usr_id=sg.stu_id
+            AND um.usr_sts='1'
+            AND um.del_flg=0
+            and um.org_id=#{orgId}
+            WHERE sg.del_flg=0
+    </select>
+</mapper>

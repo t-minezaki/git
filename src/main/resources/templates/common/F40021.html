@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40021.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <title>利用規約同意画面</title>
+</head>
+<body>
+<header style="width: 100%;padding: 0 15px;height: 6vh;position: unset;">
+    <div class="header_logo"></div>
+</header>
+
+<div class="all" id="all" v-cloak>
+    <!--エラーメッセージ-->
+    <div id="message" class="topMessage"></div>
+    <h1>規約同意</h1>
+    <p class="rule-remain">下記の規約をご確認いただき、<br/>同意の上、手続きを進めてください。</p>
+    <!--GakkenID規約-->
+    <div class="allButton">
+        <div class="role"  v-if="gidFlg === '1' && gidRuleFlg === '0'">
+            <div class="roleAll" style="font-weight: 600;">
+                <div class="roleWords">GakkenID規約</div>
+            </div>
+<!--            <div class="roleData">GakkenID規約はこちらから確認できます。</div>-->
+            <div class="buttonOne">
+                <a class="button" href="../common/F40022.html">GakkenID規約</a>
+            </div>
+        </div>
+        <!--マナミル利用規約-->
+        <div class="role"  v-if="manaRuleFlg === '0'">
+            <div class="roleAll" id="roleAl">
+                <div class="roleWords">マナミル利用規約</div>
+            </div>
+<!--            <div class="roleData">マナミル利用規約はこちらから確認できます。</div>-->
+            <div class="buttonOne">
+                <a class="button" href="../common/F40023.html?flg=3">マナミルを導入される企業・塾の方</a><br>
+                <a class="button" href="../common/F40023.html?flg=2">フランチャイズでマナミルをご利用の塾・教室の方</a><br>
+                <a class="button" href="../common/F40023.html?flg=1">生徒・保護者の方</a>
+            </div>
+        </div>
+        <!--個人情報の取り扱いについて-->
+<!--        <div class="role">-->
+<!--            <div class="roleAll" id="roleAl" >-->
+<!--                <div class="roleWords">個人情報の取り扱いについて</div>-->
+<!--            </div>-->
+<!--            <div class="roleData" id="roleData1">今回、ご提出いただくお客様の指名・住所等の個人情報は、···</div>-->
+<!--            <div class="roleData">～～～にご登録いただくことで～～></div>-->
+<!--            <div class="buttonOne">-->
+<!--                <a class="button" href="../common/F40024.html">個人情報保護規約</a>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="confirm">
+            <input type="checkbox"  id="selectMe" onclick="chkClick()"/>
+            <label id="unShow" for="selectMe"></label>
+            <div class="word">GakkenID規約確認・マナミル<br/>利用規約ご同意します。</div>
+        </div>
+    </div>
+    <!--confirm button-->
+
+    <!--戻る 登録 button-->
+    <div class="clickTwo">
+        <button type="submit" id="next" class="left" disabled="false" onclick="clickIt()">登録</button><button class="right" onclick="toF40025()" >戻る</button>
+    </div>
+
+</div>
+
+</body>
+<script src="${request.contextPath}/js/common/F40021.js"></script>
+</html>

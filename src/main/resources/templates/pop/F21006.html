@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21006.css"/>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/js/common/common.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="content" id="data" v-cloak>
+    <div id="message" class="topMessage">
+    </div>
+
+    <!--modify at 2021/08/12 for V9.02 by NWT wen START  受信パラメータ名は一致する 例：** in dataList-->
+    <div id="div-subjt" v-if="pageDiv == 1">
+        <button class="subjt" @click="backTo21008()" style="background-color: #4BC783 !important; border: 0px solid !important;" value="">クリア</button>
+        <button class="subjt" @click="backTo21008(subjt.codCd)" v-for="subjt in dataList" :value="subjt.codCd">{{subjt.codValue}}</button>
+        <!--<input class="subjt otherSubjt" v-model="value" style="background: none" codCd="99" placeholder="その他">-->
+        <button class="subjt" @click="backTo21008('99')" v-if="value != ''" style="background-color: #009944 !important; border: 0px solid
+        !important;">確定</button>
+    </div>
+
+
+    <div style="margin-left: 8vw;" v-if="pageDiv == 2">
+        <button class="absStsDiv" @click="backTo21008()" style="background-color: #4BC783  !important; border: 0px solid  !important;">クリア</button>
+        <button class="absStsDiv" @click="backTo21008(absStsDiv.codCd)"  v-for="absStsDiv in dataList" :value = "absStsDiv.codCd" >{{absStsDiv.codValue}}</button>
+    </div>
+
+
+    <div style="margin-left: 9vw;margin-top: 9vh;" v-if="pageDiv == 3">
+        <button class="homeWkDiv" @click="backTo21008()" style="background-color: #4BC783 !important; border: 0px solid !important;">クリア</button>
+        <button class="homeWkDiv" @click="backTo21008(homeWkDiv.codCd)"  v-for="homeWkDiv in dataList" :value = "homeWkDiv.codCd" >{{homeWkDiv.codValue}}</button>
+    </div>
+
+
+    <div style="text-align: center" v-if="pageDiv == 4">
+        <div>
+            <!--/* 2020/12/15 V9.0 cuikailin modify start */-->
+            <input type="number" id="numInput" oninput="inputNumber()" onporpertychange="inputNumber()">
+            <!--/* 2020/12/15 V9.0 cuikailin modify end */-->
+        </div>
+        <button class="number" @click="number(1)" value="1">1</button>
+        <button class="number" @click="number(2)" value="2">2</button>
+        <button class="number" @click="number(3)" value="3">3</button>
+        <button class="number" @click="number(4)" value="4">4</button>
+        <button class="number" @click="number(5)" value="5">5</button>
+        <button class="number" @click="number(6)" value="6">6</button>
+        <button class="number" @click="number(7)" value="7">7</button>
+        <button class="number" @click="number(8)" value="8">8</button>
+        <button class="number" @click="number(9)" value="9">9</button>
+        <button class="number" onclick="submit()" style="background-color: #009944 !important; border: 0px solid !important;">確定</button>
+        <button class="number" @click="number(0)" value="0">0</button>
+        <button class="number btm" @click="number()" >一字消去</button>
+    </div>
+
+
+    <div style="margin-left: 8vw;margin-top: 11vh;" v-if="pageDiv == 5">
+        <button class="careDiv" @click="backTo21008()" style="background-color: #4BC783 !important; border: 0px solid !important;">クリア</button>
+        <button class="careDiv" style="background-color:transparent;border-style:none;"></button>
+        <button class="careDiv" @click="backTo21008(careDiv.codCd)"  v-for="careDiv in dataList" :value = "careDiv.codCd" >{{careDiv.codValue}}</button>
+    </div>
+
+
+    <div style="margin-left: 10vw;" v-if="pageDiv == 6">
+        <button class="lastTimeHwtDiv" @click="setEmpty()" style="background-color: #4BC783 !important; border: 0px solid !important;">クリア</button>
+        <button class="lastTimeHwtDiv" style="background-color:transparent;border-style:none;"></button>
+        <button class="lastTimeHwtDiv" @click="backTo21009(lastTimeHwtDiv.codCd)"  v-for="lastTimeHwtDiv in dataList" :value = "lastTimeHwtDiv.codCd" >{{lastTimeHwtDiv.codValue2}}</button>
+    </div>
+
+
+    <div style="margin-left: 10vw;" v-if="pageDiv == 7">
+        <button class="schStsDiv" @click="setEmpty()" style="background-color: #4BC783 !important; border: 0px solid !important;">クリア</button>
+        <button class="schStsDiv" style="background-color:transparent;border-style:none;"></button>
+        <button class="schStsDiv" @click="backTo21009(schStsDiv.codCd)"  v-for="schStsDiv in dataList" :value = "schStsDiv.codCd" >{{schStsDiv.codValue2}}</button>
+    </div>
+
+
+    <div style="text-align: center;margin-top: 7vh;" v-if="pageDiv == 8">
+        <div>
+            <input type="text" id="lectShape" style="width: 80%;border: 1px solid;height: 13vh;font-size: 2em;"  readonly="readonly">
+        </div>
+        <button class="lectShapeDiv" @click="add(lectShapeDiv.codValue2,lectShapeDiv.codCd)"  v-for="lectShapeDiv in dataList" :value = "lectShapeDiv.codCd" >{{lectShapeDiv.codValue2}}</button>
+        <button class="submit" onclick="submit()" style="background-color: #009944 !important; border: 0px solid !important;">確定</button>
+        <button class="lectShapeDiv" @click="clear()" style="background-color: #4BC783 !important; border: 0px solid !important;width: 27% !important;">クリア</button>
+        <button class="remove" @click="remove()" >一字消去</button>
+    </div>
+    <!--modify at 2021/08/12 for V9.02 by NWT wen END-->
+
+    <!--add at 2021/08/12 for V9.02 by NWT wen START-->
+    <div style="margin-top: 9vh;margin-left: 9vw;" v-if="pageDiv == 9">
+        <button class="testPassKbnDiv" @click="backTo21008()" style="background-color: #4BC783 !important; border: 0px solid !important;">クリア</button>
+        <template v-for="testPassKbnDiv in dataList">
+            <button class="testPassKbnDiv" @click="backTo21008(testPassKbnDiv.codCd)" :value = "testPassKbnDiv.codCd" >{{testPassKbnDiv.codValue}}</button>
+        </template>
+    </div>
+    <!--add at 2021/08/12 for V9.02 by NWT wen END-->
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F21006.js"></script>
+</html>

@@ -1,0 +1,132 @@
+.back {
+    width: 32px;
+    height: 32px;
+    float: left;
+    position: absolute;
+    margin-top: 2px;
+}
+
+.container {
+    height: calc(100% - 36px);
+    overflow-y: auto;
+}
+
+.back img {
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+}
+
+.content {
+    /* 2020/12/24 V9.0 cuikailin modify start */
+    height: calc(100% - 118px);
+    /* 2020/12/24 V9.0 cuikailin modify end */
+}
+
+.title {
+    text-align: center;
+    /*background: #FFEEE0;*/
+    /*color: #FF0606;*/
+    /*font-weight: bolder;*/
+    height: 36px;
+    line-height: 36px;
+    font-size: 15px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 1vh;
+}
+
+.question-name {
+    float: left;
+    font-weight: bold;
+    width: 35vw;
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.answer {
+    margin-left: 35vw;
+    color: #454545;
+}
+
+.question-answer, .subtitle {
+    margin-left: 2vw;
+    line-height: 36px;
+    width: 96% !important;
+    border-bottom: 1px solid #dbdbdb;
+    overflow: hidden;
+}
+
+#noteCont {
+    margin-left: 2vw;
+    line-height: 36px;
+    width: 96% !important;
+    overflow: hidden;
+    margin-top: 1vh;
+}
+
+#noteCont p {
+    font-size: 0.9rem;
+    float: left;
+}
+
+#noteCont p:nth-child(1) {
+    display: inline-block;
+    height: 5vh;
+    line-height: 5vh;
+    font-size: 1.2em;
+    font-weight: bold;
+    float: left;
+    width: 35vw;
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#noteCont p:nth-child(2) {
+    min-height: 5vh;
+    height: auto;
+    line-height: 5vh;
+    margin-left: 35vw;
+    float: unset !important;
+    word-break: break-all;
+}
+
+.div_header {
+    position: unset !important;
+}
+
+/*.div_bottom {*/
+    /*position: unset !important;*/
+/*}*/
+#imgDiv{
+    overflow: hidden;
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+#imgDiv img{
+    top: 0;
+    left: 0;
+    position: relative;
+    transition: transform 0.3s;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+    object-fit: contain;
+    background-color: transparent;
+}
+.layui-layer-content {
+    overflow: hidden !important;
+}

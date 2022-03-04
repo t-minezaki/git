@@ -1,0 +1,100 @@
+.all{
+	width: 100%;
+	height: auto;
+	padding: 0 5%;
+}
+.header{
+	width: 100%;
+	text-align: center;
+	font-size: 6vw;
+	height: 11vw;
+	line-height: 11vw;
+}
+.content{
+	width: 100%;
+	height: auto;
+	padding: 0;
+	overflow: unset !important;
+	overflow-y: unset !important;
+}
+.content div{
+	width: 100%;
+	height: 8vw;
+	margin-top: 2.4vw;
+}
+.content div p{
+	width: 33%;
+	height: 8vw;
+	float: left;
+	font-size: 4vw;
+	text-align: left;
+	line-height: 8vw;
+	margin-left: 2%;
+}
+.content div input,select{
+	width: 55%;
+	height: 8vw;
+	color: #2e2e2e;
+	font-size: 4vw;
+	line-height: 86vw;
+	float: left;
+}
+.theme_btn{
+	width: 100%;
+	height: 12vw;
+	margin-top: 2.4vw;
+	padding-left: 10%;
+}
+.theme_btn button{
+	width: 40%;
+	height: 10vw;
+	border-radius: 1vw;
+	font-size: 4vw;
+	float: left;
+	margin-right: 7.5vw;
+	background: none;
+	background: #00a65a;
+	color: white;
+	border: 0;
+	border-bottom: 3px grey solid;
+}
+.theme_btn button.left{
+	border: 0;
+	color: #EA331B;
+}
+
+#chk_area > input[type="checkbox"]:checked::before {
+	content: "✔";
+	font-size: 0.8em;
+	vertical-align: super;
+	padding-left: 1.25vw;
+}
+
+#mgr_flg {
+	-webkit-appearance: none;
+	width: 7.8vh;
+	height: 7.8vh;
+	border: 1px solid black;
+	line-height: unset !important;
+}
+
+#chk_area {
+	width: 11.8vh;
+	height: 10.8vh;
+	float: left;
+	margin-top: unset !important;
+	margin-left: 4.5%;
+}
+
+.star{
+	color: red;
+	float: left;
+	font-size: 15px;
+	width: 5%;
+	position: relative;
+	top: 2vh;
+}
+.QrOrgId{
+	/*margin-left: 60%;*/
+	line-height: 10vh;
+}

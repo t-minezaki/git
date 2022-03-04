@@ -1,0 +1,137 @@
+html,body{
+	margin: 0;
+	padding: 0;
+	height: 320px;
+}
+*{
+	box-sizing: border-box;
+}
+.theme_selec{
+	width:240px;
+	height:320px;
+	position:absolute;
+	left:0;
+	right:0;
+	margin:auto;
+	text-align: center;
+	background:#fff;
+}
+.theme_selec h2{
+	height:auto;
+	line-height:20px;
+	font-size:14px;
+	color:#333;
+	margin:0;
+	padding:10px;
+	font-weight: 500;
+	border-bottom: 1px solid #ccc;
+}
+.theme_selec ul{
+	padding:0 20px;
+}
+.theme_selec ul li{
+	width:100%;
+	line-height:30px;
+	background:#999;
+	color:#fff;
+	margin-top:10px;
+}
+.theme_selec ul li img{
+	width:100%;
+}
+.toph{
+	width: 100%;
+	height: 50px;
+	line-height: 30px;
+	padding:10px;
+	margin: auto;
+}
+.toph img{
+	height: 30px;
+	float: left;
+	margin-left: calc(50% - 30px);
+}
+.theme_selec h1{
+	color:#333;
+	float: left;
+	font-size:18px;
+	font-weight: 500;
+	margin: 0;
+	margin-left: 6px;
+}
+.showcontent{
+	width: calc(100% - 40px);
+	margin-left: 20px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	height: 50px;
+	line-height: 30px;
+	padding: 10px;
+}
+.showcontent p{
+	float: right;
+	color: #333;
+	font-size: 14px;
+	margin: 0;
+}
+.showcontent p.showleft{
+	font-size: 10px;
+	color: #999;
+	float: left;
+}
+.theme_btn{
+	bottom:4px;
+	position: absolute;
+	width: 100%;
+	margin-bottom: -1px;
+	height: 50px;
+	padding: 10px;
+}
+.theme_btn button{
+	width:46%;
+	float:left;
+	border: 0;
+	border:1px solid #00b050;
+	color:#00b050;
+	border-radius:30px;
+	background: none;
+	height: 30px;
+	line-height: 30px;
+}
+#demo_select{
+	width:36%;
+	height:140px;
+	border:1px solid #00b050!important;
+	margin:0 auto;
+	float:left;
+}
+.mbsc-mobiscroll{
+	width:100%;
+	float:left;
+	margin:0 auto;
+}
+.dwwr{
+	/*min-width:100%!important;*/
+	/*height:140px;*/
+	border:1px solid #00b050!important;
+	margin:0 auto;
+	float:left;
+}
+.check_time{
+	padding:20px;
+}
+.check_time input{
+	height:60px;
+	line-height:60px;
+	text-align: left;
+	padding: 0 4px;
+}
+#demo_select_dummy{
+	display:none;
+}
+p#showright {
+	width: 73%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

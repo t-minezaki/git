@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11010Dao">
+    <select id="getList" resultType="jp.learningpark.modules.student.dto.F11010Dto">
+        SELECT
+        *
+        FROM
+        ((SELECT
+        a.id,
+        a.message_title as title,
+        a.message_type_div as type_div,
+        a.message_level_div as level_div,
+        case when A.message_type_div in ('4','5') then to_char (A.cret_datime, 'yyyy-MM-dd hh24:mi:ss' )
+        else to_char (A.pub_plan_start_dt, 'yyyy-MM-dd hh24:mi:ss' ) end AS start_dt,
+        a.title_img_path,
+        null as event_cd,
+        b.reading_sts_div,
+        null as again_send_dt,
+        't' as message
+        FROM
+        mst_message a
+        INNER JOIN talk_reading_sts b ON (a.id = b.message_id AND b.del_flg = 0)
+        WHERE
+        b.deliver_id = #{stuId}
+        and CASE WHEN A.message_type_div = '1' THEN a.pub_plan_start_dt <![CDATA[ <= ]]> now( ) and a.pub_plan_end_dt <![CDATA[ >= ]]> now( ) else 1=1 END
+        AND a.message_type_div IN ('1', '4', '5')
+        AND a.del_flg = 0
+        ORDER BY
+        b.reading_sts_div = '0' desc,
+        a.message_level_div = '2' desc,
+        a.pub_plan_start_dt)
+        UNION ALL
+        (SELECT
+        a.id,
+        a.event_title as title,
+        null as type_div,
+        a.event_level_div as level_div,
+        to_char(A.pub_start_dt,'yyyy-MM-dd hh24:mi:ss') AS start_dt,
+        a.title_img_path,
+        a.event_cd,
+        b.reading_sts_div,
+        b.again_send_dt,
+        'f' as message
+        FROM
+        mst_event a
+        INNER JOIN stu_event_apply_sts b ON (a.id = b.event_id AND b.del_flg = 0)
+        WHERE
+        b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt <![CDATA[ <= ]]> now()
+        AND a.pub_end_dt <![CDATA[ >= ]]> now()
+        )) as message_event
+        ORDER BY
+        (message_event.message = 't' AND message_event.reading_sts_div = '0') DESC,
+        (message_event.message = 'f' AND message_event.reading_sts_div = '0') DESC,
+        message_event.start_dt DESC,
+        message_event.again_send_dt
+        <if test="page != null">
+            limit #{limit} OFFSET #{page}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        ((SELECT
+        a.id,
+        a.message_title as title,
+        a.message_type_div as type_div,
+        a.message_level_div as level_div,
+        a.pub_plan_start_dt as start_dt,
+        a.title_img_path,
+        null as event_cd,
+        b.reading_sts_div,
+        null as again_send_dt,
+        't' as message
+        FROM
+        mst_message a
+        INNER JOIN talk_reading_sts b ON (a.id = b.message_id AND b.del_flg = 0)
+        WHERE
+        b.deliver_id = #{stuId}
+        AND CASE WHEN A.message_type_div = '1' THEN a.pub_plan_start_dt <![CDATA[ <= ]]> now( ) and a.pub_plan_end_dt <![CDATA[ >= ]]> now( ) else 1=1 END
+        AND a.message_type_div IN ('1', '4', '5')
+        AND a.del_flg = 0)
+        UNION ALL
+        (SELECT
+        a.id,
+        a.event_title as title,
+        null as type_div,
+        a.event_level_div as level_div,
+        a.pub_start_dt as start_dt,
+        a.title_img_path,
+        a.event_cd,
+        b.reading_sts_div,
+        b.again_send_dt,
+        'f' as message
+        FROM
+        mst_event a
+        INNER JOIN stu_event_apply_sts b ON (a.id = b.event_id AND b.del_flg = 0)
+        WHERE
+        b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt <![CDATA[ <= ]]> now()
+        AND a.pub_end_dt <![CDATA[ >= ]]> now()
+        )) as message_event
+    </select>
+    <select id="getUnreadCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        ((SELECT
+        a.id,
+        a.message_title as title,
+        a.message_type_div as type_div,
+        a.message_level_div as level_div,
+        a.pub_plan_start_dt as start_dt,
+        a.title_img_path,
+        null as event_cd,
+        b.reading_sts_div,
+        null as again_send_dt,
+        't' as message
+        FROM
+        mst_message a
+        INNER JOIN talk_reading_sts b ON (a.id = b.message_id AND b.del_flg = 0)
+        WHERE
+        b.deliver_id = #{stuId}
+        AND CASE WHEN A.message_type_div = '1' THEN a.pub_plan_start_dt <![CDATA[ <= ]]> now( ) and a.pub_plan_end_dt <![CDATA[ >= ]]> now( ) else 1=1 END
+        AND a.message_type_div IN ('1', '4', '5')
+        AND a.del_flg = 0
+        AND b.reading_sts_div = '0'
+        ORDER BY
+        b.reading_sts_div = '0' desc,
+        a.message_level_div = '2' desc,
+        a.pub_plan_start_dt)
+        UNION ALL
+        (SELECT
+        a.id,
+        a.event_title as title,
+        null as type_div,
+        a.event_level_div as level_div,
+        a.pub_start_dt as start_dt,
+        a.title_img_path,
+        a.event_cd,
+        b.reading_sts_div,
+        b.again_send_dt,
+        'f' as message
+        FROM
+        mst_event a
+        INNER JOIN stu_event_apply_sts b ON (a.id = b.event_id AND b.del_flg = 0)
+        WHERE
+        b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt <![CDATA[ <= ]]> now()
+        AND a.pub_end_dt <![CDATA[ >= ]]> now()
+        AND b.reading_sts_div = '0'
+        )) as message_event
+    </select>
+</mapper>

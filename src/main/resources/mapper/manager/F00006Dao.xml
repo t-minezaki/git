@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00006Dao">
+    <select id="selectAfterUsrIdAndStuId" parameterType="String"
+            resultType="jp.learningpark.modules.manager.dto.F00006Dto">
+       SELECT
+	A.id,
+	A.mentorId,
+	mu1.after_usr_id AS stuId
+FROM
+	mst_usr mu1
+	INNER JOIN (
+SELECT
+	ms.id AS id,
+	mu.after_usr_id AS mentorId,
+	ms.stu_id AS stuId
+FROM
+	mentor_stu ms
+	INNER JOIN mst_usr mu ON mu.usr_id = ms.mentor_id
+	AND mu.usr_sts = '1'
+	AND mu.del_flg = 0
+WHERE
+	ms.crmsch_id = #{ordId}
+	AND ms.del_flg = 0
+	) A ON mu1.usr_id = A.stuId
+WHERE
+	mu1.usr_sts = '1'
+	AND mu1.del_flg = 0
+	AND mu1.org_id = #{ordId}
+	ORDER BY A.mentorId,stuId
+    </select>
+</mapper>

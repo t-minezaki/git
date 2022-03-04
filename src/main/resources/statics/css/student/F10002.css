@@ -1,0 +1,186 @@
+body{
+	background:#fff;
+	margin: 0;
+}
+.fone_title{
+	width:100%;
+	line-height:40px;
+	background:#89cbdf;
+	text-align:center;
+	font-size:20px;
+}
+.f_subject{
+	width:160px;
+	height:60px;
+	line-height:60px;
+	background:#f5f5f5;
+	float:left;
+	padding-left:80px;
+	position:relative;
+	font-size:16px;
+	color:#666;
+	font-weight:bold;
+}
+.f_subject img{
+	position:absolute;
+	left:12px;
+	width:40px;
+	top:0;
+	bottom:0;
+	margin:auto;
+}
+.f_books{
+	float:left;
+	width:calc(100% - 172px);
+	height:60px;
+	line-height:36px;
+	padding:12px;
+	margin-left:12px;
+	border:1px solid #999;
+}
+.info_mine{
+	width: 100%;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+.info_mine p{
+	color:#555;
+	margin-bottom: 6px;
+}
+.mine_avatar p{
+	float: left;
+	height: 2vw;
+	margin: 0;
+	line-height: 2vw;
+	width: calc(100% - 7vw)!important;
+	font-size: 0.8vw;
+	padding-left: 1vw;
+}
+.mine_avatar p.firstP{
+	margin-top: 2vw;
+	font-size: 1.2vw;
+}
+.info_mine ul{
+	width: calc(100% - 20.5vw);
+	float: left;
+	margin-top: 2vw;
+}
+.info_mine ul li{
+	width: calc(33.33% - 1vw);
+	height: 8vw;
+	margin-left: 1vw;
+	background: none;
+	border: 2px solid #009944;
+	text-align: center;
+	float: left;
+	border-radius: 0.3vw;
+	padding: 0.2vw;
+	line-height: 1.8vw;
+	font-size: 1.1vw;
+	color: #009944;
+	padding-top: 3.2vw;
+	cursor: pointer;
+	position: relative;
+	margin-top: 1.5vh;
+}
+.info_mine ul li.active{
+	background: #009944;
+	color: #fff;
+	border-radius: 5px 5px 0 0;
+}
+.info_mine ul li .xbottom{
+	position: absolute;
+	top: 7.85vw;
+	left: -2px;
+	height: auto;
+	width: calc(100% + 4px);
+	border: 2px solid #009944;
+	border-top: 0;
+	border-bottom: 0;
+	border-radius: 0 0 5px 5px;
+}
+.info_mine ul li .xbottom div{
+	width: 100%;
+	height: 4vw;
+	line-height: 4vw;
+	font-size: 1vw;
+	color: #009944;
+	border-bottom: 2px solid #009944;
+	text-align: center;
+}
+.info_mine ul li.litline{
+	padding-top: 2.4vw;
+}
+.mine_avatar{
+	width: 20vw;
+	height: 100%;
+	float: left;
+}
+.mine_avatar_img{
+	width: 100%;
+	height: 8vw;
+	line-height: 10vw;
+	background: #fff;
+	float: left;
+	margin-top: 2vw;
+}
+.headerImg{
+	width: 7vw;
+	height: 7vw;
+	float: left;
+	overflow: hidden;
+	border-radius: 100%;
+}
+.mine_avatar_img img{
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+.bottomDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+}
+.leftbottom{
+	width: 4.2vw;
+	height: auto;
+	float: left;
+}
+.rightbottom{
+	float: left;
+	width: calc(100% - 4.2vw);
+}
+.leftbottom p{
+	margin: 0;
+	color: #999;
+	width: 100%!important;
+	padding: 0;
+	height: 2.4vw;
+	line-height: 2.4vw;
+}
+.rightbottom p{
+	margin: 0;
+	text-align: left;
+	color: #444;
+	font-size: 1.1vw;
+	line-height: 2.4vw;
+	height: 2.4vw;
+	width: 100%!important;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.borderDiv{
+	width: 1px;
+	height: 100%;
+	position: absolute;
+	background: #ccc;
+	top: 0;
+	z-index: 9;
+	left: 21vw;
+}
+.disNone{
+	display: none;
+}

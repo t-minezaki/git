@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30002Dao">
+    <select id="getCrmLearnPrdId" parameterType="string" resultType="Integer">
+        SELECT
+                CASE
+
+                        WHEN
+                                clpm.id IS NULL THEN
+                                clpm2.id ELSE clpm.id
+                        END AS id
+        FROM
+                mst_stu sm
+                        INNER JOIN mst_usr um ON um.usr_id = sm.stu_id
+                        AND um.del_flg = 0
+                        LEFT JOIN mst_crmsch_learn_prd clpm ON sm.schy_div = clpm.schy_div
+                        AND clpm.use_flg = '1'
+                        AND clpm.del_flg = 0
+                        AND clpm.org_id = um.org_id
+                        LEFT JOIN mst_crmsch_learn_prd clpm2 ON clpm2.schy_div = sm.schy_div
+                        AND clpm2.use_flg = '1'
+                        AND clpm2.del_flg = 0
+                        AND clpm2.org_id = (
+                        SELECT
+                                upplev_org_id
+                        FROM
+                                mst_org om
+                                        INNER JOIN mst_usr a ON a.org_id = om.org_id
+                                        AND a.del_flg = 0
+                                        INNER JOIN mst_stu B ON b.stu_id = a.usr_id
+                                        AND B.stu_id = #{stuId}
+                                        AND b.del_flg = 0
+                        )
+                        AND clpm2.del_flg = 0
+        WHERE
+                sm.stu_id = #{stuId}
+          AND sm.del_flg = 0
+    </select>
+    <select id="selectAboutStus" parameterType="String" resultType="jp.learningpark.modules.guard.dto.F30002Dto">
+        SELECT DISTINCT
+                SM.stu_id,
+                SM.flnm_nm,
+                SM.flnm_lnm,
+                SM.phot_path,
+                UM1.org_id,
+                OM1.org_nm,
+                COALESCE ( gurn.unreadNoticeCount, 0 ) AS unNoticeReadCount,
+                COALESCE ( gure.unreadEventCount, 0 ) AS unEventReadCount,
+                COALESCE ( gurm.unreadMessageCount, 0 ) AS unMessageReadCount,
+                COALESCE ( gurn.unreadNoticeCount, 0 ) + COALESCE ( gure.unreadEventCount, 0 ) AS unreadCount
+        FROM mst_stu SM
+                     INNER JOIN mst_usr UM1
+                ON UM1.usr_id=SM.stu_id
+                        AND UM1.del_flg=0
+                     INNER JOIN mst_usr UM2
+                ON (UM2.usr_id = SM.guard_id
+                        OR UM2.usr_id = SM.guard1_id
+                        OR UM2.usr_id = SM.guard2_id
+                        OR UM2.usr_id = SM.guard3_id
+                        OR UM2.usr_id = SM.guard4_id)
+                        AND UM2.usr_id = #{guard}
+                        AND UM2.del_flg = 0
+                     INNER JOIN mst_org OM1
+                ON OM1.org_id=UM1.org_id
+                        AND OM1.del_flg=0
+                     INNER JOIN mst_org OM2
+                ON OM2.org_id=UM2.org_id
+                        AND OM2.del_flg=0
+                        AND OM1.brand_cd=OM2.brand_cd
+                     LEFT JOIN
+                     (
+                             SELECT
+                                     grs.guard_id,
+                                     grs.stu_id,
+                                     grs.org_id,
+                                     count(grs.id) AS unreadNoticeCount
+                             FROM mst_notice MN
+                                          INNER JOIN guard_reading_sts GRS
+                                     ON MN.id = GRS.notice_id
+                                             AND GRS.del_flg = 0
+                                          LEFT JOIN mst_notice_deliver MND
+                                     ON MN.id = MND.notice_id
+                                             AND MND.del_flg = 0
+                                             AND MND.guard_id = GRS.guard_id
+                                             AND grs.stu_id = mnd.stu_id
+                             WHERE
+                                     ((MN.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND MN.pub_plan_end_dt <![CDATA[ >= ]]> now( )
+                                             AND MN.notice_type_div NOT IN ( '1', '6', '3', '7' ))
+                                             OR (MN.notice_type_div IN ( '3', '7' )
+                                             AND mn.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND mn.pub_plan_start_dt <![CDATA[ >= ]]> now( ) - INTERVAL '7 day'
+                                              ))
+                               AND GRS.guard_id = #{guard}
+                               AND GRS.reading_sts_div = '0'
+                             GROUP BY
+                                     grs.guard_id,
+                                     grs.stu_id,
+                                     grs.org_id
+                             ) gurn
+                             ON gurn.guard_id = um2.usr_id
+                                     AND gurn.stu_id = um1.usr_id
+                                     AND gurn.org_id = om2.org_id
+                     LEFT JOIN
+                     (
+                             SELECT
+                                     geas.guard_id,
+                                     geas.stu_id,
+                                     geas.org_id,
+                                     count(geas.id) AS unreadEventCount
+                             FROM guard_event_apply_sts GEAS
+                                          INNER JOIN mst_event ME
+                                     ON ME.id = GEAS.event_id
+                                             AND ME.event_sts_div = '0'
+                                             AND now() >= ME.pub_start_dt
+                                             AND ME.pub_end_dt > now()
+                                             AND ME.del_flg=0
+                             WHERE
+                                     geas.del_flg = 0
+                               AND geas.reading_sts_div = '0'
+                               AND geas.guard_id = #{guard}
+                             GROUP BY
+                                     geas.guard_id,
+                                     geas.stu_id,
+                                     geas.org_id
+                             ) gure
+                             on gure.guard_id = um2.usr_id
+                                     AND gure.stu_id = um1.usr_id
+                                     AND gure.org_id = om2.org_id
+                     LEFT JOIN
+                     (
+                             SELECT
+                                     trs.deliver_id,
+                                     trs.org_id,
+                                     count(trs.id) AS unreadMessageCount
+                             FROM mst_message mm
+                                          INNER JOIN talk_reading_sts trs
+                                     ON mm.id = trs.message_id
+                                             AND trs.reading_sts_div = '0'
+                                             AND trs.del_flg=0
+                                             AND trs.deliver_id = #{guard}
+                             WHERE
+                                     mm.del_flg = 0
+                               AND (( now() >= mm.pub_plan_start_dt
+                                     AND mm.pub_plan_end_dt > now())
+                                     OR (mm.pub_plan_start_dt IS NULL
+                                     AND mm.pub_plan_end_dt IS NULL))
+                               AND mm.message_type_div IN ('3','5')
+                             GROUP BY
+                                     trs.deliver_id,
+                                     trs.org_id
+                             ) gurm
+                             ON gurm.deliver_id = um2.usr_id
+                                     AND gurm.org_id = om2.org_id
+        WHERE
+            (
+                    SM.guard_id = #{guard}
+                    OR SM.guard1_id = #{guard}
+                    OR SM.guard2_id = #{guard}
+                    OR SM.guard3_id = #{guard}
+                    OR SM.guard4_id = #{guard}
+                )
+          AND SM.del_flg=0
+        ORDER BY
+                SM.flnm_nm
+                ,SM.flnm_lnm
+    </select>
+    <select id="selectStudents" resultType="jp.learningpark.modules.guard.dto.F30002Dto">
+        SELECT DISTINCT
+                SM.stu_id
+                , SM.flnm_nm
+                , SM.flnm_lnm
+                , SM.phot_path
+                , UM1.org_id
+                , OM1.org_nm
+                , COALESCE ( gurn.unreadNoticeCount, 0 ) AS unNoticeReadCount
+                , COALESCE ( gure.unreadEventCount, 0 ) AS unEventReadCount
+                , COALESCE ( gurm.unreadMessageCount, 0 ) AS unMessageReadCount
+                , COALESCE ( gurn.unreadNoticeCount, 0 ) + COALESCE ( gure.unreadEventCount, 0 ) AS unreadCount
+        FROM mst_stu SM
+                     INNER JOIN mst_usr UM1 ON UM1.usr_id=SM.stu_id AND UM1.del_flg=0
+                     INNER JOIN mst_usr UM2 ON UM2.usr_id = SM.guard_id AND UM2.del_flg = 0
+                     INNER JOIN mst_org OM1 ON OM1.org_id=UM1.org_id AND OM1.del_flg=0
+                     INNER JOIN mst_org OM2 ON OM2.org_id=UM2.org_id AND OM2.del_flg=0 AND OM1.brand_cd=OM2.brand_cd
+                     inner join regexp_split_to_table(#{guards}, ',') t1
+                on t1 = SM.guard_id
+                     LEFT JOIN
+                     (
+                             SELECT
+                                     grs.guard_id,
+                                     grs.stu_id,
+                                     grs.org_id,
+                                     count(grs.id) AS unreadNoticeCount
+                             FROM mst_notice MN
+                                          INNER JOIN guard_reading_sts GRS
+                                     ON MN.id = GRS.notice_id
+                                             AND GRS.reading_sts_div = '0'
+                                             AND GRS.del_flg = 0
+                                          LEFT JOIN mst_notice_deliver MND
+                                     ON MN.id = MND.notice_id
+                                             AND MND.del_flg = 0
+                                             AND MND.guard_id = GRS.guard_id
+                                             AND grs.stu_id = mnd.stu_id
+                                          inner join regexp_split_to_table(#{guards}, ',') t1
+                                     on t1 = GRS.guard_id
+                             WHERE
+                                     ((MN.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND MN.pub_plan_end_dt <![CDATA[ >= ]]> now( )
+                                             AND MN.notice_type_div NOT IN ( '1', '6', '3', '7' ))
+                                             OR (MN.notice_type_div IN ( '3', '7' )
+                                             AND mn.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND mn.pub_plan_start_dt <![CDATA[ >= ]]> now( ) - INTERVAL '7 day'
+                                              ))
+                             GROUP BY
+                                     grs.guard_id,
+                                     grs.stu_id,
+                                     grs.org_id
+                             ) gurn
+                             ON gurn.guard_id = um2.usr_id
+                                     AND gurn.stu_id = um1.usr_id
+                                     AND gurn.org_id = om2.org_id
+                     LEFT JOIN
+                     (
+                             SELECT
+                                     geas.guard_id,
+                                     geas.stu_id,
+                                     geas.org_id,
+                                     count(geas.id) AS unreadEventCount
+                             FROM guard_event_apply_sts GEAS
+                                          INNER JOIN mst_event ME
+                                     ON ME.id = GEAS.event_id
+                                             AND ME.event_sts_div = '0'
+                                             AND now() >= ME.pub_start_dt
+                                             AND ME.pub_end_dt > now()
+                                             AND ME.del_flg=0
+                                          inner join regexp_split_to_table(#{guards}, ',') t1
+                                     on t1 = GEAS.guard_id
+                             WHERE
+                                     geas.del_flg = 0
+                               AND geas.reading_sts_div = '0'
+                             GROUP BY
+                                     geas.guard_id,
+                                     geas.stu_id,
+                                     geas.org_id
+                             ) gure
+                             on gure.guard_id = um2.usr_id
+                                     AND gure.stu_id = um1.usr_id
+                                     AND gure.org_id = om2.org_id
+                     LEFT JOIN
+                     (
+                             SELECT
+                                     trs.deliver_id,
+                                     trs.org_id,
+                                     count(trs.id) AS unreadMessageCount
+                             FROM mst_message mm
+                                          INNER JOIN talk_reading_sts trs
+                                     ON mm.id = trs.message_id
+                                             AND trs.reading_sts_div = '0'
+                                             AND trs.del_flg=0
+                                          inner join regexp_split_to_table(#{guards}, ',') t1
+                                     on t1 = trs.deliver_id
+                             WHERE
+                                     mm.del_flg = 0
+                               AND (( now() >= mm.pub_plan_start_dt AND mm.pub_plan_end_dt > now()) OR (mm.pub_plan_start_dt IS NULL AND mm.pub_plan_end_dt IS NULL))
+                               AND mm.message_type_div IN ('3','5')
+                             GROUP BY
+                                     trs.deliver_id,
+                                     trs.org_id
+                             ) gurm
+                             ON gurm.deliver_id = um2.usr_id
+                                     AND gurm.org_id = om2.org_id
+        WHERE
+                SM.del_flg=0
+        ORDER BY
+            SM.flnm_nm
+            ,SM.flnm_lnm
+    </select>
+    <select id="selectGuardInfo" parameterType="String" resultType="jp.learningpark.modules.guard.dto.F30002Dto">
+        SELECT
+                mu.after_usr_id,
+                mu.usr_id as guardId
+        FROM
+                mst_stu AS ms
+                        LEFT JOIN mst_guard AS mg ON (
+                             ms.guard_id = mg.guard_id
+                                     OR ms.guard1_id = mg.guard_id
+                                     OR ms.guard2_id = mg.guard_id
+                                     OR ms.guard3_id = mg.guard_id
+                                     OR ms.guard4_id = mg.guard_id
+                             )
+                        AND mg.del_flg = 0
+                        INNER JOIN mst_usr AS mu ON mu.usr_id = mg.guard_id
+                        AND mu.del_flg = 0
+        WHERE
+                ms.stu_id = #{stuId}
+          AND ms.del_flg = 0
+    </select>
+
+    <!-- 2021/02/18 4-29 start -->
+    <select id="selectStudentsCount" resultType="jp.learningpark.modules.guard.dto.F30002Dto">
+        SELECT DISTINCT
+            SM.stu_id,
+            COALESCE ( gurn.unreadNoticeCount, 0 ) AS unNoticeReadCount,
+            COALESCE ( gure.unreadEventCount, 0 ) AS unEventReadCount,
+            COALESCE ( gurn.unreadNoticeCount, 0 ) + COALESCE ( gure.unreadEventCount, 0 ) AS unreadCount
+        FROM mst_stu SM
+            INNER JOIN mst_usr UM1 ON SM.guard_id = #{guards} AND UM1.usr_id=SM.stu_id AND UM1.del_flg=0
+            INNER JOIN mst_usr UM2 ON UM2.usr_id = SM.guard_id AND UM2.del_flg = 0
+           LEFT JOIN
+            (
+                SELECT
+                grs.guard_id,
+                grs.stu_id,
+                grs.org_id,
+                count(grs.id) AS unreadNoticeCount
+                FROM mst_notice MN
+                INNER JOIN guard_reading_sts GRS
+                ON GRS.guard_id = #{guards}
+                AND MN.id = GRS.notice_id
+                AND GRS.reading_sts_div = '0'
+                AND GRS.del_flg = 0
+                WHERE
+                ((MN.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND MN.pub_plan_end_dt <![CDATA[ >= ]]> now( )
+                AND MN.notice_type_div NOT IN ( '1', '6', '3', '7' ))
+                OR (MN.notice_type_div IN ( '3', '7' )
+                AND mn.pub_plan_start_dt <![CDATA[ <= ]]> now( ) AND mn.pub_plan_start_dt <![CDATA[ >= ]]> now( ) - INTERVAL '7 day'
+                ))
+                GROUP BY
+                grs.guard_id,
+                grs.stu_id,
+                grs.org_id
+            ) gurn
+           ON gurn.guard_id = um2.usr_id
+           AND gurn.stu_id = um1.usr_id
+           LEFT JOIN
+            (
+                SELECT
+                geas.guard_id,
+                geas.stu_id,
+                geas.org_id,
+                count(geas.id) AS unreadEventCount
+                FROM guard_event_apply_sts GEAS
+                INNER JOIN mst_event ME
+                ON GEAS.guard_id = #{guards}
+                AND ME.id = GEAS.event_id
+                AND ME.event_sts_div = '0'
+                AND now() >= ME.pub_start_dt
+                AND ME.pub_end_dt > now()
+                AND ME.del_flg=0
+                WHERE
+                geas.del_flg = 0
+                AND geas.reading_sts_div = '0'
+                GROUP BY
+                geas.guard_id,
+                geas.stu_id,
+                geas.org_id
+            ) gure
+           ON gure.guard_id = um2.usr_id
+           AND gure.stu_id = um1.usr_id
+        WHERE
+            SM.del_flg=0
+            AND (gurn.unreadNoticeCount > 0 OR gure.unreadEventCount > 0)
+        ORDER BY
+            SM.stu_id
+    </select>
+    <!-- 2021/02/18 4-29 end -->
+</mapper>

@@ -1,0 +1,1017 @@
+.content {
+    position: fixed;
+    width: 100%;
+    overflow: auto;
+    padding: 4px;
+    padding-bottom: 0;
+    padding-top: 84px;
+    height: calc(100% - 48px);
+}
+
+.oneTitle {
+    width: calc(100% - ((42px / 3) * 2));
+    margin: calc(52px / 3) calc(42px / 3) 0 calc(42px / 3);
+    height: calc(88px / 3);
+}
+
+.topTitle {
+    height: 40px;
+    background: #8CC11F;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    position: fixed;
+    top: 44px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.oneTitle ul {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.oneTitle li {
+    width: 50%;
+    height: 100%;
+    float: left;
+    color: #009944;
+    background: none;
+    font-size: calc(42px / 3);
+    text-align: center;
+}
+
+.oneTitle li.active {
+    color: #CCCCCC;
+    border-bottom: 4px solid #BABABA;
+    font-weight: bold;
+}
+
+.oneTitle li.active1 {
+    font-weight: bold;
+    color: black;
+    border-bottom: 4px solid #8CC11F;
+}
+
+ul.tab {
+    width: 100%;
+    height: 20vw;
+    overflow: hidden;
+    border: 2px solid #fff;
+    position: fixed;
+    background: #fff;
+}
+
+ul.tab li.liactive {
+    background: #00b7ee;
+    color: #fff;
+}
+
+ul.tab li {
+    width: 100%;
+    height: 50%;
+    color: #009944;
+    background: none;
+    font-size: 3vw;
+    line-height: 10vw;
+    float: left;
+    text-align: left;
+    padding-left: 2vw;
+}
+
+.pubtime {
+    text-align: right;
+    font-size: 12px;
+    margin-top: 0 !important;
+    /* line-height: 11vw; */
+    width: 20% !important;
+    font-weight: bold;
+    margin-right: 1vw;
+}
+
+.divImg {
+    width: 10% !important;
+    text-align: right;
+    margin-top: -3vw !important;
+}
+
+.topNews > div {
+    width: 50%;
+    float: left;
+    font-size: 3.5vw;
+    font-weight: bold;
+}
+
+.oneCont {
+    width: 100%;
+    height: auto;
+    padding-top: 3px;
+    overflow: auto;
+}
+
+.oneCont li {
+    width: 100%;
+    height: calc(250px / 3);
+    border-bottom: 1px solid white;
+}
+
+.oneCont .img {
+    width: 42px;
+    height: 42px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: calc(55px / 3);
+    text-align: center;
+    border: 1px solid #e2e2e280;
+    margin-left: calc(42px / 3);
+}
+
+.oneCont .img > img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+}
+
+.oneCont .cont {
+    width: calc(100% - 50px - (42px / 3));
+    float: left;
+    padding-left: 1vw;
+    color: #333;
+    overflow: hidden;
+    padding: 0 1vw;
+    height: 100%;
+}
+
+.oneCont .cont div {
+    width: 100%;
+    float: right;
+    margin-top: 10px
+}
+
+.textArea {
+    width: 100%;
+    font-size: calc(42px / 3);
+    line-height: 28px;
+    color: black;
+    height: 60% !important;
+}
+
+#content {
+    width: 100%;
+    overflow: auto;
+    padding-bottom: 1vw;
+    height: calc(100% - 51px);
+}
+
+.pageChange {
+    width: 100%;
+    height: 11vw;
+    padding: 1vw;
+}
+
+.pageChange div {
+    width: 50%;
+    text-align: center;
+    float: left;
+    height: 10vw;
+    line-height: 10vw;
+    border: 1px solid #009944;
+    color: #009944;
+}
+
+#prev {
+    border-radius: 1vw 0 0 1vw;
+}
+
+#next {
+    border-radius: 0 1vw 1vw 0;
+}
+
+#pageFoot {
+    width: 100%;
+    text-align: center;
+    font-size: 3vw;
+    color: #999;
+}
+
+.gray {
+    color: #999 !important;
+    border-color: #999 !important;
+}
+
+.noticeCount {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 10px;
+    left: 40%;
+    top: 102px;
+    line-height: 18px;
+    display: none;
+}
+
+.channelCount {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 10px;
+    left: 90%;
+    top: 102px;
+    line-height: 18px;
+    display: none;
+}
+
+.important {
+    /* modify at 2021/08/10 for V9.02 by NWT LiGX START */
+    background-color: #FF38A5;
+    /* modify at 2021/08/10 for V9.02 by NWT LiGX END */
+    border-radius: 2.5vw;
+    width: 20% !important;
+    height: 5vw !important;
+    float: right !important;
+    color: white;
+    text-align: center;
+    font-size: 3.2vw;
+    line-height: 5vw !important;
+    display: none;
+    margin-top: -4px !important;
+}
+
+.title {
+    font-size: 3.6vw;
+    width: 80% !important;
+}
+
+.cont .top {
+    width: 100%;
+    height: 56px;
+    font-size: 17px;
+    line-height: 28px;
+    color: #444;
+    margin-top: 10px;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+.cont .bottom {
+    width: 100%;
+    height: 34px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #555;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.nextpage {
+    width: 46%;
+    height: 5vh;
+    float: left;
+    color: #8CC11F;
+    background: none;
+    font-size: 13px;
+    text-align: center;
+    border: 2px solid #8CC11F;
+    vertical-align: middle;
+    margin-left: 27%;
+    margin-top: 4%;
+    border-radius: 8px;
+    margin-bottom: 2%;
+    line-height: 5vh;
+}
+
+.notice-read-status {
+    background-color: #8CC11F;
+    border-radius: 2.5vw;
+    width: 20% !important;
+    height: 5vw !important;
+    float: right !important;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    line-height: 5vw !important;
+    font-weight: 100;
+    margin-top: -4px !important;
+}
+
+.notice-title {
+    width: 78%;
+    height: 100%;
+    float: left;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    color: grey;
+}
+
+/*Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width: 534px) and (max-device-width: 768px) {
+    .content {
+        position: fixed;
+        width: 100%;
+        overflow: auto;
+        padding: 0;
+        margin-top: 84px;
+        height: calc(100% - 130px);
+    }
+
+    .oneTitle {
+        width: 100%;
+        margin: 0;
+        margin-top: .15rem;
+        height: 3.8rem;
+    }
+
+    .topTitle {
+        position: fixed;
+        top: 56px;
+    }
+
+    .oneTitle ul {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .oneTitle li {
+        line-height: 6;
+        width: 50%;
+        height: 100%;
+        float: left;
+        color: #009944;
+        background: none;
+        font-size: .85rem;
+        text-align: center;
+    }
+
+    .oneTitle li.active {
+        color: #CCCCCC;
+        border-bottom: 4px solid #BABABA;
+        font-weight: bold;
+        /*letter-spacing: 2px;*/
+    }
+
+    .oneTitle li.active1 {
+        font-weight: bold;
+        color: black;
+        border-bottom: 4px solid #8CC11F;
+        /*letter-spacing: 2px;*/
+    }
+
+    ul.tab {
+        width: 100%;
+        height: 20vw;
+        overflow: hidden;
+        border: 2px solid #fff;
+        position: fixed;
+        background: #fff;
+    }
+
+    ul.tab li.liactive {
+        background: #00b7ee;
+        color: #fff;
+    }
+
+    ul.tab li {
+        width: 100%;
+        height: 50%;
+        color: #009944;
+        background: none;
+        font-size: 3vw;
+        line-height: 10vw;
+        float: left;
+        text-align: left;
+        padding-left: 2vw;
+    }
+
+    .pubtime {
+        text-align: right;
+        font-size: .9rem;
+        margin-top: .3rem !important;
+        width: 25% !important;
+        font-weight: bold;
+        height: auto !important;
+        margin-right: 0;
+    }
+
+    .divImg {
+        width: 10% !important;
+        text-align: right;
+        height: 30px;
+        margin-top: 0 !important;
+    }
+
+    .divImg img {
+        width: 9px !important;
+        margin-top: 0 !important;
+    }
+
+    .topNews > div {
+        width: 50%;
+        float: left;
+        font-size: 3.5vw;
+        font-weight: bold;
+    }
+
+    .oneCont {
+        width: 100%;
+        height: auto;
+        overflow: auto;
+        padding-top: 0;
+    }
+
+    .oneCont li {
+        width: 100%;
+        height: 5.1rem;
+        border-bottom: 1px solid white;
+        padding: 0 2rem;
+    }
+
+    .oneCont .img {
+        width: 2.5rem;
+        height: 2.5rem;
+        float: left;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-top: .7rem;
+        text-align: center;
+        border: 1px solid #e2e2e280;
+        margin-left: 0;
+    }
+
+    .oneCont .img > img {
+        height: 2.5rem;
+        width: 2.5rem;
+        object-fit: cover;
+        transform: translate(-50%, 0px);
+        left: 50%;
+        position: relative;
+    }
+
+    .oneCont .cont {
+        width: calc(100% - 2.5rem);
+        float: left;
+        color: #333;
+        overflow: hidden;
+        padding: 0;
+        /*height: calc(100% + 4px);*/
+    }
+
+    .oneCont .cont div {
+        width: 100%;
+        float: right;
+        margin-top: 0;
+        height: auto !important;
+    }
+
+    .textArea {
+        width: calc(100% - 3.5rem);
+        float: left;
+        /* font-weight: bold; */
+        color: #333;
+        overflow: hidden;
+        padding: 0;
+        height: calc(100% + 4px);
+    }
+
+    #content {
+        width: 100%;
+        height: calc(100% - 5.25rem);
+        overflow: auto;
+        margin-top: 1.3rem;
+        padding-bottom: unset;
+        /*padding-left: 2rem;*/
+        /*padding-right: 2rem;*/
+    }
+
+    .pageChange {
+        width: 100%;
+        height: 11vw;
+        padding: 1vw;
+    }
+
+    .pageChange div {
+        width: 50%;
+        text-align: center;
+        float: left;
+        height: 10vw;
+        line-height: 10vw;
+        border: 1px solid #009944;
+        color: #009944;
+    }
+
+    #prev {
+        border-radius: 1vw 0 0 1vw;
+    }
+
+    #next {
+        border-radius: 0 1vw 1vw 0;
+    }
+
+    #pageFoot {
+        width: 100%;
+        text-align: center;
+        font-size: 3vw;
+        color: #999;
+    }
+
+    .gray {
+        color: #999 !important;
+        border-color: #999 !important;
+    }
+
+    .noticeCount {
+        position: absolute;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        background: red;
+        color: white;
+        font-size: .7rem;
+        left: 45%;
+        top: 1.8rem;
+        line-height: 1.2rem;
+        display: none;
+    }
+
+    .channelCount {
+        position: absolute;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        background: red;
+        color: #fff;
+        font-size: .7rem;
+        top: 1.8rem;
+        right: 45px;
+        left: unset;
+        line-height: 1.2rem;
+        display: none;
+    }
+
+    .important {
+        /* modify at 2021/08/10 for V9.02 by NWT LiGX START */
+        background-color: #FF38A5;
+        /* modify at 2021/08/10 for V9.02 by NWT LiGX END */
+        border-radius: 0.7rem;
+        width: 3.5rem !important;
+        height: 1rem !important;
+        float: right !important;
+        color: white;
+        text-align: center;
+        font-size: .75rem;
+        line-height: 1rem !important;
+        display: none;
+        margin-top: -0.1rem !important;
+    }
+
+    .title {
+        font-size: 3.6vw;
+        width: 80% !important;
+    }
+
+    .cont .top {
+        width: 100%;
+        height: 56px;
+        font-size: 17px;
+        line-height: 28px;
+        color: #444;
+        margin-top: 10px;
+        overflow: hidden;
+        font-weight: bold;
+    }
+
+    .cont .bottom {
+        width: 100%;
+        height: 34px;
+        line-height: 17px;
+        font-size: 12px;
+        color: #555;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .nextpage {
+        width: 46%;
+        height: 5vh;
+        float: left;
+        color: #8CC11F;
+        background: none;
+        font-size: 15px;
+        text-align: center;
+        border: 2px solid #8CC11F;
+        vertical-align: middle;
+        border-radius: 8px;
+        margin: 4% 27% 2%;
+        line-height: 4.5vh;
+    }
+
+    .notice-read-status {
+        background-color: #8CC134;
+        border-radius: 0.7rem;
+        width: 3.5rem !important;
+        height: 1rem !important;
+        float: right !important;
+        color: white;
+        text-align: center;
+        font-size: .75rem;
+        line-height: 1rem !important;
+        font-weight: bold;
+        margin-top: -0.1rem !important;
+    }
+
+    .notice-title {
+        padding-left: 1.3rem;
+        padding-top: 0.2rem;
+        height: 3.3rem !important;
+        font-size: 1rem;
+        overflow: hidden;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        width: 75% !important;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        color: grey;
+        line-height: 1.65rem;
+        float: left;
+    }
+}
+
+/*ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width: 768px) {
+
+    .div_header {
+        height: 56px;
+    }
+
+    .commonTabTitle {
+        height: 52px;
+        background: #8CC11F;
+        line-height: 52px;
+        color: white;
+        text-align: center;
+        font-size: 1.5rem;
+        width: 100%;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .div_bottom {
+        height: 60px;
+    }
+
+    .content {
+        position: fixed;
+        width: 100%;
+        overflow: auto;
+        padding: 0;
+        height: calc(100% - 168px);
+        margin-top: 108px;
+    }
+
+    .oneTitle {
+        width: 100%;
+        margin: 0;
+        margin-top: 1.3rem;
+        height: auto;
+    }
+
+    .topTitle {
+        position: fixed;
+        top: 56px;
+    }
+
+    .oneTitle ul {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+        width: 100%;
+        height: 60px;
+        overflow: hidden;
+    }
+
+    .oneTitle li {
+        line-height: 60px;
+        width: 50%;
+        height: 100%;
+        float: left;
+        color: #009944;
+        background: none;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .oneTitle li.active {
+        color: #CCCCCC;
+        border-bottom: 4px solid #BABABA;
+        font-weight: bold;
+        /*letter-spacing: 2px;*/
+    }
+
+    .oneTitle li.active1 {
+        font-weight: bold;
+        color: black;
+        border-bottom: 4px solid #8CC11F;
+        /*letter-spacing: 2px;*/
+    }
+
+    ul.tab {
+        width: 100%;
+        height: 20vw;
+        overflow: hidden;
+        border: 2px solid #fff;
+        position: fixed;
+        background: #fff;
+    }
+
+    ul.tab li.liactive {
+        background: #00b7ee;
+        color: #fff;
+    }
+
+    ul.tab li {
+        width: 100%;
+        height: 50%;
+        color: #009944;
+        background: none;
+        font-size: 3vw;
+        line-height: 10vw;
+        float: left;
+        text-align: left;
+        padding-left: 2vw;
+    }
+
+    .pubtime {
+        text-align: right;
+        font-size: 1.1rem;
+        margin-top: 0 !important;
+        width: 22% !important;
+        font-weight: bold;
+        padding-left: 10px;
+        margin-right: 0;
+    }
+
+    .divImg {
+        width: 10% !important;
+        text-align: right;
+        height: 30px;
+        margin-top: 0 !important;
+    }
+
+    .divImg img {
+        width: 10px !important;
+        margin-top: 0rem !important;
+    }
+
+    .topNews > div {
+        width: 50%;
+        float: left;
+        font-size: 3.5vw;
+        font-weight: bold;
+    }
+
+    .oneCont {
+        width: 100%;
+        height: auto;
+        padding-top: 3px;
+        overflow: auto;
+    }
+
+    .oneCont li {
+        width: 100%;
+        height: 6.8rem;
+        border-bottom: 1.5px solid white;
+        padding: 0 2.5rem;
+        padding-top: 0.45rem;
+    }
+
+    .oneCont .img {
+        width: 3.2rem;
+        height: 3.2rem;
+        float: left;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-top: .4rem;
+        text-align: center;
+        border: 1px solid #e2e2e280;
+        margin-left: 0;
+    }
+
+    .oneCont .img > img {
+        width: 3.2rem;
+        height: 3.2rem;
+        object-fit: cover;
+    }
+
+    .oneCont .cont {
+        width: calc(100% - 3.5rem);
+        float: left;
+        color: #333;
+        overflow: hidden;
+        padding: 0;
+        height: 100%;
+    }
+
+    .oneCont .cont div {
+        width: 100%;
+        float: right;
+        margin-top: 0;
+    }
+
+    .textArea {
+        padding-left: 2rem;
+        width: 100% !important;
+        line-height: 28px;
+        color: black;
+        height: 3.5rem !important;
+    }
+
+    .textArea p {
+        font-size: 1.25rem;
+    }
+
+    #content {
+        margin-top: 1.5rem;
+        width: 100%;
+        overflow: auto;
+        padding-bottom: unset;
+        height: calc(100% - 60px - 2.8rem);
+        /*padding-left: 2.5rem;*/
+        /*padding-right: 2.5rem;*/
+    }
+
+    .pageChange {
+        width: 100%;
+        height: 11vw;
+        padding: 1vw;
+    }
+
+    .pageChange div {
+        width: 50%;
+        text-align: center;
+        float: left;
+        height: 10vw;
+        line-height: 10vw;
+        border: 1px solid #009944;
+        color: #009944;
+    }
+
+    #prev {
+        border-radius: 1vw 0 0 1vw;
+    }
+
+    #next {
+        border-radius: 0 1vw 1vw 0;
+    }
+
+    #pageFoot {
+        width: 100%;
+        text-align: center;
+        font-size: 3vw;
+        color: #999;
+    }
+
+    .gray {
+        color: #999 !important;
+        border-color: #999 !important;
+    }
+
+    .noticeCount {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+        font-size: 15px;
+        left: 45%;
+        top: 38px;
+        line-height: 25px;
+        display: none;
+    }
+
+    .channelCount {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+        font-size: 15px;
+        right: 6%;
+        top: 38px;
+        line-height: 25px;
+        display: none;
+    }
+
+    .important {
+        /* modify at 2021/08/10 for V9.02 by NWT LiGX START */
+        background-color: #FF38A5;
+        /* modify at 2021/08/10 for V9.02 by NWT LiGX END */
+        border-radius: 0.6rem;
+        width: 4.5rem !important;
+        height: 1.4rem !important;
+        float: right !important;
+        color: white;
+        text-align: center;
+        font-size: .95rem;
+        line-height: 1.4rem !important;
+        font-weight: bold;
+        margin-top: 0.2rem !important;
+        display: none;
+    }
+
+    .title {
+        font-size: 3.6vw;
+        width: 80% !important;
+    }
+
+    .cont .top {
+        width: 100%;
+        height: 56px;
+        font-size: 17px;
+        line-height: 28px;
+        color: #444;
+        margin-top: 10px;
+        overflow: hidden;
+        font-weight: bold;
+    }
+
+    .cont .bottom {
+        width: 100%;
+        height: 34px;
+        line-height: 17px;
+        font-size: 12px;
+        color: #555;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .nextpage {
+        width: 46%;
+        height: 5vh;
+        float: left;
+        color: #8CC11F;
+        background: none;
+        font-size: 15px;
+        text-align: center;
+        border: 2px solid #8CC11F;
+        vertical-align: middle;
+        border-radius: 8px;
+        margin: 4% 27% 2%;
+        line-height: 4.5vh;
+    }
+
+    .notice-read-status {
+        background-color: #8CC11F;
+        border-radius: 0.6rem;
+        width: 4.5rem !important;
+        height: 1.4rem !important;
+        line-height: 1.4rem !important;
+        float: right !important;
+        color: white;
+        text-align: center;
+        font-size: .95rem;
+        font-weight: bold;
+        margin-top: 0.2rem;
+    }
+
+    .notice-title {
+        width: 78%;
+        height: 100%;
+        float: left;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        color: grey;
+        padding-left: 0;
+    }
+
+    .rightIcon {
+        line-height: 2;
+    }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>ユーザー基本情報一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00041.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="content" id="vue" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">ユーザー基本情報一覧画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="main">
+        <form id="f00041Form">
+            <div class="one">
+                <div class="oneLeft">
+                    <div class="objectName left">利用者ロール</div>
+                    <input class="newtui-radio-one nolabel" type="radio" name="usrRole" value="1" id="role_1" title="管理者" checked v-model="usrRole">
+                    <input class="newtui-radio-one nolabel" type="radio" name="usrRole" value="2" id="role_2" title="先生" v-model="usrRole">
+                    <input class="newtui-radio-one nolabel" type="radio" name="usrRole" value="3" id="role_3" title="保護者" v-model="usrRole">
+                    <input class="newtui-radio-one nolabel" type="radio" name="usrRole" value="4" id="role_4" title="生徒" v-model="usrRole">
+                </div>
+                <div class="oneRight">
+                    <div class="objectName right">利用者ログインID</div>
+                    <input type="text" name="loginId">
+                </div>
+            </div>
+            <div class="one">
+                <div class="oneRight">
+                    <div class="objectName left">姓名</div>
+                    <input type="text" name="usrName">
+                </div>
+                <div class="oneRight">
+                    <div class="objectName right">カナ姓名</div>
+                    <input type="text" name="knName">
+                </div>
+            </div>
+        </form>
+        <div class="two two-left">
+            <div class="twoRight" style="display: none;" id="schyRadio" v-show="usrRole === '4'">
+                <div class="objectName left">学年</div>
+                <select id="schy">
+                    <option selected></option>
+                    <option v-for="schy in schyList" :value="schy.codCd">{{schy.codValue}}</option>
+                </select>
+            </div>
+            <div class="twoRight" style="width: 200%;">
+                <div style="width: 50%;height: 2.7vw;float: left">
+                    <div class="objectName left">ステータス</div>
+                    <input class="newtui-radio-one nolabel" type="radio" name="usrSts" value="1" id="use" checked>
+                    <input class="newtui-radio-one nolabel" type="radio" name="usrSts" value="0" id="stop">
+                    <input id="specAuthFlg" class="newtui-radio-one nolabel" type="radio" name="usrSts" value="2" id="delete" title="削除">
+                    <button style="width: 12vw;margin-right: 2%;" onclick="window.location.href='./F09023.html'" id="add">既存ログインID追加</button>
+                </div>
+                <div style="width: 50%;height: 2.7vw;float: left">
+                    <button style="float: left" id="org_select">組織指定</button>
+                </div>
+            </div>
+        </div>
+        <div class="one">
+            <div class="btn">
+                <button onclick="select(null)">検索</button>
+                <button id="new" onclick="toF00042()">新規作成</button>
+            </div>
+            <!--<div class="exprot">-->
+                <!--<a href="F00004.html">一括登録＆エクスポート</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottom_title">検索結果一覧</div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00041.js"></script>
+</html>

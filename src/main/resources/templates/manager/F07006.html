@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>その他ブロック大分類追加・編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F07006.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<div class="main">
+    <header style="width: 100%;padding: 0 1vw">
+        <div class="header_logo">
+        </div>
+        <ul class="header_operat">
+            <li class="endLi" onclick="openUrl('logout')">
+                <img src="../img/logout1.png" alt="logout"/>
+            </li>
+            <div class="btn_div">
+                <button onclick="window.location.href='./F00002.html'">基本情報変更</button>
+            </div>
+            <div class="btn_div">
+                <button onclick="window.location.href='../common/F40008.html'">ID／パスワード変更</button>
+            </div>
+            <div class="btn_div">
+                <button onclick="window.location.href='./F00001.html'">管理者本ページへ</button>
+            </div>
+        </ul>
+    </header>
+    <div style="width: 100%;height: 7vw;background: #009944 "></div>
+    <div id="message" class="topMessage"></div>
+
+    <div class="content" id="app" v-cloak>
+        <div class="popTitle">その他ブロック大分類追加・編集画面</div>
+        <div class="topSessionTitle">
+            <div class="orgTitle">組織ID:</div>
+            <div id="orgId">{{org.orgId}}</div>
+            <div class="orgTitle">組織名:</div>
+            <div id="orgNm">{{org.orgNm}}</div>
+        </div>
+        <form id="f07006Form">
+            <div class="inputDiv" id="manager">
+                <div class="inputMessage" style="margin-top: 2vw">
+                    <div class="inputMessageOne">
+                        <div class="title">大分類名</div>
+                        <div class="star" id="star">*</div>
+                        <input type="text" :value="mstBlockEntity.blockDispyNm" maxlength="20" class="blockDispyNm" name="blockDispyNm" id="blockDispyNm">
+                    </div>
+                    <div class="inputMessageOne">
+                        <div class="title">ソート</div>
+                        <div class="star">*</div>
+                        <input type="text" maxlength="3" class="blockTypeDiv" name="blockTypeDiv">
+                    </div>
+                </div>
+                <div class="inputMessage">
+                    <div class="inputMessageOne">
+                        <div class="imgtitle">大分類画像
+                            <p class="note">※推奨画像サイズ：90 * 90</p>
+                        </div>
+                        <div class="star">*</div>
+                        <div class="img">
+                            <img  :src= "imgId1" class="showImg1" v-on:error="changeImg('imgId2')">
+                            <input type="file" value="" class="img1" name="img1" accept="image/*" @change="btnUploadFile(event,'showImg1')" id="img1"></div>
+                    </div>
+                    <div class="inputMessageOne">
+                        <div class="imgtitle">小分類画像
+                            <p class="note">※推奨画像サイズ：90 * 90</p>
+                        </div>
+                        <div class="star">*</div>
+                        <div class="img">
+                            <img :src="imgId3" class="showImg2" v-on:error="changeImg('imgId4')">
+                            <input type="file" value="" class="img2" name="img2" accept="image/*" @change="btnUploadFile(event,'showImg2')" id="img2"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="button_div">
+            <button class="end_btn" @click="submitFn()">登録</button>
+            <button class="end_btn" @click="bakBtn()">戻る</button>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/manager/F07006.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00054Dao">
+    <select id="getStuInformation" resultType="jp.learningpark.modules.manager.dto.F00054Dto">
+        SELECT DISTINCT
+        mu.usr_id AS stuId,
+        mu.after_usr_id AS afterUserId,
+        ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+        mcd.cod_value AS schy
+        FROM
+        mst_usr AS mu
+        INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+        <if test="params.searchDiv =='all' ">
+            INNER JOIN stu_grp AS sg ON sg.stu_id != ms.stu_id AND sg.del_flg = 0
+        </if>
+        INNER JOIN mst_cod_d AS mcd ON mcd.cod_cd = ms.schy_div
+        AND mcd.cod_key = 'SCHY_DIV'
+        <if test="params.searchDiv == 'schy' and params.schyDiv != '' ">
+            AND ms.schy_div = '${params.schyDiv}'
+        </if>
+        <if test="params.searchDiv == 'group' and params.groupDiv != '' ">
+            INNER JOIN stu_grp AS sg on sg.stu_id = ms.stu_id
+            AND sg.grp_id = '${params.groupDiv}'
+            AND sg.del_flg = 0
+        </if>
+        <if test="params.searchDiv =='someone' and params.stuName != '' ">
+            AND ms.flnm_nm || ms.flnm_lnm LIKE '%${params.stuName}%'
+        </if>
+        AND mu.org_id = #{orgId}
+        AND mu.del_flg = 0
+        AND ms.del_flg = 0
+        AND mcd.del_flg = 0
+        ORDER BY
+        stuId
+    </select>
+    <select id="getGroupList" resultType="jp.learningpark.modules.manager.dto.F00054Dto">
+        SELECT DISTINCT
+            mg.grp_id AS groupId,
+            mg.grp_nm AS groupName
+        FROM
+            mst_grp AS mg
+        WHERE
+            mg.grp_id not IN ( SELECT DISTINCT grp_id FROM "stu_grp" where del_flg = 0)
+            AND	mg.org_id = #{orgId}
+            AND mg.del_flg = 0
+        ORDER BY
+            mg.grp_id
+    </select>
+    <select id="getStuList" resultType="jp.learningpark.modules.manager.dto.F00054Dto">
+        SELECT DISTINCT
+            mu.usr_id AS stuId,
+            mu.after_usr_id AS afterUserId,
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName
+        FROM
+            mst_usr AS mu
+            INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+            INNER JOIN stu_grp AS sg ON sg.stu_id != ms.stu_id
+            AND mu.org_id = #{orgId}
+            AND mu.del_flg = 0
+            AND ms.del_flg = 0
+            AND sg.del_flg = 0
+        ORDER BY
+            stuId
+    </select>
+    <select id="getGrpStuInfo" resultType="jp.learningpark.modules.manager.dto.F00054Dto">
+        SELECT DISTINCT
+            mu.usr_id AS stuId,
+            mu.after_usr_id,
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            mcd.cod_value AS schy
+        FROM
+            stu_grp AS sg
+            INNER JOIN mst_stu AS ms ON ms.stu_id = sg.stu_id
+            AND ms.del_flg = 0
+            INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+            AND mu.del_flg = 0
+            INNER JOIN mst_cod_d AS mcd ON mcd.cod_cd = ms.schy_div
+            AND mcd.del_flg = 0
+            INNER JOIN mst_grp AS mg ON mg.grp_id = sg.grp_id
+            AND mg.del_flg = 0
+            AND mg.org_id = #{orgId}
+
+            AND sg.grp_id = #{groupId}
+
+            AND mcd.cod_key = 'SCHY_DIV'
+            AND sg.del_flg = 0
+    </select>
+
+</mapper>

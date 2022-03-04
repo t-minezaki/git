@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21069Dao">
+    <select id="selectAdminByIdList" resultType="jp.learningpark.modules.manager.dto.F21069DtoIn">
+        SELECT
+        mm.flnm_nm || ' ' || mm.flnm_lnm AS aFlnm
+        , mu.usr_id AS usrId
+        , mu.org_id AS orgId
+        , mu.after_usr_id AS aId
+        FROM
+        mst_usr mu
+        INNER JOIN
+        (SELECT
+        mgr_id as user_id,
+        flnm_nm,
+        flnm_lnm
+        FROM
+        mst_manager
+        WHERE
+        del_flg = 0
+        UNION ALL
+        SELECT
+        mentor_id as user_id,
+        flnm_nm,
+        flnm_lnm
+        FROM
+        mst_mentor
+        WHERE
+        del_flg = 0) as mm
+        ON
+        mu.usr_id = mm.user_id
+        WHERE
+        mm.user_id
+        IN
+        <if test="adminIdList!=null">
+            <foreach collection="adminIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        ORDER BY
+        mm.flnm_nm,mm.flnm_lnm
+        LIMIT (#{limit}) OFFSET (#{page}-1)*#{limit}
+    </select>
+
+    <select id="selectStuByIdListTotal" resultType="jp.learningpark.modules.manager.dto.F21069DtoIn">
+        SELECT
+        mm.flnm_nm || ' ' || mm.flnm_lnm AS aFlnm
+        , mu.usr_id AS usrId
+        , mu.org_id AS orgId
+        , mu.after_usr_id AS aId
+        FROM
+        mst_usr mu
+        INNER JOIN
+        (SELECT
+        mgr_id as user_id,
+        flnm_nm,
+        flnm_lnm
+        FROM
+        mst_manager
+        WHERE
+        del_flg = 0
+        UNION ALL
+        SELECT
+        mentor_id as user_id,
+        flnm_nm,
+        flnm_lnm
+        FROM
+        mst_mentor
+        WHERE
+        del_flg = 0) as mm
+        ON
+        mu.usr_id = mm.user_id
+        WHERE
+        mm.user_id
+        IN
+        <if test="adminIdList!=null">
+            <foreach collection="adminIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        ORDER BY
+        mm.flnm_nm,mm.flnm_lnm
+    </select>
+</mapper>

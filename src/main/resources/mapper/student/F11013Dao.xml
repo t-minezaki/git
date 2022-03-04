@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11013Dao">
+    <select id="init" resultType="jp.learningpark.modules.student.dto.F11013Dto">
+      	SELECT
+		  seas.id,
+          me.id as event_id
+          ,me.event_title
+          ,me.event_cont
+          ,me.attach_file_path
+          ,me.title_img_path
+          ,seas.reply_sts_div
+          ,me.apply_start_dt
+          ,me.apply_end_dt
+        FROM
+           mst_event me
+          INNER JOIN stu_event_apply_sts seas on (me.id = seas.event_id and seas.del_flg = 0)
+        WHERE
+          me.id = #{eventId}
+          and seas.stu_id = #{stuId}
+    </select>
+    <select id="count" resultType="java.lang.String">
+        SELECT
+        count(*)
+        FROM
+        ((SELECT
+        a.id,
+        a.message_title as title,
+        a.message_type_div as type_div,
+        a.message_level_div as level_div,
+        a.pub_plan_start_dt as start_dt,
+        a.title_img_path,
+        null as event_cd,
+        b.reading_sts_div,
+        null as again_send_dt,
+        't' as message
+        FROM
+        mst_message a
+        INNER JOIN student_reading_sts b ON (a.id = b.message_id AND b.del_flg = 0)
+        WHERE
+        b.deliver_id = #{stuId}
+        AND a.pub_plan_start_dt <![CDATA[ <= ]]> now( )
+        AND a.pub_plan_end_dt <![CDATA[ >= ]]> now( )
+        AND a.message_type_div IN ('1', '4', '5')
+        AND a.del_flg = 0
+        AND b.reading_sts_div = '0'
+        ORDER BY
+        b.reading_sts_div = '0' desc,
+        a.message_level_div = '2' desc,
+        a.pub_plan_start_dt)
+        UNION ALL
+        (SELECT
+        a.id,
+        a.event_title as title,
+        null as type_div,
+        a.event_level_div as level_div,
+        a.pub_start_dt as start_dt,
+        a.title_img_path,
+        a.event_cd,
+        b.reading_sts_div,
+        b.again_send_dt,
+        'f' as message
+        FROM
+        mst_event a
+        INNER JOIN stu_event_apply_sts b ON (a.id = b.event_id AND b.del_flg = 0)
+        WHERE
+        b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt <![CDATA[ <= ]]> now()
+        AND a.pub_end_dt <![CDATA[ >= ]]> now()
+        AND b.reading_sts_div = '0'
+        )) as message_event
+    </select>
+</mapper>

@@ -1,0 +1,174 @@
+result_div * {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body, #page {
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF !important;
+}
+
+body {
+    margin: unset;
+    height: 95% !important;
+}
+
+p {
+    margin: unset !important;
+    /* 2020/12/23 UT-024 cuikailin add start */
+    white-space: nowrap;
+    /* 2020/12/23 UT-024 cuikailin add start */
+}
+
+ul {
+    margin: unset;
+    padding: unset;
+}
+
+li {
+    list-style: none;
+    height: 9vh;
+    line-height: 9vh;
+    border-bottom: 1px solid #ccc;
+    padding-left: 10vh;
+}
+
+.question_div ul li p:nth-child(1) {
+    width: 40%;
+}
+
+.question_div ul li p {
+    float: left;
+    width: 50%;
+    font-size: 1.2rem;
+}
+
+._record > span {
+    display: block;
+    padding-left: 2%;
+    border-bottom: 1px solid #ccc;
+    font-size: 2.4rem;
+}
+
+.talk_div ul li p {
+    float: left;
+    width: 50%;
+}
+
+input {
+    line-height: normal !important;
+}
+
+.result_div {
+    float: left;
+    height: 100%;
+}
+
+.result_text {
+    width: 50%;
+    resize: none;
+    height: 15vh;
+    line-height: normal;
+}
+
+.result_select {
+    width: 50%;
+    -webkit-appearance: none;
+    height: 50%;
+    border-color: rgb(169, 169, 169) !important;
+    margin-top: 2%;
+    padding-right: 2vw;
+    line-height: 4vh;
+}
+
+.result_check span {
+    /* 2021/01/04 9.0up UT-076 wangyuehao modify start */
+    margin-left: 1%;
+    font-size: 0.9rem;
+    display: inline-block;
+    width: 80%;
+    vertical-align: 7%;
+    /* 2021/01/04 9.0up UT-076 wangyuehao modify end */
+}
+
+.result_check {
+    width: 100%;
+    height: 100%;
+}
+
+.result_check div {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.result_check input {
+    padding: 0;
+    margin: 0;
+    margin-top: 2.5vh !important;
+}
+
+.talk_div > div {
+    height: 100%;
+}
+
+.btn_div {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+}
+
+.btn_div button {
+    width: 15vw;
+    text-align: center;
+    font-size: 1.2rem;
+    height: 6vh;
+    color: white;
+    background: #00a65a;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 5%;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+.hyper_link {
+    color: blue;
+    text-decoration: underline;
+}
+img#preview {
+    max-width: 100%;
+    max-height: 100%;
+}

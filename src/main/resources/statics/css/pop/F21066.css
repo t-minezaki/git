@@ -1,0 +1,242 @@
+.header_operat {
+    width: auto;
+}
+html,body,.content{
+    height: 100%;
+}
+.content {
+    padding: 0;
+    overflow: unset !important;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 1.5vw;
+    float: left;
+    width: 15%;
+    padding-right: 1vw;
+}
+
+.inputMessage div.input_center {
+    width: 12%;
+    text-align: center;
+}
+
+.inputMessage input {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 1.5vw;
+    float: left;
+    width: 20%;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.inputMessage input:disabled {
+    background: none;
+    border: 0;
+}
+
+.inputMessage img {
+    height: 1.5vw;
+    float: left;
+    padding-left: 0.65vw;
+}
+
+.list {
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+    border-top: 1px solid #009944;
+}
+
+table {
+    width: 100%;
+}
+
+.oneTd table {
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.oneTd th, .oneTd td {
+    text-align: center;
+    height: 2.2vw;
+    font-weight: 500;
+    font-size: 0.9vw;
+    padding: 0;
+}
+
+.oneTd td {
+    color: #666;
+}
+
+.oneTd td a {
+    color: #1322a3;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+td button {
+    background: none;
+    color: #1322a3;
+    width: auto;
+    border: 0;
+    font-size: 0.9vw;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    padding-left: 1vw;
+    border-right: 1px dashed #999;
+    /*border-bottom: 1px dashed #999;*/
+}
+
+.layui-laydate-list > li {
+    width: 50% !important;
+}
+
+.layui-laydate-list > li:last-child {
+    display: none
+}
+
+.laydate-time-list ol li {
+    width: 150% !important;
+    padding-left: 55px !important;
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv {
+    border-radius: 0;
+    background: none;
+    margin-right: 1.59vw !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    color: black;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-right: 1px dashed #999;
+}
+
+.end_btn {
+    width: 12vw;
+    position: fixed;
+    left: 46%;
+    bottom: 1vw;
+    border-radius: 0.3vw;
+    height: 3.2vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    font-size: 1.5vw;
+    line-height: 3.2vw;
+}
+
+.ui-jqgrid tr.ui-row-ltr td a {
+    margin-left: 1vw;
+    color: #009944;
+    text-decoration: underline;
+    margin-right: 1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid .ui-jqgrid-hbox table {
+    padding: 0 !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+    float: right !important;
+    margin-right: 0.5vw;
+}
+
+.ui-jqgrid-bdiv {
+    width: 99.2% !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+
+#gview_jqGrid {
+    overflow: unset !important;
+    height: 87%;
+}

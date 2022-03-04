@@ -1,0 +1,136 @@
+.header_operat {
+    width: auto;
+}
+
+/**:not(.layui-layer-btn a) {*/
+/*    font-size: 1.2vw !important;*/
+/*    letter-spacing: 0.1vw !important;*/
+/*}*/
+
+.title {
+    font-weight: bold;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 1vw;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+._dayweek > * {
+    float: left;
+    margin-left: 0.6vw;
+    font-size: 1.2vw;
+    letter-spacing: 0.1vw;
+}
+
+._dayweek p {
+    margin-top: -0.1%;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background: #fff;
+    border: #999 solid 1px;
+    width: 1vw;
+    height: 2vh;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '\2714';
+    color: black;
+    font-size: 0.9vw;
+    width: 1vw;
+    display: inline-block;
+    text-align: center;
+    height: 2vh;
+    position: relative;
+    bottom: 45%;
+    right: 4%;
+}
+
+.btn_div button {
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9vw;
+    padding: 0 1.6vw;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: auto;
+}
+
+.sim {
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.two {
+    width: 100%;
+    height: 8vw;
+    padding: 1vw 2.2vw 2vw 2.2vw;
+}
+
+.selectBtn {
+    border-radius: 4px;
+    width: 12vw;
+    height: 2vw;
+    font-size: 0.9vw;
+    margin: 1vw 0 0.5vw 2vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.footDiv {
+    width: 100%;
+    height: 4vw;
+}
+
+.selectBtn.footBtn {
+    float: left;
+}
+
+.footDiv .footAuto {
+    width: 28vw;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.two_content > div {
+    width: auto;
+    height: 100%;
+    line-height: 2.5vw;
+    font-size: 0.9vw;
+    color: #000;
+    font-weight: bold;
+    padding-right: 0.5vw;
+    float: left;
+}
+
+.two_content {
+    padding: 1vw 0;
+    height: 4.2vw;
+}
+
+.two_content > input[type='text'] {
+    height: 3vh;
+    margin-top: .1vw;
+    width: 14vw;
+    padding: 0 0.5vw;
+    margin-left: .5vw;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>運用管理｜担当生徒管理｜登録・編集</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00061.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app" class="content">
+    <div class="popTitle">運用管理｜担当生徒管理｜登録・編集</div>
+    <div class="topSessionTitle">
+        <div class="bold">組織ID:</div>
+        <div id="orgId"></div>
+        <div class="bold">組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="inputDiv">
+        <div class="inputMessage">
+            <div>生徒ID</div>
+            <input type="text" id="stuId">
+            <div class="second" onkeyup="this.value=this.value.replace(/[^0-9+^A-Z+^a-z]+/g,'')">先生ID</div>
+            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9+^A-Z+^a-z]+/g,'')" id="mentorId">
+            <div class="second" style="width: 4%;">学年</div>
+            <select id="schy"></select>
+        </div>
+        <div class="inputMessage">
+            <div>生徒姓名</div>
+            <input type="text" name="stuNm" onkeyup="this.value=this.value.replace(/[\x01-\x7E\uFF61-\uFF9F]+/g,'')" id="stuNm">
+            <div class="second">先生姓名</div>
+            <input type="text" name="mentorNm" onkeyup="this.value=this.value.replace(/[\x01-\x7E\uFF61-\uFF9F]+/g,'')"  id="mentorNm">
+<!--            <div class="second" style="width: 4%;">組織</div>-->
+<!--            <select id="orgIdi"></select>-->
+            <button >組織指定</button>
+        </div>
+        <div class="one">
+            <div class="btn">
+                <button onclick="toF00062()">新規追加</button>
+                <button onclick="searchFn()" id="search">検索</button>
+            </div>
+            <!--<div class="exprot">-->
+                <!--<a href="./F00006.html">一括登録＆エクスポート</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div id="jqGridPager"></div>
+    <table id="jqGrid"></table>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F00061.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09002.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <title>管理画面TOP</title>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>入退室管理</li>
+            <li> ＞ 二次元コード一覧</li>
+        </ul>
+    </div>
+</div>
+
+<div id="app">
+    <div id="div_title">
+        <button id="obj_select">対象者を選択する</button>
+        <button id="btn_print">印刷</button>
+        <button id="btn_download">ダウンロード</button>
+    </div>
+
+    <div id="div_main">
+        <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F09002.js"></script>
+</html>

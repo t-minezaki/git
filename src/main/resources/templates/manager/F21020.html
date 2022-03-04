@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script charset="utf-8" src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js"></script>
+    <script charset="utf-8" src="${request.contextPath}/plugins/layer-3.1.1/layer.js"></script>
+</head>
+<body>
+<div id="page" v-cloak>
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40011-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content">
+        <div class="stuNm" v-cloak>{{stuNm}}<input class="san" style="border: 0;width: 8vw;background-color: white;font-size: smaller;color: black;font-weight: bolder;" value=" さん" disabled></div>
+        <div class="comment_lable">メッセージ＆スタンプ</div>
+        <div style="width: 100%" class="div">
+            <div style="height: 100%">
+                <div class="cmt_div">
+                    <div class="container">
+                        <div class="cmt_in_div">
+                            <textarea maxlength="100" placeholder="(任意)" type="text" style="resize:none"></textarea>
+                        </div>
+                        <div class="img_div">
+                            <img src="${request.contextPath}/img/smile_grey.png" class="svg" @click="toF21021()"/>
+                        </div>
+                    </div>
+                    <label class="word-lable">100文字</label>
+                </div>
+                <div class="icon-container" v-if="stampCd !== ''">
+                    <div class="stamp_img_div" v-if="stampCd !== ''">
+                        <!--<img src="" height="43" width="58"/>-->
+                    </div>
+                </div>
+                <div class="mail_send_div">
+                    <button id="sendMail">送信</button>
+                </div>
+            </div>
+        </div>
+        <div class="imgDiv">
+            <img>
+        </div>
+        <div class="mail_list_div">
+            <table id="jqGrid"></table>
+        </div>
+        <div class="image-container" style="display: none;">
+            <img class="image" src=""/>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40011.html?id=F21017" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21020.js"></script>
+</html>

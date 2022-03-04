@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21011Dao">
+    <!--  指導報告書ヘーダから指導報告書情報を取得し -->
+    <select id="select" resultType="jp.learningpark.modules.manager.dto.F21011Dto">
+	SELECT
+	DISTINCT(ms.stu_id),
+	mu.after_usr_id,
+	ms.flnm_nm AS stu_nm,
+	ms.flnm_lnm AS stu_lnm,
+	mg.flnm_nm,
+	mg.flnm_lnm,
+	mcd1.cod_value AS schyDiv,
+	mn.notice_level_div
+FROM
+	guid_repr_apply_sts gras
+	INNER JOIN guid_repr_deliver grd ON ( gras.guid_repr_deliver_cd = grd.guid_repr_deliver_cd AND grd.org_id=gras.org_id AND grd.del_flg = 0 )
+	INNER JOIN mst_usr mu ON ( gras.stu_id = mu.usr_id AND mu.del_flg = 0 )
+	INNER JOIN mst_stu ms ON ( gras.stu_id = ms.stu_id AND ms.del_flg = 0 )
+	INNER JOIN mst_guard mg ON ( ms.guard_id = mg.guard_id AND ms.del_flg = 0 )
+	INNER JOIN guid_repr_d grd1 ON ( gras.guid_repr_id = grd1.guid_repr_id AND grd1.del_flg = 0 AND gras.del_flg = 0)
+	INNER JOIN guid_repr_h grh ON ( grd1.guid_repr_id = grh.id AND grh.del_flg = 0 )
+	INNER JOIN attend_book_h abh ON ( grh.attend_book_cd = abh.attend_book_cd AND abh.del_flg = 0 )
+-- 	INNER JOIN attend_book_d abd ON ( abh.id = abd.attend_book_id AND abd.del_flg = 0 )
+-- 	INNER JOIN mst_cod_d mcd ON ( abd.subjt_div = mcd.cod_cd AND mcd.del_flg = 0 )
+	inner join mst_cod_d mcd1 on (ms.schy_div = mcd1.cod_cd and mcd1.cod_key = 'SCHY_DIV' AND mcd1.del_flg = 0)
+	LEFT JOIN mst_notice as mn on mn.notice_cont = grh.id ||','|| trim( #{guidRepeCd} )
+WHERE
+	grd.org_id = #{orgId}
+	AND grd.guid_repr_deliver_cd = trim( #{guidRepeCd} )
+LIMIT (#{limit}) OFFSET (#{page}-1)*#{limit}
+--     AND mcd.cod_key = 'SUBJT_DIV'
+        </select>
+
+    <select id="selectTotal" resultType="jp.learningpark.modules.manager.dto.F21011Dto">
+        SELECT
+            DISTINCT(ms.stu_id),
+                    mu.after_usr_id,
+                    ms.flnm_nm AS stu_nm,
+                    ms.flnm_lnm AS stu_lnm,
+                    mg.flnm_nm,
+                    mg.flnm_lnm,
+                    mcd1.cod_value AS schyDiv,
+                    mn.notice_level_div
+        FROM
+            guid_repr_apply_sts gras
+                INNER JOIN guid_repr_deliver grd ON ( gras.guid_repr_deliver_cd = grd.guid_repr_deliver_cd AND grd.org_id=gras.org_id AND grd.del_flg = 0 )
+                INNER JOIN mst_usr mu ON ( gras.stu_id = mu.usr_id AND mu.del_flg = 0 )
+                INNER JOIN mst_stu ms ON ( gras.stu_id = ms.stu_id AND ms.del_flg = 0 )
+                INNER JOIN mst_guard mg ON ( ms.guard_id = mg.guard_id AND ms.del_flg = 0 )
+                INNER JOIN guid_repr_d grd1 ON ( gras.guid_repr_id = grd1.guid_repr_id AND grd1.del_flg = 0 AND gras.del_flg = 0)
+                INNER JOIN guid_repr_h grh ON ( grd1.guid_repr_id = grh.id AND grh.del_flg = 0 )
+                INNER JOIN attend_book_h abh ON ( grh.attend_book_cd = abh.attend_book_cd AND abh.del_flg = 0 )
+                -- 	INNER JOIN attend_book_d abd ON ( abh.id = abd.attend_book_id AND abd.del_flg = 0 )
+                -- 	INNER JOIN mst_cod_d mcd ON ( abd.subjt_div = mcd.cod_cd AND mcd.del_flg = 0 )
+                inner join mst_cod_d mcd1 on (ms.schy_div = mcd1.cod_cd and mcd1.cod_key = 'SCHY_DIV' AND mcd1.del_flg = 0)
+                INNER JOIN mst_notice as mn on mn.notice_cont = grh.id ||','|| trim( #{guidRepeCd} )
+        WHERE
+            grd.org_id = #{orgId}
+          AND grd.guid_repr_deliver_cd = trim( #{guidRepeCd} )
+        --     AND mcd.cod_key = 'SUBJT_DIV'
+    </select>
+
+    <select id="reselect" resultType="jp.learningpark.modules.manager.dto.F21011Dto">
+        SELECT
+        ms.stu_id,
+        mu.after_usr_id,
+        ms.flnm_nm AS stu_nm,
+        ms.flnm_lnm AS stu_lnm,
+        mg.flnm_nm,
+        mg.flnm_lnm
+        ,mcd1.cod_value as schyDiv
+        FROM
+        mst_stu ms
+        INNER JOIN mst_guard mg ON ( ms.guard_id = mg.guard_id AND mg.del_flg = 0 )
+        INNER JOIN mst_usr mu ON ( mu.usr_id = ms.stu_id AND ms.del_flg = 0 )
+        inner join mst_cod_d mcd1 on (ms.schy_div = mcd1.cod_cd and mcd1.cod_key = 'SCHY_DIV' AND mcd1.del_flg = 0)
+        WHERE
+        ms.stu_id IN <foreach collection="stuIdList" item="stuId" index="i" open="(" close=")" separator="," >
+        #{stuId}
+    </foreach>
+        LIMIT (#{limit}) OFFSET (#{page}-1)*#{limit}
+        </select>
+
+    <select id="reselectTotal" resultType="jp.learningpark.modules.manager.dto.F21011Dto">
+        SELECT
+        ms.stu_id,
+        mu.after_usr_id,
+        ms.flnm_nm AS stu_nm,
+        ms.flnm_lnm AS stu_lnm,
+        mg.flnm_nm,
+        mg.flnm_lnm
+        ,mcd1.cod_value as schyDiv
+        FROM
+        mst_stu ms
+        INNER JOIN mst_guard mg ON ( ms.guard_id = mg.guard_id AND mg.del_flg = 0 )
+        INNER JOIN mst_usr mu ON ( mu.usr_id = ms.stu_id AND ms.del_flg = 0 )
+        inner join mst_cod_d mcd1 on (ms.schy_div = mcd1.cod_cd and mcd1.cod_key = 'SCHY_DIV' AND mcd1.del_flg = 0)
+        WHERE
+        ms.stu_id IN <foreach collection="stuIdList" item="stuId" index="i" open="(" close=")" separator="," >
+        #{stuId}
+    </foreach>
+    </select>
+    <!--<select id="selectStatus" resultType="jp.learningpark.modules.manager.dto.F21011Dto">-->
+<!--SELECT-->
+    <!--mcd.cod_cd,-->
+	<!--mcd.cod_value as Status-->
+<!--FROM-->
+	<!--mst_cod_d mcd-->
+<!--WHERE-->
+	<!--mcd.cod_key = 'EVENT_STS_DIV'-->
+    <!--</select>-->
+</mapper>

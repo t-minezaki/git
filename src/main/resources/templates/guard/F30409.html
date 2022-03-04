@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>保護者面談の申込内容変更・キャンセル画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30409.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="content" v-cloak>
+    <div class="title_div commonTabTitle">
+        <div class="back"  onclick="back()">
+            <img src="../img/back.png">
+        </div>
+        <span id="guardNm">面談・イベント予約確認</span>
+    </div>
+    <div class="oneTitle" style="display: flex;">
+        <ul>
+            <button class="active" id="now" @click="getInfo(1)">参加予定</button>
+            <button style="color: #D3D3D3;" id="past" @click="getInfo(2)">過去の参加履歴<div class="count"></div></button>
+        </ul>
+    </div>
+    <div id="leftLine" style="border-bottom: 3px solid #8CC11F"></div>
+    <div id="rightLine" style="border-bottom: 3px solid #bababa"></div>
+    <div class="content_all" >
+        <div class="content_div" >
+            <!-- 2020/11/17 V9.0 cuikailin modify start -->
+            <!--<ul v-for="stu in stuList">-->
+                <!--<li style="overflow: hidden;">-->
+                    <!--<span style="width: 1%;height: 50%;float: left"></span>-->
+                    <!--<p style="margin-left: 2vw;font-weight: bold;height: 50%;font-size:15px;" class="text1">保護者面談</p>-->
+                <!--</li>-->
+                <!--<li class="text2" style="margin-left: 5vw;"><span style="width: 28%">生徒氏名</span><p style="margin-left: 5vw;">{{stu.stuNm}}</p></li>-->
+                <!--<li class="text2" style="margin-left: 5vw;"><span style="width: 28%">日時</span><p style="margin-left: 5vw;">{{stu.sgdStartDatime}}</p>-->
+                <!--<li class="text2" style="margin-left: 5vw;" v-for="qnList in stu.qnlist"><span style="width: 28%">設問名</span><p style="margin-left: 5vw; width: 140px;">{{qnList.questionName}}</p></li>-->
+                <!--<li class="text2" style="margin-left: 5vw;" v-for="qnList in stu.qnlist"><span style="width: 28%">回答結果内容</span><p style="margin-left: 5vw; width: 210px;">{{qnList.answerReltCont}}</p></li>-->
+                <!--<li class="text2" style="margin-left: 5vw;"><span style="width: 28%">備考</span><p style="margin-left: 5vw;">{{stu.noteCont}}</p></li>-->
+                <!--<li v-if="stu.errorMsg!=null && stu.flg == 1" style="margin-left: 2vw;height: 15vw;color: red">{{stu.errorMsg}}</li>-->
+                <!--<div v-if=" stu.errorMsg==null && stu.flg == 1"  style="height: 25%;" class="btnDiv">-->
+                    <!--<button id="change" class="_btn" @click="change(stu.eventId,stu.applyId)">申込を変更</button>-->
+                    <!--<button id="cancel" class="_btn" @click="cancel(stu.eventId,stu.stuId,stu.guardId)">申込をキャンセル</button>-->
+                <!--</div>-->
+            <!--</ul>-->
+            <!-- 2020/11/17 V9.0 cuikailin modify end -->
+        </div>
+    </div>
+</div>
+    <!-- 2020/11/18 V9.0 cuikailin add start -->
+    <div class="image-container" id="imageContainer" style="display: none;">
+    </div>
+    <!-- 2020/11/18 V9.0 cuikailin add end -->
+<div class="div_bottom">
+    <iframe src="../common/F40004.html?id=F30406" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30409.js"></script>
+</html>

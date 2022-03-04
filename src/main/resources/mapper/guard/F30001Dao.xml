@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30001Dao">
+    <!--  コードマスタより、続柄リストを取得し -->
+    <select id="getReltnspDiv" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+    SELECT
+        *
+    FROM
+        mst_cod_d
+    WHERE
+        cod_key = 'RELTNSP_DIV' AND del_flg = 0
+    ORDER BY
+        sort
+    </select>
+    <!--  保護者基本マスタから取得し -->
+    <select id="getGuard" resultType="jp.learningpark.modules.common.entity.MstGuardEntity">
+    SELECT
+        *
+    FROM
+        mst_guard
+    WHERE
+        guard_id = #{guardId}
+        AND del_flg = 0
+    </select>
+    <!--  住所マスタより、郵便番号を元に、住所情報を取得し、住所エリアに表示される -->
+    <select id="searchAddr" resultType="String">
+    SELECT
+        concat(prefct_nm,ctyctr_nm)
+    FROM
+        mst_addr
+    WHERE
+        postcd_mnum || rtrim(postcd_bnum) = #{postcd}
+        AND del_flg = 0
+    ORDER BY
+	    mst_addr.id
+    </select>
+    <!--  子供個数の取得 -->
+    <select id="stuNumber" resultType="jp.learningpark.modules.guard.dto.F30001Dto">
+    SELECT COUNT
+        ( * ),
+
+	MAX ( stu.stu_id ) AS stu_id,
+	MAX ( usr1.usr_id ) AS usr_id
+    FROM
+        mst_stu stu,
+        mst_usr usr1,
+        mst_usr usr2,
+        mst_org org1,
+        mst_org org2
+    WHERE
+        stu.guard_id IN (
+            SELECT
+                usr_id
+            FROM
+                mst_usr
+            WHERE
+                after_usr_id = #{afterUsrId}
+        )
+        AND usr1.usr_id = stu.stu_id
+        AND usr2.usr_id = stu.guard_id
+        AND usr1.org_id = org1.org_id
+        AND usr2.org_id = org2.org_id
+        AND org1.brand_cd = org2.brand_cd
+        AND stu.del_flg    = 0
+        AND usr1.del_flg   = 0
+        AND usr2.del_flg   = 0
+        AND org1.del_flg   = 0
+        AND org2.del_flg   = 0
+    </select>
+    <select id="getCrmschId" resultType="Integer">
+    SELECT
+    CASE
+
+    WHEN
+        mclp.ID IS NULL THEN
+        mclp2.ID ELSE mclp.ID
+    END AS ID
+    FROM
+        mst_usr mu
+        INNER JOIN mst_stu ms ON ms.stu_id = mu.usr_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_org mo ON mu.org_id = mo.org_id
+        AND mo.del_flg = 0
+        LEFT JOIN mst_crmsch_learn_prd mclp ON mclp.org_id = mu.org_id
+        AND mclp.schy_div = ms.schy_div
+        AND mclp.use_flg = '1'
+        AND mclp.del_flg = 0
+        LEFT JOIN mst_crmsch_learn_prd mclp2 ON mclp2.org_id = mo.upplev_org_id
+        AND mclp2.schy_div = ms.schy_div
+        AND mclp2.use_flg = '1'
+        AND mclp2.del_flg = 0
+    WHERE
+        ms.del_flg = 0
+        AND mu.usr_id = #{stuId}
+    </select>
+
+    <update id="updateGuardInfo">
+        UPDATE
+            mst_guard
+        SET
+            flnm_nm = #{entity.flnmNm}
+            , flnm_lnm = #{entity.flnmLnm}
+            , flnm_kn_nm = #{entity.flnmKnNm}
+            , flnm_kn_lnm = #{entity.flnmKnLnm}
+            , postcd_mnum = #{entity.postcdMnum}
+            , postcd_bnum = #{entity.postcdBnum}
+            , adr1 = #{entity.adr1}
+            , adr2 = #{entity.adr2}
+            , telnum = #{entity.telnum}
+            , urg_telnum = #{entity.urgTelnum}
+            , upd_datime = #{entity.updDatime}
+            , upd_usr_id = #{entity.updUsrId}
+        WhERE
+            guard_id
+            IN (
+                SELECT
+                    usr_id
+                FROM
+                    mst_usr
+                WHERE
+                    after_usr_id = #{entity.afterUsrId}
+            )
+    </update>
+</mapper>

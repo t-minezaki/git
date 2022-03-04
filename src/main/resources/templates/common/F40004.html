@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>保護者共通メニュー画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40004.css"/>
+</head>
+<body>
+<div id="v_If" class="green">
+    <ul>
+
+        <li v-if="brandCd != orgAddId">
+            <a href="../guard/F30112.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_1.png" />
+                <!--<p>お知らせ</p>-->
+                <div class="haveMess" :style="displayCount()">{{cou}}</div>
+            </a>
+        </li>
+
+        <li v-if="brandCd == orgAddId">
+            <a href="../guard/F30421.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_1.png" />
+                <!--<p>ホーム</p>-->
+                <div class="haveMess" :style="displayCount()">{{cou}}</div>
+            </a>
+        </li>
+
+        <li v-if="brandCd != orgAddId">
+            <a href="../guard/F30101.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_2.png" />
+                <!--<p>カレンダー</p>-->
+            </a>
+        </li>
+
+        <li v-if="brandCd == orgAddId">
+            <a href="../guard/F30101.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_2.png" />
+                <!--<p>カレンダー</p>-->
+            </a>
+        </li>
+
+        <li>
+            <a href="../guard/F30411.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_3.png" />
+                <!--<p>連絡</p>-->
+            </a>
+        </li>
+
+        <li v-if="brandCd != orgAddId ">
+            <a href="../guard/F30406.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_4.png"/>
+                <!--<p>その他</p>-->
+            </a>
+        </li>
+
+        <li v-if="brandCd == orgAddId ">
+            <a href="../guard/F30422.html" target="_top">
+                <img src="${request.contextPath}/img/bottomPngs8.0/bottompng8.0_4.png"/>
+                <!--<p>その他</p>-->
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+</body>
+<script src="${request.contextPath}/js/common/F40004.js"></script>
+<script>
+    $(function () {
+        $(".popPage").click(function () {
+
+            if(parent.$(".pop_bottom").css("display") === "none"){
+                parent.$(".pop_bottom").show();
+            }else {
+                parent.$(".pop_bottom").hide();
+            }
+        });
+        $(".popPage").blur(function () {
+            parent.$(".pop_bottom").hide();
+        })
+    })
+</script>
+</html>

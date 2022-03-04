@@ -1,0 +1,182 @@
+@import "common_tab.css";
+.div_header{
+    height: 56px;
+}
+
+.div_bottom{
+    height: 60px;
+}
+.newt-layout-body .div_img {
+    text-align: center;
+    margin: 1rem 3.5rem;
+}
+.content {
+    width: 100%;
+    overflow: auto;
+    /*padding: 4px;*/
+    margin-top: 109px;
+    height: calc(100% - 168px);
+}
+.content_div {
+    width: 100%;
+    overflow: auto;
+    padding-top: calc(108px + 4rem);
+}
+
+.description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-left: 3.5rem;
+    word-break: break-all;
+    width: 85%;
+    line-height: 2rem;
+}
+
+.description p {
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-right: 7%;
+    /*padding-bottom: 1vh;*/
+    /*padding-top: 1vh;*/
+    /*padding: 10px auto;*/
+}
+
+p > span {
+    line-height: 170%;
+}
+.title {
+    width: 80%;
+    font-size: 15px;
+    color: #444;
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 10%;
+}
+
+.img {
+    width: 80%;
+}
+img {
+    /*max-width: 100%;*/
+    max-width:100% !important;
+    height:auto;
+}
+.div_bottom {
+    bottom: 0px;
+}
+
+.title413 {
+    background-color: #FFEEE0;
+}
+
+.div_body {
+    height: 84%;
+    background-color: white;
+}
+.headerBtn button {
+    padding: 1px 6px !important;
+}
+
+.line {
+    margin-bottom: 15px;
+    height: 2px;
+    background-color: #ddd;
+}
+
+.text413 > div:nth-child(1) > div:nth-child(1) {
+    background: unset;
+}
+
+.back {
+    float: left;
+    margin-left: -2rem;
+    margin-right: 0.5rem;
+    width: auto;
+    position: fixed;
+    margin-top: 0.25rem;
+}
+
+.back img {
+    height: 1.5rem;
+    vertical-align: middle;
+    width: 1.5rem;
+}
+
+#title_top {
+    color: red;
+    font-size: large;
+    text-align: center;
+    padding-top: 0.7vh;
+    letter-spacing: 0.5vw;
+    padding-bottom: 0.6vh;
+}
+
+.text413 {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 95%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.left_title {
+    height: auto;
+    position: relative;
+    vertical-align: center;
+}
+
+.span_cont {
+    width: 40%;
+    font-weight: bold;
+    font-size: large;
+}
+
+.span_cont span {
+    vertical-align: middle;
+}
+
+.span_val {
+    width: 60%;
+}
+
+sapn {
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+#title {
+    width: 85%;
+    font-size: 1.5rem;
+    color: #444;
+    text-align: left;
+    float: left;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 2.2rem;
+}
+.topTitle{
+    position: fixed;
+    top: 56px;
+    z-index: 1;
+}
+
+.title2 {
+    margin-left: 3.5rem;
+    position: fixed;
+    height: 9.2rem;
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #ccc;
+    padding-top: 2.6rem;
+}
+/*2020/11/26 liyuhuan add start*/
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+}
+/*2020/11/26 liyuhuan add end*/

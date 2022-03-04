@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>テスト目標結果一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10507.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<header id="_title">
+    <iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div id="message" class="topMessage"></div>
+<div id="info">
+    <div class="content">
+        <ul class="title_tab_one">
+            <li class="title_li_one active">目標と結果の入力</li>
+            <li id="result" class="title_li_end">結果の確認</li>
+        </ul>
+        <div class="content_div">
+            <div class="title">
+                <button id="add">新規作成</button>
+                <div class="titlePage">
+                    <div class="first_jqGridPager"></div>
+                    <div class="prev_jqGridPager"></div>
+                    <div class="next_jqGridPager"></div>
+                    <div class="last_jqGridPager"></div>
+                </div>
+            </div>
+            <div class="list">
+                <div id="jqGridPager" style="display: none"></div>
+                <table cellspacing="0" class="oneTable" id="jqGrid"></table>
+            </div>
+        </div>
+    </div>
+    <!--<div class="pageTest"></div>-->
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F10507.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,105 @@
+.btn{
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 3vw;
+    width: 15vw;
+    float: right;
+    color: #00a157;
+}
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+.div_head_title {
+    font-size: 1vw;
+    font-weight: bolder;
+    color: #777;
+    text-indent: 5vw;
+    margin-bottom: 2vh;
+    letter-spacing: 0.1em;
+}
+.one {
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+.div_head {
+    margin-bottom: 25px;
+    margin-top: 3vh;
+}
+.div_head_title {
+    font-size: 1vw;
+    font-weight: bolder;
+    color: #777;
+    text-indent: 5vw;
+    margin-bottom: 2vh;
+    letter-spacing: 0.1em;
+}
+.span_div {
+    margin-right: -0.4vw;
+}
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+.bottom {
+    width: 100%;
+    margin-top: 6vh;
+}
+div#gbox_jqGrid {
+    margin-left: 3%;
+    margin-top: 1vh;
+}
+.ui-jqgrid .ui-jqgrid-btable {
+    width: fit-content !important;
+}
+.ui-jqgrid .ui-jqgrid-htable th div {
+     overflow: unset !important;
+     position: unset !important;
+}
+input#cb_jqGrid {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+input.cbox  {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+.sendMsg{
+    width: 12vw;
+    text-align: center;
+    font-size: 0.9vw;
+    margin-left: 5vw;
+    height: 4vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+.back{
+    position: absolute;
+    left: 80%;
+    top: 94%;
+    width: 7vw;
+    text-align: center;
+    font-size: 1vw;
+    height: 4vh;
+    color: white;
+    background: #00a65a;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+input#cb_jqGrid {
+    margin-left: 2px;
+}

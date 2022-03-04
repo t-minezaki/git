@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.EventScheduleDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.EventScheduleEntity" id="eventScheduleMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="refId" column="ref_id"/>
+        <result property="refType" column="ref_type"/>
+        <result property="sgdPlanDate" column="sgd_plan_date"/>
+        <result property="sgdStartDatime" column="sgd_start_datime"/>
+        <result property="sgdEndDatime" column="sgd_end_datime"/>
+        <result property="personsLimt" column="persons_limt"/>
+        <result property="unitTime" column="unit_time"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

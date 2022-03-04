@@ -1,0 +1,197 @@
+.content{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.main{
+	width: 100%;
+	height: 87vh;
+}
+.title{
+	width: 100%;
+	height: 2.4vw;
+	padding-left: 0.4vw;
+	line-height: 2.4vw;
+	font-size: 1.1vw;
+}
+.top{
+	padding: 0 4%;
+	width: 100%;
+	height: 2.7vw;
+	margin: 0.4vw 0;
+}
+.top p{
+	width: 12%;
+	text-align: left;
+	font-size: 1vw;
+	float: left;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-weight: bold;
+	padding-left: 5%;
+}
+.top span{
+	float: left;
+	font-size: 1vw;
+	width: 10%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+}
+.top select{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #000;
+	padding: 0 2vw 0 1vw;
+	width: 25%;
+	height: 2.2vw;
+	font-size: 1vw;
+	float: left;
+}
+.top input{
+	border: 1px solid #000;
+	padding: 0 2vw 0 1vw;
+	width: 25%;
+	height: 2.2vw;
+	font-size: 1vw;
+	float: left;
+}
+.top button{
+	width: 14%;
+	height: 2.2vw;
+	border-radius: 0.3vw;
+	float: right;
+	margin-right: 10%;
+	font-size: 1vw;
+	color: rgba(100, 100, 100, 1);
+	background: white;
+	border: 1px grey solid;
+	border-bottom: 3px grey solid;
+}
+
+.list {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.oneTd table {
+    border-bottom: 0;
+    border-right: 0;
+}
+.oneTd th,.oneTd td{
+	text-align: center;
+	height: 2.2vw;
+	font-weight: 500;
+	font-size: 0.9vw;
+	padding: 0;
+}
+td button{
+	background: none;
+	color: #009944;
+	width: auto;
+	border: 0;
+	font-size: 0.9vw;
+	text-decoration: underline;
+}
+.theme_btn{
+	width: 100%;
+	height: 5.6vh;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 0 4%;
+}
+.theme_btn button{
+	width: 14%;
+	height: 4.2vh;
+	font-size: 1vw;
+	float: left;
+	border-radius: 0.3vw;
+	margin-left: 3%;
+	background: #00a65a;
+	color: white;
+	border: 0;
+	border-bottom: 3px grey solid;
+}
+.theme_btn button.one{
+	margin-left: 33%;
+}
+.ui-jqgrid-view {
+	height: 60vh;
+
+}
+
+.ui-pg-selbox .ui-widget-content .ui-corner-all {
+    padding: 0px;
+}
+#jqGridPager select{
+	padding: 0px;
+}
+#gbox_jqGrid{
+	height:65vh;
+}
+
+.ui-jqgrid-hbox {
+    padding: unset !important;
+    width: 100%;
+}
+
+#gbox_jqGrid {
+    width: 100% !important;
+}
+
+#gview_jqGrid {
+    width: 100% !important;
+}
+
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    width: 100% !important;
+}
+
+.ui-jqgrid-bdiv {
+    height: 53vh !important;
+}
+
+#jqGridPager {
+    width: 100% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table {
+    width: 100% !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid-labels:last-child {
+    border-right: 0 none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    margin-right: unset !important;
+}
+
+#jqGrid {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 1px solid #ccc !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 1px solid #ccc !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    color: black !important;
+}
+
+.ui-jqgrid-bdiv {
+	width: 100%!important;
+}

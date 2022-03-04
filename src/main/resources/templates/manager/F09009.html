@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>各種設定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09009.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>入退室管理</li>
+            <li>  ＞   各種設定画面</li>
+        </ul>
+    </div>
+</div>
+<div class = "init" id="app" style="margin-left: 2vw;margin-top: 4vh;">
+    <div class="row">
+        <div class="left-item">
+        <label for="reRecoTime">再確認不可時間</label>
+        </div>
+        <select class="select right-item" type="text" id="reRecoTime">
+            <option value="0">0</option>
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="15" >15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+            <option value="60">60</option>
+        </select>
+        <span class="p">分</span>
+    </div>
+<!--    <div class="row">
+        <label class="left-item" for="goSchMsg">受付時メッセージ</label>
+        <textarea class="right-item" maxlength="100" id="goSchMsg"></textarea>
+    </div>
+    <div class="row">
+        <label class="left-item" for="goSchErrMsg">エラーメッセージ</label>
+        <textarea class="right-item" maxlength="100" id="goSchErrMsg"></textarea>
+    </div>
+    <div class="row">
+        <label class="left-item" for="douGoSchMsg">時間内エラーメッセージ</label>
+        <textarea class="right-item" maxlength="100" id="douGoSchMsg"></textarea>
+    </div>-->
+    <div class="row">
+        <label class="left-item">自動ポイント付与設定</label><br/>
+    </div>
+    <!--2020/11/13 zhangminghao modify start-->
+    <div class="row" v-for="(item, index) in pointGrantSetting">
+        <div class="left-item">
+            <p>{{ item.title }}</p>
+        </div>
+        <select class="select right-item" type="text" :id="item.field">
+            <option v-for="value in optional" :value="value">{{ value }}</option>
+        </select>
+        <span class="p" style="margin-left: 20px">ポイント</span>
+    </div>
+    <!--2020/11/13 zhangminghao modify end-->
+</div>
+<div id="div_bottom">
+    <button id="btn_ok">登録</button>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F09009.js"></script>
+</html>

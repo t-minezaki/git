@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>ウィークリープラン実績管理</title>
+    <!-- common js lib -->
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <!-- fullcalendar -->
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-ja.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"  rel="stylesheet" type="text/css"/>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" rel="stylesheet" media='print'/>
+
+    <script src="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.css" type="text/css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="../css/common/common.css" />
+    <link rel="stylesheet" href="../css/student/F10301.css" />
+
+</head>
+<body>
+    <header><iframe id="iframe" src="../common/F40002.html" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe></header>
+    <div id="message" class="topMessage"></div>
+    <div id="pageF10302" class="content">
+        <div class="calendar" style="height:100%;">
+            <div id="left_menu">
+                <div class="tab_menu_block">
+                    <ul class="tab_menu" id="main_menu">
+                        <li id="planAreaBtn" class="active">ウィークリープラン</li>
+                        <li id="fixedAreaBtn" class="rightLi">繰り返す予定</li>
+                    </ul>
+                    <div class="printingDiv">
+                        <a id="todayPrintBtn" href="#"><img src="../img/printing.png" alt="当日～"><p>当日～</p></a>
+                    </div>
+                    <div class="printingDiv">
+                        <a id="printBtn" href="#"><img src="../img/printing-blue.png" alt="月曜～"><p>月曜～</p></a>
+                    </div>
+                </div>
+                <div class="fc-toolbar fc-header-toolbar">
+                    <div class="fc-left"><div class="tab_menu_block" style="width: 12vw"><ul class="tab_menu" id="sub_menu"><li id="planBtn"><a href="F10301.html">計画</a></li><li class="active" id="perfBtn" style="border-radius: 0;border-radius: 0 2.4vw 2.4vw 0;">実行</li></ul></div></div>
+                    <div class="fc-right">
+                        <div class="fc-button-group">
+                            <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left" aria-label="prev"><span class="fc-icon fc-icon-left-single-arrow"></span></button>
+                        </div>
+                        <h2><span v-text="dateTitle"></span></h2>
+                        <div class="fc-button-group">
+                            <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right" aria-label="next"><span class="fc-icon fc-icon-right-single-arrow"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="calendar"></div>
+        </div>
+        <div id="right_div" style="width:20%;height:100%;float:left;">
+            <div class="right_container" id='external-events'>
+                <ul class="tab_menu learn_events" id="main_event_menu">
+                    <li  class="active" style="border-radius: 2.4vw;width:100%;"> 学習のブロック</li>
+                </ul>
+                <div id="learn_events" style="height:100%;margin-top: 0.6vw;">
+                    <div class="swiper-container learn_seasn">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" v-for="d in seasnList" v-text="d.label" :data-startdy="d.startDy" :data-thisweek="d.thisWeek" :data-seasn_id="d.thisWeek" v-bind:class="{'selected':d.thisWeek == 1}"></div>
+                        </div>
+                    </div>
+                    <div class="block-div" style="max-height:100%; overflow-y:auto;">
+                        <div class="fc-event event_item_2 other-block" class="getClass(d, '0')">
+                            <div class="event_item_2_inner">
+                                <!-- 2020/12/22 V9.0 cuikailin modify start -->
+                                <p class="item_title" id="sudden-study-block">いきなり勉強</p>
+                                <!-- 2020/12/22 V9.0 cuikailin modify end -->
+                                <p class="item_content"></p>
+                            </div>
+                        </div>
+                        <div class="fc-event event_item_2 learnBlock" v-for="d in planPerf[tgtYmd]"  v-bind:class="getClass(d)" @click="openF10307(d.planPerfId, true);">
+                            <div class="event_item_2_inner" :style="'border: 3px solid' + d.colorId">
+                                <p class="item_title" v-text="d.blockDispyNm"></p>
+                                <p class="item_content" v-text="d.blockContext"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="downloadPdf" method="post" action="${request.contextPath}/student/F10301/download">
+        <input type="hidden" name="fileName" id="fileName">
+    </form>
+</body>
+
+<script src="${request.contextPath}/js/student/F10302.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>積み残し設定画面(POP)</title>
+
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F20014.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <style>
+        .content_them span {
+            margin-left: 60px;
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="theme_selec" id="info" v-cloak>
+
+    <div class="topTitle" v-if="dto.blockTypeDiv=='S1'">
+        <p v-text="dto.blockDispyNm!=null ?dto.blockDispyNm:''"></p>
+    </div>
+    <div class="topTitle" v-if="dto.blockTypeDiv=='P1'||dto.blockTypeDiv=='R1'||dto.blockTypeDiv=='W1'||dto.blockTypeDiv=='V1'">
+        <p v-text="dto.subjtNm!=null ?dto.subjtNm:''"></p>
+    </div>
+
+    <div class="topTitle" v-if="dto.blockTypeDiv=='S1'">
+        <p class="topP">{{dto.unitDispyNm}} 教科書P.{{dto.textbPage}}</p>
+    </div>
+    <div class="topTitle" v-if="dto.blockTypeDiv=='P1'||dto.blockTypeDiv=='R1'||dto.blockTypeDiv=='W1'||dto.blockTypeDiv=='V1'">
+        <span id="blockPRWV" class="topP topBorder" v-if="isTerm =='f'" class="topTitleP">
+            {{dto.blockDispyNm}}</span>
+    </div>
+
+    <div class="topTitle">
+        <!--<p class="topP" v-text="dto.blockDispyNm !=null ?dto.blockDispyNm:''"></p>-->
+        <p class="topP topBorder" v-if="isTerm =='f'" class="topTitleP">
+            {{weekday}}{{planLearnStartTime}}-{{planLearnEndTime}}</p>
+    </div>
+
+    <div class="topTitle" v-if="isTerm =='t'">
+        <p v-text="dto.blockDispyNm!=null ? dto.blockDispyNm : ''"></p>
+        <p class="topP">{{dto.unitDispyNm}} 教科書P.{{dto.textbPage}}</p>
+    </div>
+
+    <div class="content_them" v-if="isTerm =='f'">
+        <div v-if="dto.perfLearnTm > 0" style="height: 12vh">
+            <p class="leftP">理解度</p>
+            <p>{{dto.learnLevUndsDis}}</p>
+        </div>
+        <div style="margin-top: 4vw;width: 100%;height: 8vw;float: left;">
+            <p class="leftP">計画時間</p>
+            <p v-text="dto.stuPlanLearnTm!=null ? parseInt(dto.stuPlanLearnTm/60)+'時間'+dto.stuPlanLearnTm%60+'分':'0時間'+'0分'"></p>
+        </div>
+        <div style="width: 100%;float: left;">
+            <p class="leftP">学習時間</p>
+            <p v-text="dto.perfLearnTm!=null ? parseInt(dto.perfLearnTm/60)+'時間'+dto.perfLearnTm%60+'分':'0時間'+'0分'"></p>
+        </div>
+    </div>
+    <div class="content_them" v-if="isTerm =='t'">
+        <div style="margin-top: 20px" v-if="isTerm == 't'">
+            <p class="leftP">目標時間</p>
+            <p v-text="dto.planLearnTm!=null ? parseInt(dto.planLearnTm/60)+'時間'+dto.planLearnTm%60+'分':'0時間'+'0分'"></p>
+        </div>
+        <div style="margin-top: 30px">
+            <p class="leftP">計画時間</p>
+            <p>0時間0分</p>
+        </div>
+    </div>
+
+    <div class="theme_btn theme_btntop" v-if="isTerm=='f' && dto.blockTypeDiv=='S1'" >
+        <button @click="cancelFn" style="border: 0;color: red;margin-left: 0">
+            キャンセル
+        </button>
+        <button @click="delFn" id="delBtn">
+            <p>積み残しから<br/>削除する</p>
+        </button>
+        <button @click="upFn" id="upBtn">
+            <p>積み残しに<br/>する</p>
+        </button>
+    </div>
+    <div class="theme_btn" v-if="isTerm=='t' && blockTypeDiv==null">
+        <button @click="cancelFn" id="closeBtn" style="border: 0;color: #00b050;margin-left: 0">
+            閉じる
+        </button>
+        <!--<button @click="replyFn" id="replyBtn">-->
+            <!--<p>復元</p>-->
+        <!--</button>-->
+        <!--<button @click="deleteFn" id="deleteBtn">-->
+            <!--<p>削除</p>-->
+        <!--</button>-->
+    </div>
+    <div class="theme_btn" v-if="isTerm=='f' && dto.blockTypeDiv!='S1'">
+        <button @click="cancelFn" id="closeBtn1" class="closeBtn">
+            閉じる
+        </button>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F20014.js"></script>
+</html>

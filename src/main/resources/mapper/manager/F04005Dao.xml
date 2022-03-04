@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F04005Dao">
+    <select id="getStuList" parameterType="Integer" resultType="jp.learningpark.modules.manager.dto.F04005Dto">
+        SELECT
+        A.usr_id as usrId,
+        A.after_usr_id as sId,
+        ms.flnm_nm||' '||ms.flnm_lnm AS stuName,
+        B.after_usr_id as gId,
+        mg.flnm_nm||' '||mg.flnm_lnm AS guardName,
+        B.after_usr_id || ' ' || mg.flnm_nm||''||mg.flnm_lnm || ',' || A.after_usr_id || ' ' || ms.flnm_nm||' '||ms.flnm_lnm as guardStuNm
+        FROM
+        mst_usr A
+        inner JOIN mst_notice_deliver mnd ON mnd.notice_id = #{id}
+        and A.usr_id=mnd.stu_id
+        and mnd.del_flg=0
+        INNER JOIN mst_stu ms ON A.usr_id = ms.stu_id
+        AND MS.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_usr B ON mg.guard_id = B.usr_id
+        AND B.del_flg = 0
+        ORDER BY
+        ms.flnm_nm,
+        ms.flnm_lnm
+    </select>
+    <select id="getotherStu" resultType="jp.learningpark.modules.manager.dto.F04005Dto">
+        SELECT
+        A.usr_id as usrId,
+        A.after_usr_id as sId,
+        ms.flnm_nm||' '||ms.flnm_lnm AS stuName,
+        B.after_usr_id as gId,
+        mg.flnm_nm||' '||mg.flnm_lnm AS guardName,
+        B.after_usr_id || ' ' || mg.flnm_nm||''||mg.flnm_lnm || ',' || A.after_usr_id || ' ' || ms.flnm_nm||' '||ms.flnm_lnm as guardStuNm
+        FROM
+        mst_usr A
+        inner JOIN mst_notice_deliver mnd ON mnd.notice_id = #{id}
+        and A.usr_id=mnd.stu_id
+        and mnd.org_id=#{orgId}
+        and mnd.del_flg=0
+        INNER JOIN mst_stu ms ON A.usr_id = ms.stu_id
+        AND MS.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_usr B ON mg.guard_id = B.usr_id
+        AND B.del_flg = 0
+        ORDER BY
+        ms.flnm_nm,
+        ms.flnm_lnm
+    </select>
+</mapper>

@@ -1,0 +1,149 @@
+body{
+	background:#fff;
+	margin: 0;
+}
+html,body{
+	height: 100%;
+}
+
+/*.layui-layer-title {*/
+	/*height: 5vh !important;*/
+	/*line-height: 5vh !important;*/
+	/*background: white !important;*/
+	/*color: black !important;*/
+	/*border-color: grey !important;*/
+/*}*/
+
+#app {
+	position: relative;
+	top: 10vh;
+	text-align: center;
+	overflow-x: hidden;
+	height: 80%;
+}
+
+#title {
+	font-size: 1.5vw;
+	font-weight: bolder;
+	display: inline-block;
+	width: 65vw;
+	text-align: left;
+}
+
+.layui-layer-iframe{
+	left: 588px !important;
+}
+
+#layui-layer2 > .layui-layer-title{
+
+}
+
+.color_list {
+
+	display: inline-block;
+	margin-left: 17vw;
+	width: 100%;
+	height: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-align: left;
+}
+
+.color_div {
+	display: inline-block;
+	width: 100vw;
+	margin-top: 1vh;
+}
+
+.subjt,.freeBlock,.fixedBlock,.otherBlock {
+	display: inline-block;
+	width: 10vw;
+	/*background: #ccc;*/
+	height: 5vh;
+	line-height: 5vh;
+	border-radius: 5px;
+	float: left;
+}
+
+.subjt_img {
+
+	display: inline-block;
+	float: left;
+	margin-left: 1vw;
+	width: 1.5vw;
+	height: 3vh;
+	margin-top: 1vh;
+}
+
+.subjt_span {
+	font-size: 1vw;
+	float: right;
+	margin-right: 0.4vw;
+}
+
+.color_btn {
+	width: 12vw;
+	height: 4vh;
+	line-height: 4vh;
+	font-size: 1vw;
+	font-weight: bolder;
+	color: #05B253;
+	border: 2px #05B253 solid;
+	border-radius: 5px;
+	background: transparent;
+	position: relative;
+	top: 0.5vh;
+	left: 2vw;
+	padding: 0px;
+}
+
+button.color_btn:hover {
+	background: #eee;
+}
+
+.color_btn span {
+
+	display: inline-block;
+	text-align: center;
+	width: 12vw;
+}
+
+.color_select {
+
+	opacity: 0;
+	width: 12.2vw;
+	height: 4vh;
+	position: absolute;
+	cursor: pointer;
+}
+
+.btn_div {
+	top: 10vh;
+	height: 10%;
+	position: relative;
+	text-align: center;
+}
+
+#btn_return {
+
+	border: 0px;
+	background: transparent;
+	color: #05B253;
+	font-size: 1.4vw;
+}
+
+#btn_return:hover {
+
+	color: #05FF53;
+	cursor: pointer;
+}
+.blockTitle{
+	font-size: 1.3vw;
+	font-weight: bolder;
+}
+.colorBlock{
+	width: 2.2vw;
+	margin-left: 4vw;
+	height: 4vh;
+	border: 1px solid grey;
+}

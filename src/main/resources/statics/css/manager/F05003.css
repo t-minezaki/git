@@ -1,0 +1,742 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+.header_operat {
+    width: auto;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font: 15px/21px Arial, Helvetica, simsun, sans-serif;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    /*overflow: auto;*/
+}
+
+.titleDiv {
+    margin-left: 0.4vw;
+    font-weight: bold;
+    font-size: 0.9vw;
+    text-align: left;
+    margin-top: 15vh;
+}
+
+.topSessionTitle {
+    height: 2.2vw;
+    margin-top: -0.5vw;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.topSessionTitle div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+    margin-left: 0.4vw;
+}
+
+.popTitle {
+    font-weight: bold;
+    width: 100%;
+    height: 1.6vw;
+    line-height: 3.6vw;
+    font-size: 1.2vw;
+    text-align: center;
+}
+
+.topMessage {
+    width: 100%;
+    height: 2.6vw;
+    line-height: 2.6vw;
+    color: red;
+    font-size: 1.4vw;
+    text-align: center;
+    display: none;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.popTitle {
+    width: 100%;
+    height: 1.6vw;
+    line-height: 3.6vw;
+    font-size: 1.2vw;
+    text-align: center;
+    font-weight: bold;
+}
+
+.title {
+    height: 2.2vw;
+    margin-top: 0.5vw;
+    padding: 0 2%;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.title div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+}
+
+.div_main {
+    width: 100%;
+    height: calc(100% - 3.3vw);
+    padding: 0vw 1.8%;
+    overflow-y: auto;
+}
+
+.one {
+    width: 100%;
+    height: 4vh;
+    margin-top: 0.5vw;
+    position: relative;
+}
+
+.one div {
+    float: left;
+}
+
+.mailLabel {
+    margin-top: 0.5vh;
+    width: 10%;
+    font-size: 0.9vw;
+    color: #000;
+    line-height: 2vh;
+    font-weight: bold;
+}
+
+.asterisk {
+    width: 1%;
+    color: red;
+    line-height: 3.6vh !important;
+}
+
+#inputArea {
+    width: 46%;
+}
+
+#mail_name {
+    width: 85%;
+    border: 1px solid #d4d4d4!important;
+    height: 4vh;
+    padding-left: 8px;
+    font-size: 0.9vw;
+}
+
+#levelDiv {
+    line-height: 3.5vh;
+}
+
+#checkBoxArea {
+    width: 3.3vw;
+    line-height: 3.5vh;
+}
+
+.one div > button {
+    font-size: 0.8vw;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    /*margin-left: 18vw;*/
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+.two {
+    width: 100%;
+    height: 38vh;
+    margin-top: 1vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.two div {
+    /*width: 16.6%;*/
+    float: left;
+}
+
+.mail_content {
+    height: 100%;
+    width: 64%;
+    /*overflow: auto;*/
+}
+
+.mail_content input {
+    height: 80%;
+    width: 49.2vw;
+}
+
+.content_wrap {
+    width: 100% !important;
+    height: 5vh !important;
+    /*margin-top: 0.1vh !important;*/
+    position: relative;
+}
+
+.content_wrap div {
+    float: left;
+}
+
+#edui1_bottombar {
+    display: none;
+}
+
+#treeDemo {
+    height: 90%;
+}
+
+.ztree_div {
+    width: auto;
+    height: 15vh;
+    padding-left: 5vw;
+}
+
+.checkboxAll {
+    margin-top: 2.2vh;
+}
+
+.zTreeBackground {
+    margin-left: 10.6vw;
+    height: 10vw;
+    width: 64%;
+    /*display: none;*/
+    box-sizing: border-box;
+    /*max-height: 200px;*/
+    overflow: auto;
+}
+
+.three {
+    width: 100%;
+    height: 4.2vh;
+    margin-top: 2.5%;
+}
+/*�ʒm�T�[�o�[���ւ̃��b�Z�[�W���M�������s���B*/
+#commont {
+    width: 7vw;
+    line-height: 3.5vh;
+}
+#comtCheck {
+    width:  3.3vw;
+    line-height: 3.5vh;
+    padding-left: 10px;
+}
+.six {
+    float: left;
+    width: 100%;
+    height: 3.5vh;
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
+.six div {
+    float: left;
+}
+
+#div_tree ul li {
+    font-size: 1.8vh;
+    margin-top: 0.8vh;
+}
+
+.three * {
+    float: left;
+}
+
+.three input {
+    width: 15%;
+    border: 1px solid #AAA;
+}
+
+.three p {
+    width: 7%;
+    margin-top: 0px;
+}
+
+#end_label {
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.three p > img {
+    /*width: 31%;*/
+    margin-left: 1vw;
+    height: 2.7vh;
+    cursor: pointer;
+}
+
+.timer {
+    width: 100%;
+    /*height: 1vh;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+}
+
+.timer * {
+    float: left;
+}
+
+#edui163_body {
+    margin-top: 3vh;
+}
+
+#edui191_body {
+    display: none;
+}
+
+.four {
+    width: 77%;
+    height: 5vh;
+}
+
+.four div {
+    width: 50%;
+    float: left;
+    height: 10vh;
+}
+
+.return_btn {
+    width: 50%;
+}
+
+.submit_btn {
+    width: 50%;
+}
+
+#btn_haishin {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    height: 4vh;
+}
+
+.return_btn button {
+    float: right;
+    margin-right: 20%;
+    margin-top: 3vh;
+}
+
+.submit_btn button {
+    float: left;
+    margin-left: 20%;
+    margin-top: 3vh;
+}
+
+button {
+    width: 10vw;
+    height: 4vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+    font-size: 0.9vw;
+}
+
+/* 2020/12/04 V9.0 liguangxin modify start */
+.layui-laydate-list > li {
+    width: 33% !important;
+    margin: 5px 0 !important;
+}
+/*.layui-laydate-list>li:last-child{display: none}*/
+/* 2020/12/04 V9.0 liguangxin modify end */
+
+.laydate-time-list ol li {
+    width: 150% !important;
+    padding-left: 55px !important;
+}
+
+#edui115 {
+    visibility: hidden;
+}
+
+#edui1_iframeholder {
+    height: 28vh !important;
+}
+
+#edui232 {
+    position: fixed;
+    top: 11.9vw;
+    left: 69.8%;
+    background: #000;
+    width: 6vw !important;
+    height: 2.7vh !important;
+    opacity: 0;
+}
+
+#edui232 .edui-default, #edui232 .edui-toolbar, #edui232 .edui-button, #edui232 .edui-icon {
+    width: 6vw !important;
+    height: 2.7vh !important;
+}
+
+/*.edui-default .edui-dialog-fullscreen-flag {*/
+/*margin-top: 11.3vw*/
+/*}*/
+
+.edui-message-content .edui-default {
+    display: block !important;
+}
+
+#edui244 {
+    display: block !important;
+}
+
+#edui78 > .edui-listitem-body > .edui-label > .edui-default {
+    font-size: 16px !important;
+}
+
+#edui79 > .edui-listitem-body > .edui-label > .edui-default {
+    font-size: 16px !important;
+}
+
+.file_drag * {
+    float: left;
+}
+
+.file_drag {
+    height: 10vh;
+}
+
+#file_label {
+    font-weight: bold;
+    color: black;
+    font-size: 0.9vw;
+    font-weight: bold;
+    color: black;
+    width: 11%;
+}
+
+.drag_area {
+    width: 53vw;
+    height: 6vh;
+}
+
+#showPath1 {
+    width: 53vw;
+    height: 6vh;
+    border-width: 1px;
+    border-style: double;
+}
+
+#btn_file {
+    opacity: 0;
+    width: 53vw;
+    height: 6vh;
+    position: relative;
+    z-index: 999;
+    bottom: 8vh;
+    margin-top: 2vh;
+}
+
+#file_btn {
+    width: 18vh;
+    background: #92D050;
+    color: white;
+    height: 4vh;
+    margin-top: 2vh;
+    border: none;
+    margin-left: 1vw;
+}
+
+#gbox_jqGrid {
+    margin-left: 11%;
+}
+
+.ui-jqgrid .ui-jqgrid-view {
+    margin-left: unset !important;
+}
+
+.ui-jqgrid-hbox {
+    padding: unset !important;
+    width: 100%;
+}
+
+#gbox_jqGrid {
+    width: 64% !important;
+    height: 22%;
+}
+
+#gview_jqGrid {
+    width: 100% !important;
+    height: 100%;
+}
+
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    width: 100% !important;
+}
+
+.ui-jqgrid-bdiv {
+    width: 100% !important;
+    /*height: 76% !important;*/
+    overflow-y: overlay !important;
+}
+
+.ui-jqgrid-bdiv > div:first-child {
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+#jqGridPager {
+    width: 100% !important;
+    /*border-top: 2px solid #ccc;*/
+}
+
+.ui-jqgrid-htable.ui-common-table {
+    /*2020/12/14 V9.0 cuikailin modify start */
+    width: 100% !important;
+    /*width: calc(100% - 2px) !important;*/
+    /*2020/12/14 V9.0 cuikailin modify end */
+}
+#jqGrid_stuName{
+    border-right:none !important;
+}
+
+/*.ui-jqgrid-htable.ui-common-table th {*/
+/*width: 25% !important;*/
+/*}*/
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: unset !important;
+}
+
+#jqGrid_sFlnm {
+    border-right: 0 none !important;
+}
+
+.ui-jqgrid-view {
+    margin-left: unset !important;
+}
+
+#jqGrid {
+    width: 100% !important;
+    border-collapse: unset !important;
+    height: 20% !important;
+}
+
+#jqGrid td {
+    width: 25%;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+}
+.ui-jqgrid tr.ui-row-ltr td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ui-jqgrid tr.jqgrow td{
+    padding: 0px 2px 0px 2px;
+}
+.ui-jqgrid .ui-common-table{
+    border-spacing: 0px;
+}
+
+.ui-jqgrid-labels th {
+    width: 25% !important;
+}
+
+/*.jqgrow.ui-row-ltr.ui-widget-content>td:first-child {*/
+/*border-left: 2px solid #ccc;*/
+/*}*/
+
+/*.jqgrow.ui-row-ltr.ui-widget-content>td:last-child {*/
+/*border-right: 3px solid #ccc;*/
+/*}*/
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-right: 1px solid #ccc !important;
+    color: black !important;
+}
+
+.ui-jqgrid-resize.ui-jqgrid-resize-ltr {
+    display: none !important;
+}
+
+.jqgfirstrow {
+    display: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable {
+    table-layout: unset !important;
+}
+
+#jqGridPager_left {
+    width: 25% !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    background: white !important;
+    border: 1px solid #c5c5c5 !important;
+    color: #454545 !important;
+}
+
+#jqGrid tr {
+    pointer-events: unset !important;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+@media screen and (max-device-width: 1440px){
+    #jqGridPager_center{
+        width: 336px !important;
+    }
+    #jqGridPager_left {
+        width: 50px !important;
+    }
+    .mail_content{
+        width: 65%;
+    }
+}
+@media screen and (max-device-width: 1280px){
+    #jqGridPager_left {
+        width: 0px !important;
+    }
+
+}
+#img-mail{
+    width: 20px;
+    margin-top: 2px;
+}
+/*@media screen and(max-width: 1280px){*/
+/*    !*#editor{*!*/
+/*    !*    width: 80% !important;*!*/
+/*    !*}*!*/
+/*    #edui1{*/
+/*        width: 675px!important;*/
+/*    }*/
+/*}*/
+/*@media screen and(min-width: 1280px){*/
+/*    #editor{*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+.template_area {
+    height: 6vh;
+    line-height: 6vh;
+}
+
+#temp_label {
+    font-size: 0.9vw;
+    font-weight: bold;
+    color: black;
+    width: 10%;
+}
+
+.template_area div {
+    float: left;
+}
+
+#temp_nm {
+    margin-left: 1vw;
+    background: none;
+    width: 10vw;
+}
+
+#temp_nm + span {
+    height: 4vh;
+    width: 10.6vw !important;
+    margin-left: 1vw;
+}
+
+#apply_area {
+    width: 12vh;
+    text-align: center;
+}
+
+#apply_btn {
+    width: 4vw;
+    height: 4vh;
+    font-size: 0.9vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+.select2-container .select2-selection--single {
+    height: 4vh !important;
+}
+.select2-selection__rendered{
+    height: 4vh;
+    line-height: 4vh !important;
+}
+td#jqGridPager_center {
+    width: 50% !important;
+}
+
+li{
+    font-size: 12px;
+}
+#edui1_toolbarbox{
+    position: unset!important;
+}

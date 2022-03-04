@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30113Dao">
+    <!-- 塾ニュース -->
+    <select id="getNoticeNews" resultType="jp.learningpark.modules.guard.dto.F30113Dto">
+        SELECT
+            guard.id,
+            notice.upd_datime,
+            notice.notice_title,
+            notice.notice_cont,
+            notice.attach_file_path,
+            notice.title_img_path,
+            cod.cod_value,
+            <!--2020/11/25 zhangminghao modify start-->
+            guard.reading_sts_div,
+            notice.notice_level_div,
+            guard.opened_flg
+            <!--2020/11/25 zhangminghao modify end-->
+            <!--add at 2021/08/16 for V9.02 by NWT LiGX START-->
+            ,notice.notice_type_div,
+            cd.cod_value AS reason,
+            lah.tgt_ymd,
+            lah.abs_sts,
+            lah.bikou
+            <!--add at 2021/08/16 for V9.02 by NWT LiGX END-->
+        FROM
+            <!--modify  at 2021/08/16 for V9.02 by NWT LiGX START-->
+            mst_notice notice
+            INNER JOIN guard_reading_sts guard ON notice.ID = guard.notice_id
+            INNER JOIN mst_cod_d cod ON cod.cod_cd = notice.notice_level_div
+            LEFT JOIN late_abs_hst lah ON notice.id	= lah.notice_id
+            AND to_char(notice.cret_datime,'yyyymmdd') = to_char(lah.cret_datime,'yyyymmdd')
+            LEFT JOIN mst_cod_d cd ON cd.cod_cd = lah.abs_reason
+            AND cd.cod_key = 'ABS_REASON'
+            <!--modify  at 2021/08/16 for V9.02 by NWT LiGX END-->
+        WHERE
+            notice.id = #{id}
+            <!-- delete at 2021/08/16 for V9.02 by NWT LiGX START -->
+            <!--AND notice.id = guard.notice_id-->
+            <!-- delete at 2021/08/16 for V9.02 by NWT LiGX END -->
+            AND guard.guard_id = #{guardId}
+            AND guard.stu_id = #{stuId}
+            <!-- delete at 2021/08/16 for V9.02 by NWT LiGX START -->
+            <!--AND cod.cod_cd = notice.notice_level_div-->
+            <!-- delete at 2021/08/16 for V9.02 by NWT LiGX END -->
+            AND cod.cod_key = 'NOTICE_LEVEL_DIV'
+            AND notice.del_flg = 0
+            AND guard.del_flg = 0
+            AND cod.del_flg = 0
+    </select>
+
+    <!--2020/11/11 zhangminghao modify start-->
+    <update id="updateOpenedFlg">
+        update guard_reading_sts
+        set opened_flg = '1',
+            upd_usr_id = #{userId},
+            upd_datime = #{latestTime}
+        where id = #{guardReadingId}
+    </update>
+    <!--2020/11/11 zhangminghao modify end-->
+</mapper>

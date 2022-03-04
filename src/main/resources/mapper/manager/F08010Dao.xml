@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08010Dao">
+    <select id="selectGuardAndStudent" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F08010Dto">
+		SELECT
+			GEAS.stu_id
+			, GEAS.guard_id
+			, MU.after_usr_id
+			, MS.flnm_nm || ' ' || MS.flnm_lnm AS stuName
+			, MU.after_usr_id || ',' || MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+			, case when GEAS.reading_sts_div = '0' then true else false end as readFlg
+			, geas.reply_sts_div as replyFlg
+			, mcd.cod_value as schy_div
+			<!-- NWT崔 manmiru1-726 2021/07/07 add start -->
+			, GEAS.org_id as orgId
+			<!-- NWT崔 manmiru1-726 2021/07/07 add end -->
+		FROM
+		<if test="guard">
+			guard_event_apply_sts GEAS
+		</if>
+		<if test="!guard">
+			stu_event_apply_sts GEAS
+		</if>
+			INNER JOIN mst_usr MU   ON ( GEAS.stu_id = MU.usr_id 		AND MU.del_flg = 0 )
+			INNER JOIN mst_stu MS   ON ( GEAS.stu_id = MS.stu_id 		AND MS.del_flg = 0 )
+		LEFT JOIN mst_cod_d as mcd on mcd.cod_cd = MS.schy_div and mcd.cod_key = 'SCHY_DIV' and mcd.del_flg = 0
+		LEFT JOIN mst_guard MG ON ( GEAS.guard_id = MG.guard_id  AND MG.del_flg = 0 )
+		WHERE
+		<!-- NWT崔 manmiru1-726 2021/07/07 edit start -->
+			GEAS.org_id in
+			<foreach item="item" collection="orgIdList" open="(" separator="," close=")">
+				#{item.orgId}
+			</foreach>
+		<!-- NWT崔 manmiru1-726 2021/07/07 edit end -->
+			AND GEAS.event_id = #{eventId}
+			AND GEAS.del_flg = 0
+		ORDER BY
+			MU.after_usr_id
+    </select>
+
+	<select id="selectGeasCount" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM
+			(SELECT
+				GEAS.id,
+				GEAS.stu_id
+			FROM
+				guard_event_apply_sts GEAS
+				INNER JOIN mst_event ME ON ( GEAS.event_id = ME.ID AND ME.del_flg = 0 )
+			WHERE
+				GEAS.del_flg = 0
+				AND GEAS.reply_sts_div = '1'
+				AND GEAS.event_id = #{eventId}
+			UNION ALL
+			SELECT
+				GEAS.id,
+				GEAS.stu_id
+			FROM
+				stu_event_apply_sts GEAS
+				INNER JOIN mst_event ME ON ( GEAS.event_id = ME.ID AND ME.del_flg = 0 )
+			WHERE
+				GEAS.del_flg = 0
+				AND GEAS.reply_sts_div = '1'
+				AND GEAS.event_id = #{eventId}
+			) a
+    </select>
+
+	<select id="updateEvent" parameterType="jp.learningpark.modules.common.entity.MstEventEntity" resultType="java.lang.Integer">
+		UPDATE mst_event
+		SET
+		event_sts_div=#{eventStsDiv},
+		<choose>
+			<when test="pubStartDt!=null">
+				pub_start_dt=#{pubStartDt,jdbcType=TIMESTAMP},
+			</when>
+			<otherwise>
+				pub_start_dt=null,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="pubEndDt!=null">
+				pub_end_dt=#{pubEndDt,jdbcType=TIMESTAMP},
+			</when>
+			<otherwise>
+				pub_end_dt=null,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="applyStartDt!=null">
+				apply_start_dt=#{applyStartDt,jdbcType=TIMESTAMP},
+			</when>
+			<otherwise>
+				apply_start_dt=null,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="applyEndDt!=null">
+				apply_end_dt=#{applyEndDt,jdbcType=TIMESTAMP},
+			</when>
+			<otherwise>
+				apply_end_dt=null,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="chgLimtDays!=null">
+				chg_limt_days=#{chgLimtDays,jdbcType=INTEGER},
+			</when>
+			<otherwise>
+				chg_limt_days=0,
+			</otherwise>
+		</choose>
+		noitce_flg=#{noitceFlg},
+		remand_flg=#{remandFlg},
+		upd_usr_id=#{updUsrId},
+		upd_datime=#{updDatime}
+		WHERE
+		id=#{id}
+		AND org_id = #{orgId}
+    </select>
+	<delete id="deleteData">
+		<!-- NWT崔 manmiru1-726 2021/07/08 edit start -->
+		DELETE FROM
+		<if test="guard">
+			guard_event_apply_sts
+		</if>
+		<if test="!guard">
+			stu_event_apply_sts
+		</if>
+		<!-- NWT崔 manmiru1-726 2021/07/08 edit end -->
+		WHERE
+		event_id = #{eventId}
+		<!-- NWT崔 manmiru1-726 2021/07/06 edit start -->
+		AND org_id in
+		<foreach item="item" collection="orgIdList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		<!-- NWT崔 manmiru1-726 2021/07/06 edit end -->
+		AND reply_sts_div ='0'
+		AND del_flg = 0
+	</delete>
+
+	<update id="resendDataUpdate" parameterType="jp.learningpark.modules.common.entity.GuardEventApplyStsEntity">
+		update
+			<if test="flag == 'guard'">
+				guard_event_apply_sts
+			</if>
+			<if test="flag == 'student'">
+				stu_event_apply_sts
+			</if>
+		set
+			reading_sts_div = '0'
+			, read_time = null
+			, upd_datime = now()
+			, upd_usr_id = users.updUsrId
+		from
+		(
+			values
+			<foreach collection ="resendUsers" item="user" index="index" open="" close= "" separator= ",">
+				(
+					#{user.eventId},
+					#{user.orgId},
+					#{user.stuId},
+					#{user.guardId},
+					#{user.updUsrId}
+				)
+			</foreach>
+		) as users(eventId, orgId, stuId, guardId, updUsrId)
+		where
+			<if test="flag == 'guard'">
+				guard_event_apply_sts.stu_id = users.stuId
+				and guard_event_apply_sts.guard_id = users.guardId
+				and guard_event_apply_sts.event_id = users.eventId
+				and guard_event_apply_sts.org_id = users.orgId
+				and guard_event_apply_sts.reading_sts_div = '1'
+				and guard_event_apply_sts.reply_sts_div = '0'
+			</if>
+			<if test="flag == 'student'">
+                stu_event_apply_sts.stu_id = users.stuId
+				and stu_event_apply_sts.guard_id = users.guardId
+				and stu_event_apply_sts.event_id = users.eventId
+				and stu_event_apply_sts.org_id = users.orgId
+				and stu_event_apply_sts.reading_sts_div = '1'
+				and stu_event_apply_sts.reply_sts_div = '0'
+			</if>
+	</update>
+</mapper>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>生徒面談記録詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/newtui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/pop/F21045.css">
+</head>
+<body id="body">
+<div class="content newt-layout-line" id="content" v-cloak>
+    <!--2021/1/18 UT-176 cuikailin add start-->
+    <div class="topMessage"></div>
+    <!--2021/1/18 UT-176 cuikailin add end-->
+    <div v-if="talkDisplayFlg" class="ask-container">
+        <div class="subtitle newt-layout-line">{{askItemName}}</div>
+        <div v-for="item in askAndTalkList" class="question-answer newt-layout-line" v-if="item.itemTypeDiv === '0' ">
+            <p class="question-name">{{item.questionName}}</p>
+            <p class="answer">{{item.answerReltCont}}</p>
+        </div>
+    </div>
+    <div v-if="askDisplayFlg" class="talk-container">
+        <div class="subtitle newt-layout-line">{{talkItemName}}</div>
+        <div v-for="item in askAndTalkList" class="question-answer newt-layout-line" v-if="item.itemTypeDiv === '1'">
+            <p class="question-name">{{item.questionName}}</p>
+            <p class="answer">{{item.answerReltCont}}</p>
+        </div>
+    </div>
+    <div v-if="subeContFlg" class="fixed">
+        <div class="question-answer newt-layout-line">
+            <div class="fixedTitle">備考</div>
+            <div class="fixedAnswer">{{noteCont}}</div>
+        </div>
+    </div>
+    <!--<div class="bottomBtn">
+        <button class="btn" onclick="btn()">
+            戻る
+        </button>
+    </div>-->
+
+</div>
+
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/pop/F21045.js"></script>
+</html>

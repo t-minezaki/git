@@ -1,0 +1,266 @@
+#app {
+    margin-top: 4vh;
+    height: 89vh;
+}
+
+.div_input {
+    margin-left: 1vw;
+    margin-bottom: 5vh;
+}
+
+.div_search {
+    display: inline-block;
+}
+#gview_jqGrid{
+    margin-left: 0vw !important;
+}
+.div_title {
+    font-size: 0.9vw;
+    letter-spacing: 0.1vw;
+    color: black;
+    margin-bottom: 1vh;
+    float: left;
+}
+
+#stu_nm, #stu_loginId {
+    width: 15vw;
+    height: 1.6vw;
+    background: white;
+    border: 1px #000 solid;
+    font-size: 0.9vw;
+    text-indent: 0.5em;
+    margin-left: 1vw;
+}
+
+#btn_search {
+    position: relative;
+    left: 15vw;
+    width: 10vw;
+    height: 2.2vw;
+    font-size: 1.2vw;
+    border-radius: 3px;
+    cursor: pointer;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border:grey solid 1px;
+    border-bottom: 3px grey solid;
+    letter-spacing: 0.1vw;
+}
+
+#time_select {
+    margin-left: 1vw;
+    height: 1.6vw;
+    width: 12vw;
+    text-indent: 0.5em;
+    background: whitesmoke;
+    border: 1px #000 solid;
+    float: left;
+    font-size: 0.9vw;
+    color: black;
+}
+
+#timeOne {
+    height: 1.6vw;
+    margin-left: 0.5vw;
+    float: left;
+    cursor: pointer;
+}
+
+.div_radio {
+    display: inline-block;
+    margin-left: 1vw;
+    float: left;
+}
+
+.input_radio {
+    float: left;
+}
+
+.newtui-radio-one {
+    width: 4vw !important;
+    -webkit-appearance: none !important;
+    height: 1.5vw !important;
+    line-height: 1.5vw !important;
+    border: none !important;
+    position: relative !important;
+    padding: 0 !important;
+    margin-top: 0vw !important;
+    font-size: 0.9vw !important;
+    cursor: pointer !important;
+}
+
+#div_bottom {
+    text-align: center;
+    margin-top: 12vh;
+}
+
+#btn_ok {
+    width: 10vw;
+    min-width: 80px;
+    height: 2.2vw;
+    font-size: 0.9vw;
+    border: 0;
+    background: #00a65a;
+    color: whitesmoke;
+    border-radius: 3px;
+    cursor: pointer;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid-bdiv {
+    /*height: 600px !important;*/
+    width: 100% !important;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+#load_jqGrid {
+    display: none !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 4vh !important;
+    border-bottom: 2px #ccc solid;
+}
+
+#jqGridPager_right {
+    text-align: left;
+}
+
+#pg_jqGridPager {
+    top: 95%;
+    width: 100%;
+}
+.topMessage{
+    position: absolute;
+}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    height: 22px !important;
+}
+
+.stu_check {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background: #fff;
+    width: 20px;
+    height: 20px;
+    padding: 0 !important;
+    border: 2px #ccc solid;
+    cursor: pointer;
+}
+
+.stu_check:checked::after {
+    content: '\2714';
+    color: black;
+    font-size: 20px;
+    /* 2020/11/27 V8.0 cuikailin modify start */
+    width: 16px;
+    /* 2020/11/27 V8.0 cuikailin modify end */
+    display: inline-block;
+    text-align: center;
+    height: 25px;
+    line-height: 22px;
+    float: left;
+    /* 2020/11/27 V8.0 cuikailin modify start */
+    margin-left: -1px;
+    margin-top: -1px;
+    /* 2020/11/27 V8.0 cuikailin modify end */
+}
+
+.layui-laydate .laydate-btns-now {
+    display: none;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    height: 20px;
+    background-color: #F0F0F0 !important;
+    border-bottom: none !important;
+}
+.layui-layer{
+    border-radius: 10px;
+}
+
+.one {
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+    display: inline-block;
+    margin-right: 1vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+
+.laydate-time-list>li{
+    width: 50% !important;
+}
+
+.laydate-time-list>li:last-child{
+    display: none !important;
+}
+
+.laydate-time-list ol li{
+    width: 100% !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+}

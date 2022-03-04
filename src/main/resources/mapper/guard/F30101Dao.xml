@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30101Dao">
+    <!-- 対象日より、祝日情報取得 -->
+    <select id="selectHolidayByTgtYmd" resultType="jp.learningpark.modules.common.entity.MstHolidayEntity">
+        SELECT
+            *
+        FROM
+            mst_holiday
+        WHERE
+            tgt_ymd = #{date}
+            AND del_flg = '0'
+    </select>
+
+    <!-- 対象日より、生徒固定スケジュール設定と個別スケジュール調整情報取得 -->
+    <select id="getStuFixdAndAdjustSchdlInfo" resultType="jp.learningpark.modules.guard.dto.F30101Dto">
+        SELECT
+            A.BLOCK_ID
+            , A.BLOCK_DISPY_NM
+            , CASE #{flg}
+                 WHEN '1' THEN A.SU_DW_CHOC_FLG
+                 WHEN '2' THEN A.MO_DW_CHOC_FLG
+                 WHEN '3' THEN A.TU_DW_CHOC_FLG
+                 WHEN '4' THEN A.WE_DW_CHOC_FLG
+                 WHEN '5' THEN A.TH_DW_CHOC_FLG
+                 WHEN '6' THEN A.FR_DW_CHOC_FLG
+                 ELSE A.SA_DW_CHOC_FLG
+             END AS dwChocFlg
+            , A.su_dw_choc_flg
+            , A.mo_dw_choc_flg
+            , A.tu_dw_choc_flg
+            , A.we_dw_choc_flg
+            , A.th_dw_choc_flg
+            , A.fr_dw_choc_flg
+            , A.sa_dw_choc_flg
+            , A.BLOCK_START_TIME
+            , A.BLOCK_END_TIME
+            , B.BLOCK_DISPY_NM AS adjustNm
+            , B.BLOCK_START_TIME AS adjustStartTime
+            , B.BLOCK_END_TIME AS adjustEndTime
+            , B.FIXD_BLOCK_ABOLT_FLG AS aboltFlg
+            , B.PLAN_YMD
+        FROM stu_fixd_schdl A
+        LEFT JOIN stu_INDIV_SCHDL_ADJUST B
+            ON A.id = B.stu_fixd_schdl_id
+            AND to_char(b.BLOCK_START_TIME,'yyyy-mm-dd') = to_char(#{date}::DATE ,'yyyy-mm-dd')
+            AND B.DEL_FLG = '0'
+        WHERE
+            A.STU_ID = #{stuId}
+            AND
+            (
+                (A.BLOCK_START_DATE <![CDATA[ >= ]]> #{date} and A.BLOCK_START_DATE <![CDATA[ <= ]]> #{date}::timestamp + '1 month')
+                or
+                (A.BLOCK_END_DATE <![CDATA[ >= ]]> #{date} and A.BLOCK_END_DATE <![CDATA[ <= ]]> #{date}::timestamp + '1 month')
+                or
+                (A.BLOCK_END_DATE <![CDATA[ >= ]]> #{date} and A.BLOCK_START_DATE <![CDATA[ <= ]]> #{date})
+            )
+            AND A.DEL_FLG = '0'
+    </select>
+    <!-- 対象日より、生徒ウィークリー計画実績設定情報取得 当月 -->
+    <select id="getStuWeeklyPlanPerf" resultType="jp.learningpark.modules.guard.dto.F30101Dto">
+        SELECT
+            A.*
+            , D.COD_VALUE AS SUBJT
+            , mb.block_dispy_nm AS mblockDispyNm
+        FROM STU_WEEKLY_PLAN_PERF A
+        LEFT JOIN
+            (
+                SELECT
+                    C.COD_CD
+                    , C.COD_VALUE
+                FROM MST_COD_H B
+                INNER JOIN mst_cod_d C
+                    ON B.COD_KEY = C.COD_KEY
+            ) D
+            ON A.SUBJT_DIV = D.COD_CD
+        INNER JOIN mst_block mb
+            ON mb.block_type_div = A.block_type_div
+        WHERE
+            A.STU_ID = #{stuId}
+            AND A.PLAN_YMD <![CDATA[ >= ]]> #{stgtYmd}
+            and A.plan_ymd  <![CDATA[ <= ]]> #{stgtYmd}:: TIMESTAMP + '1 month'
+            AND mb.upplev_block_id IS NULL
+            AND A.DEL_FLG = '0'
+        ORDER BY
+            A.plan_learn_start_time
+    </select>
+    <select id="getStuComplimentList" resultType="jp.learningpark.modules.guard.dto.F30101stuConplimentDto">
+        select
+            scm.*
+            , mcd.cod_value_2
+        from stu_compliment_mst as scm
+        inner join mst_cod_d as mcd
+            on scm.compliment_div = mcd.cod_cd
+            and mcd.cod_key = 'PRAISE_STAMP_LIST'
+            and mcd.del_flg = 0
+        where
+            scm.stu_id = #{stuId}
+            and scm.org_id = #{orgId}
+            AND scm.compliment_dt <![CDATA[ >= ]]> #{stgtYmd}
+            and scm.compliment_dt <![CDATA[ <= ]]> #{stgtYmd}:: TIMESTAMP + '1 month'
+        ORDER BY
+            compliment_dt ASC
+    </select>
+</mapper>

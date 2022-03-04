@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.QRResponseApiDao">
+    <!--  ユーザマスタから該当登録者の存在をチェック  -->
+    <select id="selectLoginUser" resultType="jp.learningpark.modules.com.dto.QRResponseApiDto">
+        select
+        mu.usr_password,
+        mu.gid_flg,
+        mu.gidpk,
+        mu.org_id,
+        mu.usr_id,
+        mm.flnm_nm || mm.flnm_lnm AS user_name
+        from mst_usr mu
+        inner join mst_manager mm on mu.usr_id = mm.mgr_id and mm.del_flg = 0
+        <where>
+            and mu.del_flg = 0
+            <if test="gidFlag == 0">
+                and mu.after_usr_id = #{userCd}
+            </if>
+            <if test="gidFlag == 1 and tchCdFlg == 0">
+                and mu.gidpk = #{userCd}
+            </if>
+            and mu.spec_auth_flg in ('0','1')
+            <if test="gidFlag != null">
+                AND mu.gid_flg = #{gidFlag}
+            </if>
+            <if test="gidFlag == 1 and tchCdFlg == 1">
+                and mm.tch_cd = #{userCd}
+            </if>
+        </where>
+        ORDER BY
+        mu.cret_datime
+        LIMIT 1
+    </select>
+</mapper>

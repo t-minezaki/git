@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>Title</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09004.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body style="overflow: hidden;">
+<div id="message" class="topMessage"></div>
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>入退室管理</li>
+            <li> ＞ 代理入退室検索設定</li>
+        </ul>
+    </div>
+</div>
+
+<div id="app">
+
+    <div class="div_input">
+
+        <div class="div_search">
+            <label class="div_title">生徒姓名</label>
+            <input type="text" id="stu_nm"/>
+        </div>
+
+        <div class="div_search">
+            <label class="div_title" style="margin-left: 1vw;">生徒ID</label>
+            <input type="text" id="stu_loginId"/>
+        </div>
+        <button id="btn_search">検索</button>
+    </div>
+
+    <div class="div_input">
+        <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+    </div>
+
+    <div class="div_input">
+        <label class="div_title">時間選択</label>
+        <input type="text" id="time_select"  disabled/>
+        <img src="../img/timeBtn.png" alt="" id="timeOne">
+    </div>
+
+    <br>
+
+    <div class="div_input" style="margin-top: 5vh;">
+        <div>
+            <label class="div_title">ステータス</label>
+            <div class="div_radio">
+                <input type="radio" name="status" class="newtui-radio-one nolabel" value="0" v-model="pick" title="登校">
+                <input type="radio" name="status" class="newtui-radio-one nolabel" value="1" v-model="pick" title="下校">
+            </div>
+        </div>
+    </div>
+
+    <div id="div_bottom">
+
+        <button id="btn_ok">確認</button>
+    </div>
+
+
+</div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/js/manager/F09004.js"></script>
+</html>

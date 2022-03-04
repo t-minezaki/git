@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>190708-9</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08003.css"/>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.config.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.all.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/lang/jp/jp_news.js" type="text/javascript" charset="utf-8" ></script>
+</head>
+<body style="width: 100vw;height: 48vw;">
+<header style="width: 100%;padding: 0 1vw">
+    <div class="header_logo">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout"/>
+        </li>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00002.html'">基本情報変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='../common/F40008.html'">ID／パスワード変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00001.html'">管理者本ページへ</button>
+        </div>
+    </ul>
+</header>
+<div style="width: 100%;height: 7vw;background: #009944 "></div>
+<div id="message" class="topMessage"></div>
+<div class="one">
+    <div>
+        <button class="" style="background: none;border: 0"><img src="../img/eventmenubar.png" height="30" width="33"/></button>
+    </div>
+    <div>
+        <ul class="one-ul">
+            <li>イベント管理　＞　</li>
+            <li>イベント作成　＞　</li>
+            <li>作成</li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="two" style="padding-left: 3.6vw;font-size: 1.4em;font-weight: bolder;color: grey;height: 4vw;line-height: 6vw;">テンプレート</div>
+    <div class="three" style="padding-left: 3.6vw;height: 6vw;">
+        <select style="border: 1px solid grey !important;background: none;width: 15vw;color: grey">
+            <option value='' disabled selected style='display:none;font-size: 1.4em;font-weight: bolder;color: grey;'>テンプレートを選択</option>
+        </select>
+        <input style="margin-left: 2.5vw;" placeholder="検索文字を入力">
+        <button>検索</button>
+        <button>適用</button>
+    </div>
+    <div class="two" style="padding-left: 3.6vw;font-size: 1.4em;font-weight: bolder;color: grey;height: 4vw;margin-top: -2vw">イベント分類</div>
+    <div class="two" style="padding-left: 3.6vw;font-size: 1.4em;font-weight: bolder;color: grey;height: 4vw;margin-top: -2.5vw;margin-left:1vw;line-height: 2vw;margin-bottom: 1vw">
+        <div class="female">
+            <input type="radio" id="one" name="sex" />
+            <label for="one"><span>アンケート/注文</span></label>
+        </div>
+        <div class="male">
+            <input type="radio" id="two" name="sex" />
+            <label for="two"><span>イベント/面談</span></label>
+        </div>
+    </div>
+    <div class="four" style="padding-left: 3.6vw;height: 5vw">
+        <div style="font-weight: bolder;color: grey;font-size: 1.4em;font-weight: bolder;color: grey;">イベントコード</div>
+        <div>
+            <input style="height: 3vw;width: 31.5vw;" placeholder="カテゴリ名を入力">
+        </div>
+    </div>
+    <div class="five" style="padding-left: 3.6vw;height: 5vw;">
+        <div style="font-weight: bolder;color: grey;font-size: 1.4em;font-weight: bolder;color: grey;">イベント名</div>
+        <div>
+            <input style="height: 3vw;width: 31.5vw;" placeholder="イベント名を入力">
+        </div>
+    </div>
+    <div class="six" style="padding-left: 3.6vw;height: 5vw;">
+        <div style="font-weight: bolder;color: grey;font-size: 1.4em;font-weight: bolder;color: grey;">タイトル</div>
+        <div>
+            <input style="height: 3vw;width: 31.5vw;" placeholder="タイトルを入力">
+        </div>
+    </div>
+    <div class="seven" style="padding-left: 3.6vw;height: 28vw;">
+        <div style="font-weight: bolder;color: grey;font-size: 1.4em;font-weight: bolder;color: grey;">本文</div>
+        <div class="mail_content">
+            <div id="editor" name="editor" type="text/plain" style="width:100%;height:35vh;"></div>
+        </div>
+    </div>
+    <div class="eight" style="padding-left: 3.6vw;">
+        <button style="width: 12vw;height: 2.5vw;background: #4BC783;color: white;border: none;box-shadow: 2px -2px 3px grey;">登録</button>
+    </div>
+</div>
+<div class="return" style="position: fixed;bottom: 0;right: 0">
+    <button style="width: 50px;height: 50px;border: none;background: #4BC783;color: white;">戻る</button>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/190708-9.js"></script>
+</html>

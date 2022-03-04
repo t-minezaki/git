@@ -1,0 +1,65 @@
+html,body {
+    height: 100%;
+    background: white !important;
+}
+#div_bottom {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    text-align: center;
+
+    width: 100%;
+}
+.v_If {
+    width: 100%;
+    position: absolute;
+    padding-top: 3.3vw;
+    padding-bottom: 8vh;
+    height: 100%;
+}
+.ipt {
+    /* margin-top: 10px; */
+    height: 70%;
+    padding-top: 10px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.show_t {
+    line-height: 4.2vw;
+    font-size: 2.2vw;
+    text-align: center;
+    /*font-weight: bolder;*/
+    color:#333;
+    height: 10%;
+}
+textarea {
+    /* margin-left: 17px; */
+    /* margin-right: 17px; */
+    resize: none;
+    background-position: 30px 100px;
+    height: 100%;
+    width: 100%;
+    min-height: 100px;
+}
+.btn_okk {
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 120px;
+    height: 28px;
+    line-height: 28px;
+    border: none;
+    background: #00a65a;
+    color: whitesmoke;
+    border: 0;
+    border-bottom: 3px rgba(0,0,0,.2) solid;
+}
+.init {
+    height: 100%;
+}
+#message {
+    font-size: 15px;
+    position: absolute;
+    line-height: 4vw;
+}

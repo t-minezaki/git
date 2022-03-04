@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30408Dao">
+    <!-- 塾ニュース -->
+    <select id="getEventNews" resultType="jp.learningpark.modules.guard.dto.F30408Dto">
+        SELECT
+            ME.id as eventId,
+            GEAS.id as applyId
+        FROM
+            mst_event ME
+            INNER JOIN guard_event_apply_sts GEAS ON ( GEAS.event_id = ME.id AND GEAS.del_flg = 0 )
+        WHERE
+            ME.del_flg = 0
+            AND ME.id = #{eventId}
+            AND GEAS.guard_id = #{guardId}
+            AND GEAS.event_sche_del_id IS NULL
+        ORDER BY
+            GEAS.stu_id
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>Title</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F40010-1.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/demo.css" type="text/css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/zTreeStyle.css" type="text/css">
+    <script type="text/javascript" src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.excheck.js"></script>
+</head>
+<body>
+
+<div id="zTree_area" class="zTreeDemoBackground left">
+    <div id="chk_area">
+        <input type="checkbox" id="selectAll"><span style="font-size: 1.5em; font-weight: bold;">全体</span>
+    </div>
+    <ul id="treeDemo" class="ztree"></ul>
+</div>
+
+<button id="btn_ok">確定</button>
+
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F40010-1.js"></script>
+</html>

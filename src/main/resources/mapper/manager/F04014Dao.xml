@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F04014Dao">
+    <select id="getOrgList" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+        SELECT distinct
+            mo.org_nm
+        FROM
+            mst_org AS mo
+            INNER JOIN mst_notice_deliver AS mnd ON mnd.org_id = mo.org_id
+            AND mnd.del_flg = 0
+        WHERE
+            mnd.notice_id = #{noticeId}
+            AND mo.del_flg = 0
+    </select>
+</mapper>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21015.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/js/common/common.js" type="text/javascript"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="v_If">
+    <div class="init" v-if="pageDiv==9">
+        <div class="show_t">
+            使用テキスト
+        </div>
+        <div class="ipt">
+            <textarea  id="use_cont" ></textarea>
+        </div>
+    </div>
+    <div class="init" v-if="pageDiv==10">
+        <div class="show_t">
+            指導内容
+        </div>
+        <div class="ipt">
+            <textarea id="guid_cont" ></textarea>
+        </div>
+    </div>
+    <div class="init" v-if="pageDiv==11">
+        <div class="show_t">
+            宿題内容
+        </div>
+        <div class="ipt">
+            <textarea id="hwk_cont" ></textarea>
+        </div>
+    </div>
+    <div class="init" v-if="pageDiv==12">
+        <div class="show_t">
+            小テスト単元名
+        </div>
+        <div class="ipt">
+            <textarea id="test_unit_nm"></textarea>
+        </div>
+    </div>
+    <div class="init" v-if="pageDiv==13">
+        <div class="show_t">
+            連絡事項内容
+        </div>
+        <div class="ipt">
+            <textarea id="conc_item_cont" ></textarea>
+        </div>
+    </div>
+</div>
+<div id="div_bottom">
+    <button id="btn_okk" class="btn_okk">入力する</button>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F21015.js"></script>
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.pop.dao.F20014Dao">
+    <select id="selectInitInfoByTermId" parameterType="Integer" resultType="jp.learningpark.modules.pop.dto.F20014Dto">
+        SELECT
+        TP.id as termPlanId,
+        TP.block_dispy_nm,
+        TP.plan_learn_tm,
+        DITI.unit_dispy_nm,
+        DITI.textb_page,
+        TP.plan_reg_flg
+        FROM
+        stu_term_plan TP
+        INNER JOIN textb_def_time_info DITI ON DITI.id=TP.textb_def_unit_id
+        AND DITI.del_flg=0
+        WHERE TP.ID=#{id}
+        AND TP.del_flg=0
+    </select>
+    <select id="selectInitInfoByWeeklyId" parameterType="Integer"
+            resultType="jp.learningpark.modules.pop.dto.F20014Dto">
+        SELECT
+            WPP.ID AS weeklyId,
+            WPP.block_dispy_nm,
+            WPP.plan_ymd,
+            WPP.learn_lev_unds,
+            WPP.plan_learn_start_time,
+            WPP.stu_plan_learn_tm,
+            WPP.subjt_nm,
+            TDTI.unit_dispy_nm,
+            TDTI.textb_page,
+            WPP.perf_learn_tm,
+            WPP.remain_disp_flg,
+            TP.plan_learn_tm,
+            WPP.block_type_div,
+            CMD.cod_value as learn_lev_unds_dis
+        FROM
+            stu_weekly_plan_perf WPP
+            INNER JOIN stu_term_plan TP ON TP.ID = WPP.stu_term_plan_id
+            AND TP.del_flg = 0
+            INNER JOIN textb_def_time_info TDTI ON TDTI.ID = TP.textb_def_unit_id
+            AND TDTI.del_flg = 0
+            INNER JOIN mst_cod_d CMD ON CMD.cod_cd =
+        CASE
+            WHEN WPP.learn_lev_unds IS NULL THEN
+            '0' ELSE WPP.learn_lev_unds
+        END
+            AND CMD.cod_key = 'LEARN_LEV_UNDS'
+            AND CMD.del_flg = 0
+        WHERE
+            WPP.ID = #{id}
+            AND WPP.del_flg =0
+    </select>
+    <select id="selectInitInfoByWeeklyIdNotInS1" parameterType="Integer"
+            resultType="jp.learningpark.modules.pop.dto.F20014Dto">
+        SELECT
+            WPP.ID AS weeklyId,
+            WPP.block_dispy_nm,
+            WPP.plan_ymd,
+            WPP.learn_lev_unds,
+            WPP.plan_learn_start_time,
+            WPP.stu_plan_learn_tm,
+            WPP.perf_learn_tm,
+            WPP.remain_disp_flg,
+			WPP.subjt_nm,
+            WPP.block_type_div,
+            CMD.cod_value as learn_lev_unds_dis
+        FROM
+            stu_weekly_plan_perf WPP
+
+            INNER JOIN mst_cod_d CMD ON CMD.cod_cd =
+        CASE
+            WHEN WPP.learn_lev_unds IS NULL THEN
+            '0' ELSE WPP.learn_lev_unds
+        END
+            AND CMD.cod_key = 'LEARN_LEV_UNDS'
+            AND CMD.del_flg = 0
+        WHERE
+            WPP.ID = #{id}
+            AND WPP.del_flg =0
+    </select>
+</mapper>

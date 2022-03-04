@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>管理者基本情報登録画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00002.css"/>
+</head>
+<body>
+<header style="width: 100%;padding: 0 1vw">
+    <div class="header_logo">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout"/>
+        </li>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00002.html'">基本情報変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='../common/F40008.html'">ID／パスワード変更</button>
+        </div>
+    </ul>
+</header>
+<div class="div_head"></div>
+<div class="content">
+<div class="mian">
+    <div class="mainCon">
+        <div id="message" class="topMessage"></div>
+        <div class="mainTitle">ユーザー情報登録・変更:基本情報</div>
+        <form id="f00002Form">
+        <div class="mainDiv" id="ttth">
+            <div class="topMain">
+                <div>修正したい内容を変更の上、「変更」をクリックしてください。</div>
+            </div>
+            <div class="bottomMain tInput">
+                <p>氏名</p>
+                <p class="center">*</p>
+                <input type="text" id="flnmNm" name="flnmNm">
+                <input type="text" id="flnmLnm" name="flnmLnm">
+            </div>
+            <div class="bottomMain tInput">
+                <p>力ナ</p>
+                <p class="center">*</p>
+                <input type="text" id="flnmKnNm" name="flnmKnNm">
+                <input type="text" id="flnmKnLnm" name="flnmKnLnm">
+            </div>
+            <div class="bottomMain pInput more">
+                <p>電話番号</p>
+                <p class="center"></p>
+                <input type="text" id="telnum" name="telnum" maxlength="11">
+                <p class="sp">※ハイフンなしで数字のみ入力してください</p>
+            </div>
+            <!--メール送信ボタン-->
+            <div class="bottomMainEmail">
+                <p>メールアドレス</p>
+                <p class="center"></p>
+                <input type="text" id="email" name="email" readonly>
+                <button id="emailAdAuth" @click="sendEmailFn()" type="button">メールアドレス認証</button>
+            </div>
+            <div class="bottomMain" style="border: 0;">
+                <p></p>
+                <p class="center">[*] は入力必須項目です</p>
+                <input type="text" disabled value="" class="noData">
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<div class="theme_btn">
+    <div class="btn_con">
+        <button class="left" @click="backFn()">戻る</button>
+        <button id="update" @click="submitFn()">変更</button>
+    </div>
+</div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/manager/F00002.js"></script>
+</html>

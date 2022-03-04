@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstEventDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstEventEntity" id="mstEventMap">
+        <result property="id" column="id"/>
+        <result property="eventCd" column="event_cd"/>
+        <result property="tempId" column="temp_id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="eventLevelDiv" column="event_level_div"/>
+        <result property="eventTitle" column="event_title"/>
+        <result property="eventCont" column="event_cont"/>
+        <result property="ctgyNm" column="ctgy_nm"/>
+        <result property="pubStartDt" column="pub_start_dt"/>
+        <result property="pubEndDt" column="pub_end_dt"/>
+        <result property="applyStartDt" column="apply_start_dt"/>
+        <result property="applyEndDt" column="apply_end_dt"/>
+        <result property="attachFilePath" column="attach_file_path"/>
+        <result property="titleImgPath" column="title_img_path"/>
+        <result property="eventStsDiv" column="event_sts_div"/>
+        <result property="noitceFlg" column="noitce_flg"/>
+        <result property="remandFlg" column="remand_flg"/>
+        <result property="chgLimtDays" column="chg_limt_days"/>
+        <result property="refType" column="ref_type"/>
+        <result property="unitTime" column="unit_time"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

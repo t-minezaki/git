@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F03001Dao">
+    <select id="getSchyList" resultType="jp.learningpark.modules.manager.dto.F03001Dto">
+        SELECT
+            cod_cd codCd,
+            cod_value codValue
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'SCHY_DIV'
+            AND del_flg = 0
+        ORDER BY
+	        sort
+    </select>
+    <select id="getSubjtList" resultType="jp.learningpark.modules.manager.dto.F03001Dto">
+        SELECT
+            cod_cd codCd,
+            cod_value codValue
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'SUBJT_DIV'
+            and cod_value_4 = '0'
+            AND del_flg = 0
+        ORDER BY
+                case WHEN cod_cd = 'k1' then 1
+                     WHEN cod_cd = 'm1' or cod_cd = 'm2' then 2
+                     WHEN cod_cd = 'r1' then 3
+                     WHEN cod_cd = 's4' then 4
+                     WHEN cod_cd = 'e1' then 5
+                     WHEN cod_cd = 's5' then 6
+                     WHEN cod_cd = 'r2' then 7
+                     WHEN cod_cd = 'r3' then 8
+                     WHEN cod_cd = 'r4' then 9
+                     WHEN cod_cd = 'r5' then 10
+                     WHEN cod_cd = 's1' then 11
+                     WHEN cod_cd = 's2' then 12
+                     WHEN cod_cd = 's3' then 13
+                     WHEN cod_cd = 't1' then 14
+                     WHEN cod_cd = 'o1' then 15
+                     WHEN cod_cd = 'z1' then 16 end
+    </select>
+    <select id="getPublisherList" resultType="jp.learningpark.modules.manager.dto.F03001Dto">
+        SELECT
+            cod_cd codCd,
+            cod_value codValue
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'PUBLISHER_DIV'
+            AND del_flg = 0
+        ORDER BY
+	        sort
+    </select>
+    <!--教科書一覧-->
+    <resultMap id="textbListMap" type="jp.learningpark.modules.manager.dto.F03001Dto">
+        <result property="textbId" column="textbId"/>
+        <result property="publisherVal" column="publisherVal"/>
+        <result property="textbNm" column="textbNm"/>
+        <result property="level" column="level"/>
+        <result property="orgNm" column="orgNm"/>
+        <result property="orgFlg" column="orgFlg"/>
+        <result property="orgId" column="orgId"/>
+        <result property="mtUpdTm" column="mtUpdTm"/>
+        <result property="schyDiv" column="schyDiv"/>
+        <result property="subjtDiv" column="subjtDiv"/>
+        <result property="publisherDiv" column="publisherDiv"/>
+        <result property="schyVal" column="schyVal"/>
+        <result property="subjtVal" column="subjtVal"/>
+        <collection property="tdtiUpdTmList" ofType="jp.learningpark.modules.manager.dto.F03001TmListDto">
+            <result property="id" javaType="java.lang.Integer" column="id"/>
+            <result property="tdtiUpdTm" column="tdtiUpdTm"/>
+        </collection>
+    </resultMap>
+    <select id="getTextbList" resultMap="textbListMap">
+        select distinct
+        a.textb_id textbId,
+        c.cod_value publisherVal,
+        a.textb_nm textbNm,
+        d.level,
+        d.org_nm orgNm,
+        a.org_id orgId,
+        a.schy_div schyDiv,
+        a.subjt_div subjtDiv,
+        a.publisher_div publisherDiv,
+        a.upd_datime mtupdtm,
+        b.upd_datime tdtiupdtm,
+        b.id,
+        e.cod_value schyVal,
+        f.cod_value subjtVal,
+        c.cod_cd,
+        e.cod_cd,
+        f.cod_cd
+        FROM mst_textb a
+        inner join textb_def_time_info b on b.textb_id = a.textb_id and b.del_flg = 0
+        inner join mst_cod_d c on c.cod_cd = a.publisher_div and c.cod_key = 'PUBLISHER_DIV' and c.del_flg = 0
+        inner join mst_org d ON d.org_id = a.org_id AND d.brand_cd = #{brandCd} AND d.del_flg = 0
+        inner join mst_cod_d e on e.cod_cd = a.schy_div and e.cod_key = 'SCHY_DIV' and e.del_flg = 0
+        inner join mst_cod_d f on f.cod_cd = a.subjt_div and f.cod_key = 'SUBJT_DIV' and e.del_flg = 0
+        <where>
+                a.org_id = #{orgId}
+            and a.del_flg = 0
+            <if test="schyDiv != null and schyDiv != ''">
+                AND a.schy_div = #{schyDiv}
+            </if>
+            <if test="subjtDiv != null and subjtDiv != ''">
+                AND a.subjt_div = #{subjtDiv}
+            </if>
+            <if test="publisherDiv != null and publisherDiv != ''">
+                AND a.publisher_div = #{publisherDiv}
+            </if>
+            <if test="textbNm != null and textbNm != ''">
+                AND a.textb_nm LIKE CONCAT('%',#{textbNm},'%')
+            </if>
+            <if test="textbId != null and textbId != ''">
+                AND a.textb_id = #{textbId}
+            </if>
+        </where>
+        ORDER BY d.LEVEL,d.org_nm,e.cod_cd,f.cod_cd,c.cod_cd,a.textb_nm, b.id
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="getTextbCount" resultType="java.lang.Integer">
+        select count(*) from (select distinct
+        a.textb_id textbId,
+        c.cod_value publisherVal,
+        a.textb_nm textbNm,
+        d.level,
+        d.org_nm orgNm,
+        case when a.org_id = #{orgId} then 1 else 0 end as orgFlg,
+        a.org_id,
+        a.schy_div,
+        a.subjt_div,
+        a.publisher_div,
+        a.upd_datime mtUpdTmTimestamp,
+        e.cod_value schyVal,
+        f.cod_value subjtVal,
+        c.cod_cd,
+        e.cod_cd,
+        f.cod_cd
+        FROM mst_textb a
+        inner join textb_def_time_info b on b.textb_id = a.textb_id and b.del_flg = 0
+        inner join mst_cod_d c on c.cod_cd = a.publisher_div and c.cod_key = 'PUBLISHER_DIV' and c.del_flg = 0
+        inner join mst_org d ON d.org_id = a.org_id AND d.brand_cd = #{brandCd} AND d.del_flg = 0
+        inner join mst_cod_d e on e.cod_cd = a.schy_div and e.cod_key = 'SCHY_DIV' and e.del_flg = 0
+        inner join mst_cod_d f on f.cod_cd = a.subjt_div and f.cod_key = 'SUBJT_DIV' and e.del_flg = 0
+        <where>
+            a.org_id = #{orgId}
+            and a.del_flg = 0
+            <if test="schyDiv != null and schyDiv != ''">
+                AND a.schy_div = #{schyDiv}
+            </if>
+            <if test="subjtDiv != null and subjtDiv != ''">
+                AND a.subjt_div = #{subjtDiv}
+            </if>
+            <if test="publisherDiv != null and publisherDiv != ''">
+                AND a.publisher_div = #{publisherDiv}
+            </if>
+            <if test="textbNm != null and textbNm != ''">
+                AND a.textb_nm LIKE CONCAT('%',#{textbNm},'%')
+            </if>
+        </where>
+        ORDER BY d.LEVEL,d.org_nm,e.cod_cd,f.cod_cd,c.cod_cd,a.textb_nm ) as a
+    </select>
+    <!--教科書デフォルト単元IDが生徒タームプラン設定に存在する判断-->
+    <select id="getTermPlanBook" resultType="java.lang.Integer">
+        SELECT
+            count(*) count
+        FROM
+            mst_textb mt
+            INNER JOIN textb_def_time_info tdti ON tdti.textb_id = mt.textb_id AND tdti.del_flg = 0
+            INNER JOIN stu_term_plan stp ON stp.textb_def_unit_id = tdti.id AND stp.del_flg = 0
+        WHERE
+            mt.textb_id = #{textbId} AND mt.del_flg = 0
+    </select>
+    <select id="getTextbListUpLevel" resultType="jp.learningpark.modules.manager.dto.F03001Dto">
+        select distinct
+        a.textb_id textbId,
+        c.cod_value publisherVal,
+        a.textb_nm textbNm,
+        d.level,
+        d.org_nm orgNm,
+        case when a.org_id = #{orgId} then 1 else 0 end as orgFlg,
+        a.org_id,
+        a.schy_div,
+        a.subjt_div,
+        a.publisher_div,
+        a.upd_datime mtUpdTmTimestamp,
+        e.cod_value schyVal,
+        f.cod_value subjtVal,
+        c.cod_cd,
+        e.cod_cd,
+        f.cod_cd
+        FROM mst_textb a
+        inner join textb_def_time_info b on b.textb_id = a.textb_id and b.del_flg = 0
+        inner join mst_cod_d c on c.cod_cd = a.publisher_div and c.cod_key = 'PUBLISHER_DIV' and c.del_flg = 0
+        inner join mst_org d ON d.org_id = a.org_id AND d.brand_cd = #{brandCd} AND d.del_flg = 0
+        inner join mst_cod_d e on e.cod_cd = a.schy_div and e.cod_key = 'SCHY_DIV' and e.del_flg = 0
+        inner join mst_cod_d f on f.cod_cd = a.subjt_div and f.cod_key = 'SUBJT_DIV' and e.del_flg = 0
+        <where>
+            a.org_id = #{orgId}
+            and a.del_flg = 0
+            <if test="schyDiv != null and schyDiv != ''">
+                AND a.schy_div = #{schyDiv}
+            </if>
+            <if test="subjtDiv != null and subjtDiv != ''">
+                AND a.subjt_div = #{subjtDiv}
+            </if>
+            <if test="publisherDiv != null and publisherDiv != ''">
+                AND a.publisher_div = #{publisherDiv}
+            </if>
+            <if test="textbNm != null and textbNm != ''">
+                AND a.textb_nm LIKE CONCAT('%',#{textbNm},'%')
+            </if>
+        </where>
+        ORDER BY d.LEVEL,d.org_nm,e.cod_cd,f.cod_cd,c.cod_cd,a.textb_nm
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="getDelData" resultMap="textbListMap">
+        SELECT
+            b.textb_id textbId,
+            b.cod_value publisherVal,
+            b.textb_nm textbNm,
+            b.LEVEL,
+            b.org_nm orgNm,
+            b.orgflg orgFlg,
+            b.org_id orgId,
+            b.mtupdtm mtUpdTm,
+            b.tdtiupdtm tdtiUpdTm,
+            b.schy_div schyDiv,
+            b.subjt_div subjtDiv,
+            b.publisher_div publisherDiv,
+            b.id
+        FROM
+            (select
+            a.textb_id,
+            c.cod_value,
+            a.textb_nm,
+            d.level,
+            d.org_nm,
+            case when a.org_id = #{orgId} then 1 else 0 end as orgFlg,
+            a.org_id,
+            a.schy_div,
+            a.subjt_div,
+            a.publisher_div,
+            a.upd_datime mtupdtm,
+            b.upd_datime tdtiupdtm,
+            b.id
+            FROM mst_textb a
+            inner join textb_def_time_info b on b.textb_id = a.textb_id and b.del_flg = 0
+            inner join mst_cod_d c on c.cod_cd = a.publisher_div and c.cod_key = 'PUBLISHER_DIV' and c.del_flg = 0
+            inner JOIN mst_org d ON d.org_id = a.org_id AND d.brand_cd = #{brandCd} AND d.del_flg = 0
+            WHERE a.org_id = #{orgId} and a.del_flg = 0
+                AND a.schy_div = #{schyDiv}
+                AND a.subjt_div = #{subjtDiv}
+                AND a.publisher_div = #{publisherDiv}) AS b
+        WHERE
+            b.textb_id = #{textbId}
+        ORDER BY b.level, b.cod_value, b.textb_nm, b.id
+    </select>
+    <select id="selectMstCrmschLearnPrdId" resultType="java.lang.Integer">
+        SELECT
+            CASE WHEN a.id IS NULL THEN b.id ELSE a.id END AS id
+        FROM
+            mst_textb mt
+            LEFT JOIN mst_crmsch_learn_prd a ON a.schy_div = mt.schy_div
+              AND a.org_id = #{orgId} AND a.use_flg = '1' AND a.del_flg = 0
+            INNER JOIN mst_org mo ON mo.org_id = #{orgId}
+              AND mo.brand_cd = #{brandCd} AND mo.del_flg = 0
+            LEFT JOIN mst_crmsch_learn_prd b ON b.schy_div = mt.schy_div
+              AND b.org_id = mo.upplev_org_id AND b.use_flg = '1' AND b.del_flg = 0
+        WHERE
+            mt.textb_id = #{textbId}
+            and mt.del_flg = 0
+    </select>
+    <select id="selectMstCrmschLearnPrdIdToImport" resultType="java.lang.Integer">
+        SELECT
+            CASE WHEN a.id IS NULL THEN b.id ELSE a.id END AS id
+        FROM
+            mst_org mo
+            left join mst_crmsch_learn_prd a on a.org_id = #{orgId}
+              and a.use_flg = '1' and a.schy_div = #{schyDiv} and a.del_flg = 0
+            left join mst_crmsch_learn_prd b on b.org_id = mo.upplev_org_id
+              and b.use_flg = '1' and b.schy_div = #{schyDiv} and b.del_flg = 0
+        WHERE
+            mo.org_id = #{orgId}
+            and mo.brand_cd = #{brandCd}
+            and mo.del_flg = 0
+    </select>
+    <select id="selectAllUpLevOrgByOrgId" resultType="jp.learningpark.modules.manager.dto.F03001Dto">
+        with RECURSIVE cte as
+            (
+            select * from mst_org om
+            where
+            om.org_id = #{orgId}
+            and om.brand_cd = #{brandCd}
+            and om.del_flg = 0
+        union all
+            select d.* from cte c
+            inner join mst_org d on c.upplev_org_id = d.org_id and d.del_flg = 0
+            )
+            select DISTINCT
+            s.level,
+            s.org_id,
+            s.org_nm
+            from cte s
+        order by s.level,s.org_id
+    </select>
+</mapper>

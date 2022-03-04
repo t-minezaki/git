@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>ユーザー選択画面（POP）</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F00055.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body style="position: fixed;width: 100%">
+<div id="message" class="topMessage"></div>
+<div class="popTitle">ユーザー選択画面</div>
+<div class="topSessionTitle">
+    <div>組織ID:</div>
+    <div id="orgId"></div>
+    <div>組織名:</div>
+    <div id="orgNm"></div>
+</div>
+<div class="one" id="student">
+    <div id="stu_area">
+        <div class="up">
+            <div class="label_area"><label class="id_label">生徒ID</label></div>
+            <div class="input_area"><input class="id_input" id="stu_id_input" type="text"></div>
+            <div class="label_area"><label class="name_label">生徒姓名</label></div>
+            <div class="input_area"><input class="name_input" id="stu_nm_input" type="text"></div>
+            <div class="select_btn_area">
+                <button class="search-btn" id="search_stu">検索</button>
+            </div>
+        </div>
+        <div class="down">
+            <div id="schy_label_area"><label id="schy_label">学年</label></div>
+            <select id="schyDiv">
+                <option></option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="two" id="guard">
+    <div id="guard_area">
+        <div class="up">
+            <div class="label_area"><label class="id_label">保護者ID</label></div>
+            <div class="input_area"><input class="id_input" id="guard_id_input" type="text"></div>
+            <div class="label_area"><label class="name_label">保護者姓名</label></div>
+            <div class="input_area"><input class="name_input" id="guard_nm_input" type="text"></div>
+            <div class="select_btn_area">
+                <button class="search-btn" id="search_guard">検索</button>
+            </div>
+        </div>
+        <div class="down">
+            <div class="label_area">
+                <label class="addr_label">メールアドレス</label>
+            </div>
+            <div id="mail_addr_area"><input id="mail_addr_input" type="text"></div>
+        </div>
+    </div>
+</div>
+<div class="three" id="mentor">
+    <div id="mentor_area">
+        <div class="label_area"><label class="id_label">先生ID</label></div>
+        <div class="input_area"><input class="id_input" id="mentor_id_input" type="text"></div>
+        <div class="label_area"><label class="name_label">先生姓名</label></div>
+        <div class="input_area"><input class="name_input" id="mentor_nm_input" type="text"></div>
+        <div class="select_btn_area">
+            <button class="search-btn" id="search_mentor">検索</button>
+        </div>
+    </div>
+</div>
+<div class="jqGrid_area">
+    <div class="list_stu" id="student_list">
+        <div id="jqGridPager_stu"></div>
+        <table cellspacing="0" class="oneTable" id="jqGrid_stu" style="border: 1px solid black;border-top: none;"></table>
+    </div>
+    <div class="list_mentor" id="mentor_list">
+        <div id="jqGridPager_mentor"></div>
+        <table cellspacing="0" class="oneTable" id="jqGrid_mentor"></table>
+    </div>
+    <div class="list_guard" id="guard_list">
+        <div id="jqGridPager_guard"></div>
+        <table cellspacing="0" class="oneTable" id="jqGrid_guard"></table>
+    </div>
+</div>
+<div class="btn_area">
+    <button id="select_btn" disabled="true">選択</button>
+    <button id="close_btn">閉じる</button>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F00055.js"></script>
+</html>

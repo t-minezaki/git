@@ -1,0 +1,135 @@
+body {
+    background: #f8f8f8;
+}
+
+.content {
+    width: 100%;
+    overflow: hidden;
+    padding: 6.5vh 1% 0 1%;
+    height: calc(100% - 44px);
+}
+
+ul.tab {
+    width: 100%;
+    height: 9vw;
+    overflow: hidden;
+    border-radius: 1vw;
+    border: 2px solid #009944;
+    margin-top: 1vw;
+}
+
+ul.tab li {
+    width: 25%;
+    height: 100%;
+    color: #009944;
+    background: none;
+    font-size: 3.2vw;
+    line-height: 8vw;
+    float: left;
+    text-align: center;
+    border-right: 2px solid #009944;
+}
+
+ul.tab li.active {
+    background: #009944;
+    color: #fff;
+}
+
+.content ul {
+    width: 100%;
+    overflow: hidden;
+}
+
+.content ul li.title_li_end {
+    border-radius: 0 0.5vw 0.5vw 0;
+    border-right: 0;
+}
+
+.contentDiv {
+    height: calc(100% - 10vw);
+    width: 100%;
+    border: 1px solid #999;
+    padding: 3vw 2vw;
+    margin-top: 1vw;
+    overflow: scroll;
+}
+
+.contentTitle {
+    width: 100%;
+    height: 13vw;
+}
+
+.contentTitle select {
+    width: 48%;
+    padding: 0 4vw;
+    height: 10vw;
+    line-height: 10vw;
+    border: 1px solid #ccc !important;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 1vw;
+    font-size: 3.2vw;
+}
+
+.trTitle > th {
+    border-top: 1px solid #ccc;
+}
+
+.contentT {
+    width: 100%;
+    height: auto;
+}
+
+.first {
+    border-left: 1px solid #ccc;
+}
+
+.topSolid > th, .topSolid > td {
+    border-top: 1px solid #ccc;
+}
+
+.blue {
+    background: #e2ffef;
+    padding-right: 2vw!important;
+}
+
+.green {
+    background-color: green;
+    color: white;
+    width: 17%;
+}
+
+th {
+    background: #def4ff;
+    font-weight: 500;
+}
+
+th, td {
+    width: calc(100% / 7.5);
+    text-align: center;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 6.5vh;
+    line-height: 2.5vh;
+    font-size: 2.6vw;
+}
+
+.table_one{
+    width: 100%;
+}
+.table_two {
+    margin-top: 2vw;
+    width: 100%;
+}
+
+.table_two > .green{
+    margin-right: 10%;
+}
+.disNone{
+    border: none !important;
+    background: none;
+}
+.table_three {
+    margin-top: 2vw;
+    width: 100%;
+}

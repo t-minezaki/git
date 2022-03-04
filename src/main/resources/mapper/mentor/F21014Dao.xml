@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21014Dao">
+    <select id="getSubjectByMonth" resultType="java.lang.String">
+        select DISTINCT
+            CASE WHEN b.subjt_div = '99' THEN	b.yobi1
+            ELSE c.cod_value END AS codValue
+        from
+            (select * from attend_book_h where org_id = #{orgId}
+            and to_char(tgt_ymd,'yyyy-MM') = #{month} and del_flg = 0) a
+        inner join
+            attend_book_d b
+        on
+            (a.id = b.attend_book_id and b.del_flg = 0)
+        left join
+            mst_cod_d c
+        on
+            (b.subjt_div = c.cod_cd and c.cod_key = 'SUBJT_DIV')
+        where
+            b.stu_id = #{stuId}
+    </select>
+
+    <select id="getAttendBookByDay" resultMap="attendBookMap">
+        select
+            a.tgt_ymd as date,
+            c.use_cont as use_content,
+            c.guid_cont as guid_content,
+            c.hwk_cont as hwk_content,
+            c.test_unit_nm as test_unit_name,
+            c.conc_item_cont as connect_item_content,
+            c.lect_shape_div as lect_shape_value,
+            c1.cod_value_2 as last_hwk_value,
+            c2.cod_value_2 as sch_sts_value,
+            d.test_points,
+           CASE WHEN d.subjt_div = '99' THEN	d.yobi1
+            ELSE d1.cod_value END AS subjt_value,
+            d2.cod_value as abs_sts_value,
+            d3.cod_value as homework_value,
+            d4.cod_value as care_value
+        from
+        (select * from attend_book_h where org_id = #{orgId}
+        and to_char(tgt_ymd,'yyyy-MM-dd') = #{date} and del_flg = 0) a
+        left join
+        guid_repr_h b
+        on (a.attend_book_cd = b.attend_book_cd)
+        LEFT join
+        (select stu_id, guid_repr_id, abs_sts_div, use_cont, guid_cont, hwk_cont, test_unit_nm, conc_item_cont, last_time_hwk_div, sch_sts_div, lect_shape_div from guid_repr_d where stu_id = #{stuId} and del_flg = 0) c
+        on (b.id = c.guid_repr_id)
+        left join
+        mst_cod_d c1
+        on (c.last_time_hwk_div = c1.cod_cd and c1.cod_key = 'LAST_TIME_HWK_DIV')
+        left join
+        mst_cod_d c2
+        on (c.sch_sts_div = c2.cod_cd and c2.cod_key = 'SCH_STS_DIV')
+        inner join
+        (SELECT * from attend_book_d where stu_id = #{stuId} and del_flg = 0) d
+        on (d.attend_book_id = a.id)
+        left join
+        mst_cod_d d1
+        on (d.subjt_div = d1.cod_cd and d1.cod_key = 'SUBJT_DIV')
+        left join
+        mst_cod_d d2
+        on (d.abs_sts_div = d2.cod_cd and d2.cod_key = 'ABS_STS_DIV')
+        left join
+        mst_cod_d d3
+        on (d.home_wk_div = d3.cod_cd and d3.cod_key = 'HOME_WK_DIV')
+        left join
+        mst_cod_d d4
+        on (d.care_div = d4.cod_cd and d4.cod_key = 'CARE_DIV')
+    </select>
+    <resultMap id="attendBookMap" type="jp.learningpark.modules.manager.dto.F21014AttendBookDto">
+        <result column="test_points" property="testPoints"/>
+        <result column="subjt_value" property="subjtValue"/>
+        <result column="homework_value" property="homeworkValue"/>
+        <result column="care_value" property="careValue"/>
+        <result column="abs_sts_value" property="absStsValue"/>
+        <result column="date" property="date" />
+        <result column="use_content" property="useContent"/>
+        <result column="guid_content" property="guidContent"/>
+        <result column="hwk_content" property="hwkContent"/>
+        <result column="test_unit_name" property="testUnitName"/>
+        <result column="connect_item_content" property="connectItemContent"/>
+        <result column="last_hwk_value" property="lastHwkValue"/>
+        <result column="sch_sts_value" property="schStsValue"/>
+        <result column="lect_shape_value" property="lectShapeValue"/>
+    </resultMap>
+</mapper>

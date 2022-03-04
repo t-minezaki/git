@@ -1,0 +1,95 @@
+::-webkit-scrollbar {
+    display: none;
+}
+.div{
+    margin: 0% 0% 0% 3%;
+    width: 94%;
+    height: 8%;
+}
+.top_title{
+    border: 1px solid grey;
+    margin: 0% 0% 0% 3%;
+    width: 94%;
+    height: 9%;
+    border-bottom: 0px;
+}
+.box{
+    width: 94%;
+    height: 80%;
+    overflow-y: auto;
+    margin: 0% 0% 0% 3%;
+}
+.top_title_one{
+    color: #0c963f;
+    font-size: 30px;
+}
+.top_title_two{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 900;
+}
+.div_button{
+    height: 15%;
+    width: 100%;
+    position: relative;
+}
+button{
+    width: 36%;
+    height: 64%;
+    background: #fcf8e3;
+    border: 2px solid #189746;
+    color: #189746;
+    font-size: 23px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 18%;
+    right: 32%;
+}
+.content{
+    padding: 0% 10% 10% 10%;
+    white-space: pre-wrap;
+    margin-top: 20%;
+    font-size: 14px;
+}
+.title{
+    position: absolute;
+    height: 10%;
+    width: 94%;
+    background: white;
+}
+.reg1 ol li{
+    text-align: left;
+    padding: 5px 0px;
+    font-family: '游ゴシック体', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif !important;
+}
+.reg0,.reg0-sub,.reg2,p,.hh3{
+    font-family: '游ゴシック体', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif !important;
+}
+@media screen and (orientation: landscape) {
+    button{
+        width: 20%;
+        height: 64%;
+        background: #fcf8e3;
+        border: 2px solid #189746;
+        color: #189746;
+        font-size: 23px;
+        font-weight: bold;
+        cursor: pointer;
+        position: absolute;
+        top: 18%;
+        right: 40%;
+    }
+    .content{
+        margin-top: 69px !important;
+        font-size: 28px;
+        padding-bottom: 0;
+    }
+    .title {
+        height: 64px !important;
+    }
+    p.top_title_two {
+        font-size: 28px;
+    }
+}

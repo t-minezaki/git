@@ -1,0 +1,41 @@
+/*select.my_select + label::after {*/
+    /*text-align: center;*/
+    /*display: inline-block;*/
+    /*font-max-size: 40px;*/
+    /*font-min-size: 20px;*/
+    /*content: "\25BC";*/
+    /*float: right;*/
+    /*border-left: 1px gray solid;*/
+    /*width: 1.8vw;*/
+    /*height: 4vh;*/
+    /*line-height: 4vh;*/
+/*}*/
+/*select.my_select + label::before {*/
+    /*text-align: center;*/
+    /*display: inline-block;*/
+    /*font-max-size: 40px;*/
+    /*font-min-size: 20px;*/
+    /*content: "\25B2";*/
+    /*float: right;*/
+    /*border-left: 1px gray solid;*/
+    /*width: 1.8vw;*/
+    /*height: 4vh;*/
+    /*line-height: 4vh;*/
+/*}*/
+select.my_select + label{
+    display: inline-block;
+    width: 12vw !important;
+    height: 4vh !important;
+    border: 0;
+}
+select.my_select{
+    position: absolute;
+    width: 12vw !important;
+    height: 4vh !important;
+    appearance: none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background: transparent;
+    border: 1px gray solid !important;
+    text-indent: 1em;
+}

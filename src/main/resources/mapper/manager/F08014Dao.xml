@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08014Dao">
+    <select id="selectEvent" resultType="jp.learningpark.modules.manager.dto.F08014Dto">
+		SELECT DISTINCT
+			ESPD.sgd_plan_date
+			, ESPD.sgd_start_datime
+			, ESPD.sgd_end_datime
+			, ME.event_title
+			, MM.flnm_nm || ' ' || MM.flnm_lnm AS div_mentor_nm
+			, MM.flnm_nm || MM.flnm_lnm AS mentor_nm
+			, ESPD.ref_type_div AS ref_type
+			, ME.ctgy_nm
+			, ESPD.sgd_plan_date || ' ' || ESPD.sgd_start_datime || ' ' || ESPD.sgd_end_datime AS time_str
+			, ME.ID AS event_id
+			, MO.org_nm
+			, ME.org_id
+		FROM
+		  event_sche_plan_del ESPD
+			INNER JOIN MST_EVENT ME ON ( ME.ID = ESPD.event_id AND ME.del_flg = 0 )
+			LEFT JOIN mst_mentor MM ON ( MM.mentor_id = ESPD.ref_id AND MM.del_flg = 0 )
+			LEFT JOIN mst_org MO ON ( MO.org_id = ESPD.ref_id AND MO.del_flg = 0 )
+		WHERE
+			ESPD.ID = #{id}
+			AND ESPD.del_flg = 0
+			AND ( ESPD.ref_type_div = '1' ) UNION ALL
+		SELECT DISTINCT
+			ESPD.sgd_plan_date
+			, ESPD.sgd_start_datime
+			, ESPD.sgd_end_datime
+			, ME.event_title
+			, MM.flnm_nm || ' ' || MM.flnm_lnm AS div_mentor_nm
+			, MM.flnm_nm || MM.flnm_lnm AS mentor_nm
+			, ESPD.ref_type_div AS ref_type
+			, ME.ctgy_nm
+			, ESPD.sgd_plan_date || ' ' || ESPD.sgd_start_datime || ' ' || ESPD.sgd_end_datime AS time_str
+			, ME.ID AS event_id
+			, MO.org_nm
+			, ME.org_id
+		FROM
+		  event_sche_plan_del ESPD
+			INNER JOIN MST_EVENT ME ON ( ME.ID = ESPD.event_id AND ME.del_flg = 0 )
+			LEFT JOIN mst_mentor MM ON ( MM.del_flg = 0 AND ESPD.ref_id = MM.mentor_id )
+			LEFT JOIN mst_org MO ON ( MO.org_id = ESPD.ref_id AND MO.del_flg = 0 )
+		WHERE
+			ESPD.ID = #{id}
+			AND ESPD.del_flg = 0
+			AND ( ESPD.ref_type_div = '0' )
+    </select>
+
+	<select id="selectStudent" resultType="jp.learningpark.modules.manager.dto.F08014StudentDto">
+		SELECT
+		GEAS.ID AS guard_event_apply_sts_id
+		, MS.flnm_nm || ' ' || MS.flnm_lnm AS stu_nm
+		FROM
+		<if test="userFlag != null and userFlag == true">
+			guard_event_apply_sts GEAS
+		</if>
+		<if test="userFlag != null and userFlag == false">
+			stu_event_apply_sts GEAS
+		</if>
+		INNER JOIN mst_stu MS ON ( MS.stu_id = GEAS.stu_id AND MS.del_flg = 0 )
+		WHERE
+		GEAS.del_flg = 0
+		AND geas.reply_sts_div != '2'
+		AND GEAS.event_sche_del_id = #{espdId}
+	</select>
+</mapper>

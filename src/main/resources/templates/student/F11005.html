@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>レイアウト新規作成</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11005.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11006" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul id="titleUl">
+                <li :onclick="toF11001()" class="active" id="jhlogin">計画登録</li>
+                <li class="active1" id="cjlogin" onclick="window.location.href='F11004.html'">実行登録</li>
+            </ul>
+        </div>
+        <div id="content">
+            <!--/* 2021/01/28 cuikailin MANAMIRU1-393 start */-->
+            <div v-if="submitType == '1'" style="overflow: hidden">
+                <div class="line-titel">
+                    <div style="padding: 0 5px 0 10px;height: 42px;line-height: 42px;background: #EEEEEE; font-size: 4.2vw;border-top: 1px solid #CCCCCC;">
+                        <span>実績項目の選択</span>
+                        <button @click="saveOrUpdate()" class="submit" v-if="submitType==1">登録</button>
+                    </div>
+                </div>
+                <div @click="showBlockTypeDiv()" class="newt-layout-line choose-div showteach" style="padding: 0 10px 0 20px;">
+                    <span class="span left">カテゴリ</span>
+                    <div class="right" id="blockType" type="text">選択する</div>
+                </div>
+                <div class="newt-layout-line disNone block_type_div">
+                    <select id="block_type_div" type="text" name="demo_select">
+                        <option v-for="cod in blockType" :value="cod.blockTypeDiv" >{{cod.blockDispyNm}}</option>
+                    </select>
+                </div>
+                <div @click="showSubjtDiv()" class="newt-layout-line choose-div showteach" style="padding: 0 10px 0 20px;  border-top: 1px solid #cccccc">
+                    <span class="span left">教科/科目</span>
+                    <div class="right" id="subjtDiv" type="text">選択する</div>
+                </div>
+                <div class="newt-layout-line disNone subjt_div">
+                    <select id="subjt_div" type="text" name="demo_select">
+                        <option v-for="cod in subjtDiv" :value="cod.subjtDiv" >{{cod.subjtNm}}</option>
+                    </select>
+                </div>
+            </div>
+            <!--/* 2021/01/28 cuikailin MANAMIRU1-393 end */-->
+            <div style="background-color: #F2F2F2;" >
+                <div style="padding: 0 5px 0 10px;height: 42px;line-height: 42px;background: #EEEEEE; font-size: 4.2vw;border-top: 1px solid #CCCCCC;">
+                    <span>実施時間</span>
+                    <button class="submit" v-if="submitType==0">{{param.editFlag && param.editFlag === '1' ? '戻る' : '登録'}}</button>
+                </div>
+            </div>
+            <div class="chooseOne">
+                <div class="showTime" @click="starTime">
+                    <p class="timeTitle">実施日時</p>
+                    <div id="starTime"type="text"></div>
+                </div>
+                <div class="check_starTime disNone">
+                    <select id="dom_starTime" type="text" name="demo_select">
+                    </select>
+                    <select id="dom_starTime1" type="text" name="demo_select1">
+                    </select>
+                    <select id="dom_starTime2" type="text" name="demo_select2">
+                    </select>
+                </div>
+
+                <div class="showTime showtF" @click="showTime" style="border-top: 1px solid #CCCCCC;">
+                    <p class="timeTitle">学習時間</p>
+                    <div id="time"></div>
+                </div>
+                <div class="check_time disNone">
+                    <select id="demo_select" type="text" name="demo_select">
+                    </select>
+                    <select id="demo_select1" name="demo_select" type="text">
+                    </select>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #CCCCCC;">
+                <div>
+                    <li class="inputWord">理解度</li>
+                </div>
+            </div>
+            <div class="chooseTwo">
+                <div class="showteach" @click="showCategory">
+                    <p>理解度</p>
+                    <div id="init"></div>
+                </div>
+                <div class="check_category disNone">
+                    <select id="dom_category" name="select">
+                        <option v-for="cod in cods" :value="cod.codValue"  :selected="showBlock(cod.codCd)">{{cod.codValue}}</option>
+                    </select>
+                </div>
+            </div>
+            <div id="memo"  style="height:50%;border-top: 1px solid #CCCCCC;">
+                <li class="inputWord">メモ</li>
+                <textarea class="memo" maxlength="50"></textarea>
+            </div>
+            <div class="button-container" v-if="param.editFlag && param.editFlag === '1'" style="margin-bottom: 0.5rem;">
+                <button @click="del()" class="del">削除</button>
+                <button @click="update()" class="update">更新</button>
+            </div>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40012.html?id=F11004" frameborder="0" width="100%"
+                height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F11005.js"></script>
+</html>

@@ -1,0 +1,25 @@
+input.my_search{
+
+    width: 27.7vw !important;
+    height: 8vh !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    border: 1px darkgrey solid !important;
+    text-indent: 1em;
+    border-radius: 2%;
+}
+
+#search_left_btn,#search_right_btn {
+
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px darkgrey solid;
+    border-bottom: 3px darkgrey solid;
+    float: right;
+    position: relative;
+    top: -0.5vh;
+}

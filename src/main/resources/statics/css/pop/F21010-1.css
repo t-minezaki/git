@@ -1,0 +1,252 @@
+.all {
+
+    width: 100%;
+    height: auto;
+    padding-left: 3%;
+}
+
+.header {
+
+    width: 100%;
+    text-align: left;
+    font-size: 5vw;
+    font-weight: bolder;
+    height: 8vh;
+    line-height: 8vh;
+    opacity: 0.7;
+    margin-left: 3vw;
+    margin-top: 4vh;
+    margin-bottom: 1vh;
+}
+
+.content_new {
+
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+
+.content_new div {
+
+    width: 100%;
+    height: 9.5vh;
+    line-height: 9.5vh;
+    float: left;
+}
+
+.content_new div p {
+
+    width: 20%;
+    height: 6vh;
+    text-align: left;
+    font-size: 3vw;
+    line-height: 6vh;
+    display: inline-block;
+    float: left;
+    margin-left: 4vw;
+}
+
+.content_new div input, select {
+
+    height: 6vh;
+    color: #2e2e2e;
+    font-size: 2vw;
+    line-height: 6vh;
+    float: left;
+    border-radius: 5px;
+    text-indent: 1em;
+    border: 1px grey solid;
+}
+
+#template, #status, #object {
+
+    width: 35vw !important;
+    height: 7vh !important;
+    border-radius: 5px;
+    border: 1px grey solid !important;
+    line-height: 6vh;
+    z-index: 1;
+}
+
+.theme_btn {
+
+    width: 100%;
+    height: 12vh;
+    line-height: 12vh;
+    margin-top: -1vh;
+    padding-left: 10%;
+}
+
+.theme_btn button {
+    width: 20vw;
+    height: 10vh;
+    border-radius: 4px;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    margin-top: 18vh;
+    float: right;
+    margin-right: 10vw;
+}
+
+.theme_btn button.left {
+
+    border: 0;
+    color: #EA331B;
+}
+
+#mgr_flg {
+
+    width: 7%;
+    height: 6vw;
+}
+
+.inputMessage {
+
+    /* height: auto; */
+    text-align: left;
+    display: inline-block;
+    width: 63% !important;
+    box-sizing: border-box;
+}
+
+.inputMessage div {
+
+    display: inline-block;
+    height: 8vh;
+    line-height: 5vh;
+    width: 15%;
+    padding-right: 1vw;
+    font-weight: bolder;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    float: left;
+}
+
+#pubStartDt, #pubEndDt,#cretTimeStart, #cretTimeEnd, #updDatimeStart, #updDatimeEnd{
+
+    width: 19vw !important;
+    height: 6vh;
+    color: #2e2e2e;
+    font-size: 2vw;
+    /* line-height: 14vh; */
+    pointer-events: none;
+    border: 0px;
+    position: absolute;
+    background: transparent;
+}
+
+.inputMessage img {
+
+    width: 4vw;
+}
+.eventStsDiv{
+    width: 40% !important;
+}
+.eventStsDiv input{
+    width: 5vw !important;
+}
+
+/*select.my_select + label::after {*/
+
+/*line-height: 10vh !important;*/
+/*border: 0px !important;*/
+/*font-size: 0.5em !important;*/
+/*float: right;*/
+/*}*/
+
+/*select.my_select + label::before {*/
+/*border: 0px !important;*/
+/*font-size: 0.5em !important;*/
+/*position: relative;*/
+/*left: -5%;*/
+/*top: 0.5vh;*/
+/*float: right;*/
+/*}*/
+
+select.my_select + label {
+
+    width: 3.5vw !important;
+    height: 7vh !important;
+    font-size: 5vw;
+    background: url(../../img/icons/select.png) no-repeat center/100%;
+    position: relative;
+    left: 31vw;
+}
+
+
+#close_btn {
+
+    position: absolute;
+    display: inline-block;
+    right: 1.5vw !important;
+    top: 2vh !important;
+    border: 1px black solid;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 17px;
+    font-weight: bolder;
+    cursor: default;
+}
+
+#close_btn:hover {
+
+    background-color: #ccc;
+}
+
+.indend {
+
+    display: inline-block;
+    width: 3em;
+    height: 6vh;
+    line-height: 6vh;
+    box-sizing: content-box;
+    float: left;
+}
+
+.time_div {
+
+    font-size: 0.8em !important;
+    width: 25vw !important;
+    height: 7.5vh !important;
+    line-height: 7vh !important;
+    float: left !important;
+    border: 1px grey solid;
+}
+
+.img_div {
+
+    height: 4vh !important;
+    line-height: 9.5vh !important;
+    width: 4vw !important;
+    z-index: 999;
+    /* text-align: right; */
+    padding-right: 0.5vw !important;
+    float: right !important;
+}
+
+.time_split {
+
+    width: 10vw !important;
+    font-size: 1.5em !important;
+    font-weight: bolder !important;
+    text-align: center;
+    float: left !important;
+    padding-right: 0vw !important;
+    height: 6vh !important;
+    line-height: 6vh !important;
+}
+
+html {
+
+    margin-top: 4vh;
+}
+
+.layui-laydate .laydate-btns-time {
+
+    display: none;
+}

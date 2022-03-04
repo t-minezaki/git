@@ -1,0 +1,239 @@
+* {
+    font-family: "Hiragino Kaku Gothic Pro";
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: unset !important;
+}
+
+#page {
+    height: 100%;
+    overflow: hidden;
+}
+
+.div_header {
+    width: 100%;
+    height: 10%;
+}
+
+.content {
+    width: 100%;
+    height: calc(90% - 54px);
+    padding-bottom: 0;
+    padding-left: 2%;
+    padding-right: 2%;
+    overflow-y: hidden;
+}
+
+#content {
+    width: 96%;
+    height: calc(93% - 30px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 20px;
+}
+
+#title_div {
+    height: 7%;
+}
+
+#title_div span {
+    line-height: 4vh;
+    margin-left: 0%;
+    margin-top: 3%;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 20px;
+}
+
+#title_div button {
+    float: right;
+    margin-right: 4%;
+    margin-top: 3%;
+    background: #009944;
+    color: white;
+    border: none;
+    width: 36vw;
+    height: 4vh;
+    border-radius: 999px;
+    font-size: 1.0em;
+}
+
+.list_ul {
+    height: auto;
+    padding-left: 0;
+    font-size: 13px;
+    margin: 0 0 1vh 0;
+}
+
+.list_ul li {
+    height: 8vh;
+    margin-top: 1vh;
+    background: rgb(255, 226, 234);
+    list-style: none;
+    width: 100%;
+    padding: 1vh 0;
+}
+
+.object_div {
+    height: 100%;
+    margin-left: 1%;
+}
+
+.object_div > div {
+    height: 100%;
+}
+
+.cont_div {
+    width: 68%;
+    float: left;
+    color: #555555;
+}
+
+.time_div, .title_span {
+    height: 50%;
+    line-height: 4vh;
+}
+
+.btn_div {
+    width: 32%;
+    float: left;
+}
+
+.cont_div span {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 3vh;
+    font-size: 1.3em;
+}
+
+.btn_div button {
+    width: 90%;
+    background: #159748;
+    color: white;
+    border: 0;
+    height: 3.5vh;
+    border-radius: 999px;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-left: 1vw;
+    font-size: 10px;
+}
+
+
+@media screen and (min-device-width: 534px) and (orientation:landscape) {
+    .btn_div button {
+        font-size: 11px;
+    }
+}
+
+.insert {
+    width: 33% !important;
+    height: 5% !important;
+    float: left;
+    color: #009944;
+    background: none !important;
+    font-size: 13px;
+    text-align: center;
+    border: 2px solid #009944;
+    vertical-align: middle;
+    margin-left: 32%;
+    border-radius: 8px;
+    margin-bottom: 1%;
+    line-height: 4vh;
+}
+
+.pageChange {
+    width: 100%;
+    height: 11vw;
+    padding: 1vw 0;
+}
+
+.pageChange div {
+    width: 48%;
+    text-align: center;
+    float: left;
+    height: 10vw;
+    line-height: 10vw;
+    border: 1px solid #009944;
+    color: #009944;
+}
+
+#prev {
+    border-radius: 1vw 0 0 1vw;
+    margin-left: 2.5vw;
+}
+
+#next {
+    border-radius: 0 1vw 1vw 0;
+}
+
+#pageFoot {
+    width: 100%;
+    text-align: center;
+    font-size: 3vw;
+    color: #999;
+}
+
+.gray {
+    color: #999 !important;
+    border-color: #999 !important;
+}
+
+.div_bottom {
+    height: 54px;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+
+#layui-layer2 {
+    width: unset !important;
+}
+/*2020/12/28 liyuhuan modify start*/
+.back {
+    width: 7%;
+    float: left;
+}
+
+.back img {
+    height: 25px;
+    float: left;
+    margin-top: 11px;
+}
+/*2020/12/28 liyuhuan modify end*/

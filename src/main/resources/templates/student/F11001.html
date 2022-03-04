@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>スマホ_学習情報登録</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11001.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11001" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul id="titleUl">
+                <li onclick="location.reload()" class="active1">計画登録</li>
+                <li :onclick="toF11004()" class="active">実行登録</li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <div class="topBtnDiv" style="height: 41px;padding: 0 5px;">
+                <button class="topBtn" onclick="location.reload()">ウィークリープラン</button>
+                <button :disabled="isEditMode()" class="topBtn1" onclick="window.location.href='F11002.html'">繰り返す予定</button>
+                <button :disabled="isEditMode()" class="topBtn1" onclick="window.location.href = 'F11003.html'" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">生活のブロック
+                </button>
+            </div>
+
+            <div style="background-color: #F2F2F2;">
+                <div>
+                    <li class="planTittle">
+                        <span>実施項目の選択</span>
+                        <button class="submit">{{params.id ? '戻る' : '登録'}}</button>
+                    </li>
+                </div>
+            </div>
+            <div class="chooseOne">
+                <div class="showteach" @click="showCategory">
+                    <p>カテゴリ</p>
+                    <div id="init">選択する</div>
+                </div>
+                <div class="line"></div>
+                <div class="check_category disNone">
+                    <!--                    <select id="dom_category" name="select">-->
+                    <!--                        <option v-for="blockType in blockTypeDivList" :value="blockType.blockTypeDiv"-->
+                    <!--                                :selected="showBlock(blockType.blockTypeDiv)">{{blockType.blockDispyNm}}-->
+                    <!--                        </option>-->
+                    <!--                    </select>-->
+                    <div :onclick="'vm.chooseCategory(this, \'' + blockType.blockTypeDiv + '\', \'' + blockType.blockDispyNm + '\')'" class="category-item" v-for="blockType in blockTypeDivList">{{blockType.blockDispyNm}}</div>
+                </div>
+                <div @click="showSubjt" class="showteach showtF">
+                    <p>教科/科目</p>
+                    <div id="subjt"></div>
+                </div>
+                <div class="check_sub disNone">
+                    <select id="dom_sub" name="select1" @click="nowTime">
+                        <option :selected="show(sub.subjtDiv)" :value="sub.subjtDiv" v-for="sub in subjtlist">
+                            {{sub.subjtNm}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <li class="planTittle">計測時間</li>
+                </div>
+            </div>
+            <div class="chooseTwo">
+                <!--<div class="selectDiv">-->
+                <!--<select class="selectBtn" @change="nowTime()" @click="hidden()" >-->
+                <!--<option v-for="year in years" :value="year">{{year}}年</option>-->
+                <!--</select>-->
+                <!--</div>-->
+
+                <div class="showTime selectDiv">
+                    <p class="timeTitle" @click="starTime">開始日時</p>
+                    <div @click="starTime" id="starTime" style="width: auto;" type="text"></div>
+                    <select @change="nowTime()" @click="hidden()" class="selectBtn">
+                        <option :selected="weeklyPlan && weeklyPlan.planYmd.substring(0, 4) === (year + '') ? 'selected' : false" :value="year" v-for="year in years">{{year}}年
+                        </option>
+                    </select>
+                </div>
+                <div class="check_starTime disNone">
+                    <select id="dom_starTime" type="text" name="demo_select">
+                    </select>
+                    <select id="dom_starTime1" type="text" name="demo_select1">
+                    </select>
+                    <select id="dom_starTime2" type="text" name="demo_select2">
+                    </select>
+                </div>
+                <div class="line"></div>
+                <div @click="showTime" class="showTime showtF">
+                    <p class="timeTitle">学習予定時間</p>
+                    <div id="time"></div>
+                </div>
+                <div class="check_time disNone">
+                    <select id="demo_select" type="text" name="demo_select">
+                    </select>
+                    <select id="demo_select1" type="text" name="demo_select">
+                    </select>
+                </div>
+            </div>
+            <div id="memo" style="width: 100%;">
+                <li class="planTittle">メモ</li>
+                <textarea class="memo"></textarea>
+            </div>
+            <div class="button-container" v-if="params.id">
+                <button @click="del()" class="del">削除</button>
+                <button @click="update()" class="update">更新</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="div_bottom">
+    <iframe src="${request.contextPath}/common/F40012.html?id=F11001" frameborder="0" width="100%"
+            height="100%"></iframe>
+</div>
+
+</div>
+
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F11001.js"></script>
+</html>

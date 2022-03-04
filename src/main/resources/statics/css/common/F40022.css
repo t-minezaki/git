@@ -1,0 +1,154 @@
+::-webkit-scrollbar {
+    display: none;
+}
+.box{
+    border: 1px solid grey;
+    width: 94%;
+    height: 82%;
+    overflow-y: auto;
+    margin: 0% 0% 0% 3%;
+}
+.top_title_one{
+    color: #0c963f;
+    font-size: 7vw;
+}
+.top_title_two{
+    width: 100%;
+    text-align: center;
+    font-size: 5vw;
+    font-weight: bold;
+}
+.div_button{
+    height: 18%;
+}
+button{
+    width: 28%;
+    height: 40%;
+    background: #fcf8e3;
+    border: 2px solid #189746;
+    color: #189746;
+    font-size: 5vw;
+    margin: 5% 36% 0 36%;
+    font-weight: bold;
+    cursor: pointer;
+}
+.content{
+    padding: 0% 10% 10% 10%;
+    word-wrap: break-word;
+    text-indent: 2em;
+}
+.block01{
+    font-size: 14px;
+    color: #333;
+    padding: 20px;
+}
+.hh3{
+    text-align: center;
+}
+.reg0{
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    padding-left: 22px;
+}
+.reg0-sub{
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    padding-left: 22px;
+}
+.block02{
+    padding-top: 20px;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.top11{
+    /*height: 46.5px;*/
+    border: 1px solid grey;
+    border-bottom:0px;
+    margin: 5% 3% 0% 3%;
+    /*position:relative;top: 5%;*/
+}
+.hh1{
+   background-color: #569da0;
+    height: 3px;
+    width: 100%;
+    border: none;
+    margin: 0px;
+    /*margin-bottom: -3px;*/
+}
+.reg1 ol li{
+    text-align: left;
+    padding: 5px 0px;
+    font-family: '游ゴシック体', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif !important;
+}
+.reg0,.reg0-sub,.reg2,p,.hh3{
+    font-family: '游ゴシック体', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif !important;
+}
+@media screen and (orientation: landscape) {
+    .top11{
+
+        border: 0px;
+        text-align: center;
+        padding: 49px 0px 0px 0px;
+        height: 68px;
+        position: relative;
+        background-color: transparent;
+        width: 1080px;
+        margin: 0 auto;
+    }
+    .block01{
+        padding: 20px 90px 20px 52px;
+    }
+    .box{
+        position: relative;
+        width: 1080px;
+        margin: 0px auto;
+        padding: 0;
+        border: 0px;
+    }
+    .top_title_one{
+        padding-top: 17px;
+        font-size: 30PX;
+        text-align: left;
+        float: left;
+        height: 50px;
+        margin-top: -40px;
+        margin-bottom: 6px;
+    }
+    .top_title_two{
+        margin-top: 45px;
+        font-size: 27px;
+        text-align: left;
+        float: left;
+        height: 50px;
+        padding-top: 11px;
+        padding-left: 53px;
+    }
+    .hh3{
+        text-align: left;
+    }
+    .block02{
+        padding-left: 52px;
+        font-size: 28px;
+    }
+    .div_button{
+        margin: 12px 32% 0% 32%;
+        position: relative;
+    }
+    button{
+        width: 35%;
+        height: 52%;
+        font-size: 25px;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .block01 > .reg0, .reg1, .reg2, h3, .reg0-sub {
+        font-size: 28px;
+    }
+}

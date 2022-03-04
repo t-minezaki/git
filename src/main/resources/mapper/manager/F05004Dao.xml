@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F05004Dao">
+    <select id="selectOrgsByNoticeId" parameterType="Integer" resultType="jp.learningpark.modules.manager.dto.F05004Dto">
+        SELECT
+            om.org_id || ' ' || om.org_nm  as orgNmDisplay,
+            om.org_id,
+            om.level
+        FROM
+            mst_notice_deliver mnd
+            INNER JOIN mst_org om on om.org_id=mnd.org_id
+            and om.mgr_flg = '0'
+            AND om.del_flg=0
+        WHERE
+            mnd.notice_id=#{noticeId}
+            AND mnd.del_flg=0
+            ORDER BY om.level,om.org_id
+    </select>
+
+    <select id="selectOrgsByNoticeIdWithOrgIds" resultType="jp.learningpark.modules.manager.dto.F05004Dto">
+        SELECT
+        om.org_id || ' ' || om.org_nm  as orgNmDisplay,
+        om.org_id,
+        om.level
+        FROM
+        mst_notice_deliver mnd
+        INNER JOIN mst_org om on om.org_id=mnd.org_id
+        and om.mgr_flg = '0'
+        AND om.del_flg=0
+        WHERE
+        mnd.notice_id=#{noticeId}
+        AND mnd.org_id in
+        <if test="orgs == null">
+            ('')
+        </if>
+        <if test="orgs!=null">
+            <foreach collection="orgs" item="item" separator="," open="(" close=")">
+                #{item.orgId}
+            </foreach>
+        </if>
+        AND mnd.del_flg=0
+        ORDER BY om.level,om.org_id
+    </select>
+
+    <select id="selectStuListByNoticeId" resultType="jp.learningpark.modules.manager.dto.F05004DtoStu">
+        SELECT
+          mua.usr_id as stuId,
+          mua.after_usr_id as afterUserId,
+          ms.id,
+          ms.flnm_nm || ' ' || ms.flnm_lnm as stuName,
+          mub.after_usr_id as guaId,
+          mg.flnm_nm || ' ' || mg.flnm_lnm as guaName
+        FROM mst_notice_deliver mnd
+        INNER JOIN mst_usr mua on mua.usr_id = mnd.stu_id
+        INNER JOIN mst_stu ms on ms.stu_id = mua.usr_id
+        INNER JOIN mst_guard mg on mg.guard_id = ms.guard_id
+        INNER JOIN mst_usr mub on mub.usr_id = mg.guard_id
+        WHERE mnd.notice_id = #{noticeId}
+        ORDER BY
+        ms.id
+    </select>
+
+</mapper>

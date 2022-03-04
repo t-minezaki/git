@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>QR解答集アプリとの連携API</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+</head>
+<body id="body">
+<div id="content">
+    <div>
+        <div>
+                <textarea id="sendMsg1" style="width: 50%;height: 25vh;resize: none;float:left;word-break: break-all;">
+        {
+            "type":"qrlogin",
+            "orgId":"WQtest001",
+            "loginId":"a000001",
+            "password":"a000001"
+        }
+                </textarea>
+            <textarea id="json1" style="width: 50%;height: 25vh;resize: none;word-break: break-all;">{{json1}}</textarea>
+        </div>
+        <div>
+            <button @click="sendMsg(1)">APP_LOGIN</button>
+        </div>
+    </div>
+    <div>
+        <div>
+                <textarea id="sendMsg2" style="width: 50%;height: 25vh;resize: none;float:left;word-break: break-all;">
+        {
+            "type":"tokenrefresh",
+            "orgId":"WQtest001",
+            "loginId":"a000001",
+            "token":""
+        }
+                </textarea>
+            <textarea id="json2" style="width: 50%;height: 25vh;resize: none;word-break: break-all;">{{json2}}</textarea>
+        </div>
+        <div>
+            <button @click="sendMsg(2)">TOKEN_REFRESH</button>※TOKEN有効利用期間内で、次の新しいTOKENを配布するべきです。
+        </div>
+    </div>
+    <div>
+        <div>
+                <textarea id="sendMsg3" style="width: 50%;height: 25vh;resize: none;float:left;word-break: break-all;">
+        {
+            "type":"studentlogin",
+            "orgId":"WQtest001",
+            "loginId":"a000001",
+            "studentId":"s1008",
+            "token":"{{token}}"
+        }
+                </textarea>
+            <textarea id="json3" style="width: 50%;height: 25vh;resize: none;word-break: break-all;">{{json3}}</textarea>
+        </div>
+        <div>
+            <button @click="sendMsg(3)">STUDENT_LOGIN</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js" charset="UTF-8"></script>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/common/QRCode.js"></script>
+</html>

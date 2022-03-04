@@ -1,0 +1,48 @@
+.pop_container{background-color:white;}
+.pop_container .pop_header{border-bottom:1px solid #dadada;height:50px;padding:9px;}
+.pop_container .pop_header p{margin-left:50px;line-height:32px;font-size:18px;font-family: "微软雅黑";font-weight: bold;margin-bottom:0;}
+.schedule_school{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule1.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+.schedule_workout{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule2.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+.schedule_reading{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule3.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+.schedule_breakfast{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule4.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+.schedule_study{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule7.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+.schedule_commute{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule8.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+.schedule_rest{float:left;display:inline-block;width:32px;height:32px;background-image: url(../../img/schedule9.png);background-repeat: no-repeat;background-size:100%;background-position:center;}
+
+.pop_container .pop_content{padding:10px;overflow-y:auto;overflow-x:hidden;}
+.pop_container .pop_content .form_item{}
+.form_item label{font-size:12px;}
+.form_item .form_item_content{padding:10px 0 20px 0;}
+.form_item .form_item_content .dateInput{width:38%;padding:2px 3px;height:auto;margin:0;line-height:initial;}
+.form_item .form_item_content .dateInput ~ i{display:inline-block;width:16px;height:16px;background-image: url(../../img/operat1.png);background-repeat: no-repeat;background-size: 100%;background-position: center;vertical-align:middle;}
+
+.week_list, .week_list li{list-style: none;}
+.week_list{display:table;width:100%;box-sizing: border-box;border:1px solid #009944;border-radius:5px;}
+.week_list li{display:table-cell;text-align:center;height:40px;line-height:40px;box-sizing: border-box;color:#009944;}
+.week_list li:nth-child(n+2){border-left:1px solid #009944;}
+.week_list li.active:nth-child(n+2){border-left:1px solid #ffffff;}
+.week_list li.active{background-color:#009944;color:white;}
+
+.time_item{padding:5px;border-top:1px solid #dadada;border-bottom:1px solid #dadada;font-size:12px;height:50px;overflow:hidden;position:relative;}
+.time_item:nth-child(n+2){margin-top:-1px;}
+.time_item .label{position:absolute;top:0;left:10px;height:50px;line-height:50px;z-index:2;}
+.time_item select{display:none;}
+.time_item .mbsc-control{display:none;}
+.time_item .mbsc-mobiscroll{position:absolute;top:0;right:0;z-index:1;}
+.time_item .dwwr{text-align:right;background:transparent;}
+.time_item .dwwol{display:none;}
+
+
+.pop_container .pop_footer{overflow:hidden;padding:10px;}
+.pop_footer .confirm{cursor:pointer;margin-left:40%;text-align:center;box-sizing: border-box;border:2px solid #009944;border-radius:20px;height:38px;line-height:34px;font-weight: bold;font-size:12px;}
+.pop_footer .confirm:hover{background-color:#009944;color:#ffffff;}
+.pop_footer .cancel{cursor:pointer;float:left;width:40%;text-align:center;height:38px;line-height:38px;border:2px solid #ffffff;color:#EA331B;font-size:12px;}
+
+/* 修改mobiscroll 线条颜色 */
+.mbsc-mobiscroll .dwwol{border-color:#dadada;}
+/* 控制控件显示大小 */
+.mbsc-mobiscroll{float:initial;margin:initial;height:140px;}
+/* 控制控件边框 */
+.dwwr{border:none !important;}  
+/* 滚动控件隐藏 */
+.dw-inline .dw-persp{overflow:hidden;}

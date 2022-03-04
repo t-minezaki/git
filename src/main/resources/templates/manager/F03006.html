@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>教科書新規作成画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F03006.css"/>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app" class="content">
+    <div class="popTitle">教科書新規作成画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div v-text="mstOrgEntity.orgId != null ? mstOrgEntity.orgId : ''"></div>
+        <div>組織名:</div>
+        <div v-text="mstOrgEntity.orgNm != null ? mstOrgEntity.orgNm : ''"></div>
+    </div>
+    <form id="form1">
+        <div class="idMessage">
+            <div>学年</div>
+            <!--<input type="text" disabled id="schy" style="background: none;border: 0;margin-right: 4%">-->
+            <span disabled id="schy" style="background: none;border: 0;margin-right: 4%;float: left;height: 2.2vw;width: 12.5%;line-height: 2.2vw;font-size: 13px;"></span>
+            <!--<select id="schy" name="schy">-->
+            <!--<option style="display: none" value=""></option>-->
+            <!--<option v-for="schy in schyDiv" :value="schy.codCd" v-text="schy.codValue"></option>-->
+            <!--</select>-->
+            <div class="required">教科</div>
+            <select id="subjt" name="subjt" style="margin-right:0 ">
+                <option style="display: none" value=""></option>
+                <option v-for="subjt in subjtDiv" :value="subjt.codCd" v-text="subjt.codValue"></option>
+            </select>
+            <button class="one" type="button" @click="toF03005" style="background: unset">単元マスタに単元追加</button>
+            <button @click="toF03004" type="button" id="searchUnit">単元検索</button>
+        </div>
+        <div class="idMessage">
+            <div class="required">出版社名</div>
+            <select id="pub" name="pub">
+                <option style="display: none" value=""></option>
+                <option v-for="pub in publisherDiv" :value="pub.codCd" v-text="pub.codValue"></option>
+            </select>
+            <div class="required">教科書名</div>
+            <input type="text" id="textbNm" name="textbNm" maxlength="60">
+        </div>
+        <div class="listTitle">
+            <div>全選択</div>
+            <input type="checkbox" checked onchange="clickAll()" id="all">
+            <button @click="orderCreate" type="button">表示順再採番</button>
+            <p style="font-weight: bold">単元一覧</p>
+        </div>
+    </form>
+    <table cellspacing="0" class="oneTable">
+        <thead>
+        <tr>
+            <td class="oneTd">
+                <div>
+                    <table cellspacing="0" border="0px">
+                        <thead>
+                        <tr>
+                            <th width="5%" style="border-left: 1px solid #ccc;">単元表示順</th>
+                            <th width="16%">章名</th>
+                            <th width="16%">節名</th>
+                            <th width="23%">項目表示名</th>
+                            <th width="4%">章NO</th>
+                            <th width="4%">節NO</th>
+                            <th width="5%">単元NO</th>
+                            <th width="6%">ページ</th>
+                            <th width="5%">学習時期</th>
+                            <th width="6%">時期詳細</th>
+                            <th width="6%" style="border-right: 1px solid #ccc;">目標学習時間</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        </thead>
+    </table>
+    <div class="list">
+        <div class="bottomDiv ">
+            <div></div>
+            <table cellspacing="0" id="submitTable" border="0px" class="oneTd">
+                <tbody class="allT">
+                <tr v-for="(li,index) in list" :desc="li.updateStr" :unitId="li.unitId">
+                    <td width="5%" style="border-left: 1px solid #ccc">
+                        <input type="checkbox" checked name="tdtiId" :value="li.tdtiId" class="clickOne">
+                        <input type="text" class="one" name="dispyOrder" maxlength="4"
+                               :value="li.dispyOrder" v-model="list[index].dispyOrder">
+                    </td>
+                    <td width="16%" v-text="li.chaptNm!=undefined ? li.chaptNm : ''"
+                        style="text-align: left" v-model="list[index].chaptNm"></td>
+                    <td width="16%" v-text="li.sectnNm!=undefined ? li.sectnNm : ''"
+                        style="text-align: left" v-model="list[index].sectnNm"></td>
+                    <td width="23%">
+                        <input type="text" name="unitDispyNm" maxlength="300" class="two"
+                               :value="li.unitDispyNm!=null&&li.unitDispyNm!='' ? li.unitDispyNm : li.unitNm" v-model="list[index].unitDispyNm">
+                    </td>
+                    <td width="4%">
+                        <input type="text" name="chaptNo" :value="li.chaptNo" maxlength="10" class="four" v-model="list[index].chaptNo">
+                    </td>
+                    <td width="4%">
+                        <input type="text" name="sectnNo" :value="li.sectnNo" maxlength="10" class="five" v-model="list[index].sectnNo">
+                    </td>
+                    <td width="5.1%">
+                        <input type="text" name="unitNo" :value="li.unitNo" maxlength="10" class="six" v-model="list[index].unitNo">
+                    </td>
+                    <td width="6%">
+                        <input type="text" name="textbPage" maxlength="4"
+                               :value="li.textbPage!=null ? li.textbPage.split('-')[0] : ''"
+                               class="long twoLong" v-model="list[index].textbPage1">
+                        <input type="text" name="textbPage" maxlength="4"
+                               :value="li.textbPage!=null ? li.textbPage.split('-')[1] : ''"
+                               class="long twoLong" v-model="list[index].textbPage2">
+                    </td>
+                    <td width="5%">
+                        <select name="planLearnSeasn" :desc="index" v-model="list[index].planLearnSeasn">
+                            <option v-for="se in mstLearnSeasnEntities" :value="se.planLearnSeasn"
+                                    :selected="li.planLearnSeasn==se.planLearnSeasn ? 'selected' : ''"
+                                    :desc="se.cretUsrId"
+                                    v-text="se.planLearnSeasn+'W'"></option>
+                        </select>
+                    </td>
+                    <td width="6%" class="send" :id="index" style="text-align: left"></td>
+                    <td width="6%" style="border-right: 1px solid black;">
+                        <select class="endSelect" name="planLearnTm" v-model="list[index].planLearnTm">
+                            <option style="display: none" value="30">30分</option>
+                            <option v-for="tm in planTmList" :value="tm"
+                                    :selected="tm==li.planLearnTm ? 'selected' : ''"
+                                    v-text="tm+'分'"></option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="button_div">
+        <button class="end_btn" @click="createFn">登録</button>
+        <button class="end_btn" @click="toF03001">一覧へ戻る</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F03006.js" type="text/javascript" charset="utf-8"></script>
+</html>

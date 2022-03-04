@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>テンプレート新規編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08017.css"/>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor-event.config.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.all.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/lang/jp/jp_news.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/exif/exif.js" charset="utf-8"></script>
+</head>
+<body style="width: 100%">
+<div class="div_body" id="div_body" style="width: 100%">
+    <div class="topMessage"></div>
+    <div class="div_top">
+        <div>テンプレート管理</div>
+        <div><i class="layui-icon layui-icon-right"></i></div>
+        <div>テンプレート一覧</div>
+        <div><i class="layui-icon layui-icon-right"></i></div>
+        <div>作成</div>
+    </div>
+    <div class="div_main">
+        <div class="div_one">
+            <label>カテゴリ名</label>
+            <input id="in_nm" type="text" placeholder="カテゴリ名を入力(最大長：60)" maxlength="60">
+        </div>
+        <div class="div_one">
+            <label>タイトル</label>
+            <input id="in_title" type="text" placeholder="タイトルを入力(最大長：100)" maxlength="100">
+            <button onclick="viewopen()">プレビュー</button>
+        </div>
+        <div class="div_two">
+            <label>本文</label>
+            <div class="mail_content">
+                <div id="editor" name="editor" type="text/plain"></div>
+            </div>
+        </div>
+        <div class="div_three">
+            <label>添付ファイル</label>
+            <div class="div_file">
+                <label id="la_name">ドラッグ＆ドロッブ</label>
+                <input type="file" multiple name="attfile" id="in_file" accept=".png,.jpg,.jpeg,.gif,.bmp,.pdf,.xlsx,.xls,.csv">
+                <button onclick="F_Open_dialog()">ファイル選択</button>
+            </div>
+        </div>
+        <div class="ask-talk-container">
+            <ul class="div_five askItems">
+                <li>
+                    <label>質問事項</label>
+                    <input type="radio" name="useRadio1" value = '1' v-model="useDiv1" onclick="toBeAlive('askItems')"> <span>利用する</span>
+                    <input type="radio" name="useRadio1" value = '0' v-model="useDiv1" onclick="toBeDisabled('askItems')"> <span>利用しない</span>
+                    <p class="prompt">欄内には最大５０文字入ります</p>
+                </li>
+                <ask-talk-template v-for="askTalkEntity in askEntityList" :ask-talk-entity="askTalkEntity" :ref="askTalkEntity.itemTypeDiv + '.' + askTalkEntity.askNum"></ask-talk-template>
+        </ul>
+            <ul class="div_five talkItems">
+                <li>
+                    <label>面談事項</label>
+                    <input type="radio" name="useRadio2" value = '1' v-model="useDiv2" onclick="toBeAlive('talkItems')"> <span>利用する</span>
+                    <input type="radio" name="useRadio2" value = '0' v-model="useDiv2" onclick="toBeDisabled('talkItems')"> <span>利用しない</span>
+                    <p class="prompt">欄内には最大５０文字入ります</p>
+                </li>
+                <ask-talk-template v-for="askTalkEntity in talkEntityList" :ask-talk-entity="askTalkEntity" :ref="askTalkEntity.itemTypeDiv + '.' + askTalkEntity.askNum"></ask-talk-template>
+            </ul>
+        </div>
+        <div class="div_four">
+            <button onclick="window.location.href = 'F08016.html'">戻る</button>
+            <button onclick="save()">登録</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08017AskTalkTemplate.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08017.js"></script>
+</html>

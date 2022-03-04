@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00071Dao">
+    <select id="getOrganization" resultType="jp.learningpark.modules.manager.dto.F00071Dto">
+    WITH RECURSIVE cte AS
+            (
+                SELECT
+                    mo1.org_id
+                    , mo1.org_nm
+                    , 1 AS org_flg
+                    , mo1.level
+                FROM
+                    mst_org AS mo1
+                WHERE
+                    mo1.org_id       = #{sOrgId}
+                    AND mo1.brand_cd = #{brandCd}
+                    AND mo1.del_flg  = 0
+                UNION ALL
+                SELECT
+                    mo2.org_id
+                    , mo2.org_nm
+                    , 2 AS org_flg
+                    , mo2.level from cte c
+                INNER JOIN
+                    mst_org AS mo2
+                    ON  c.org_id    = mo2.upplev_org_id
+                    AND mo2.del_flg = 0
+            )
+            SELECT DISTINCT
+                s.org_id   AS org_id1
+                , s.org_nm AS org_nm1
+                , s.org_flg
+                , s.level
+                FROM cte s
+            ORDER BY
+                s.level
+                , s.org_id
+    </select>
+    <select id="getUsrStatus" resultType="jp.learningpark.modules.manager.dto.F00071Dto">
+    select mcd.cod_cd codCd2,mcd.cod_value_2 codValue2,mcd.cod_value codValue from mst_cod_d mcd where mcd.cod_key = 'USR_STS' order by mcd.sort
+    </select>
+    <select id="getDisabilityStatus" resultType="jp.learningpark.modules.manager.dto.F00071Dto">
+    select mcd.cod_cd codCd,mcd.cod_value codValue from mst_cod_d mcd where mcd.cod_key = 'CRMSCH_STS' order by mcd.sort
+    </select>
+    <select id="getValue" resultType="jp.learningpark.modules.manager.dto.F00071Dto">
+        SELECT
+        mo.org_id orgId,
+        mo.org_nm orgNm,
+        mu.after_usr_id afterUsrId,
+        mu.usr_sts usrStatus,
+        C.crmsch_sts crmSts,
+        C.move_ymd moveYmd,
+        ms.flnm_nm flnmNm,
+        ms.flnm_lnm flnmLnm
+        FROM
+        mst_usr mu
+        INNER JOIN mst_org mo ON mu.org_id = mo.org_id
+        <if test='orgIdList != null and orgIdList.size() != 0'>
+            AND mu.org_id in
+            <foreach collection="orgIdList" index="index" item="orgId" open="(" separator="," close=")">
+                #{orgId.orgId}
+            </foreach>
+        </if>
+        AND mu.del_flg = 0
+        AND mo.del_flg = 0
+        INNER JOIN mst_stu ms ON mu.usr_id = ms.stu_id
+        AND ms.del_flg = 0
+        LEFT JOIN (
+        SELECT DISTINCT
+        B.move_ymd,
+        B.crmsch_sts,
+        B.stu_id,
+        B.org_id
+        FROM
+        move_out_in_hst B
+        INNER JOIN ( SELECT MAX( move_ymd ) move_ymd, stu_id, org_id FROM move_out_in_hst WHERE del_flg = 0 GROUP BY
+        stu_id,
+        org_id ) AS A ON
+        A.move_ymd = B.move_ymd
+        AND A.stu_id = B.stu_id
+        AND A.org_id = B.org_id
+        AND b.del_flg = 0
+        ) AS C ON mu.usr_id = C.stu_id
+        AND mu.org_id = C.org_id
+        AND ( (mu.usr_sts = '1' and C.crmsch_sts IN ('1','4') ) OR ( mu.usr_sts = '2'
+        AND C.crmsch_sts IN ('2','3') ) )
+        <where>
+            <if test="stuId != null and stuId != ''">
+                and mu.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                and ms.flnm_nm || ms.flnm_lnm like CONCAT('%' ,trim(#{stuName}), '%')
+            </if>
+            <if test="usrStatus == 1">
+                and mu.usr_sts = '1'
+            </if>
+            <if test="usrStatus == 2">
+                and mu.usr_sts = '0'
+            </if>
+            <if test="crmSts == 1">
+                and C.crmsch_sts = '1'
+            </if>
+            <if test="crmSts == 2">
+                and C.crmsch_sts = '2'
+            </if>
+            <if test="crmSts == 3">
+                and C.crmsch_sts = '3'
+            </if>
+            <if test="crmSts == 4">
+                AND C.crmsch_sts = '4'
+            </if>
+            <if test="moveYmd != null and moveYmd != ''">
+                and to_char(C.move_ymd,'yyyy/MM/dd') = #{moveYmd}
+            </if>
+        </where>
+        ORDER BY
+        mo.LEVEL,
+        mo.org_id,
+        mu.after_usr_id
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="totalCount" resultType="Integer">
+        SELECT
+          COUNT (*)
+        FROM
+        mst_usr mu
+        INNER JOIN mst_org mo ON mu.org_id = mo.org_id
+        <if test='orgIdList != null and orgIdList.size() != 0'>
+            AND mu.org_id in
+            <foreach collection="orgIdList" index="index" item="orgId" open="(" separator="," close=")">
+                #{orgId.orgId}
+            </foreach>
+        </if>
+        AND mu.del_flg = 0
+        AND mo.del_flg = 0
+        INNER JOIN mst_stu ms ON mu.usr_id = ms.stu_id
+        AND ms.del_flg = 0
+        LEFT JOIN (
+        SELECT DISTINCT
+        B.move_ymd,
+        B.crmsch_sts,
+        B.stu_id,
+        B.org_id
+        FROM
+        move_out_in_hst B
+        INNER JOIN ( SELECT MAX( move_ymd ) move_ymd, stu_id, org_id FROM move_out_in_hst WHERE del_flg = 0 GROUP BY
+        stu_id,
+        org_id ) AS A ON
+        A.move_ymd = B.move_ymd
+        AND A.stu_id = B.stu_id
+        AND A.org_id = B.org_id
+        AND b.del_flg = 0
+        ) AS C ON mu.usr_id = C.stu_id
+        AND mu.org_id = C.org_id
+        AND ( (mu.usr_sts = '1' and C.crmsch_sts IN ('1','4') ) OR ( mu.usr_sts = '2'
+        AND C.crmsch_sts IN ('2','3') ) )
+        <where>
+            <if test="stuId != null and stuId != ''">
+                and mu.after_usr_id = trim(#{stuId})
+            </if>
+            <if test="stuName != null and stuName != ''">
+                and ms.flnm_nm || ms.flnm_lnm like CONCAT('%' ,trim(#{stuName}), '%')
+            </if>
+            <if test="usrStatus == 1">
+                and mu.usr_sts = '1'
+            </if>
+            <if test="usrStatus == 2">
+                and mu.usr_sts = '0'
+            </if>
+            <if test="crmSts == 1">
+                and C.crmsch_sts = '1'
+            </if>
+            <if test="crmSts == 2">
+                and C.crmsch_sts = '2'
+            </if>
+            <if test="crmSts == 3">
+                and C.crmsch_sts = '3'
+            </if>
+            <if test="crmSts == 4">
+                AND C.crmsch_sts = '4'
+            </if>
+            <if test="moveYmd != null and moveYmd != ''">
+                and to_char(C.move_ymd,'yyyy/MM/dd') = #{moveYmd}
+            </if>
+        </where>
+    </select>
+</mapper>

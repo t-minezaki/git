@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11018Dao">
+    <select id="getInitTalkData" resultType="jp.learningpark.modules.student.dto.F11018Dto">
+        SELECT
+            trh.id as trhId,
+            trh.meg_state,
+            trh.sube_cont,
+            trh.note_cont,
+            concat(ms.flnm_nm,' ',ms.flnm_lnm) as stuNm,
+        <!-- 2020/12/30 V9.0 cuikailin add start -->
+            CASE
+            WHEN #{refType} IN('0','1')
+            THEN espd.sgd_start_datime
+            WHEN #{refType} = '2'
+            THEN trh.TALK_DATIME
+            ELSE NULL
+            END AS sgdStartDatime
+        <!-- 2020/12/30 V9.0 cuikailin add end -->
+        FROM stu_event_apply_sts seas
+        inner join talk_record_h trh
+            on trh.stu_id = seas.stu_id
+            and trh.event_id = seas.event_id
+            and trh.stu_id = #{stuId}
+            and trh.talk_apply_sts_div = '0'
+            and trh.del_flg = 0
+        inner join mst_stu ms
+            on ms.stu_id = trh.stu_id
+            and ms.del_flg = 0
+        <!-- 2020/12/30 V9.0 cuikailin modify start -->
+        LEFT join event_sche_plan_del espd
+            on espd.id = seas.event_sche_del_id
+            and espd.del_flg = 0
+            AND #{refType} in('0','1')
+        <!-- 2020/12/30 V9.0 cuikailin modify end -->
+        WHERE
+            seas.id = #{applyId}
+            and seas.reply_sts_div = '1'
+            and seas.del_flg = 0
+    </select>
+    <select id="getInitTalkDelData" resultType="jp.learningpark.modules.student.dto.F11018Dto">
+        SELECT DISTINCT
+            trd.question_name,
+            trd.ask_num,
+            trd.answer_type_div,
+            trd.answer_relt_cont
+        FROM talk_record_d trd
+        inner join talk_record_h trh
+            on trh.id = trd.talk_id
+            and trh.del_flg = 0
+        WHERE
+            trd.talk_id = #{talkId}
+            and trd.question_name is not null
+            and trd.question_name <![CDATA[ <> ]]> ''
+            and trd.answer_type_div is not null
+            and trd.answer_type_div <![CDATA[ <> ]]> ''
+            and trd.del_flg = 0
+        order by trd.ask_num
+    </select>
+</mapper>

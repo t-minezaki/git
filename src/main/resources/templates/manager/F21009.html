@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <#include "/header.html" />
+        <title>F21009</title>
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+        <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+        <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+        <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21009.css">
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+        <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="message" class="topMessage"></div>
+        <div id="main"  v-cloak>
+            <div class="one" id="one">
+                <div>
+                    <ul class="one-ul">
+                        <li>出席簿管理</li>
+                        <li>  ＞   出席簿一覧</li>
+                        <li>  ＞   指導内容入力</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="div_body" id="div_body">
+                <div class="div_head" id="div_head">
+                    <button class="info" onclick="reloadControl(1)" style="margin-right: 3vw">出席簿情報へ</button>
+                    <button class="info changeShowItems" onclick="reloadControl(2)">表示項目変更</button>
+                    <div id="showFlg">
+                        <p>出欠フラグ</p>
+                        <select  id="absDiv">
+                            <option v-for="absdiv in absDiv" :value = "absdiv.codCd">{{absdiv.codValue}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="div_main">
+                    <div class="first_div">
+                        <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                    </div>
+                </div>
+            </div>
+            <div class="div_footer" id="div_footer">
+                <button class="lastBnt" id="backBtn" onclick="reloadControl(1)" style="margin-left: 0 !important;">戻る</button>
+                <button class="lastBnt" @click="submit()">登録</button>
+            </div>
+        </div>
+    </body>
+    <script src="${request.contextPath}/js/manager/F21009.js"></script>
+</html>

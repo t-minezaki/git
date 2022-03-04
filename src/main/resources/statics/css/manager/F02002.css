@@ -1,0 +1,252 @@
+a{
+    font-size: 0.9vw;
+    text-decoration: underline;
+    color: blue;
+}
+.header_operat{
+    width: auto;
+}
+.btn_div{
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+.btn_div button{
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+.content{
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: hidden;
+}
+.main{
+    width: 100%;
+    height: auto;
+    /*float: left;*/
+    margin-left: 5vw;
+}
+.one{
+    width: 100%;
+    height: 2.2vw;
+    margin-top: 5.5vw;
+    position: relative;
+    padding: 0 5vw;
+}
+.one input{
+    float: left;
+    padding: 0 0.5vw;
+    border: 1px solid #000;
+    border-radius: 0.1vw;
+    font-size: 0.9vw;
+    height: 2.2vw;
+}
+.one select{
+    float: left;
+    width: 42%;
+    margin-right: 3%;
+    padding: 0 0.5vw;
+    border-radius: 0.1vw;
+    line-height: 2.2vw;
+    height: 2.2vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.one input:disabled{
+    background: none;
+}
+.one button{
+    float: left;
+    width: 8%;
+    height: 2.2vw;
+    border-radius: 4px;
+    font-size: 0.9vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+.one button.other{
+    width: 20%;
+    float: right;
+    margin-right: 4%;
+}
+.noData{
+    opacity: 0;
+}
+.bottom{
+    width: 100%;
+    height: auto;
+}
+.bottom_title{
+    width: 100%;
+    padding: 0 2.2vw;
+}
+table,tr{
+    width: 100%;
+}
+th,td{
+    text-align: center;
+    height: 2.2vw;
+    font-weight: 100;
+    font-size: 13px;
+}
+th{
+    border-bottom: 1px dashed #000;
+}
+.fileForm{
+    width: 8%;
+    height: 2.2vw;
+    position: absolute;
+    left: 88%;
+    top: 0;
+    opacity: 0;
+    margin-right: 0;
+}
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 6%;
+    padding-right: 1vw;
+    padding-left: 1vw;
+}
+
+.inputMessage input {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 15%;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+.inputMessage select{
+    float: left;
+    width: 15%;
+    margin-right: 1vw;
+    padding: 0 0.5vw;
+    border-radius: 0.1vw;
+    line-height: 1.6vw;
+    height: 1.6vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.one input.getFile{
+    width: 100%;
+    height: 2.2vw;
+    margin-right: 0;
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div{
+    line-height: 20px;
+}
+.ui-jqgrid .ui-jqgrid-pager{
+    height: 40px;
+}
+.one-div{
+    float: left;
+    height: 100%;
+    width: 30%;
+}
+
+.exprot a {
+    margin-left: 4vw;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+    text-decoration: underline;
+    color: blue;
+}
+.btn{
+    height: 100%;
+    float: left;
+    width: 60%;
+}
+.btn button{
+    float: right!important;
+    width: 12vw!important;
+    margin: 0 5%;
+}
+.ui-widget-content a{
+    color: blue;
+}
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a{
+    color: blue;
+    text-decoration: underline;
+}
+.jqgrow.ui-row-ltr.ui-widget-content.ui-state-hover a{
+    color: blue;
+    text-decoration: underline;
+}
+.ui-widget.ui-widget-content{
+    margin-top: 0.9vw;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+}

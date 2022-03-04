@@ -1,0 +1,118 @@
+
+.page {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: auto;
+}
+
+.one {
+    width: 100%;
+    height: 2.2vh;
+    margin-top: 0.5vw;
+    position: relative;
+}
+
+.one div {
+    float: left;
+}
+
+.schyName {
+    width: 8%;
+    font-size: 1.8vw;
+    line-height: 3vw;
+    margin-left: 3vw;
+}
+
+.asterisk {
+    width: 6.5%;
+    color: red;
+    font-size: 1vw;
+    line-height: 3vw !important;
+}
+
+.button {
+    width: 100%;
+    height: 2.2vh;
+    margin-top: 40vh;
+    position: relative;
+    margin-left: 25vw;
+}
+
+.app {
+    margin: 5vw;
+}
+
+.sort {
+    width: 8%;
+    /*padding-left: 10vw;*/
+    margin-left: 10vw;
+    font-size: 1.8vw;
+    line-height: 3vw;
+}
+
+.schy {
+    font-size: 1.4vw;
+    border: 1px solid black;
+    width: 24vw;
+    height: 6vh;
+}
+
+.sortValue {
+    font-size: 1.4vw;
+    border: 1px solid black;
+    width: 24vw;
+    height: 6vh;
+}
+
+#loadButton {
+    background: none;
+    font-size: 1.8vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    /*padding: 0 1.6vw;*/
+    width: 20%;
+}
+
+#cancel {
+    background: none;
+    font-size: 1.8vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    /*padding: 0 1.6vw;*/
+    margin-left: 4vw;
+    width: 20%;
+}
+
+.popTitleValue {
+    font-weight: bold;
+    width: 100%;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+.topSessionTitleValue {
+    height: 3vw;
+    width: 100%;
+    /*padding-left: 0.4vw;*/
+    border-bottom: 1px solid #000;
+}
+
+.topSessionTitleValue div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    color: #000;
+    float: left;
+    font-size: 1.8vw;
+    padding-right: 1vw;
+    margin-left: 0.4vw;
+}
+
+#schyInput, #sortInput {
+    width: 30vw;
+}

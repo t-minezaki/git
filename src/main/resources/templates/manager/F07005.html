@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>その他ブロックメンテナンス一覧画面</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F07005.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</HEAD>
+<BODY>
+<header style="width: 100%;padding: 0 1vw">
+    <div class="header_logo">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout"/>
+        </li>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00002.html'">基本情報変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='../common/F40008.html'">ID／パスワード変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00001.html'">管理者本ページへ</button>
+        </div>
+    </ul>
+</header>
+<div style="width: 100%;height: 7vw;background: #009944 "></div>
+<div id="message" class="topMessage"></div>
+<div class="popTitle">その他ブロックメンテナンス一覧画面</div>
+<div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+</div>
+<div class="div_main">
+    <div class="first_div">
+        <div class="one">
+            <label>大分類名</label>
+            <input id="inputArea" type="text">
+
+        </div>
+        <div class="two">
+            <button id="select">検索</button>
+            <button id="add" onclick="window.location.href='./F07006.html'">新規作成</button>
+        </div>
+    </div>
+    <div class = "second_div">大分類検索結果一覧</div>
+    <div id="jqGridPager"></div>
+    <table id="jqGrid"></table>
+</div>
+</BODY>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F07005.js"></script>
+</HTML>

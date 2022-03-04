@@ -1,0 +1,449 @@
+.header_operat {
+    width: auto;
+}
+
+.title {
+    font-weight: bold;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 1vw;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9vw;
+    padding: 0 1.6vw;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: auto;
+}
+
+.sim {
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.two {
+    width: 100%;
+    padding: 1vw 2.2vw 2vw 2.2vw;
+}
+
+.top {
+    width: 100%;
+    height: 2.2vw;
+}
+
+.top_div {
+    border: 1px dashed #000;
+    width: auto;
+    height: 2.2vw;
+    float: left;
+    padding: 0 0.2vw;
+}
+
+.div_radiobox {
+    display: inline-block;
+    /*position: absolute;*/
+    height: 1.5vw;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+}
+
+input[type="radio"] {
+    /*width: 2vw !important;*/
+    font-size: 0.8vw;
+    margin-top: 0px !important;
+}
+
+div > label {
+    position: relative;
+    margin-right: 1vw;
+    float: left;
+}
+
+div > label > p {
+    height: 100%;
+    width: auto;
+    font-size: 0.9vw;
+    margin: 0;
+    padding: 0;
+    line-height: 2.2vw;
+    float: left;
+}
+
+div > label::before {
+    display: inline-block;
+    content: "";
+    width: 0.8vw;
+    height: 0.8vw;
+    border-radius: 100%;
+    border: 1px solid #ccc;
+    margin-right: 0.5vw;
+    vertical-align: bottom;
+    margin-top: 0.5vw;
+    float: left;
+}
+
+div > input:checked + label::after {
+    display: inline-block;
+    content: "";
+    width: 0.4vw;
+    height: 0.4vw;
+    border-radius: 50%;
+    position: absolute;
+    left: 0.26vw;
+    bottom: 1vw;
+    background-color: #2e2e2e;
+    float: left;
+}
+
+.center {
+    width: 100%;
+    height: 4vw;
+    padding: 1vw 0;
+    position: relative;
+}
+
+.center div {
+    width: 12%;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    float: left;
+    font-size: 0.9vw;
+}
+
+.center input {
+    width: 50%;
+    height: 2.2vw;
+    border: 1px solid #000;
+    font-size: 0.9vw;
+    padding: 0 0.5vw;
+    border-radius: 4px;
+}
+
+.center input:disabled {
+    background: none;
+}
+
+.center button {
+    width: 8%;
+    height: 2.2vw;
+    background: none;
+    border-radius: 4px;
+    border: 1px solid #009944;
+    margin-left: 2%;
+    color: #009944;
+    font-size: 0.9vw;
+}
+
+.bottom {
+    width: 100%;
+    height: 6vw;
+    padding: 1vw 0;
+}
+
+.bottom .left {
+    width: 12%;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    float: left;
+    font-size: 0.9vw;
+}
+
+.bottom button {
+    width: 8%;
+    height: 2.2vw;
+    background: none;
+    border-radius: 0.3vw;
+    border: 1px solid #009944;
+    margin-left: 2.2vw;
+    color: #009944;
+    font-size: 0.9vw;
+}
+
+.content_bottom {
+    width: 50%;
+    height: 4vw;
+    float: left;
+}
+
+.rigPo {
+    float: left;
+    width: 38%;
+    height: 2.2vw;
+}
+
+.con_bottom {
+    width: 100%;
+    height: 4.4vw;
+    border: 1px dashed #000;
+    border-radius: 0.1vw;
+    padding: 0 0.3vw;
+}
+
+.con_bottom .title {
+    width: 100%;
+    float: left;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+}
+
+.con_bottom .radio_div {
+    width: 50%;
+    float: left;
+    height: 2.2vw;
+}
+
+.content_bottom1 {
+    height: 2.2vw;
+}
+
+.bottom1 {
+    height: 4vw;
+}
+
+.top_title {
+    width: 100%;
+    font-size: 0.9vw;
+    height: 2.2vw;
+    line-height: 2.2vw;
+}
+
+.four {
+    /*padding: 0 2.2vw 1vw 2.2vw;*/
+}
+
+.fileForm {
+    width: 8%;
+    height: 2.2vw;
+    position: absolute;
+    top: 1vw;
+    left: 64%;
+    opacity: 0;
+}
+
+.center input.getFile {
+    width: 100%;
+    height: 2.2vw;
+}
+
+.infoContent {
+    border: 1px dashed black;
+}
+
+.infoContent > ul {
+    height: 6vw;
+    width: 100%;
+    padding: 1vw 2vw;
+}
+
+.infoContent > ul > li {
+    float: left;
+    height: 2.2vw;
+    width: calc(100% / 3);
+}
+
+.infoContent > ul > li > div {
+    float: left;
+    width: 25%;
+    height: 2.2vw;
+}
+
+.infoContent > ul > li > input {
+    float: left;
+    width: 70%;
+    height: 2.2vw;
+    border: none;
+    background: none;
+}
+
+.selectBtn {
+    border-radius: 4px;
+    width: 12vw;
+    height: 2vw;
+    font-size: 0.9vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.footDiv {
+    width: 100%;
+    height: 4vw;
+}
+
+.selectBtn.footBtn {
+    float: left;
+}
+
+.footDiv .footAuto {
+    width: 46vw;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 20vh;
+}
+
+.box {
+    height: 12vw;
+}
+
+.box1 {
+    margin-top: 0.5vw;
+    width: 22%;
+    float: left;
+}
+
+.box2 {
+    width: 3%;
+    float: left;
+    text-align: center;
+    margin-top: 11vh;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+}
+
+.box2 button {
+    text-align: center;
+    margin-top: 1vw;
+    border: 1px solid grey;
+    background-color: white;
+    height: 1.5vw;
+    width: 1.5vw;
+    padding: 0;
+}
+
+.span_title {
+    width: 100%;
+    height: 4.3vh;
+    text-align: center;
+    font-size: 1.2vw;
+    line-height: 4.3vh;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    border: 1px grey solid;
+}
+
+div.symbol {
+    float: left;
+    display: inline-block;
+    width: 9%;
+    height: 29vh;
+    text-align: center;
+    padding-right: 0.7vw;
+    position: relative;
+    top: 1vh;
+    /*background: #444;*/
+}
+
+div.symbol button {
+    display: inline-block;
+    width: 5vw;
+    height: 6vh;
+    line-height: 6vh;
+    background-color: rgb(247, 247, 247);
+    border: 1px grey solid;
+    padding: 0;
+    color: grey;
+    font-size: 5vw;
+    margin-left: 1vw;
+    border-radius: 13px;
+    overflow: hidden;
+}
+
+div.symbol div {
+    height: auto;
+    line-height: 0vh;
+    margin-top: 1vh;
+}
+
+#select1, #select2 {
+    border-color: grey !important;
+    background: white;
+    overflow: auto;
+}
+
+#toleft {
+    background: url(../../img/left_button.png) no-repeat center/100%;
+}
+
+#allToLeft {
+    background: url(../../img/left_all_button.png) no-repeat center/100%;
+}
+
+#toright {
+    background: url(../../img/right_button.png) no-repeat center/100%;
+}
+
+#allToRight {
+    background: url(../../img/right_all_button.png) no-repeat center/100%;
+}
+
+option {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.select {
+    width: 100%;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    height: 13vw;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+    padding: 20%;
+}
+
+.span {
+    margin-left: 5vh;
+    line-height: 5vh;
+}
+
+#checkSelect {
+    position: relative;
+    height: 5vh;
+}
+
+/*#checkSelect>input[type="radio"]{*/
+/*-webkit-appearance: none;*/
+/*border: 1px solid grey;*/
+/*width: 15px;*/
+/*height: 15px;*/
+/*border-radius: 9px;*/
+/*background: white;*/
+/*}*/
+/*input[type="radio"]:checked::after{*/
+/*content: '●';*/
+/*font-size: 10px;*/
+/*vertical-align: middle;*/
+/*color: black;*/
+/*position: relative;*/
+/*top: -0.3vw;*/
+/*left: 0.14vw;*/
+/*}*/

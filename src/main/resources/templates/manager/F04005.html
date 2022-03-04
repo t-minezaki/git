@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>塾掲示板照会画面</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F04005.css"/>
+</HEAD>
+<BODY>
+<div class="page" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">塾掲示板照会画面</div>
+    <div class="topSessionTitle">
+        <div class="bold">組織ID:</div>
+        <div>{{mstOrgEntity.orgId}}</div>
+        <div class="bold">組織名:</div>
+        <div>{{mstOrgEntity.orgNm}}</div>
+        <div class="right">{{mstNoticeEntity.updDatime}}</div>
+        <div class="right bold">最新更新日時:</div>
+    </div>
+    <div class="div_main">
+        <div class="one">
+            <div class="mailLabel">件名</div>
+            <div id="noticeTitle" v-text="mstNoticeEntity.noticeTitle==null ? '' : mstNoticeEntity.noticeTitle"></div>
+            <div id="noticeLevel" v-text="mstNoticeEntity.noticeLevelDiv==1 ? '' : '★'" style="color: red"></div>
+        </div>
+        <div class="two">
+            <div class="mailLabel">内容</div>
+            <div id="noticeCont" class="noticeCont"></div>
+        </div>
+        <div class="content_wrap">
+            <div class="mailLabel">配信先</div>
+            <ul class="orgs">
+                <li v-for="stu in stuList" style="line-height: 1vw">{{stu.guardStuNm}}</li>
+            </ul>
+        </div>
+        <div class="three">
+            <div class="mailLabel">掲載開始日時</div>
+            <p class="timeCon oneBtn"
+               v-text="mstNoticeEntity.pubPlanStartDt==null ? '' : mstNoticeEntity.pubPlanStartDt"></p>
+            <div style="margin: 0 2vw">～</div>
+            <div class="mailLabel" id="end_label">掲載終了日時</div>
+            <p class="timeCon twoBtn"
+               v-text="mstNoticeEntity.pubPlanEndDt==null ? '' : mstNoticeEntity.pubPlanEndDt"></p>
+        </div>
+        <div class="four">
+            <button id="backBtn">戻る</button>
+        </div>
+    </div>
+</div>
+</BODY>
+<script type="text/javascript" src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F04005.js"></script>
+</HTML>

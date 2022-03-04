@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>管理者トップページ画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00001.css"/>
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" charset="utf-8"></script>
+    <script>
+        var firstLoad = true;
+
+        function loadFrame(obj) {
+            if (!firstLoad) {
+                var url = obj.contentWindow.location.href;
+                sessionStorage.setItem("url", url);
+            }
+        }
+
+        var src = "blank.html";
+        var iframe;
+
+        function mainLoad(obj) {
+
+            iframe = document.getElementById("ifr_main");
+
+            var url = sessionStorage.getItem("url");
+            if (!sessionStorage.getItem("url")) {
+                url = src;
+            }
+            iframe.src = url;
+            iframe.contentWindow.location.href = url;
+            firstLoad = false;
+        }
+    </script>
+</head>
+<body onload="mainLoad(this)">
+<header>
+    <div class="header_logo">
+    </div>
+    <div class="div_la"><label></label></div>
+    <div class="header_operat">
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00002.html'">基本情報変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='../common/F40008.html'">ID／パスワード変更</button>
+        </div>
+        <div class="btn_div changeOrg-div">
+            <button id="changeOrg" onclick="window.location.href='../common/F40013.html'">教室切替</button>
+        </div>
+        <div class="btn_div" style="width: 16vw">
+            <label style="color: grey;font-size: 0.9vw;">組織選択</label>
+            <select id="orgList" v-model="sessionOrgId">
+                <option v-for="org in orgIdList" :value="org.orgId" :title="org.orgNm">{{getOrgName(org.orgNm)}}</option>
+            </select>
+        </div>
+        <div class="div_loginout">ログアウト</div>
+        <img class="img_loginout" src="../img/logout1.png" alt="logout" onclick="openUrl('logout');"/>
+    </div>
+</header>
+<div class="div_line"></div>
+<div class="div_body" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="div_bodybox">
+        <div class="div_left">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed" v-for="managerType in userFunList">
+                    <a class="a_main" href="javascript:;"><img :src="managerType.imgStr" height="17"
+                                                               width="17"/>&nbsp;&nbsp;<span class="dis_label">{{managerType.name}}</span><i
+                            class="layui-icon layui-icon-triangle-r"></i></a>
+                    <dl class="layui-nav-child">
+                        <dt v-for="functionType in managerType.functionTypeList">
+                            <a class="a_main" v-if="functionType.name != managerType.name"><i class="layui-icon layui-icon-triangle-r"></i><span
+                                    class="dis_label">
+                                {{functionType.name}}</span></a>
+                            <p :style=" functionType.name==managerType.name?'display:block;':'display:none;'">
+                                <a :href="getUrl(func.funId)" target="ifr_main" v-for="func in functionType.functionList"><span class="dis_label">{{func.name}}</span></a>
+                            </p>
+                        </dt>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed" id="specAuthArea" style="display: none">
+                    <a class="a_main" href="javascript:;"><img src="${request.contextPath}/img/home.png" height="17"
+                                                               width="17"/>&nbsp;&nbsp;<span class="dis_label">利用機能権限設定</span><i
+                            class="layui-icon layui-icon-triangle-r"></i></a>
+                    <dl class="layui-nav-child">
+                        <dt>
+                            <p class="thirdP">
+                                <a href="F40010.html?pageDiv=1" target="ifr_main">ロール別機能権限設定</a>
+                            <p class="thirdP">
+                        </dt>
+                        <dt>
+                            <p class="thirdP">
+                                <a href="F40010.html?pageDiv=2" target="ifr_main">個人別機能権限設定</a>
+                            <p class="thirdP">
+                        </dt>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="close_menu">
+            <a class="a_label" id="menu_close" style="padding-left: 0.8vw;" href="javascript:;">
+                <img id="close_img" src="${request.contextPath}/img/menuClose.png" height="20" width="20"/>&nbsp;
+                <span class="dis_label">メニューを閉じる</span></a>
+        </div>
+        <div class="div_right">
+            <iframe name="ifr_main" id="ifr_main" frameborder="0" scrolling="auto" src="" onload="loadFrame(this)"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00001.js"></script>
+</html>

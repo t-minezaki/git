@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html style=>
+    <head>
+        <meta charset="utf-8">
+        <title>ワンタイムパスワード入力画面</title>
+        <#include "/header.html" />
+        <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    </head>
+    <body>
+        <header style="width: 100%;padding: 0 15px;height: 6vh;">
+            <div class="header_logo"></div>
+        </header>
+        <div id="vue">
+            <div id="message" class="topMessage"></div>
+            <div class="div_message">
+                <div class="div_message_one">送信先メールアドレス宛に確認用メールをお送りしました。</div>
+                <div class="div_message_two">メールに記載されたワンタイムパスワードを入力してください。</div>
+                <div class="div_message_three"></div>
+                <div class="div_message_four"></div>
+                <div class="div_message_five"></div>
+
+            </div>
+            <div class="div_input">
+                <div class="div_input_one">ワンタイムパスワード</div>
+                <div class="div_input_two">
+                    <input type="text" id="input" name="input" placeholder="半角英数字で入力してください">
+                </div>
+            </div>
+            <div class="div_button">
+                <button id="back" style="background: #fcf8e3;color: #189746">戻る</button>
+                <button id="confirm">確認</button>
+            </div>
+        </div>
+    </body>
+    <script src="${request.contextPath}/js/common/F40018.js"></script>
+</html>

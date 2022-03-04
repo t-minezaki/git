@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.framework.gakkenID.dao.GakkenApiDao">
+
+    <select id="selectGakkenId" parameterType="jp.learningpark.framework.gakkenID.dto.GakkenId" resultType="jp.learningpark.framework.gakkenID.dto.GakkenId">
+        select * from gakken_id
+        where 1=1
+        <if test="gidpk != null and gidpk != ''">
+        and gidpk = #{gidpk}
+        </if>
+        <if test="gid != null and gid != ''">
+        and gid = #{gid}
+        </if>
+        <if test="pass != null and pass != ''">
+        and pass = #{pass}
+        </if>
+        <if test="mailaddress1 != null and mailaddress1 != ''">
+        and mailaddress_1 = #{mailaddress1}
+        </if>
+        <if test="mobile != null and mobile != ''">
+        and mobile = #{mobile}
+        </if>
+        <if test="lastname != null and lastname != ''">
+        and lastname = #{lastname}
+        </if>
+        <if test="firstname != null and firstname != ''">
+        and firstname = #{firstname}
+        </if>
+        <if test="kanaLastname != null and kanaLastname != ''">
+        and kana_lastname = #{kanaLastname}
+        </if>
+        <if test="kanaFirstname != null and kanaFirstname != ''">
+        and kana_firstname = #{kanaFirstname}
+        </if>
+        <if test="birth != null">
+        and birth = #{birth}
+        </if>
+        <if test="familyCd != null and familyCd != ''">
+        and family_cd = #{familyCd}
+        </if>
+        <if test="tel != null and tel != ''">
+            and tel = #{tel}
+        </if>
+        <if test="tel2 != null and tel2 != ''">
+            and tel_2 = #{tel2}
+        </if>
+    </select>
+    <!--学研ID構造体をバッチ取得する-->
+    <select id="selectGakkenIdList" resultType="jp.learningpark.framework.gakkenID.dto.GakkenId">
+        select * from gakken_id
+        where 1=1
+        <if test="gakkenIdList != null">
+            and gidpk IN
+            <foreach collection="gakkenIdList" item="gidpk" separator="," open="(" close=")">
+                #{gidpk}
+            </foreach>
+        </if>
+    </select>
+	<insert id="insertGakkenId" parameterType="jp.learningpark.framework.gakkenID.dto.GakkenId">
+		INSERT INTO gakken_id
+		    (
+		     gidpk
+		    ,gid
+		    ,pass
+		    ,mailaddress_1
+		    ,mailaddress_2
+		    ,mailaddress_3
+		    ,mobile
+		    ,lastname
+		    ,firstname
+		    ,kana_lastname
+		    ,kana_firstname
+		    ,birth
+		    ,nickname
+		    ,sex
+		    ,country
+		    ,zip
+		    ,tel
+		    ,tel_2
+		    ,pref_cd
+		    ,address_1
+		    ,address_2
+		    ,address_3
+		    ,address_4
+		    ,address_5
+		    ,address_6
+		    ,family_cd
+		    ,family_type
+		    ,directmail_flg
+		    ,payment_not_flg
+		    ,withdrawl_flg
+		    ,agree_flg
+		    ,data_utill_agree_flg
+		    ,regist_t
+		    ,update_ts
+		    ,pass_update_ts
+		    ,withdrawl_ts
+		    ,birth_from
+		    ,birth_end
+		    ,ext_1
+		    ,ext_2
+		    ,ext_3
+		    )
+		VALUES (
+            #{gidpk}
+	       ,#{gid}
+	       ,#{pass}
+	       ,#{mailaddress1}
+	       ,#{mailaddress2}
+	       ,#{mailaddress3}
+	       ,#{mobile}
+	       ,#{lastname}
+	       ,#{firstname}
+	       ,#{kanaLastname}
+	       ,#{kanaFirstname}
+	       ,#{birth}
+	       ,#{nickname}
+	       ,#{sex}
+	       ,#{country}
+	       ,#{zip}
+	       ,#{tel}
+	       ,#{tel2}
+	       ,#{prefCd}
+	       ,#{address1}
+	       ,#{address2}
+	       ,#{address3}
+	       ,#{address4}
+	       ,#{address5}
+	       ,#{address6}
+	       ,#{familyCd}
+	       ,#{familyType}
+	       ,#{directmailFlg}
+	       ,#{paymentNotFlg}
+	       ,#{withdrawlFlg}
+	       ,#{agreeFlg}
+	       ,#{dataUtillAgreeFlg}
+	       ,#{registT}
+	       ,#{updateTs}
+	       ,#{passUpdateTs}
+	       ,#{withdrawlTs}
+	       ,#{birthFrom}
+	       ,#{birthEnd}
+	       ,#{ext1}
+	       ,#{ext2}
+	       ,#{ext3}
+		)
+	</insert>
+	
+    <select id="selectGakkenTID" parameterType="jp.learningpark.framework.gakkenID.dto.GakkenTransactionID" resultType="jp.learningpark.framework.gakkenID.dto.GakkenTransactionID">
+        select * from gakken_transaction_id
+        where 1=1
+        <if test="gtidpk != null and gtidpk != ''">
+        and gtidpk = #{gtidpk}
+        </if>
+        <if test="gidpk != null and gidpk != ''">
+        and gidpk = #{gidpk}
+        </if>
+        <if test="gpidpk != null and gpidpk != ''">
+        and gpidpk = #{gpidpk}
+        </if>
+        <if test="mailaddress1 != null and mailaddress1 != ''">
+            and mailaddress_1 = #{mailaddress1}
+        </if>
+        <if test="mailaddress2 != null and mailaddress2 != ''">
+            and mailaddress_2 = #{mailaddress2}
+        </if>
+        <if test="mailaddress3 != null and mailaddress3 != ''">
+            and mailaddress_3 = #{mailaddress3}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            and mobile = #{mobile}
+        </if>
+        <if test="lastname != null and lastname != ''">
+            and lastname = #{lastname}
+        </if>
+        <if test="firstname != null and firstname != ''">
+            and firstname = #{firstname}
+        </if>
+        <if test="kanaLastname != null and kanaLastname != ''">
+            and kana_lastname = #{kanaLastname}
+        </if>
+        <if test="kanaFirstname != null and kanaFirstname != ''">
+            and kana_firstname = #{kanaFirstname}
+        </if>
+        <if test="birth != null and birth != ''">
+            and birth = #{birth}
+        </if>
+        <if test="nickname != null and nickname != ''">
+            and nickname = #{nickname}
+        </if>
+        <if test="sex != null and sex != ''">
+            and sex = #{sex}
+        </if>
+        <if test="country != null and country != ''">
+            and country = #{country}
+        </if>
+        <if test="zip != null and zip != ''">
+            and zip = #{zip}
+        </if>
+        <if test="tel != null and tel != ''">
+            and tel = #{tel}
+        </if>
+        <if test="tel2 != null and tel2 != ''">
+            and tel_2 = #{tel2}
+        </if>
+        <if test="prefCd != null and prefCd != ''">
+            and pref_cd = #{prefCd}
+        </if>
+        <if test="address1 != null and address1 != ''">
+            and address_1 = #{address1}
+        </if>
+        <if test="address2 != null and address2 != ''">
+            and address_2 = #{address2}
+        </if>
+        <if test="address3 != null and address3 != ''">
+            and address_3 = #{address3}
+        </if>
+        <if test="address4 != null and address4 != ''">
+            and address_4 = #{address4}
+        </if>
+        <if test="address5 != null and address5 != ''">
+            and address_5 = #{address5}
+        </if>
+        <if test="address6 != null and address6 != ''">
+            and address_6 = #{address6}
+        </if>
+        <if test="ext1 != null and ext1 != ''">
+            and ext_1 = #{ext1}
+        </if>
+        <if test="ext2 != null and ext2 != ''">
+            and ext_2 = #{ext2}
+        </if>
+        <if test="ext3 != null and ext3 != ''">
+            and ext_3 = #{ext3}
+        </if>
+        <if test="siteCd != null and siteCd != ''">
+            and site_cd = #{siteCd}
+        </if>
+        <if test="shopCd != null and shopCd != ''">
+            and shop_cd = #{shopCd}
+        </if>
+        <if test="eventKey1 != null and eventKey1 != ''">
+            and event_key_1 = #{eventKey1}
+        </if>
+        <if test="eventKey2 != null and eventKey2 != ''">
+            and event_key_2 = #{eventKey2}
+        </if>
+        <if test="eventKey3 != null and eventKey3 != ''">
+            and event_key_3 = #{eventKey3}
+        </if>
+        <if test="partnerCd != null and partnerCd != ''">
+            and partner_cd = #{partnerCd}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+        <if test="registT != null and registT != ''">
+            and regist_t = #{registT}
+        </if>
+        <if test="updateTs != null and updateTs != ''">
+            and update_ts = #{updateTs}
+        </if>
+        <if test="registTsEnd != null and registTsFrom != ''">
+            and regist_ts_from = #{registTsEnd}
+        </if>
+        <if test="registTsEnd != null and registTsEnd != ''">
+            and regist_ts_end = #{registTsEnd}
+        </if>
+    </select>
+    
+    <update id="updateGakkenId" parameterType="jp.learningpark.framework.gakkenID.dto.GakkenId">
+        update gakken_id
+        set
+            gidpk = gidpk
+        <if test="gid != null and gid != ''">
+            ,gid = #{gid}
+        </if>
+        <if test="pass != null and pass != ''">
+            ,pass = #{pass}
+        </if>
+        <if test="mailaddress1 != null and mailaddress1 != ''">
+            ,mailaddress_1 = #{mailaddress1}
+        </if>
+        <if test="mailaddress2 != null and mailaddress2 != ''">
+            ,mailaddress_2 = #{mailaddress2}
+        </if>
+        <if test="mailaddress3 != null and mailaddress3 != ''">
+            ,mailaddress_3 = #{mailaddress3}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            ,mobile = #{mobile}
+        </if>
+        <if test="lastname != null">
+            ,lastname = #{lastname}
+        </if>
+        <if test="firstname != null">
+            ,firstname = #{firstname}
+        </if>
+        <if test="kanaLastname != null">
+            ,kana_lastname = #{kanaLastname}
+        </if>
+        <if test="kanaFirstname != null">
+            ,kana_firstname = #{kanaFirstname}
+        </if>
+        <if test="birth != null">
+            ,birth = #{birth}
+        </if>
+        <if test="nickname != null and nickname != ''">
+            ,nickname = #{nickname}
+        </if>
+        <if test="sex != null and sex != ''">
+            ,sex = #{sex}
+        </if>
+        <if test="country != null and country != ''">
+            ,country = #{country}
+        </if>
+        <if test="zip != null and zip != ''">
+            ,zip = #{zip}
+        </if>
+        <if test="tel != null and tel != ''">
+            ,tel = #{tel}
+        </if>
+        <if test="tel2 != null and tel2 != ''">
+            ,tel_2 = #{tel2}
+        </if>
+        <if test="prefCd != null and prefCd != ''">
+            ,pref_cd = #{prefCd}
+        </if>
+        <if test="address1 != null and address1 != ''">
+            ,address_1 = #{address1}
+        </if>
+        <if test="address2 != null and address2 != ''">
+            ,address_2 = #{address2}
+        </if>
+        <if test="address3 != null and address3 != ''">
+            ,address_3 = #{address3}
+        </if>
+        <if test="address4 != null and address4 != ''">
+            ,address_4 = #{address4}
+        </if>
+        <if test="address5 != null and address5 != ''">
+            ,address_5 = #{address5}
+        </if>
+        <if test="address6 != null and address6 != ''">
+            ,address_6 = #{address6}
+        </if>
+        <if test="familyCd != null and familyCd != ''">
+            ,family_cd = #{familyCd}
+        </if>
+        <if test="familyType != null and familyType != ''">
+            ,family_type = #{familyType}
+        </if>
+        <if test="directmailFlg != null and directmailFlg != ''">
+            ,directmail_flg = #{directmailFlg}
+        </if>
+        <if test="paymentNotFlg != null and paymentNotFlg != ''">
+            ,payment_not_flg = #{paymentNotFlg}
+        </if>
+        <if test="withdrawlFlg != null and withdrawlFlg != ''">
+            ,withdrawl_flg = #{withdrawlFlg}
+        </if>
+        <if test="agreeFlg != null and agreeFlg != ''">
+            ,agree_flg = #{agreeFlg}
+        </if>
+        <if test="dataUtillAgreeFlg != null and dataUtillAgreeFlg != ''">
+            , data_utill_agree_flg = #{dataUtillAgreeFlg}
+        </if>
+        <if test="registT != null">
+            ,regist_t = #{registT}
+        </if>
+        <if test="updateTs != null">
+            ,update_ts = #{updateTs}
+        </if>
+        <if test="passUpdateTs != null">
+            ,pass_update_ts = #{passUpdateTs}
+        </if>
+        <if test="withdrawlTs != null">
+            ,withdrawl_ts = #{withdrawlTs}
+        </if>
+        <if test="birthFrom != null">
+            ,birth_from = #{birthFrom}
+        </if>
+        <if test="birthEnd != null">
+            ,birth_end = #{birthEnd}
+        </if>
+        <if test="ext1 != null and ext1 != ''">
+            , ext_1 = #{ext1}
+        </if>
+        <if test="ext2 != null and ext2 != ''">
+            , ext_2 = #{ext2}
+        </if>
+        <if test="ext3 != null and ext3 != ''">
+            , ext_3 = #{ext3}
+        </if>
+        where
+            gidpk=#{gidpk}
+    </update>
+
+    <insert id="insertGakkenTransaction" parameterType="jp.learningpark.framework.gakkenID.dto.GakkenTransactionID">
+        INSERT INTO gakken_transaction_id(
+            gtidpk
+            , gidpk
+            , gpidpk
+            , mailaddress_1
+            , mailaddress_2
+            , mailaddress_3
+            , mobile
+            , lastname
+            , firstname
+            , kana_lastname
+            , kana_firstname
+            , birth
+            , nickname
+            , sex
+            , country
+            , zip
+            , tel
+            , tel_2
+            , pref_cd
+            , address_1
+            , address_2
+            , address_3
+            , address_4
+            , address_5
+            , address_6
+            , ext_1
+            , ext_2
+            , ext_3
+            , site_cd
+            , shop_cd
+            , event_key_1
+            , event_key_2
+            , event_key_3
+            , partner_cd
+            , status
+            , regist_t
+            , update_ts
+            , regist_ts_from
+            , regist_ts_end
+        )
+        VALUES(
+            #{gtidpk}
+            , #{gidpk}
+            , #{gpidpk}
+            , #{mailaddress1}
+            , #{mailaddress2}
+            , #{mailaddress3}
+            , #{mobile}
+            , #{lastname}
+            , #{firstname}
+            , #{kanaLastname}
+            , #{kanaFirstname}
+            , #{birth}
+            , #{nickname}
+            , #{sex}
+            , #{country}
+            , #{zip}
+            , #{tel}
+            , #{tel2}
+            , #{prefCd}
+            , #{address1}
+            , #{address2}
+            , #{address3}
+            , #{address4}
+            , #{address5}
+            , #{address6}
+            , #{ext1}
+	        , #{ext2}
+	        , #{ext3}
+            , #{siteCd}
+            , #{shopCd}
+            , #{eventKey1}
+            , #{eventKey2}
+            , #{eventKey3}
+            , #{partnerCd}
+            , #{status}
+            , #{registT}
+            , #{updateTs}
+            , #{registTsFrom}
+            , #{registTsEnd}
+        )
+    </insert>
+
+    <select id="selectGakkenTIDOfArray" resultType="jp.learningpark.framework.gakkenID.dto.GakkenTransactionID">
+        select distinct * from gakken_transaction_id
+        where 1=1
+        <if test="gidpks != null">
+            and gidpk in
+            <foreach collection="gidpks" item="gidpk" open="(" close=")" separator=",">
+                  #{gidpk}
+            </foreach>
+        </if>
+        <if test="gpidpks != null">
+            and gpidpk  in
+            <foreach collection="gpidpks" item="gpidpk" open="(" close=")" separator=",">
+                #{gpidpk}
+            </foreach>
+        </if>
+        <if test="gtidpks != null">
+            and gtidpk in
+            <foreach collection="gtidpks" item="gtidpk" open="(" close=")" separator=",">
+                #{gtidpk}
+            </foreach>
+        </if>
+    </select>
+</mapper> 

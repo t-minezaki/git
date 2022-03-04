@@ -1,0 +1,108 @@
+.float {
+    float: left;
+}
+
+.row {
+    overflow: hidden;
+}
+
+.line {
+    height: 2vh;
+}
+
+.content {
+    padding: 5vh 0;
+    height: 100%;
+}
+
+.left {
+    width: 30%;
+    text-align: left;
+    padding-left: 10vw;
+}
+
+.mid {
+    margin-right: 20px;
+}
+
+.right {
+    width: 60%;
+    text-align: left;
+}
+
+.btnRow {
+    width: 100%;
+}
+
+.btnRow div {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0vh 10px 0 10px;
+}
+
+.back-btn {
+    background: #00a65a;
+}
+
+.submit-btn {
+    background: #00a65a;
+
+}
+
+.btn {
+    border-radius: 5px;
+    width: 195px;
+    text-align: center;
+    font-size: 0.8em;
+    color: whitesmoke;
+    height: 28px;
+    line-height: 28px;
+    border: 0;
+    border-bottom: 3px rgba(0,0,0,.2) solid;
+    margin-left: 5%;
+}
+.topMessage {
+    position: absolute;
+}
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+#remarkVal{
+    height: 100%;
+    overflow-y: auto;
+    word-break: break-all;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, .3);
+    background-color: #AAAAAA;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+    border-radius: 1px;
+    background-color: #dadada;
+}

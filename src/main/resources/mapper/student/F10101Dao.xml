@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10101Dao">
+    <select id="selectFixList" resultType="jp.learningpark.modules.student.dto.F10101FixDto">
+        SELECT
+        ID,
+        A.BLOCK_ID,
+        A.BLOCK_DISPY_NM,
+        CASE
+        #{flg}
+        WHEN '1' THEN
+        A.MO_DW_CHOC_FLG
+        WHEN '2' THEN
+        A.TU_DW_CHOC_FLG
+        WHEN '3' THEN
+        A.WE_DW_CHOC_FLG
+        WHEN '4' THEN
+        A.TH_DW_CHOC_FLG
+        WHEN '5' THEN
+        A.FR_DW_CHOC_FLG
+        WHEN '6' THEN
+        A.SA_DW_CHOC_FLG ELSE A.SU_DW_CHOC_FLG
+        END AS dwChocFlg,
+        A.BLOCK_START_TIME,
+        A.BLOCK_END_TIME
+        FROM
+        STU_FIXD_SCHDL A
+        WHERE
+        A.STU_ID = #{stuId}
+        AND A.BLOCK_START_DATE <![CDATA[ <= ]]> #{date}
+        AND A.BLOCK_END_DATE <![CDATA[ >= ]]> #{date}
+        AND A.DEL_FLG = '0'
+    </select>
+    <select id="selectSchdlList" resultType="jp.learningpark.modules.common.utils.dto.SchdlDto">
+        select * from (
+        select
+        sfs.id as id,
+        false as editable,
+        true as is_fixed,
+        tgt.tgt_ymd,
+        sfs.block_id,
+        mcb.color_id,
+        '' as BLOCK_TYPE_DIV,
+        case when sisa.block_dispy_nm is null then sfs.block_dispy_nm else sisa.block_dispy_nm end as block_dispy_nm,
+        <if test="checkStart==true">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp + '1 day','yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+            else to_char( sisa.block_start_time, 'yyyy-mm-dd hh24:mi:ss') end as start_time,
+        </if>
+        <if test="checkStart==false">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+            else to_char( sisa.block_start_time, 'yyyy-mm-dd hh24:mi:ss') end as start_time,
+        </if>
+        <if test="checkEnd==true">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp + '1 day','yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+            else to_char( sisa.block_end_time, 'yyyy-mm-dd hh24:mi:ss' )  end as end_time,
+        </if>
+        <if test="checkEnd==false">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+            else to_char( sisa.block_end_time, 'yyyy-mm-dd hh24:mi:ss' )  end as end_time,
+        </if>
+        null as subjt_div,
+        null as subjt_nm,
+        null as stu_term_plan_id,
+        null as stu_plan_learn_tm,
+        null as perf_learn_tm,
+        null as learn_lev_unds,
+        null as remain_disp_flg,
+        null as upd_datime,
+        null as plan_learn_seasn_id,
+        sisa.fixd_block_abolt_flg
+        from (SELECT #{startYmd}::DATE + GENERATE_SERIES(0, 7) as tgt_ymd) tgt
+        left join stu_fixd_schdl sfs on
+        <![CDATA[ sfs.block_start_date <= tgt.tgt_ymd and sfs.block_end_date >= tgt.tgt_ymd ]]>
+        and sfs.id = #{id}
+        and sfs.del_flg = 0
+        and '1'=(CASE extract(DOW FROM tgt.tgt_ymd)
+        WHEN '1' THEN sfs.MO_DW_CHOC_FLG WHEN '2' THEN sfs.TU_DW_CHOC_FLG
+        WHEN '3' THEN sfs.WE_DW_CHOC_FLG WHEN '4' THEN sfs.TH_DW_CHOC_FLG
+        WHEN '5' THEN sfs.FR_DW_CHOC_FLG WHEN '6' THEN sfs.SA_DW_CHOC_FLG
+        ELSE sfs.SU_DW_CHOC_FLG
+        end)
+        left join mst_color_block mcb on mcb.block_id = sfs.block_id AND mcb.stu_id = sfs.stu_id and mcb.del_flg = 0
+        left join stu_indiv_schdl_adjust sisa on sfs.id = sisa.stu_fixd_schdl_id and sisa.del_flg = 0 and sisa.plan_ymd=tgt.tgt_ymd
+        <!--left join mst_holiday mh on mh.tgt_ymd=tgt.tgt_ymd and mh.country_div ='JP' and mh.del_flg = 0-->
+        where sfs.stu_id = #{stuId}
+        and sfs.block_id is not null
+        <!--and mh.id is null-->
+        ) A
+        WHERE coalesce(A.fixd_block_abolt_flg, '0') != '1'
+        ORDER BY A.tgt_ymd, A.start_time
+    </select>
+    <select id="getBlock" resultType="jp.learningpark.modules.student.dto.F10101Dto">
+        SELECT
+            mb.*,
+            mcb.color_id AS colorId
+        FROM
+            mst_block AS mb
+            LEFT JOIN mst_color_block AS mcb ON mcb.block_id = mb.ID
+            and mcb.stu_id = #{stuId}
+            AND mcb.del_flg = 0
+        WHERE
+            mb.block_type_div = 'C1'
+            AND mb.del_flg = 0
+    </select>
+</mapper>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>GakkenIDポータル本棚アプリ連携API</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+</head>
+<body id="body">
+<div id="content">
+    <div>
+        <div>
+                <textarea id="sendMsg1" style="width: 50%;height: 25vh;resize: none;word-break: break-all;">
+        {{json}}
+                </textarea>
+        </div>
+        <div>
+            <button @click="test('BTGKA1009')" style="float: left;margin: 0 20px;width: 100px;">日次</button>
+        </div>
+        <div>
+            <button @click="test('BTGKA1010')" style="float: left;margin: 0 20px;width: 100px;">月次</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/common/BookEnd.js"></script>
+</html>

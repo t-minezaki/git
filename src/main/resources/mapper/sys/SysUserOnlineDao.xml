@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.sys.dao.SysUserOnlineDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.sys.entity.SysUserOnlineEntity" id="sysUserOnlineMap">
+        <result property="sessionId" column="session_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userCd" column="user_cd"/>
+        <result property="ipAddr" column="ip_addr"/>
+        <result property="loginLocation" column="login_location"/>
+        <result property="browserType" column="browser_type"/>
+        <result property="sysOs" column="sys_os"/>
+        <result property="onlineStatus" column="online_status"/>
+        <result property="sesStartDt" column="ses_start_dt"/>
+        <result property="sesLastAccessDt" column="ses_last_access_dt"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="loginType" column="login_type"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="selectUserOnlineList" resultType="jp.learningpark.modules.sys.entity.SysUserOnlineEntity">
+        select * from sys_user_online
+        <where>
+            <if test="ipaddr != null and ipaddr != ''">
+                AND ipaddr like concat('%', #{ipaddr}, '%')
+            </if>
+            <if test="loginName != null and loginName != ''">
+                AND login_name like concat('%', #{loginName}, '%')
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectOnlineByExpired" resultType="jp.learningpark.modules.sys.entity.SysUserOnlineEntity">
+        select o.* from sys_user_online o 
+        WHERE o.ses_last_access_dt <![CDATA[ <= ]]> #{lastAccessTime} ORDER BY o.ses_last_access_dt ASC
+    </select>
+</mapper>

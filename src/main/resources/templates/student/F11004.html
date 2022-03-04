@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>学習情報登録一覧</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11004.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11004" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div class="oneTitle">
+            <ul id="titleUl">
+                <li onclick="window.location.href='F11001.html'" class="active" id="jhlogin">計画登録</li>
+                <li @click="showPlan()" class="active1" id="cjlogin">実行登録</li>
+            </ul>
+        </div>
+        <!--2020/11/11 zhangminghao modify start-->
+        <div class="twoTitle">
+            <p>計画一覧</p>
+            <!--2020/12/22 cuikailin modify start-->
+            <!--<button id="started-without-plan" class="submit" @click="toF11006()">計画なしで始める</button>-->
+        </div>
+        <!--/* 2021/01/28 cuikailin MANAMIRU1-393 start */-->
+        <!--<div class="ikinari" @click="toF11006()">-->
+        <div class="ikinari" @click="toF11012(this,1)">
+        <!--/* 2021/01/28 cuikailin MANAMIRU1-393 end */-->
+            <p>いきなり勉強</p>
+        </div>
+        <!--2020/12/22 cuikailin modify end-->
+        <!--2020/11/11 zhangminghao modify end-->
+        <div id="content">
+            <ul class="oneCont" >
+                <li v-for="list in planList" >
+                    <!--/* 2021/01/28 cuikailin MANAMIRU1-393 start */-->
+                    <div class="img" @click="toF11012(list,0)" :style="'border-color:'+list.color+';'">
+                        <img style=" width: 28% !important;height: 53% !important;margin-left: 8% !important;margin-bottom: 2px;" :src="list.subImgPath">
+                        <div class="subject"><p :style="'color:'+list.color+';'">{{list.subName}}</p></div>
+                    </div>
+                    <div class="cont" @click="toF11012(list,0)" :style="list.perfYmd == '' || list.perfYmd == null ? 'background-color:white' : 'background-color:#DBF1F5'">
+                    <!--/* 2021/01/28 cuikailin MANAMIRU1-393 end */-->
+                        <div class="textArea">
+                            <p>
+                                {{list.planYmd1}}  {{list.weekDay}}
+                            </p>
+                            <p>
+                                {{list.startPlanTm}}～{{list.endPlanTm}}
+                            </p>
+                        </div>
+                        <div style="float: right; width: 22%">
+                            <div class="pubtime">{{list.stuPlanLearnTm}}<span>分</span></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="../common/F40012.html?id=F11004" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F11004.js"></script>
+</html>

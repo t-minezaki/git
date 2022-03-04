@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>アプリ端ログインテスト想定</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+</head>
+<body id="body">
+<div id="content">
+    <div>
+        <div>
+                    <textarea id="sendMsg1" style="width: 50%;height: 15vh;resize: none;float:left;word-break: break-all;">
+        {
+            "type":"pushmsglogin",
+            "loginId":"julius123",
+            "password":"julius123",
+            "deviceToken":"julius123Token",
+            "phoneType":"1"
+        }
+                </textarea>
+            <textarea id="json1" style="width: 50%;height: 15vh;resize: none;word-break: break-all;">{{json1}}</textarea>
+        </div>
+        <div>
+            <button @click="sendMsg(1)" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">ログイン</button>
+            <button @click="toMainPage()" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">URLよりマナミル画面へ遷移する</button>
+            <input type="text"  v-model="url_one" style="width: 40%;border: 1px solid;">
+            <br><br>
+        </div>
+    </div>
+    <div>
+        <div>
+                <textarea id="sendMsg2" style="width: 50%;height: 15vh;resize: none;float:left;word-break: break-all;">
+        {
+            "type":"resetpwd"
+        }
+                </textarea>
+            <textarea id="json2" style="width: 50%;height: 15vh;resize: none;word-break: break-all;">{{json2}}</textarea>
+        </div>
+        <div>
+            <button @click="sendMsg(2)" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">確認</button>
+            <button @click="toF40006()" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">パスワード再発行へSSO</button>
+            <br><br>
+        </div>
+    </div>
+    <div>
+        <div>
+                <textarea id="sendMsg4" style="width: 50%;height: 15vh;resize: none;float:left;word-break: break-all;">
+        {
+            "msgId":"1",
+            "deviceToken":"julius123Token",
+            "stuid":"s770"
+        }
+                </textarea>
+            <input id="json4" style="width: 50%;height: 15vh;resize: none;word-break: break-all;" v-model="url_four" :value = 'json4'>
+        </div>
+        <div>
+            <button @click="sendMsg(4)" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">確認</button>
+            <button @click="toNotice()" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">お知らせプシュッ閲覧</button>
+            <br><br>
+        </div>
+    </div>
+    <div>
+        <div>
+                <textarea id="sendMsg3" style="width: 50%;height: 15vh;resize: none;float:left;word-break: break-all;">
+        {
+            "type":"msglogout",
+            "loginId":"julius123"
+        }
+                </textarea>
+            <textarea id="json3"
+                      style="width: 50%;height: 15vh;resize: none;word-break: break-all;">{{json3}}</textarea>
+        </div>
+        <div>
+            <button @click="sendMsg(3)" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">アプリ側ログアウト</button>
+            <button @click="logout()" style="background: #5b9bd5;color: white;border: 1px solid #5b9bd5">URLよりマナミル画面へ遷移する</button>
+        </div>
+    </div>
+    <div>
+        <div style="padding-bottom:5vh;resize: none;float:left;word-break: break-all;border: 1px solid grey; padding-right: 2vw">
+            <button id="BTGKA1001" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">イベント公開時定時メール送信日次バッチ</button>
+            <button id="BTGKA1002" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">リマインド時メール送信日次バッチ</button>
+            <button id="BTGKA1004" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">日次バッチ連携ファイル導入</button>
+            <button id="BTGKA1005" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">その他の連携ファイル導入</button>
+            <button id="BTGKA1006" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">創学高等部生徒連携ファイル導入</button>
+            <button id="BTGKA1012" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">デバイストーケン無効化日次バッチ</button>
+            <button id="BTGKA1013" style="height: 5vh;margin-top: 5vh;margin-left: 2vw;">有効期限超過デバイストーケン無効化バッチ</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js" charset="UTF-8"></script>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/MD5/md5.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/common/NoticeApiTest.js"></script>
+</html>

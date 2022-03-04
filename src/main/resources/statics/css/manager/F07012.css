@@ -1,0 +1,140 @@
+html{
+	overflow-y: hidden;
+}
+.header_operat{
+	width: auto;
+}
+.content{
+	padding: 0;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	font-size: 0.9vw;
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+.inputDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+	margin-bottom: 1vw;
+}
+.inputMessage {
+	width: 80%;
+	float: left;
+	padding: 0.4vw 4vw 0.4vw 4vw;
+	height: auto;
+	margin-left: 10%;
+}
+.inputMessage div{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+}
+.inputMessageOne{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 50%;
+}
+.inputMessageOne div{
+	width: 6vw;
+}
+.inputMessage input {
+	height: 1.6vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 35%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	border: 1px solid #333;
+}
+.inputMessage img{
+	height: 2.2vw;
+	width: 2.2vw;
+	float: left;
+	border: 1px solid #000;
+	background-color: #A0A0A0;
+}
+.buttonDiv{
+	height: 2.2vw;
+	margin-top: -0.5vw;
+	width: 100%;
+	border-bottom: 1px solid #000;
+}
+.end_btn{
+	width: 12%;
+	border-radius: 0.3vw;
+	height: 2.2vw;
+	background: none;
+	border: 2px solid #009944;
+	color: #009944;
+	font-weight: bolder;
+	margin-left: 3%;
+	margin-right: 3%;
+	font-size: 0.9vw;
+}
+.star{
+	width: 10%;
+	text-align: right;
+	color: red;
+}
+select{
+	background: none;
+	height: 1.6vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 35%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+}
+.button_div{
+	margin-top: 20vw;
+	width: 100%;
+	text-align: center;
+}
+.img{
+	margin-left: 2%;
+	width: 2.2vw !important;
+	height: 2.2vw !important;
+}
+input[type="file"]{
+	line-height: 2.2vw;
+	height: 2.2vw;
+	width: 2.2vw;
+	margin-left: -2.2vw;
+	padding: 0;
+	opacity: 0;
+}
+input[type="color"]{
+	border: 1px solid #fff;
+	background: none;
+	width: 2.9vw;
+	height: 2.4vw;
+	margin-top: -0.4vw;
+}
+.inputMessage input:disabled{
+	background: none;
+	border: 0;
+}
+.note{
+	font-size: 0.1vw;
+	width: 13vw;
+	line-height: 1.6vw;
+	height: 1.6vw;
+}

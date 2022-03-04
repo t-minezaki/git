@@ -1,0 +1,318 @@
+.div_header {
+    height: 44px;
+}
+
+.div_body {
+    height: calc(100% - 44px - 40px - 48px);
+    background-color: white;
+    margin-top: calc(44px + 40px);
+}
+.headerBtn button {
+    padding: 1px 6px !important;
+}
+
+.line {
+    margin-bottom: 15px;
+    height: 2px;
+    background-color: #ddd;
+}
+
+.text413 > div:nth-child(1) > div:nth-child(1) {
+    background: unset;
+}
+
+.back {
+    width: 28px;
+    height: 28px;
+    float: left;
+    position: fixed;
+    margin-top: 6px;
+}
+
+.back img {
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+}
+
+#title_top {
+    color: #444;
+    font-size: large;
+    text-align: center;
+    padding-top: 5px;
+    letter-spacing: 0.5vw;
+    padding-bottom: 5px;
+    height: 40px;
+    line-height: 30px;
+}
+
+.text413 {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.left_title {
+    height: auto;
+    position: relative;
+    vertical-align: center;
+}
+
+.span_cont {
+    width: 40%;
+    font-weight: bold;
+    font-size: large;
+}
+
+.span_cont span {
+    vertical-align: middle;
+}
+
+.span_val {
+    width: 60%;
+}
+
+sapn {
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+
+.topTitle{
+    height: 40px;
+    background: rgb(140, 193, 31);
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    position: fixed;
+    top: 44px;
+    width: 100%;
+    font-weight: bold;
+}
+.title413 {
+    height: 40px;
+}
+
+div#confirmContainer {
+    text-align: center;
+}
+
+.text413 > div {
+    /*overflow: hidden;*/
+}
+
+button#confirm {
+    border: 0;
+    background: #00B050;
+    color: white;
+    font-size: 20px;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+}
+
+/* Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+    .div_body {
+        height: calc(100% - 130px);
+        background-color: white;
+    }
+    .headerBtn button {
+        padding: 1px 6px !important;
+    }
+
+    .line {
+        margin-top: 5px;
+        margin-bottom: 1.6rem;
+        height: 2px;
+        background-color: #ddd;
+    }
+
+    .text413 > div:nth-child(1) > div:nth-child(1) {
+        background: unset;
+    }
+
+    .back {
+        width: 1.7rem;
+        height: 1.7rem;
+        float: left;
+        position: fixed;
+        margin-left: 2.1rem;
+        margin-top: unset;
+    }
+
+    .back img {
+        width: 100%;
+        height: 100%;
+        margin-top: 0.5rem;
+    }
+
+    #title_top {
+        color: #444;
+        font-size: 1.5rem;
+        text-align: center;
+        padding-top: 5px;
+        letter-spacing: 0.5vw;
+        padding-bottom: 5px;
+        height: 40px;
+        line-height: 30px;
+    }
+
+    .text413 {
+        padding: 0 2.5rem;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .left_title {
+        height: auto;
+        position: relative;
+        vertical-align: center;
+    }
+
+    .span_cont {
+        width: 40%;
+        font-weight: bold;
+        font-size: .9rem;
+    }
+
+    .span_cont span {
+        vertical-align: middle;
+    }
+
+    .span_val {
+        width: 48%;
+        left: 1rem;
+        /*height: 40px;*/
+    }
+
+    sapn {
+        word-break: break-all;
+        word-wrap: break-word;
+        font-size: .9rem;
+    }
+
+    .topTitle{
+        position: fixed;
+        top: 56px;
+    }
+
+    .title413 {
+        margin-top: 10px;
+        height: 40px;
+    }
+    br{
+        display: none;
+    }
+
+}
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+    .div_header {
+        height: 56px;
+    }
+
+    .div_body {
+        height: calc(100% - 168px);
+        background-color: white;
+        margin-top: calc(108px);
+    }
+    .headerBtn button {
+        padding: 1px 6px !important;
+    }
+
+    .line {
+        margin-top: 5px;
+        margin-bottom: 30px;
+        height: 2px;
+        background-color: #ddd;
+    }
+
+    .text413 > div:nth-child(1) > div:nth-child(1) {
+        background: unset;
+    }
+
+    .back {
+        width: 2.2rem;
+        height: 2.2rem;
+        float: left;
+        position: fixed;
+        margin-left: 3.2rem;
+        margin-top: unset;
+    }
+
+    .back img {
+        width: 100%;
+        height: 100%;
+        padding: 3px 3px 3px 0;
+        margin-top: 0.3rem;
+    }
+
+    #title_top {
+        color: #444;
+        font-size: 30px;
+        text-align: center;
+        padding-top: 5px;
+        letter-spacing: 0.5vw;
+        padding-bottom: 5px;
+        height: 40px;
+        line-height: 30px;
+    }
+
+    .text413 {
+        padding: 0 3.5rem;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .left_title {
+        height: auto;
+        position: relative;
+        vertical-align: center;
+    }
+
+    .span_cont {
+        width: 40%;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .span_cont span {
+        vertical-align: middle;
+    }
+
+    .span_val {
+        width: 48%;
+        left: 1rem;
+        /*height: 40px;*/
+    }
+
+    sapn {
+        word-break: break-all;
+        word-wrap: break-word;
+        font-size: 1.1rem;
+    }
+
+    .topTitle{
+        position: fixed;
+        top: 56px;
+    }
+
+    .title413 {
+        margin-top: 20px;
+        height: 40px;
+    }
+
+    .div_bottom{
+        height: 60px !important;
+    }
+
+    br{
+        display: none;
+    }
+}

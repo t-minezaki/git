@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<#include "/header.html" />
+    <title>運用管理｜ユーザー管理｜一括登録・出力</title>
+	<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00004.css" />
+</head>
+<body>
+	<div class="content">
+		<div id="message" class="topMessage"></div>
+		<div class="popTitle">運用管理｜ユーザー管理｜一括登録・出力</div>
+        <div class="topSessionTitle">
+			<div>組織ID:</div>
+			<div id="orgId"></div>
+			<div>組織名:</div>
+			<div id="orgNm"></div>
+		</div>
+		<div class="sim two">
+			<div class="top">
+				<div class="top_div">
+					<input class="newtui-radio-one nolabel" type="radio" name="one" value="0" id="dan1" title="管理者" checked>
+					<!--<label for="dan1" style="cursor:pointer">-->
+						<!--<p>管理者</p>-->
+					<!--</label>-->
+					<input class="newtui-radio-one nolabel" type="radio" name="one" value="1" id="dan2" title="先生">
+					<!--<label for="dan2" style="cursor:pointer">-->
+						<!--<p>メンター</p>-->
+					<!--</label>-->
+					<input class="newtui-radio-one nolabel" type="radio" name="one" value="2" id="dan3" title="保護者">
+					<!--<label for="dan3" style="cursor:pointer">-->
+						<!--<p>保護者</p>-->
+					<!--</label>-->
+					<input class="newtui-radio-one nolabel" type="radio" name="one" value="3" id="dan4" title="生徒">
+					<!--<label for="dan4" style="cursor:pointer">-->
+						<!--<p>生徒</p>-->
+					<!--</label>-->
+				</div>
+			</div>
+			<div class="center">
+				<div>基本情報ファイル選択</div>
+				<input type="text" disabled id="showPath1">
+				<form id="form1" enctype="multipart/form-data" class="fileForm">
+					<input type="file"  name="file" value="" class="getFile" id="getPath1">
+				</form>
+				<button>選択</button>
+			</div>
+			<div class="bottom">
+				<div class="left">新規・修正</div>
+				<div class="content_bottom">
+					<div class="con_bottom">
+						<div class="title">IDが重複する場合</div>
+						<div class="top radio_div">
+							<input class="newtui-radio-one nolabel" type="radio" name="two" value="1" id="dan5" title="エラーとする">
+							<!--<label for="dan5" style="cursor:pointer">-->
+								<!--<p>エラーとする</p>-->
+							<!--</label>-->
+						</div>
+						<div class="top radio_div">
+							<input class="newtui-radio-one nolabel" type="radio" name="two" value="0" checked="checked" id="dan6" title="上書きする">
+							<!--<label for="dan6" style="cursor:pointer">-->
+								<!--<p>上書きする</p>-->
+							<!--</label>-->
+						</div>
+					</div>
+				</div>
+				<div class="rigPo"></div>
+				<button id="importBtn">インポート</button>
+				<a onclick="getTemplate()" >テンプレート</a>
+				<button id="exportBtn">エクスポート</button>
+			</div>
+		</div>
+		<div class="sim two four">
+			<div class="top_title">生徒と保護者の紐付け</div>
+			<div class="center">
+				<div>ファイル選択</div>
+				<input type="text" disabled id="showPath3">
+				<form id="form3" enctype="multipart/form-data" class="fileForm">
+					<input type="file" name="file" value="" class="getFile" id="getPath3">
+				</form>
+				<button>選択</button>
+				<button id="stuWithGuardImportBtn">インポート</button>
+				<a onclick="getTemplateOfStuWithGuard()">テンプレート</a>
+				<button id="stuWithGuardBtn">エクスポート</button>
+			</div>
+		</div>
+	</div>
+    <form id="exportForm" method="post" action="${request.contextPath}/manager/F00004/download" >
+		<input type="hidden" id="fileNm" name="fileNm">
+		<input type="hidden" id="div" name="div">
+	</form>
+	<form id="getTemplate" method="post" action="${request.contextPath}/manager/F00004/getTemplate" >
+		<input type="hidden"  name="div">
+	</form>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00004.js"></script>
+</html>

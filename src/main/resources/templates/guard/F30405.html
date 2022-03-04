@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>保護者面談の日程設定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30405.css"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div id="pageF30405" class="content">
+    <div id="f30405" style="position: relative">
+        <ul class="tab" style="width: 100%">
+            <div class="back" onclick="back()">
+                <img src="../img/left.png">
+            </div>
+            <li class="liactive" id="learnStatus">{{eventTitle}}</li>
+        </ul>
+        <div>
+            <div class="page_btn" style="width: 100%">
+                <div class="time_tab">
+                    <button>日程を選択</button>
+                    <i class="layui-icon layui-icon-triangle-r"></i>
+                    <button>教室からの質問</button>
+                    <i class="layui-icon layui-icon-triangle-r"></i>
+                    <button>内容確認</button>
+                </div>
+            </div>
+            <div class="message" id="top_msg"></div>
+        </div>
+        <div class="sche_select" style="height: calc(100% - 79px - 5vh)">
+            <div class="date">
+                <div class="date_title" style="border-bottom: 1px solid #C0C0C0">
+                    <div>
+                        <button class="t_month t_past"><img src="${request.contextPath}/img/last-month.png" height="12" width="12" alt=""></button>
+                        <p></p>
+                        <button class="t_month t_future"><img src="${request.contextPath}/img/next-month.png" height="12" width="12" alt=""></button>
+                    </div>
+                </div>
+                <div class="date_week" style="border-bottom: 1px solid #C0C0C0"></div>
+                <div class="date_content" id="date-content">
+                    <div class="control"></div>
+                    <div class="last_days"></div>
+                </div>
+            </div>
+            <div class="time_line" style="width: 100%;height: 40%">
+                <p></p>
+                <div style="width: 100%;height: calc(100% - 3vh);line-height: 30vh">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="confirm_area" style="height: 81%;overflow-y: auto">
+            <ul v-if="askItems.length != 0">
+                <li v-for="(talk, index) in askItems">
+                    <p style="padding-left: 3%;margin-left: unset;background: #B2DE82;margin-bottom: 2%;">{{talk.questionName}}</p>
+                    <div class="result_div" :style="talk.answerTypeDiv != '1'?'width:100%;':'width: 100%;height:31px'">
+                        <textarea
+                                maxlength="500" cols="40" rows="10" class="result_text" v-if="talk.answerTypeDiv == '0' && talkRecordDEntities.length > 0"
+                                :value="talkRecordDEntities[index].answerReltCont"></textarea>
+                        <textarea maxlength="500" cols="40" rows="10" class="result_text" v-if="talk.answerTypeDiv == '0' && talkRecordDEntities.length <= 0"></textarea>
+                        <select name="result_select" class="result_select" v-if="talk.answerTypeDiv == '1' && talkRecordDEntities.length <= 0">
+                            <option value="0" selected></option>
+                            <option value="1" v-if="talk.optCont1 && talk.optCont1 != ''">{{talk.optCont1}}</option>
+                            <option value="2" v-if="talk.optCont2 && talk.optCont2 != ''">{{talk.optCont2}}</option>
+                            <option value="3" v-if="talk.optCont3 && talk.optCont3 != ''">{{talk.optCont3}}</option>
+                            <option value="4" v-if="talk.optCont4 && talk.optCont4 != ''">{{talk.optCont4}}</option>
+                            <option value="5" v-if="talk.optCont5 && talk.optCont5 != ''">{{talk.optCont5}}</option>
+                            <option value="6" v-if="talk.optCont6 && talk.optCont6 != ''">{{talk.optCont6}}</option>
+                            <option value="7" v-if="talk.optCont7 && talk.optCont7 != ''">{{talk.optCont7}}</option>
+                            <option value="8" v-if="talk.optCont8 && talk.optCont8 != ''">{{talk.optCont8}}</option>
+                            <option value="9" v-if="talk.optCont9 && talk.optCont9 != ''">{{talk.optCont9}}</option>
+                            <option value="10" v-if="talk.optCont10 && talk.optCont10 != ''">{{talk.optCont10}}</option>
+                        </select>
+                        <select name="result_select" class="result_select" v-if="talk.answerTypeDiv == '1' && talkRecordDEntities.length > 0">
+                            <option value="0" v-if="!talkRecordDEntities[index].answerReltCont" selected></option>
+                            <option
+                                    value="1" v-if="talk.optCont1 && talk.optCont1 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont1?'selected':''">{{talk.optCont1}}
+                            </option>
+                            <option
+                                    value="2" v-if="talk.optCont2 && talk.optCont2 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont2?'selected':''">{{talk.optCont2}}
+                            </option>
+                            <option
+                                    value="3" v-if="talk.optCont3 && talk.optCont3 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont3?'selected':''">{{talk.optCont3}}
+                            </option>
+                            <option
+                                    value="4" v-if="talk.optCont4 && talk.optCont4 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont4?'selected':''">{{talk.optCont4}}
+                            </option>
+                            <option
+                                    value="5" v-if="talk.optCont5 && talk.optCont5 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont5?'selected':''">{{talk.optCont5}}
+                            </option>
+                            <option
+                                    value="6" v-if="talk.optCont6 && talk.optCont6 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont6?'selected':''">{{talk.optCont6}}
+                            </option>
+                            <option
+                                    value="7" v-if="talk.optCont7 && talk.optCont7 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont7?'selected':''">{{talk.optCont7}}
+                            </option>
+                            <option
+                                    value="8" v-if="talk.optCont8 && talk.optCont8 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont8?'selected':''">{{talk.optCont8}}
+                            </option>
+                            <option
+                                    value="9" v-if="talk.optCont9 && talk.optCont9 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont9?'selected':''">{{talk.optCont9}}
+                            </option>
+                            <option
+                                    value="10" v-if="talk.optCont10 && talk.optCont10 != ''"
+                                    :selected="talkRecordDEntities[index].answerReltCont == talk.optCont10?'selected':''">{{talk.optCont10}}
+                            </option>
+                        </select>
+                        <div class="result_check" v-if="talk.answerTypeDiv == '2' && talkRecordDEntities.length <= 0">
+                            <div v-if="talk.optCont1 && talk.optCont1 != ''"><input type="checkbox" value="1"><span>{{talk.optCont1}}</span></div>
+                            <div v-if="talk.optCont2 && talk.optCont2 != ''"><input type="checkbox" value="2"><span>{{talk.optCont2}}</span></div>
+                            <div v-if="talk.optCont3 && talk.optCont3 != ''"><input type="checkbox" value="3"><span>{{talk.optCont3}}</span></div>
+                            <div v-if="talk.optCont4 && talk.optCont4 != ''"><input type="checkbox" value="4"><span>{{talk.optCont4}}</span></div>
+                            <div v-if="talk.optCont5 && talk.optCont5 != ''"><input type="checkbox" value="5"><span>{{talk.optCont5}}</span></div>
+                            <div v-if="talk.optCont6 && talk.optCont6 != ''"><input type="checkbox" value="6"><span>{{talk.optCont6}}</span></div>
+                            <div v-if="talk.optCont7 && talk.optCont7 != ''"><input type="checkbox" value="7"><span>{{talk.optCont7}}</span></div>
+                            <div v-if="talk.optCont8 && talk.optCont8 != ''"><input type="checkbox" value="8"><span>{{talk.optCont8}}</span></div>
+                            <div v-if="talk.optCont9 && talk.optCont9 != ''"><input type="checkbox" value="9"><span>{{talk.optCont9}}</span></div>
+                            <div v-if="talk.optCont10 && talk.optCont10 != ''"><input type="checkbox" value="10"><span>{{talk.optCont10}}</span></div>
+                        </div>
+                        <div class="result_check" v-if="talk.answerTypeDiv == '2' && talkRecordDEntities.length > 0">
+                            <div v-if="talk.optCont1 && talk.optCont1 != ''"><input
+                                    type="checkbox" value="1"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont1) >= 0?'checked':''"><span>{{talk.optCont1}}</span>
+                            </div>
+                            <div v-if="talk.optCont2 && talk.optCont2 != ''"><input
+                                    type="checkbox" value="2"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont2) >= 0?'checked':''"><span>{{talk.optCont2}}</span>
+                            </div>
+                            <div v-if="talk.optCont3 && talk.optCont3 != ''"><input
+                                    type="checkbox" value="3"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont3)  >= 0?'checked':''"><span>{{talk.optCont3}}</span>
+                            </div>
+                            <div v-if="talk.optCont4 && talk.optCont4 != ''"><input
+                                    type="checkbox" value="4"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont4)  >= 0?'checked':''"><span>{{talk.optCont4}}</span>
+                            </div>
+                            <div v-if="talk.optCont5 && talk.optCont5 != ''"><input
+                                    type="checkbox" value="5"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont5)  >= 0?'checked':''"><span>{{talk.optCont5}}</span>
+                            </div>
+                            <div v-if="talk.optCont6 && talk.optCont6 != ''"><input
+                                    type="checkbox" value="6"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont6) >= 0?'checked':''"><span>{{talk.optCont6}}</span>
+                            </div>
+                            <div v-if="talk.optCont7 && talk.optCont7 != ''"><input
+                                    type="checkbox" value="7"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont7) >= 0?'checked':''"><span>{{talk.optCont7}}</span>
+                            </div>
+                            <div v-if="talk.optCont8 && talk.optCont8 != ''"><input
+                                    type="checkbox" value="8"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont8)  >= 0?'checked':''"><span>{{talk.optCont8}}</span>
+                            </div>
+                            <div v-if="talk.optCont9 && talk.optCont9 != ''"><input
+                                    type="checkbox" value="9"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont9)  >= 0?'checked':''"><span>{{talk.optCont9}}</span>
+                            </div>
+                            <div v-if="talk.optCont10 && talk.optCont10 != ''"><input
+                                    type="checkbox" value="10"
+                                    :checked="talkRecordDEntities[index].answerReltCont && talkRecordDEntities[index].answerReltCont.indexOf(talk.optCont10)  >= 0?'checked':''"><span>{{talk.optCont10}}</span>
+                            </div>
+                        </div>
+                        <div class="result_photo" v-if="talk.answerTypeDiv == '3'">
+                            <div class="file-input-container"><img src="../img/add.png" alt="" class="camera" id="camera"/><input type="file" :id="'addPhoto' + index" class="add-photo" :onchange="'changepic(' + index + ')'" accept="image/*"></div>
+                            <div :id="'photoContainer' + index" class="photo-container">
+                                <img :src="talkRecordDEntities[index] && talkRecordDEntities[index].answerReltCont ? talkRecordDEntities[index].answerReltCont : ''" class="photo-image" onerror="$(this).css('visibility','hidden')" @click="showImg(index)" :id="'image' + index"/>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="unchange">
+                <li class="name" style="padding-left: 3%;margin-left: unset;background: #B2DE82;margin-bottom: 2%;">備考</li>
+                <textarea
+                        name="confirmCnt" id="remarkCnt" maxlength="500" class="area" cols="40" rows="10"
+                        v-text="talkRecordHEntity && talkRecordHEntity.noteCont == ''?'':talkRecordHEntity.noteCont"></textarea>
+            </div>
+            <div class="btn_area" style="height: 10vh;">
+                <button class="returnBtn">戻る</button>
+                <button id="cnt_confirm" class="confirmBtn">内容を確認</button>
+            </div>
+        </div>
+        <div class="confirm_page" style="width: 100%;height: 81%;overflow-y: auto">
+            <div style="width: 100%;border-bottom: 1px solid grey;">
+                <p style="width: 30%;color: #383838;">生徒氏名</p>
+                <p id="stu_name" style="width: 70%;color: #787878;"></p>
+            </div>
+            <div style="width: 100%;border-bottom: 1px solid grey;">
+                <p style="width: 30%;color: #383838;">日時</p>
+                <p id="plan_time" style="width: 70%;color: #787878;"></p>
+            </div>
+            <div class="message" id="confirm_msg" style="margin-top: 1vh"></div>
+            <div v-if="askItems.length != 0" v-for="(talk, index) in askItems" class="item_div">
+                <p class="result_name" style="width: 35%;color: #383838;">{{talk.questionName}}</p>
+                <p class="result_cont" style="width: 60%;color: rgb(120, 120, 120);height: auto;"></p>
+            </div>
+            <div class="_fixed">
+                <p class="_title">備考</p>
+                <p id="remarks" class="contentP"></p>
+            </div>
+            <div class="btn_area" style="width: 100%;height: 10vh;">
+                <button class="returnBtn">戻る</button>
+                <button id="apply_confirm" class="confirmBtn">申込/回答</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="image-container" id="imageContainer" style="display: none;">
+</div>
+<div class="div_bottom">
+    <iframe src="../common/F40004.html?id=F30104" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script type="text/javascript">
+</script>
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="${request.contextPath}/plugins/exif/exif.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/guard/calendar.js"></script>
+<script src="${request.contextPath}/js/guard/F30405.js"></script>
+</html>

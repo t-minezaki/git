@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30405Dao">
+    <!--日程予約状況を取得-->
+    <select id="selectScheSts" resultType="jp.learningpark.modules.guard.dto.F30405Dto">
+        SELECT
+            *
+        FROM
+            event_sche_plan_del
+        WHERE
+            sgd_plan_date BETWEEN #{monthStartDay} and #{monthEndDay}
+            AND event_id = #{eventId}
+            AND del_flg = 0
+        ORDER BY
+            sgd_plan_date
+    </select>
+    <!--質問回答内容を取得-->
+    <select id="selectReplyCnt" resultType="jp.learningpark.modules.guard.dto.F30405Dto">
+        SELECT
+            geas.reply_cnt
+            , ms.flnm_nm
+            , ms.flnm_lnm
+        FROM
+            guard_event_apply_sts geas
+        INNER JOIN mst_stu ms
+            ON ms.stu_id = geas.stu_id
+            and ms.del_flg = 0
+        WHERE
+            geas.id = #{applyId}
+            and geas.del_flg = 0
+    </select>
+    <!--予約可能時間帯を取得-->
+    <select id="selectTimeLine" resultType="jp.learningpark.modules.guard.dto.F30405Dto">
+        SELECT
+            sgd_plan_date,
+            sgd_start_datime,
+            sgd_end_datime
+        FROM
+            event_sche_plan_del
+        WHERE
+            sgd_plan_date = #{tgtYmd}
+            and event_id = #{eventId}
+            and persons_limt <![CDATA[ > ]]> planed_member
+            and del_flg = 0
+        GROUP BY sgd_plan_date,sgd_start_datime,sgd_end_datime
+        ORDER BY sgd_start_datime
+    </select>
+
+    <select id="getAskTalk" resultType="jp.learningpark.modules.guard.dto.F30405Dto">
+        SELECT
+            mate.id as atId
+            ,mate.item_type_div
+            ,mate.ask_num
+            ,mate.question_name
+            ,mate.answer_type_div
+            ,mate.opt_cont1
+            ,mate.opt_cont2
+            ,mate.opt_cont3
+            ,mate.opt_cont4
+            ,mate.opt_cont5
+            ,mate.opt_cont6
+            ,mate.opt_cont7
+            ,mate.opt_cont8
+            ,mate.opt_cont9
+            ,mate.opt_cont10
+        FROM mst_event me
+        INNER JOIN mst_ask_talk_event mate
+            on mate.question_name is not null
+            and mate.question_name <![CDATA[ <> ]]> ''
+            and mate.answer_type_div is not null
+            and mate.answer_type_div <![CDATA[ <> ]]> ''
+            and mate.item_type_div = '0'
+            and mate.use_div = '1'
+            and me.id = mate.event_id
+            and mate.del_flg = 0
+        WHERE
+            me.id = #{eventId}
+            and me.del_flg =0
+        ORDER BY
+            mate.ask_num
+    </select>
+</mapper>

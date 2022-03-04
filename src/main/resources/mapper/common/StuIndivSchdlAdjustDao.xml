@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.StuIndivSchdlAdjustDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.StuIndivSchdlAdjustEntity" id="stuIndivSchdlAdjustMap">
+        <result property="id" column="id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="stuFixdSchdlId" column="stu_fixd_schdl_id"/>
+        <result property="blockId" column="block_id"/>
+        <result property="planYmd" column="plan_ymd"/>
+        <result property="blockDispyNm" column="block_dispy_nm"/>
+        <result property="blockStartTime" column="block_start_time"/>
+        <result property="blockEndTime" column="block_end_time"/>
+        <result property="fixdBlockAboltFlg" column="fixd_block_abolt_flg"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

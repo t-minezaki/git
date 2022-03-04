@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>学習連絡確認</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <!--    <link rel="stylesheet" href="${request.contextPath}/css/common/my_select.css"/>-->
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21012.css">
+</head>
+<body id="body">
+<div id="message" class="topMessage"></div>
+<div class="one" id="one">
+    <div>
+        <ul class="one-ul">
+            <li>出席簿管理</li>
+            <li>  ＞   学習連絡</li>
+        </ul>
+    </div>
+</div>
+<div id="content">
+    <div class="statusContent row" id="statusRow">
+        <div class="label">公開状態</div>
+        <div class="status display">{{statusValue}}</div>
+    </div>
+    <div class="listContent row" id="listRow">
+        <div class="label" id="listTitle">対象者一覧</div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <div class="AttendanceBookDateContent row" id="attendBookDateRow">
+        <div class="label">出席簿対象日</div>
+        <input type="text" class="input float display" id="attendanceBookDate" disabled v-model="date">
+        <p><img class="pic" id="dayPic" src="../img/timeBtn.png" alt=""></p>
+    </div>
+    <div class="dateRangeContent row" id="rangeRow">
+        <div class="label">公開期間</div>
+        <div class="dateRangeDiv display">
+            <div>
+                <input type="text" disabled class="input float" id="startDate" :value="startDate">
+            </div>
+            <div class="line float">～</div>
+            <div>
+                <input type="text" disabled class="input float" id="endDate" :value="endDate">
+            </div>
+        </div>
+    </div>
+    <div class="btnContent row" id="btnRow">
+        <button class="button display" onclick="toF21011()">戻る</button>
+        <button id="submit" class=" button submit-button" onclick="submit()">登録</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_F10102.js" charset="UTF-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21012.js"></script>
+</html>

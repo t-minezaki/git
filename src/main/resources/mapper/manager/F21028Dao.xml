@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21028Dao">
+    <!--  学年の区別を取得する  -->
+    <select id="getSchy" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            cod_cd as codCD,
+            cod_value as codValue
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'SCHY_DIV'
+        AND
+            del_flg = 0
+        ORDER BY sort
+    </select>
+    <!--  グループの区別を取得する  -->
+    <select id="getGroup" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            grp_id as grpId,
+            grp_nm as grpNm
+        FROM
+            mst_grp
+        WHERE
+            org_id = #{orgId}
+        AND
+            del_flg = 0
+        ORDER BY
+            grp_id
+    </select>
+    <!--  生徒情報を取得する  -->
+    <select id="getStuList" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            a.after_usr_id AS afterUsrId
+            ,( b.flnm_nm || ' ' || b.flnm_lnm ) AS stuNm
+            ,c.cod_value AS schy
+            ,b.stu_id AS stuId
+        FROM
+            (SELECT
+                after_usr_id
+                , usr_id
+            FROM
+                mst_usr
+            WHERE
+                TRIM(role_div) = '4'
+            AND
+                del_flg = 0
+            AND
+                org_id = #{params.orgId}) a
+        INNER JOIN
+            mst_stu b
+        ON (a.usr_id = b.stu_id AND b.del_flg = 0
+        <if test='params.stuNm != null and params.stuNm != ""'>
+             AND (b.flnm_nm||b.flnm_lnm LIKE CONCAT('%',#{params.stuNm},'%') OR b.flnm_kn_nm||b.flnm_kn_lnm LIKE CONCAT('%',#{params.stuNm},'%'))
+        </if>
+            )
+        INNER JOIN
+            mst_cod_d c
+        ON (c.cod_key = 'SCHY_DIV' AND c.cod_cd = b.schy_div AND c.del_flg = 0
+        <if test='params.schyDiv != null and params.schyDiv != ""'>
+            AND c.cod_cd = #{params.schyDiv}
+        </if>
+            )
+        <if test='params.grpId != null'>
+        INNER JOIN
+            stu_grp d
+        ON
+            (d.stu_id = b.stu_id AND d.del_flg = 0 AND d.grp_id = #{params.grpId})
+        </if>
+        <if test='params.usrId != null and params.roleDiv != null and params.usrId != "" and params.roleDiv == "2"'>
+        INNER JOIN
+            mentor_stu e
+        ON
+            (e.stu_id = b.stu_id AND e.del_flg = 0 AND e.mentor_id = #{params.usrId})
+        </if>
+        ORDER BY
+            a.after_usr_id
+    </select>
+    <!--  生徒情報を取得する  -->
+    <select id="getStuListByIdList" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            a.after_usr_id AS afterUsrId
+            ,( b.flnm_nm || ' ' || b.flnm_lnm ) AS stuNm
+            ,c.cod_value AS schy
+            ,b.stu_id AS stuId
+        FROM
+            (SELECT
+                after_usr_id
+                , usr_id
+            FROM
+                mst_usr
+            WHERE
+                TRIM(role_div) = '4'
+            AND
+                del_flg = 0
+            AND
+                org_id = #{params.orgId}
+            AND
+                usr_id
+            IN (
+                ''
+        <if test='params.stuIdList != null and params.stuIdList.size() != 0'>
+            <foreach collection="params.stuIdList" index="index" item="stuId" open="," separator="," close="">
+                #{stuId}
+            </foreach>
+        </if>
+            )) a
+        INNER JOIN
+        mst_stu b
+        ON (a.usr_id = b.stu_id AND b.del_flg = 0)
+        INNER JOIN
+        mst_cod_d c
+        ON (c.cod_key = 'SCHY_DIV' AND c.cod_cd = b.schy_div AND c.del_flg = 0)
+        ORDER BY
+        a.after_usr_id
+    </select>
+    <!--  生徒情報を取得する  -->
+    <select id="getDataByDay" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            A.stu_id as stuId
+            ,to_char(A.perf_ymd, 'yyyy-mm-dd') as perfYmd
+            ,SUM(A.perf_learn_tm) as perfTime
+        FROM
+            (
+            SELECT
+                id,
+                stu_id,
+                case when perf_ymd is null then plan_ymd
+                else perf_ymd end as 	perf_ymd,
+            CASE WHEN learn_lev_unds = '0' THEN 0
+            WHEN EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 <![CDATA[ < ]]> 0 THEN
+                perf_learn_tm
+            ELSE
+                (perf_learn_tm - EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60)
+            END as perf_learn_tm
+            FROM
+                stu_weekly_plan_perf
+            WHERE
+                del_flg = 0
+            AND
+                stu_id
+            IN
+            (''
+            <if test='stuIdList != null and stuIdList.size() != 0'>
+                <foreach collection="stuIdList" index="index" item="stuId" open="," separator="," close="">
+                    #{stuId}
+                </foreach>
+            </if>
+            )
+            UNION ALL
+            SELECT
+                id,
+                stu_id,
+                to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day' as perf_ymd,
+                EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 as perf_learn_tm
+            FROM
+                stu_weekly_plan_perf
+            WHERE
+                del_flg = 0
+            AND
+                stu_id
+            IN
+            (''
+            <if test='stuIdList != null and stuIdList.size() != 0'>
+                <foreach collection="stuIdList" index="index" item="stuId" open="," separator="," close="">
+                    #{stuId}
+                </foreach>
+            </if>
+            )
+            AND EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 > 0
+        ) A
+        WHERE
+            A.perf_ymd BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+            A.stu_id,
+            A.perf_ymd
+    </select>
+    <!--  生徒情報を取得する  -->
+    <select id="getDataByWeek" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            A.stu_id as stuId
+            ,A.perf_ymd::DATE-(MOD((EXTRACT ( dow FROM A.perf_ymd :: TIMESTAMP ) + 6)::INTEGER, 7)||'day')::interval as perfYmd
+            ,SUM(A.perf_learn_tm) as perfTime
+        FROM
+        (
+        SELECT
+            id,
+            stu_id,
+        case when perf_ymd is null then plan_ymd
+        else perf_ymd end as 	perf_ymd,
+        CASE WHEN learn_lev_unds = '0' THEN 0
+             WHEN EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 <![CDATA[ < ]]> 0 THEN
+            perf_learn_tm
+        ELSE
+            (perf_learn_tm - EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60)
+        END as perf_learn_tm
+        FROM
+            stu_weekly_plan_perf
+        WHERE
+            del_flg = 0
+        AND
+            stu_id
+        IN
+        (''
+        <if test='stuIdList != null and stuIdList.size() != 0'>
+            <foreach collection="stuIdList" index="index" item="stuId" open="," separator="," close="">
+                #{stuId}
+            </foreach>
+        </if>
+        )
+        UNION ALL
+        SELECT
+            id,
+            stu_id,
+            to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day' as perf_ymd,
+            EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 as perf_learn_tm
+        FROM
+            stu_weekly_plan_perf
+        WHERE
+            del_flg = 0
+        AND
+            stu_id
+        IN
+        (''
+        <if test='stuIdList != null and stuIdList.size() != 0'>
+            <foreach collection="stuIdList" index="index" item="stuId" open="," separator="," close="">
+                #{stuId}
+            </foreach>
+        </if>
+        )
+        AND EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 > 0
+        ) A
+        WHERE
+            A.perf_ymd BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+            A.stu_id,
+            A.perf_ymd::DATE-(MOD((EXTRACT ( dow FROM A.perf_ymd :: TIMESTAMP ) + 6)::INTEGER, 7)||'day')::interval
+    </select>
+    <!--  生徒情報を取得する  -->
+    <select id="getDataByMonth" resultType="jp.learningpark.modules.manager.dto.F21028Dto">
+        SELECT
+            A.stu_id as stuId
+            ,A.perf_ymd::DATE-(extract(day from A.perf_ymd::TIMESTAMP) - 1||'day')::interval as perfYmd
+            ,SUM(A.perf_learn_tm) as perfTime
+        FROM
+        (
+        SELECT
+            id,
+            stu_id,
+        case when perf_ymd is null then plan_ymd
+        else perf_ymd end as 	perf_ymd,
+        CASE WHEN learn_lev_unds = '0' THEN 0
+             WHEN EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 <![CDATA[ < ]]> 0 THEN
+            perf_learn_tm
+        ELSE
+            (perf_learn_tm - EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60)
+        END as perf_learn_tm
+        FROM
+            stu_weekly_plan_perf
+        WHERE
+            del_flg = 0
+        AND
+            stu_id
+        IN
+        (''
+        <if test='stuIdList != null and stuIdList.size() != 0'>
+            <foreach collection="stuIdList" index="index" item="stuId" open="," separator="," close="">
+                #{stuId}
+            </foreach>
+        </if>
+        )
+        UNION ALL
+        SELECT
+            id,
+            stu_id,
+            to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day' as perf_ymd,
+            EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 as perf_learn_tm
+        FROM
+            stu_weekly_plan_perf
+        WHERE
+            del_flg = 0
+        AND
+            stu_id
+        IN
+        (''
+        <if test='stuIdList != null and stuIdList.size() != 0'>
+            <foreach collection="stuIdList" index="index" item="stuId" open="," separator="," close="">
+                #{stuId}
+            </foreach>
+        </if>
+        )
+        AND EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 > 0
+        ) A
+        WHERE
+            A.perf_ymd BETWEEN #{startDate} AND #{endDate}
+        GROUP BY
+            A.stu_id,
+            A.perf_ymd::DATE-(extract(day from perf_ymd::TIMESTAMP) - 1||'day')::interval
+    </select>
+</mapper>

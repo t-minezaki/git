@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>スマホ_管理者共通メニュー画面</title>
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40011.css"/>
+</head>
+<body>
+<input type="hidden" id="hidden">
+<ul>
+    <li class="other li_one">
+        <a href="../manager/F21017.html" target="_top">
+            <img class="img" src="${request.contextPath}/img/bottomPngs6.0/bottompng1.png"/>
+            <p>ホーム</p>
+        </a>
+    </li>
+
+    <li class="other li_two">
+        <a href="../manager/F21024.html" target="_top">
+            <img class="img"  src="${request.contextPath}/img/bottomPngs6.0/bottompng2.png"/>
+            <p>連絡確認</p>
+            <div class="haveMess" style="display: none"></div>
+        </a>
+    </li>
+    <li class="other li_three">
+        <a target="_top" id="other_three">
+            <img class="img"  src="${request.contextPath}/img/bottomPngs6.0/bottompng3.png"/>
+            <p>その他</p>
+        </a>
+    </li>
+</ul>
+</body>
+<script src="${request.contextPath}/js/common/F40011.js"></script>
+<script>
+    if(getCookie("equipment") === "phone"){
+        $(".other").css("width","33%");
+    }else {
+        $(".img").css("height","34vh");
+        $(".other").css("width","auto");
+        $(".li_two").css("width","15%");
+        $(".li_one").css("width","40%").css("padding-left","16%");
+        $(".li_three").css("width","40%").css("padding-right","16%");
+    }
+
+    function rotate() {
+        var hh = window.screen.height;
+        var ww = window.screen.width;
+        if (window.orientation == 180 || window.orientation == 0) {
+            if (new Number(parseFloat(hh/ww) - parseFloat(16/10)).toFixed(2) == 0) {
+                $("#other img").css("margin-top","40%");
+                $("#other a").css("width","22%");
+            }
+            if (new Number(parseFloat(ww/hh) - parseFloat(3/4)).toFixed(2) == 0) {
+                $("#other a").css("width","16%");
+                $("#other img").css("margin-top","40%");
+            };
+        }
+        if (window.orientation == 90 || window.orientation == -90) {
+            if (new Number(parseFloat(ww/hh) - parseFloat(16/10)).toFixed(2) == 0) {
+                $("#other img").css("margin-top","40%")
+            }
+            if (new Number(parseFloat(hh/ww) - parseFloat(4/3)).toFixed(2) == 0) {
+                $("#other a").css("width","16%");
+                $("#other img").css("margin-top","40%").css("margin-top", "20%");
+            }
+        }
+    }
+    window.addEventListener("load", rotate, false);
+    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", rotate, false);
+    $(function () {
+        $(".popPage").click(function () {
+
+            if (parent.$(".pop_bottom").css("display") === "none") {
+                parent.$(".pop_bottom").show();
+            } else {
+                parent.$(".pop_bottom").hide();
+            }
+        });
+        $(".popPage").blur(function () {
+            parent.$(".pop_bottom").hide();
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>出席簿一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21007.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>出席簿管理</li>
+            <li> ＞ 出席簿一覧</li>
+        </ul>
+    </div>
+</div>
+<div id="app">
+    <div class="time_input" style="height: 3vh">
+        <div id="dateChoose" style="float: left">
+            <lable id="date">対象日</lable>
+            <input class="timeInput" id="startTime" disabled="disabled">
+            <img src="../img/timeBtn.png" alt="" id="time" style="width: 1.6vw;">
+        </div>
+        <div id="groupSet" style="float: left">
+            <lable id="group">グループ名</lable>
+            <input class="groupInput" id="groupInput">
+            <button id="find">検索</button>
+        </div>
+    </div>
+    <div class="div_main">
+        <div class="first_div">
+            <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+            <div id="jqGridPager"></div>
+        </div>
+    </div>
+
+</div>
+<!--<div>-->
+    <!--<button id="btn_cancel">戻る-->
+    <!--</button>-->
+<!--</div>-->
+</body>
+<script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+<script src="${request.contextPath}/js/manager/F21007.js"></script>
+</html>

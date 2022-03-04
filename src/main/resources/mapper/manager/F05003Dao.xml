@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F05003Dao">
+    <select id="selectStuAndGuardList" resultType="jp.learningpark.modules.manager.dto.F05003Dto">
+        SELECT
+        ms.stu_id,
+        ms.guard_id,
+        mu.org_id
+        FROM
+        mst_usr mu
+        INNER JOIN mst_stu ms ON mu.usr_id = ms.stu_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_org mo ON mo.org_id = mu.org_id
+        AND mo.mgr_flg = '0'
+        AND mo.del_flg = 0
+        WHERE
+        mu.org_id IN
+        <if test="orgIdList!=null">
+            <foreach collection="orgIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        AND mu.usr_id = ms.stu_id
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+    </select>
+    <select id="selectStuByIdList" resultType="jp.learningpark.modules.manager.dto.F05003DtoIn">
+        SELECT
+                mg.flnm_nm || ' ' || mg.flnm_lnm AS guardName,
+                mu1.after_usr_id AS guardAfterId,
+                ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+                mu2.usr_id AS stuId,
+                mu2.org_id AS orgId,
+                mo.org_nm AS orgNm,
+                mu2.after_usr_id AS stuAfterId,
+                mu1.usr_id AS guardId,
+                ms.id
+        FROM
+                guard_reading_sts AS grs
+                        INNER JOIN mst_usr AS mu1 ON grs.guard_id = mu1.usr_id
+                        AND mu1.del_flg = 0
+                        INNER JOIN mst_usr AS mu2 ON grs.stu_id = mu2.usr_id
+                        AND mu2.del_flg = 0
+                        INNER JOIN mst_guard AS mg ON mg.guard_id = mu1.usr_id
+                        AND mg.del_flg = 0
+                        INNER JOIN mst_stu AS ms ON ms.stu_id = mu2.usr_id
+                        AND ms.del_flg = 0
+                        INNER JOIN mst_org AS mo ON mo.org_id = mu2.org_id
+                        AND mo.del_flg = 0
+        WHERE
+                grs.notice_id = #{noticeId}
+          AND grs.del_flg = 0
+        ORDER BY
+                ms.id;
+    </select>
+</mapper>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>パスワード再発行</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40006.css"/>
+</head>
+<body>
+<header style="background: #e2ffef">
+    <div class="header_logo">
+    </div>
+</header>
+<div class="mian">
+    <div class="mainCon">
+        <div class="mainTitle">パスワード再発行</div>
+        <div id="message" class="topMessage"></div>
+        <form id="f40006Form">
+            <div class="mainDiv" id="ttth">
+                <div class="topMain">
+                    <div>ご登録のメールアドレスとIDを入力の上、「確認」をクリックしてください。 </div>
+                    <div>パスワード再発行用のURLをご連絡いたします。</div>
+                </div>
+                <div class="bottomMain">
+                    <p>メールアドレス</p>
+                    <p class="center">*</p>
+                    <input type="text" name="email">
+                </div>
+                <div class="bottomMain">
+                    <p>ID</p>
+                    <p class="center">*</p>
+                    <input type="text" name="usrId">
+                </div>
+                <div class="bottomMain">
+                    <p class="center">「*」</p>
+                    <input type="text" disabled value="は入力必須項目です" class="noData">
+                    <input type="text" disabled value="メールアドレスを登録していない方は、先生にお問い合わせください" class="noData"
+                           style="width: 100%">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="theme_btn">
+    <div class="btn_con">
+        <button class="left" id="back" onclick="gotoLogin()">戻る</button>
+        <button id="submit" onclick="getInto()">確認</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/common/F40006.js" type="text/javascript" charset="utf-8"></script>
+</html>

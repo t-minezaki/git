@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F05001Dao">
+    <!--2020/12/1 NWT文 sql最適化-->
+    <select id="searchOrg" resultType="jp.learningpark.modules.manager.dto.F05001Dto">
+        select DISTINCT
+            A.*
+        FROM
+        (
+            SELECT distinct
+                mn.id,
+                mn.org_id,
+                mn.notice_title,
+                mn.notice_cont,
+                mn.notice_level_div,
+                CASE WHEN mn.org_id = #{sOrgId} THEN 1 ELSE 2 END AS orgFlg,
+                mn.pub_plan_start_dt,
+                mn.pub_plan_end_dt,
+                to_char( mn.pub_plan_start_dt, 'yyyy/MM/dd HH24:MI' ) || '～' || to_char( mn.pub_plan_end_dt, 'yyyy/MM/dd HH24:MI' ) AS pubPlanStartToEndTime,
+                mn.upd_datime,
+                to_char( mn.upd_datime, 'yyyy/MM/dd HH24:MI' ) AS updDatimeDisplay,
+                mo.LEVEL
+            FROM mst_notice mn
+            inner join mst_org mo
+                on mo.org_id = mn.org_id
+                and mo.del_flg = 0
+            WHERE
+                mn.org_id = #{sOrgId}
+                and mn.notice_type_div = '2'
+                and mn.del_flg = 0
+            GROUP BY
+                mo.org_id
+                , mn.id
+                , mo.level
+            union all
+            SELECT distinct
+                mn.id,
+                mn.org_id,
+                mn.notice_title,
+                mn.notice_cont,
+                mn.notice_level_div,
+                CASE WHEN mn.org_id = #{sOrgId} THEN 1 ELSE 2 END AS orgFlg,
+                mn.pub_plan_start_dt,
+                mn.pub_plan_end_dt,
+                to_char( mn.pub_plan_start_dt, 'yyyy/MM/dd HH24:MI' ) || '～' || to_char( mn.pub_plan_end_dt, 'yyyy/MM/dd HH24:MI' ) AS pubPlanStartToEndTime,
+                mn.upd_datime,
+                to_char( mn.upd_datime, 'yyyy/MM/dd HH24:MI' ) AS updDatimeDisplay,
+                mo.LEVEL
+            FROM mst_notice_deliver mnd
+            inner join mst_notice mn
+                on mn.id = mnd.notice_id
+                and mn.notice_type_div = '2'
+                and mn.del_flg = 0
+            inner join mst_org mo
+                on mo.org_id = mnd.org_id
+                and mo.del_flg = 0
+            WHERE
+                mnd.org_id = #{sOrgId}
+                and mnd.del_flg = 0
+            GROUP BY
+                mo.org_id
+                , mn.id
+                , mo.level
+        ) A
+        <where>
+            <if test="orgId != null and orgId != ''">
+                AND A.org_id = #{orgId}
+            </if>
+            <if test="id != null and id != ''">
+                and A.id = #{id} --画面．検索条件．ニュースID
+            </if>
+            <if test="noticeTitle != null and noticeTitle != ''">
+                and A.notice_title like CONCAT('%',trim(#{noticeTitle}),'%') --画面．検索条件．件名
+            </if>
+            <if test="pubPlanStartDt != null">
+                and A.pub_plan_start_dt <![CDATA[>=]]> #{pubPlanStartDt} --画面．検索条件．掲載開始日時
+            </if>
+            <if test="pubPlanEndDt != null">
+                and A.pub_plan_end_dt <![CDATA[<=]]> #{pubPlanEndDt} --画面．検索条件．掲載終了日時
+            </if>
+        </where>
+        ORDER BY
+            A.notice_level_div DESC,
+            A.LEVEL,
+            A.org_id,
+            A.pub_plan_start_dt DESC,
+            A.upd_datime DESC
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+
+    <select id="totalCount" resultType="Integer">
+        select
+            count(B.id)
+        from
+        (
+            select DISTINCT
+                A.*
+            FROM
+            (
+                SELECT distinct
+                mn.id,
+                mn.org_id,
+                mn.notice_title,
+                mn.notice_cont,
+                mn.notice_level_div,
+                CASE WHEN mn.org_id = #{sOrgId} THEN 1 ELSE 2 END AS orgFlg,
+                mn.pub_plan_start_dt,
+                mn.pub_plan_end_dt,
+                to_char( mn.pub_plan_start_dt, 'yyyy/MM/dd HH24:MI' ) || '～' || to_char( mn.pub_plan_end_dt, 'yyyy/MM/dd HH24:MI' ) AS pubPlanStartToEndTime,
+                mn.upd_datime,
+                to_char( mn.upd_datime, 'yyyy/MM/dd HH24:MI' ) AS updDatimeDisplay,
+                mo.LEVEL
+            FROM mst_notice mn
+            inner join mst_org mo
+                on mo.org_id = mn.org_id
+                and mo.del_flg = 0
+            WHERE
+                mn.org_id = #{sOrgId}
+                and mn.notice_type_div = '2'
+                and mn.del_flg = 0
+            GROUP BY
+                mo.org_id
+                , mn.id
+                , mo.level
+            union all
+            SELECT distinct
+                mn.id,
+                mn.org_id,
+                mn.notice_title,
+                mn.notice_cont,
+                mn.notice_level_div,
+                CASE WHEN mn.org_id = #{sOrgId} THEN 1 ELSE 2 END AS orgFlg,
+                mn.pub_plan_start_dt,
+                mn.pub_plan_end_dt,
+                to_char( mn.pub_plan_start_dt, 'yyyy/MM/dd HH24:MI' ) || '～' || to_char( mn.pub_plan_end_dt, 'yyyy/MM/dd HH24:MI' ) AS pubPlanStartToEndTime,
+                mn.upd_datime,
+                to_char( mn.upd_datime, 'yyyy/MM/dd HH24:MI' ) AS updDatimeDisplay,
+                mo.LEVEL
+            FROM mst_notice_deliver mnd
+            inner join mst_notice mn
+                on mn.id = mnd.notice_id
+                and mn.notice_type_div = '2'
+                and mn.del_flg = 0
+            inner join mst_org mo
+                on mo.org_id = mnd.org_id
+                and mo.del_flg = 0
+            WHERE
+                mnd.org_id = #{sOrgId}
+                and mnd.del_flg = 0
+            GROUP BY
+                mo.org_id
+                , mn.id
+                , mo.level
+        ) A
+        <where>
+            <if test="orgId != null and orgId != ''">
+                AND A.org_id = #{orgId}
+            </if>
+            <if test="id != null and id != ''">
+                and A.id = #{id} --画面．検索条件．ニュースID
+            </if>
+            <if test="noticeTitle != null and noticeTitle != ''">
+                and A.notice_title like CONCAT('%',trim(#{noticeTitle}),'%') --画面．検索条件．件名
+            </if>
+            <if test="pubPlanStartDt != null">
+                and A.pub_plan_start_dt <![CDATA[>=]]> #{pubPlanStartDt} --画面．検索条件．掲載開始日時
+            </if>
+            <if test="pubPlanEndDt != null">
+                and A.pub_plan_end_dt <![CDATA[<=]]> #{pubPlanEndDt} --画面．検索条件．掲載終了日時
+            </if>
+        </where>
+        ) B
+    </select>
+</mapper>

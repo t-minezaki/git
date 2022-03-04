@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.job.task.dao.BTGKA1010Dao">
+    <select id="selectExitedGidpkList" resultType="string">
+        SELECT
+            bsh.gidpk
+        FROM
+            (SELECT ROW_NUMBER() over(PARTITION BY gidpk ORDER BY send_datime DESC), * FROM bookend_send_hst WHERE del_flg = 0)
+            bsh
+        WHERE
+            bsh.book_api_flg = '2'
+            AND bsh.row_number = 1
+    </select>
+    <select id="selectGidpkAndDelFlgList" resultType="string">
+        SELECT
+            mu.gidpk||','||mu.del_flg
+        FROM
+            mst_usr mu
+        <if test="roleDiv != null and roleDiv == '3'">
+        INNER JOIN
+            mst_guard mg ON mu.usr_id = mg.guard_id
+        </if>
+        <if test="roleDiv != null and roleDiv == '4'">
+        INNER JOIN
+            mst_stu ms ON mu.usr_id = ms.stu_id
+        </if>
+        INNER JOIN
+            mst_org mo ON mu.org_id = mo.org_id AND mo.brand_cd = #{brandCd}
+        WHERE
+            mu.gid_flg = #{gidFlg}
+        <if test="null != exitedGidpkList and exitedGidpkList.size > 0">
+        AND
+        mu.gidpk NOT IN
+        <foreach collection="exitedGidpkList" item="exitedGidpk" open="(" close=")" separator=",">
+            #{exitedGidpk}
+        </foreach>
+        </if>
+        AND trim(mu.role_div) = #{roleDiv}
+        <if test="firstRunFlg == null or firstRunFlg == '1'">
+        AND to_char(mu.upd_datime, 'yyyy-MM') = #{preMonth}
+        </if>
+        ORDER BY mu.gidpk
+    </select>
+    <update id="updateStudent">
+        UPDATE mst_usr
+        set book_send_flg = '0',
+            upd_datime = #{updTime},
+            upd_usr_id = 'SYSBatch'
+        WHERE
+            gidpk = #{gidpk}
+        AND gid_flg = '1'
+        AND book_send_flg = '1'
+        AND del_flg = 1
+    </update>
+    <update id="updateMstCodD">
+        UPDATE
+            mst_cod_d
+        SET
+            cod_value = '1',
+            upd_datime = #{updatime},
+            upd_usr_id = 'SYSBatch'
+        WHERE
+            cod_key = 'BOOKEND_BATCH_RUN_FLG'
+            AND del_flg = 0
+    </update>
+</mapper>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00004Dao">
+    <select id="selectMax" parameterType="string" resultType="jp.learningpark.modules.manager.dto.F00004Dto">
+        SELECT role_div,SUBSTRING(max(max_id) FROM 2 ) as max from mst_numass where  del_flg=0  group by  role_div
+    </select>
+
+    <select id="checkFn" resultType="jp.learningpark.modules.common.entity.MstUsrEntity" parameterType="string">
+        SELECT
+        *
+        FROM
+        mst_usr
+        WHERE
+        after_usr_id = #{afterId}
+        and org_id = #{orgId}
+        AND usr_sts = '1'
+        AND del_flg =0
+        limit 1
+    </select>
+
+    <select id="checkFnOfSave" resultType="jp.learningpark.modules.common.entity.MstUsrEntity" parameterType="string">
+        SELECT
+        *
+        FROM
+        mst_usr
+        WHERE
+        after_usr_id = #{afterId}
+        AND usr_sts = '1'
+        AND del_flg = 0
+        limit 1
+    </select>
+
+    <select id="selectExcelDataOfManager" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F00004ManagerDto">
+        SELECT
+        um.usr_id,
+        um.after_usr_id,
+        mm.mailad,
+        mm.flnm_nm,
+        mm.flnm_lnm,
+        mm.flnm_kn_nm,
+        mm.flnm_kn_lnm,
+        mm.telnum,
+        um.gid_flg,
+        CASE
+        um.pw_up_flg
+        WHEN '1' THEN
+        NULL when '2' THEN null ELSE '0'
+        END AS usr_password,
+        um.org_id
+        FROM
+        mst_usr UM
+        INNER JOIN mst_manager MM ON UM.usr_id = MM.mgr_id
+        AND MM.del_flg = 0
+        WHERE
+        um.org_id = #{orgId}
+        AND um.usr_sts = '1'
+        AND um.role_div = '1'
+        AND um.owner_org_flg = '1'
+        AND um.del_flg = 0
+        ORDER by um.usr_id
+    </select>
+
+    <select id="selectExcelDataOfMentor" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F00004MentorDto">
+        SELECT
+        um.usr_id,
+        um.after_usr_id,
+        mm.mailad,
+        mm.flnm_nm,
+        mm.flnm_lnm,
+        mm.flnm_kn_nm,
+        mm.flnm_kn_lnm,
+        mm.telnum,
+        um.gid_flg,
+        CASE
+        um.pw_up_flg
+        WHEN '1' THEN
+        NULL  when '2' THEN null ELSE '0'
+        END AS usr_password,
+        um.org_id
+        FROM
+        mst_usr UM
+        INNER JOIN mst_mentor MM ON UM.usr_id = MM.mentor_id
+        AND MM.del_flg = 0
+        WHERE
+        um.org_id = #{orgId}
+        AND um.usr_sts = '1'
+        AND um.role_div = '2'
+        AND um.owner_org_flg = '1'
+        AND um.del_flg = 0
+        ORDER by um.usr_id
+    </select>
+
+    <select id="selectExcelDataOfGuard" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F00004GuardDto">
+        SELECT
+        um.usr_id,
+        um.after_usr_id,
+        mm.mailad,
+        mm.flnm_nm,
+        mm.flnm_lnm,
+        mm.flnm_kn_nm,
+        mm.flnm_kn_lnm,
+        mm.telnum,
+        mm.urg_telnum,
+        um.gid_flg,
+        mm.reltnsp_div,
+        mm.postcd_mnum ||mm.postcd_bnum as postcd,
+        mm.adr1,
+        mm.adr2,
+        CASE
+        um.pw_up_flg
+        WHEN '1' THEN
+        NULL  when '2' THEN null ELSE '0'
+        END AS usr_password,
+        um.org_id
+        FROM
+        mst_usr UM
+        INNER JOIN mst_guard MM ON UM.usr_id = MM.guard_id
+        AND MM.del_flg = 0
+        WHERE
+        um.org_id = #{orgId}
+        AND um.usr_sts = '1'
+        AND um.role_div = '3'
+        AND um.owner_org_flg = '1'
+        AND um.del_flg = 0
+        ORDER by um.usr_id
+    </select>
+
+    <select id="selectExcelDataOfStu" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F00004StuDto">
+        SELECT
+        um.usr_id,
+        um.after_usr_id,
+        mm.flnm_nm,
+        mm.flnm_lnm,
+        mm.flnm_kn_nm,
+        mm.flnm_kn_lnm,
+        mm.schy_div,
+        to_char(mm.birthd, 'YYYYMMDD') as birthd,
+        mm.gendr_div,
+        mm.sch as sch_cd,
+        um.gid_flg,
+        CASE
+        um.pw_up_flg
+        WHEN '1' THEN
+        NULL  when '2' THEN null ELSE '0'
+        END AS usr_password,
+        um.org_id
+        FROM
+        mst_usr UM
+        INNER JOIN mst_stu MM ON UM.usr_id = MM.stu_id
+        AND MM.del_flg = 0
+        WHERE
+        um.org_id = #{orgId}
+        AND um.usr_sts = '1'
+        AND um.role_div = '4'
+        AND um.owner_org_flg = '1'
+        AND um.del_flg = 0
+        ORDER by um.usr_id
+    </select>
+
+    <select id="selectExcelDataOfStuWithGuard" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F00004StuDto">
+        SELECT
+            um.usr_id,
+            um.after_usr_id,
+            mm.flnm_nm || '　' || mm.flnm_lnm AS stuNm,
+            mm.schy_div,
+            to_char ( mm.birthd, 'YYYYMMDD' ) AS birthd,
+            mm.gendr_div,
+            um1.after_usr_id as guardAfterUsrId,
+            mg.flnm_nm || '　' || mg.flnm_lnm AS guardNm,
+            mg.adr1 || '　' || mg.adr2 AS adr
+        FROM
+            mst_usr UM
+            INNER JOIN mst_stu MM ON UM.usr_id = MM.stu_id
+            AND MM.del_flg = 0
+            INNER JOIN mst_guard mg ON (MM.guard_id = mg.guard_id or MM.guard1_id = mg.guard_id or MM.guard2_id = mg.guard_id or MM.guard3_id = mg.guard_id or MM.guard4_id = mg.guard_id)
+            AND mg.del_flg = 0
+            INNER JOIN mst_usr um1 ON um1.usr_id = mg.guard_id
+            AND um1.org_id = #{orgId}
+            AND um1.usr_sts = '1'
+            AND um1.role_div = '3'
+            AND um1.del_flg = 0
+        WHERE
+            um.org_id = #{orgId}
+            AND um.usr_sts = '1'
+            AND um.role_div = '4'
+            AND um.del_flg = 0
+        order by um.usr_id
+    </select>
+</mapper>

@@ -1,0 +1,53 @@
+html,body{
+	margin: 0;
+}
+.menu_container .event_item_2 .event_item_2_inner{
+	box-shadow: none;
+}
+.theme_selec{
+	width:240px;
+	height:240px;
+	position:absolute;
+	left:0;
+	right:0;
+	margin:auto;
+	text-align: center;
+	position:relative;
+}
+.theme_selec p{
+	color:#8f8f94;
+	line-height: 24px;
+	font-size: 12px;
+	padding: 20px;
+	background: #f5f5f5;
+	margin: 0;
+}
+.theme_selec p span{
+	font-size: 22px;
+	font-weight: 600;
+}
+.thru_s{
+	position:absolute;
+	bottom:20px;
+	left:0;
+	right:0;
+}
+.thru_s button{
+	width:50%;
+	line-height:12px;
+	padding:0;
+	font-size: 12px;
+	margin: 0;
+	background: none;
+	float: left;
+	color: #EA331B;
+	border: 0;
+}
+.thru_div{
+	width: 26px;
+	float: left;
+	height: 20px;
+}
+.thru_s_first{
+	margin:0!important;
+}

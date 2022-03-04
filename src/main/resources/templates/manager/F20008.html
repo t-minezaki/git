@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<#include "/header.html" />
+	<title>学習状況分析画面（日、週、月）（PC）</title>
+	<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+	<link rel="stylesheet" href="${request.contextPath}/css/manager/F20008.css" />
+	<script type="text/javascript" src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="${request.contextPath}/plugins/echarts-4.2.0/echarts.min.js"></script>
+</head>
+<body>
+<iframe src="${request.contextPath}/common/F40003.html?id=F20008" width="100%"  style="border:none;margin-top:1vw;scrolling : no;height: calc(2.7vw + 2px)"></iframe>
+<div id="message" class="topMessage"></div>
+<div class="content" id="pageF20008">
+	<div class="title_div">
+		<ul class="plan_time">
+			<li class="isSlected">
+				<a id="day" href="#tab-1" class="isSlected">日</a>
+			</li>
+			<li>
+				<a id="week" href="#tab-2" class="unSlected">週</a>
+			</li>
+			<li>
+				<a id="month" href="#tab-3" class="unSlected">月</a>
+			</li>
+		</ul>
+		<div class="btn_div btn_div1">
+			<button onclick="getDatePrd()">時期指定</button>
+		</div>
+	</div>
+	<div class="statistics">
+		<div class="statistics_info">
+			<h2>
+				理解度
+			</h2>
+			<div id="degree" style="width: 100%;height:400px;padding-top: 40px"></div>
+		</div>
+		<div class="statistics_info statistics_two" style="position: relative;">
+			<h2>
+				学習時間
+			</h2>
+			<div class="st_time_one_div">
+				<div class="choose_div">
+					<select name="subjtDiv" id="subjtDiv">
+						<option value="">すべて</option>
+					</select>
+				</div>
+				<div class="st_time_one_cn">
+					<div class="plandiv">
+						<p>計画</p><span id="stuplantm">10</span>時間
+					</div>
+					<div>
+						<p>実行</p><span id="perftm">3</span>時間
+					</div>
+					<div id="change_time_container">
+						<p>変化(時間)</p>
+						<p class="pRight pRed"><span id="comparetm">0.5</span>時間<span id="updown">UP</span></p>
+					</div>
+				</div>
+			</div>
+			<div id="st_time_one" style="width: 55%;margin-top: 5vw;height:240px;display:inline-block;"></div>
+		</div>
+		<!--<div class="statistics_info statistics_two">-->
+			<!--<h2>-->
+				<!--学習時間-->
+			<!--</h2>-->
+			<!--<div id="st_time_two" style="width: 100%;height:220px;margin: auto"></div>-->
+		<!--</div>-->
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F20008.js"></script>
+<script>
+</script>
+</html>

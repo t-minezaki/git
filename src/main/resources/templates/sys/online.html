@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ユーザーセッション管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <#include "/sys/header.html" />
+</head>
+<div id="rrapp" v-cloak>
+    <div>
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.sessionId" @keyup.enter="query" placeholder="セッションID">
+            </div>
+            <a class="btn btn-default" @click="query">検索</a>
+            &nbsp;&nbsp;<input type="button" class="btn btn-warning"  @click="forceLogout" value="強制ログアウト"/>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function () {
+    $("#jqGrid").jqGrid({
+        url: '../../sys/online/list',
+        datatype: "json",
+        colModel: [         
+            { label: 'セッションID', name: 'sessionId', index:'session_id', width: 70, key: true },
+            { label: 'ユーザーID', name: 'userId', index:'user_id', width: 50},
+            { label: 'ユーザーCD', name: 'userCd', index:'user_cd',width: 50},
+            { label: '状態', name: 'onlineStatus', index:'online_status', width: 20, formatter: function(value, options, row){
+                return value === '0' ? 
+                    '<span class="label label-danger pointer">OFF</span>' :
+                    '<span class="label label-success ">ON</span>';
+            }},
+            { label: 'ログインタイプ', name: 'loginType', index:'login_type', width: 40, formatter: function(value, options, row){
+                if (value) {
+                    return value === '0' ? '本システム' :'LEシステム';
+                } else {
+                    return "";
+                }
+            }},
+            { label: 'IP', name: 'ipAddr', index:'ip_addr', width: 30},
+            { label: 'OS', name: 'sysOs', index:'sys_os',width: 30},
+            { label: 'ブラウザ', name: 'browserType', index:'browser_type',width: 30},
+            { label: '開始時間', name: 'sesStartDt', index:'ses_start_dt',width: 50},
+            { label: '最新登録時間', name: 'sesLastAccessDt', index:'ses_last_access_dt',width: 50},
+        ],
+        viewrecords: true,
+        height: 385,
+        rowNum: 10,
+        rowList : [10, 30, 50, 100, 200],
+        rownumbers: true, 
+        rownumWidth: 25, 
+        autowidth:true,
+        multiselect: true,
+        pager: "#jqGridPager",
+        jsonReader : {
+            root: "page.list",
+            page: "page.currPage",
+            total: "page.totalPage",
+            records: "page.totalCount"
+        },
+        prmNames : {
+            page:"page", 
+            rows:"limit", 
+            order: "order"
+        },
+        gridComplete:function(){
+            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        }
+    });
+});
+
+var vm = new Vue({
+    el:'#rrapp',
+    data:{
+        q:{
+            sessionId: null
+        }
+    },
+    showList: true,
+    methods: {
+        query: function () {
+            $("#jqGrid").jqGrid('setGridParam',{ 
+                postData:{'sessionId': vm.q.sessionId},
+                page:1 
+            }).trigger("reloadGrid");
+        },
+        forceLogout: function () {
+            var sessionIds = getSelectedRows();
+            if(sessionIds == null){
+                return ;
+            }
+
+            confirm('選択したユーザーをログアウトしてよろしいですか。', function(){
+                $.ajax({
+                    type: "POST",
+                    url: "../../sys/online/forceLogout",
+                    contentType: "application/json",
+                    data: JSON.stringify(sessionIds),
+                    success: function(r){
+                        if(r.code == 0){
+                            alert('強制ログアウト処理は完了しました。', function(){
+                                vm.reload();
+                            });
+                        }else{
+                            alert(r.msg);
+                        }
+                    }
+                });
+            });
+        },
+        reload: function () {
+            vm.showList = true;
+            var page = $("#jqGrid").jqGrid('getGridParam','page');
+            $("#jqGrid").jqGrid('setGridParam',{
+                postData:{'sessionId': vm.q.sessionId},
+                page:page
+            }).trigger("reloadGrid");
+        }
+    }
+});
+</script>
+</body>
+</html>

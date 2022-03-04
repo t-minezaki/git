@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.job.dao.BTGKA1002Dao">
+    <select id="getGEASList" resultType="jp.learningpark.modules.job.entity.BTGKA1002Dto">
+    SELECT
+        ME.ctgy_nm
+        , ME.id
+        , GEAS.org_id
+        , GEAS.stu_id
+        , GEAS.guard_id
+        , MG.flnm_nm
+        , MG.flnm_lnm
+        , MG.mailad AS mail_address
+        , MO.brand_cd
+        , MO.org_nm
+        , ESPD.sgd_plan_date
+        , ESPD.sgd_start_datime
+        , me.event_title
+        , me.title_img_path
+    FROM
+        guard_event_apply_sts GEAS
+        INNER JOIN mst_event ME ON ( ME.ID = GEAS.event_id AND ME.del_flg = 0 )
+        INNER JOIN event_sche_plan_del ESPD ON ( ESPD.ID = GEAS.event_sche_del_id AND ESPD.del_flg = 0 )
+        LEFT JOIN mst_guard MG ON ( MG.guard_id = GEAS.guard_id AND MG.del_flg = 0 )
+        INNER JOIN mst_org MO ON ( MO.org_id = GEAS.org_id AND MO.del_flg = 0 )
+    WHERE
+        GEAS.del_flg = 0
+        AND ME.remand_flg = '1'
+        AND ESPD.sgd_plan_date = '${sgdPlanDate}'
+    ORDER BY
+        ME.org_id,
+        ME.id,
+        GEAS.guard_id,
+        ESPD.sgd_plan_date
+    </select>
+</mapper>

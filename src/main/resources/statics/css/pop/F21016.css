@@ -1,0 +1,336 @@
+.float {
+    float: left;
+}
+
+.row {
+    overflow: hidden;
+    padding: 1vh 0;
+}
+
+#remarkDiv {
+    padding: 0;
+}
+
+.guardDisplayDiv {
+    z-index: 999;
+    position: absolute;
+    background: #f0f0f0f0;
+}
+
+.content {
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 100%;
+    padding: 0 1vw;
+}
+
+.left {
+    width: 25%;
+    text-align: left;
+    margin-left: calc(9% - 1vw);
+}
+
+.mid {
+    margin-right: 1vw;
+}
+
+.right {
+    width: 60%;
+    height: 100%;
+    text-align: left;
+    margin-left: 1vw;
+}
+
+.btnRow {
+    width: 100%;
+    padding: 4vh 1vw 1vh 1vw;
+}
+
+div#dayDiv {
+    height: 34.44px;
+}
+
+.btnRow div {
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0vh 2vw 4vh 2vw;
+    text-align: center;
+}
+
+.back-btn {
+    background: #009944;
+}
+
+.submit-btn {
+    background: #009944;
+    /*float: right;*/
+}
+
+.btn {
+    border-radius: 5px;
+    width: 22%;
+    text-align: center;
+    color: whitesmoke;
+    height: 28px;
+    line-height: 28px;
+    border: 0;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    float: unset;
+}
+
+.right .btn {
+    border-radius: 10px;
+    width: 30%;
+    color: white;
+    border: 0;
+    background: grey;
+    height: 26px;
+    font-size: 0.8em;
+    margin-left: 20px;
+}
+
+.first {
+    margin-left: 0 !important;
+}
+
+.absence {
+    margin-left: 20px;
+}
+
+.active {
+    background: #009944 !important;
+}
+
+.input {
+    width: 100%;
+    height: 26px;
+    text-indent: 10px;
+    background-color: white;
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+.clickPhoto {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    /*top: 5px!important;*/
+    /*right: 3px!important;*/
+}
+
+select {
+    -webkit-appearance: none;
+}
+
+span {
+    font-size: 13px;
+}
+
+.header {
+    width: 100%;
+    background: #F0F0F0;
+    color: #444;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-indent: 2vw;
+}
+
+
+/*lay_date*/
+.layui-laydate-content td, .layui-laydate-content th {
+    width: 20px !important;
+    height: 20px !important;
+    padding: 1px !important;
+    text-align: center !important;
+}
+
+.laydate-set-ym {
+    width: 100% !important;
+    text-align: center !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+.layui-laydate-main {
+    width: 167px !important;
+}
+
+.layui-laydate-header {
+    position: relative !important;
+    line-height: 15px !important;
+    padding: 2px 40px 2px !important;
+}
+
+table {
+    width: 20em;
+    height: 16.5em;
+}
+
+.layui-laydate-main.laydate-main-list-0 {
+    height: 19em;
+}
+
+.layui-laydate {
+    position: absolute;
+    z-index: 66666666;
+    margin: 0px 0 !important;
+    border-radius: 2px;
+    font-size: 14px;
+    width:20em;
+    height: 19.5em;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: laydate-upbit;
+    animation-name: laydate-upbit;
+}
+
+.layui-laydate-header i {
+    position: absolute !important;
+    top: 2px !important;
+    color: #999 !important;
+    font-size: 5px !important;
+}
+.layui-laydate-header {
+    width: 21em;
+}
+
+.layui-laydate-content {
+    position: relative !important;
+    padding: 0px 10px !important;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
+    -ms-user-select: none !important;
+}
+
+.layui-laydate-footer {
+    position: relative !important;
+    height: 23px !important;
+    line-height: 24px !important;
+    padding: 0 1vw !important;
+}
+
+.laydate-footer-btns span {
+    height: 20px !important;
+    line-height: 21px !important;
+    margin: 0 0 0 -1px !important;
+    padding: 0 2px !important;
+    border: 1px solid #C9C9C9 !important;
+    background-color: #fff !important;
+    white-space: nowrap !important;
+    vertical-align: top !important;
+    border-radius: 2px !important;
+}
+
+.laydate-footer-btns {
+    position: absolute !important;
+    right: 1px !important;
+    top: 1px !important;
+}
+
+.layui-laydate-footer span {
+    margin-right: 0 !important;
+    display: inline-block !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
+}
+
+
+
+.layui-laydate-header i.laydate-prev-y {
+    left: 0px !important;
+}
+
+.layui-laydate-header i.laydate-prev-m {
+    left: 20px !important;
+}
+
+.layui-laydate-header i.laydate-next-m {
+    right: 20px !important;
+}
+
+.layui-laydate-header i.laydate-next-y {
+    right: 0px !important;
+}
+
+/*select2*/
+.select2-container {
+    width: 100%!important;
+}
+
+.select2-container--default .select2-selection--single {
+    border-radius: 0px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    font-size: 13px;
+}
+.layui-laydate *{
+    font-size: 13px !important;
+}
+
+.laydate-time-list ol li {
+    width: 101% !important;
+    padding-left: 11px !important;
+    line-height: 18px !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    margin-left: 5px !important;
+}
+
+.laydate-time-list ol {
+    height: 100px !important;
+    overflow-y: auto !important;
+    width: 55px !important;
+}
+
+.laydate-time-list p {
+    position: relative !important;
+    top: -4px !important;
+    line-height: 6px !important;
+}
+
+.laydate-set-ym span, .layui-laydate-header i {
+    padding: 0 4px !important;
+    cursor: pointer !important;
+}
+ul.layui-laydate-list.laydate-year-list {
+    width: 21em;
+}
+
+ul.layui-laydate-list.laydate-month-list {
+    width: 21em;
+}
+.layui-laydate .layui-this {
+    background-color: #009688 !important;
+    color: #fff !important;
+}
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}

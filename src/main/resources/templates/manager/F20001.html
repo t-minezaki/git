@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title id="F20001">生徒一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F20001.css"/>
+</head>
+<body>
+<div id="pageF20001" v-cloak>
+<!--    <header style="width: 100%;padding: 0 1vw">-->
+<!--        <div class="header_logo" onclick="window.location.href='./F20001.html'"></div>-->
+<!--        <div class="mentorInfo">-->
+<!--            <span id="mentorNm" class="mentorNm">{{mentorNm}}</span>-->
+<!--            <span>さん、ようこそ！</span>-->
+<!--        </div>-->
+<!--        <ul class="header_operat">-->
+<!--            <li class="endLi" onclick="openUrl('logout')" style="margin-right: 20px;text-align: right">-->
+<!--                <img src="../img/logout1.png" alt="logout"/>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <div style="margin-right: .2em !important;" class="headerBtn">-->
+<!--            <button onclick="window.location.href='../common/F40008.html'">ID/パスワード変更</button>-->
+<!--            <button onclick="window.location.href='F21001.html'">基本情報変更</button>-->
+<!--        </div>-->
+<!--    </header>-->
+<!--    <div style="width: 100%;height: 7vw;background: #009944 "></div>-->
+    <div id="message" class="topMessage"></div>
+    <div class="content">
+        <div class="topBtn">
+            <button id="likeSearch">検索</button>
+        </div>
+        <ul>
+            <li v-for="d in list">
+                <!--<div v-if="d.status == 1"><img src="../img/tx_1.png" alt="" class="tx"/></div>-->
+                <!--<div v-if="d.status == 2"><img src="../img/tx_2.png" alt="" class="tx"/></div>-->
+                <!--<div v-if="d.status == 0"><img src="../img/tx_0.png" alt="" class="tx"/></div>-->
+                <span v-if="d.nameStatus"><p style="color: #009944"><a desc="/manager/F20002.html"  :target=" JSON.stringify(d)"  v-text="d.stuNM+' '+d.stuLNM"></a></p></span>
+                <span v-if="!d.nameStatus"><p style="color: #6d6d72"><a desc="/manager/F20002.html"  :target="JSON.stringify(d)" v-text="d.stuNM+' '+d.stuLNM"></a></p></span>
+                <span><a desc="/manager/F20010.html" :target="JSON.stringify(d)" ><img src="../img/grade.png" alt="" class="rl"/></a></span>
+                <span><a desc="/manager/F20008.html" :target="JSON.stringify(d)" ><img src="../img/situation.png" alt="" class="rl"/></a></span>
+                <span><a desc="/manager/F20006.html" :target="JSON.stringify(d)" ><img src="../img/rl_1.png" alt="" class="rl"/></a></span>
+                <span><a desc="/manager/F20003.html" :target="JSON.stringify(d)" ><img src="../img/s_1.png" alt="" class="f_s"/></a></span>
+            </li>
+        </ul>
+        <div id="popId" class="disNone">
+            <div class="popDiv">
+                <div class="title">検索条件</div>
+                <div class="popContent">
+                    <div class="left">生徒ID</div>
+                    <div class="right">
+                        <input type="text" id="userId">
+                    </div>
+                    <div class="left">生徒姓名</div>
+                    <div class="right">
+                        <input type="text" id="userName">
+                    </div>
+                    <div class="left">学年</div>
+                    <div class="right">
+                        <select id="schyDiv">
+                            <option value=""></option>
+                            <option v-for="schy in schyList" :value="schy.codCd" v-text="schy.codValue"></option>
+                        </select>
+                        <img src="../img/popBottom.png" style="pointer-events: none" alt="" onclick="$('#schyDiv').click()" alt="">
+                    </div>
+                    <div class="left">グループ名</div>
+                    <div class="right">
+                        <select id="grpDiv1">
+                            <option value=""></option>
+                            <option v-for="group in groupsList" :value="group.grpId" v-text="group.grpNm"></option>
+                        </select>
+                        <img src="../img/popBottom.png" style="pointer-events: none" alt="" onclick="$('#grpDiv1').click()">
+                    </div>
+                    <div class="left left_che">未計画者に絞る</div>
+                    <div class="right right_che">
+                        <input id="color-input-red" class="chat-button-location-radio-input"  type="checkbox" name="color-input-red" value="#f0544d" />
+                        <label  for="color-input-red"></label >
+                    </div>
+                </div>
+                <div class="popBtn">
+                    <button id="cancelBtn">キャンセル</button>
+                    <button class="popBtnright" @click="submitFn">絞り込み</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- layer -->
+<script src="${request.contextPath}/js/manager/F20001.js" type="text/javascript" charset="utf-8"></script>
+</html>

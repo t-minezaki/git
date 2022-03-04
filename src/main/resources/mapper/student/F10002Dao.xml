@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10002Dao">
+    <select id="selectStuInfo" parameterType="string" resultType="jp.learningpark.modules.student.dto.F10002Dto">
+        SELECT DISTINCT
+        sm.id,
+        sm.birthd,
+        sm.phot_path photPath,
+        sm.flnm_nm stuFnm,
+        sm.flnm_lnm stuLnm,
+        sm.flnm_nm || ' ' || sm.flnm_lnm stuNm,
+        sm.stu_id stuId,
+        sm.sch schNm,
+        sm.schy_div schyDiv,
+        cmd.cod_value schyVal,
+        cmd1.cod_value gendrVal,
+		om.org_nm,
+		um.after_usr_id
+        FROM
+        mst_org om,mst_stu sm
+--         INNER JOIN mst_sch schm ON sm.sch_cd = schm.sch_cd
+--         AND schm.del_flg = 0
+        INNER JOIN mst_usr um on um.usr_id=sm.stu_id
+		and um.del_flg=0
+        INNER JOIN mst_cod_d cmd ON sm.schy_div = cmd.cod_cd
+        AND cmd.cod_key = 'SCHY_DIV'
+        AND cmd.del_flg = 0
+				INNER JOIN mst_cod_d cmd1 ON sm.gendr_div = cmd1.cod_cd
+        AND cmd1.cod_key = 'GENDR_DIV'
+        AND cmd1.del_flg = 0
+				WHERE sm.stu_id=#{stuId}
+				AND sm.del_flg=0
+				AND om.org_id=#{orgId}
+				AND om.del_flg=0
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstVariousSetDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstVariousSetEntity" id="mstVariousSetMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="reRecoTime" column="re_reco_time"/>
+        <result property="goSchMsg" column="go_sch_msg"/>
+        <result property="goSchErrMsg" column="go_sch_err_msg"/>
+        <result property="douGoSchMsg" column="dou_go_sch_msg"/>
+        <result property="goSchPoint" column="go_sch_point"/>
+        <result property="doLoginPoint" column="do_login_point"/>
+        <result property="doTotalPoint" column="do_total_point"/>
+        <result property="inRoomPoint" column="in_room_point"/>
+        <result property="paddPoint" column="padd_point"/>
+        <result property="fullMarksPoint" column="full_marks_point"/>
+        <result property="workOutPoint" column="work_out_point"/>
+        <result property="attentOutPoint" column="attent_out_point"/>
+        <result property="birthdayTimePoint" column="birthday_time_point"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00009Dao">
+    <select id="selectLowerOrgList" parameterType="string" resultType="jp.learningpark.modules.manager.dto.F00009Dto">
+        with RECURSIVE cte as
+        (
+            select * from mst_org om
+            where om.org_id=#{orgId}
+                and om.brand_cd=#{brandCd}
+                and om.del_flg=0
+            union all
+            select d.* from cte c inner join mst_org d
+                on c.org_id=d.upplev_org_id
+                and d.del_flg=0
+        )
+        select  DISTINCT * from cte s
+        order  by s.level DESC,s.org_id
+    </select>
+    <select id="lowerOrgList" resultType="jp.learningpark.modules.manager.dto.F00009Dto">
+        select
+        a.id,
+        a.org_id orgId,
+        a.org_nm orgNm,
+        a.level,
+        a.upplev_org_id upplevOrgId,
+        c.org_nm upLevOrgNm,
+        b.cod_value mgrVal
+        FROM mst_org a
+        inner join mst_cod_d b on b.cod_key = 'MGR_FLG' and b.cod_cd = a.mgr_flg and b.del_flg = 0
+        inner join mst_org c on c.org_id = a.upplev_org_id and c.del_flg = 0
+        WHERE
+        a.org_id <![CDATA[ <> ]]> #{orgId}
+        <if test='currentOrgId != null and currentOrgId != ""'>
+            and a.org_id = #{currentOrgId}
+        </if>
+        <if test='(currentOrgId == null || currentOrgId == "") and orgIdList != null and orgIdList.size() != 0'>
+            and a.org_id in
+            <foreach collection="orgIdList" item="orgId" index="index"
+                     open="(" close=")" separator=",">
+                #{orgId}
+            </foreach>
+        </if>
+        <if test='orgNm != null and orgNm != ""'>
+            and a.org_nm LIKE CONCAT('%',#{orgNm},'%')
+        </if>
+        <if test='level != null and level != ""'>
+            and a.level = #{level}
+        </if>
+        <if test='upLevOrgId != null and upLevOrgId != ""'>
+            and a.upplev_org_id = #{upLevOrgId}
+        </if>
+        <if test='mgrFlg == 1'>
+            and a.mgr_flg = '1'
+        </if>
+        <if test='mgrFlg == 2'>
+            and a.mgr_flg = '0'
+        </if>
+        ORDER BY a.level,a.org_id
+        <if test="page != null">
+            Limit #{limit} offset #{page}
+        </if>
+    </select>
+    <select id="lowerOrgCount" resultType="java.lang.Integer">
+        select count(*) FROM mst_org a
+        inner join mst_cod_d b on b.cod_key = 'MGR_FLG' and b.cod_cd = a.mgr_flg and b.del_flg = 0
+        inner join mst_org c on c.org_id = a.upplev_org_id and c.del_flg = 0
+        WHERE
+        a.org_id <![CDATA[ <> ]]> #{orgId}
+        <if test='currentOrgId != null and currentOrgId != ""'>
+            and a.org_id = #{currentOrgId}
+        </if>
+        <if test='(currentOrgId == null || currentOrgId == "") and orgIdList != null and orgIdList.size() != 0'>
+            and a.org_id in
+            <foreach collection="orgIdList" item="orgId" index="index"
+                     open="(" close=")" separator=",">
+                #{orgId}
+            </foreach>
+        </if>
+        <if test='orgNm != null and orgNm != ""'>
+            and a.org_nm LIKE CONCAT('%',#{orgNm},'%')
+        </if>
+        <if test='level != null and level != ""'>
+            and a.level = #{level}
+        </if>
+        <if test='upLevOrgId != null and upLevOrgId != ""'>
+            and a.upplev_org_id = #{upLevOrgId}
+        </if>
+        <if test='mgrFlg == 1'>
+            and a.mgr_flg = '1'
+        </if>
+        <if test='mgrFlg == 2'>
+            and a.mgr_flg = '0'
+        </if>
+    </select>
+    <select id="getQrUser" resultType="jp.learningpark.modules.manager.dto.F00009Dto">
+        SELECT DISTINCT
+        mu.usr_id,
+        mu.after_usr_id,
+        mu.spec_auth_flg,
+        mu.org_id,
+        mu.upd_datime
+        FROM
+        mst_org AS mo
+        INNER JOIN mst_usr AS mu ON mu.org_id = mo.org_id
+        WHERE
+        mo.org_id IN
+        <foreach collection="orgIdList" item="orgId" index="index"
+                 open="(" close=")" separator=",">
+            #{orgId}
+        </foreach>
+        AND mu.spec_auth_flg = '2'
+        AND mu.del_flg = 0
+        AND mo.del_flg = 0
+        ORDER BY
+        mu.after_usr_id
+    </select>
+    <select id="getAftUsrIds" resultType="jp.learningpark.modules.manager.dto.F00009Dto">
+        SELECT DISTINCT
+        mu.after_usr_id
+        FROM
+        mst_org AS mo
+        INNER JOIN mst_usr AS mu ON mu.org_id = mo.org_id
+        WHERE
+        mo.org_id IN
+        <foreach collection="orgIdList" item="orgId" index="index"
+                 open="(" close=")" separator=",">
+            #{orgId}
+        </foreach>
+        AND mu.spec_auth_flg = '2'
+        AND mu.del_flg = 0
+        AND mo.del_flg = 0
+        ORDER BY
+        mu.after_usr_id
+    </select>
+    <update id="updateMgr">
+        UPDATE mst_manager
+        SET del_flg = 1
+        WHERE
+                mgr_id IN ( SELECT usr_id FROM mst_usr WHERE del_flg = 0 AND role_div = '1' AND org_id = #{orgId} )
+    </update>
+    <update id="updateMen">
+        UPDATE mst_mentor
+        SET del_flg = 1
+        WHERE
+                mentor_id IN ( SELECT usr_id FROM mst_usr WHERE del_flg = 0 AND role_div = '2' AND org_id = #{orgId} )
+    </update>
+    <update id="updateGuard">
+        UPDATE mst_guard
+        SET del_flg = 1
+        WHERE
+                guard_id IN ( SELECT usr_id FROM mst_usr WHERE del_flg = 0 AND role_div = '3' AND org_id = #{orgId} )
+    </update>
+    <update id="updateStu">
+        UPDATE mst_stu
+        SET del_flg = 1
+        WHERE
+                stu_id IN ( SELECT usr_id FROM mst_usr WHERE del_flg = 0 AND role_div = '4' AND org_id = #{orgId} )
+    </update>
+
+    <delete id="deleteSysUserRole">
+        DELETE
+        FROM
+                sys_user_role
+        WHERE
+                user_id IN ( SELECT id FROM mst_usr WHERE del_flg = 0 AND org_id = #{orgId} )
+    </delete>
+</mapper>

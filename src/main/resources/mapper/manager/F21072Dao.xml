@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F21072Dao">
+    <!-- 組織情報、面談メッセージ閲覧状況より、取得する。 -->
+    <select id="selectManagerAndMentorById" resultType="jp.learningpark.modules.pop.dto.F21072Dto">
+        SELECT user_info.userName
+        , user_info.afterUserId
+        FROM (
+        SELECT
+        mu.after_usr_id AS afterUserId
+        , mm.flnm_nm || ' ' || mm.flnm_lnm AS userName
+        FROM talk_reading_sts trs
+        LEFT JOIN mst_manager mm ON (trs.message_id = #{messageId}
+        AND trs.org_id = #{orgId}
+        AND trs.reading_sts_div = #{readFlg}
+        AND mm.del_flg = 0
+        AND trs.deliver_id = mm.mgr_id)
+        INNER JOIN mst_usr mu ON (mm.mgr_id = mu.usr_id AND mu.del_flg = 0)
+        UNION ALL
+        SELECT
+        mu.after_usr_id AS afterUserId
+        , mm.flnm_nm || ' ' || mm.flnm_lnm AS userName
+        FROM talk_reading_sts trs
+        LEFT JOIN mst_mentor mm ON (trs.message_id = #{messageId}
+        AND trs.org_id = #{orgId}
+        AND trs.reading_sts_div = #{readFlg}
+        AND mm.del_flg = 0
+        AND trs.deliver_id = mm.mentor_id)
+        INNER JOIN mst_usr mu ON (mm.mentor_id = mu.usr_id AND mu.del_flg = 0)
+        ) AS user_info
+        ORDER BY
+        user_info.afterUserId
+        <if test="pageSize != null">
+            Limit #{limit} offset #{pageSize}
+        </if>
+    </select>
+    <select id="selectManagerAndMentorCount" resultType="java.lang.Integer">
+        SELECT
+            count (*)
+        FROM
+        (
+            SELECT
+                mu.after_usr_id                     AS afterUserId
+                , mm.flnm_nm || ' ' || mm.flnm_lnm  AS userName
+            FROM talk_reading_sts trs
+            LEFT JOIN mst_manager mm ON (trs.message_id = #{messageId}
+                AND trs.org_id = #{orgId}
+                AND trs.reading_sts_div = #{readFlg}
+                AND mm.del_flg = 0
+                AND trs.del_flg = 0
+                AND trs.deliver_id = mm.mgr_id)
+            INNER JOIN mst_usr mu ON (mm.mgr_id = mu.usr_id AND mu.del_flg = 0)
+            UNION ALL
+            SELECT
+                mu.after_usr_id                     AS afterUserId
+                , mm.flnm_nm || ' ' || mm.flnm_lnm  AS userName
+            FROM talk_reading_sts trs
+            LEFT JOIN mst_mentor mm ON (trs.message_id = #{messageId}
+                AND trs.org_id = #{orgId}
+                AND trs.reading_sts_div = #{readFlg}
+                AND mm.del_flg = 0
+                AND trs.del_flg = 0
+                AND trs.deliver_id = mm.mentor_id)
+            INNER JOIN mst_usr mu ON (mm.mentor_id = mu.usr_id AND mu.del_flg = 0)
+        ) AS user_info
+    </select>
+</mapper>

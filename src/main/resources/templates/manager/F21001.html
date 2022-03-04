@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>先生基本情報登録画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F21001.css"/>
+</head>
+<body>
+<header  style="padding: 0 1vw">
+    <div class="header_logo" onclick="window.location.href='F20001.html'">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout"/>
+        </li>
+    </ul>
+</header>
+<div class="content">
+    <div id="message" class="topMessage"></div>
+    <div class="mian">
+        <div class="mainTitle">ユーザー情報登録・変更:基本情報</div>
+        <form id="f21001Form">
+        <div class="mainDiv" id="ttth">
+            <div class="topMain">
+                修正したい内容を変更の上、「変更」をクリックしてください。
+            </div>
+            <div class="bottomMain tInput">
+                <p class="required">氏名</p>
+                <input type="text" id="flnmNm" name="flnmNm" maxlength="10">
+                <input type="text" id="flnmLnm" name="flnmLnm" maxlength="10">
+            </div>
+            <div class="bottomMain tInput">
+                <p class="required">力ナ</p>
+                <input type="text" id="flnmKnNm" name="flnmKnNm" maxlength="10">
+                <input type="text" id="flnmKnLnm" name="flnmKnLnm" maxlength="10">
+            </div>
+            <div class="bottomMain pInput more">
+                <p>電話番号</p>
+                <input type="text" id="telnum" name="telnum" maxlength="20">
+                <p class="sp">※ハイフンなしで数字のみ入力してください</p>
+            </div>
+            <div class="bottomMain">
+                <p class="required">メールアドレス</p>
+                <input type="text" id="email" name="email" maxlength="50">
+            </div>
+            <div class="bottomMain" style="border: 0;">
+                <p></p>
+                <p class="center">[*] は入力必須項目です</p>
+            </div>
+        </div>
+        </form>
+        <div class="theme_btn">
+            <div class="btn_con">
+                <button class="left" @click="backFn()">戻る</button>
+                <button @click="submitFn()">変更</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/manager/F21001.js"></script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>通知プッシュ失敗一覧画面</title>
+    <script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F21062.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F04007.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F40026.css"/>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="page">
+    <div class="one">
+        <div>
+            <ul class="one-ul">
+                <li>{{title}}</li>
+                <li>  ＞   配信設定/状況確認</li>
+                <li>  ＞   通知プッシュ失敗件数</li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_head">
+        <div class="div_head_title">
+            <span class="span_div"> 通知プッシュ失敗</span>
+            対象者一覧: {{ objSum }}名
+        </div>
+        <div class="topBotton">
+            <button class="sendMsg" v-if=" msgType==1 " onclick="deliver()">再通知</button>
+        </div>
+    </div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div class="bottom">
+        <button class="back" onclick="window.history.go(-1)" id="closeBtn">戻る</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/pop/F40026.js"></script>
+</html>

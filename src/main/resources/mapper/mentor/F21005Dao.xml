@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.manager.dao.F21005Dao">
+    <resultMap id="lateAbsHistory" type="jp.learningpark.modules.manager.dto.F21005Dto">
+        <result property="id" column="id"/>
+        <result property="guardName" column="guard_name"/>
+        <result property="dateTime" column="datetime"/>
+    </resultMap>
+    <select id="getLateAbsHistoryByDay" resultMap="lateAbsHistory">
+        select
+        a.id,
+        a.stu_id,
+        a.guard_id,
+        a.corrspd_sts,
+        to_char(a.tgt_ymd, 'yyyy/MM/dd hh24:mi') as datetime,
+        concat(b.flnm_nm, ' ', b.flnm_lnm) as guard_name,
+        c.flnm_nm|| ' '|| c.flnm_lnm as stuNm,
+        mcd.cod_value
+        from
+        (select id, stu_id, guard_id, tgt_ymd, corrspd_sts,org_id from late_abs_hst
+        where CAST(to_char( tgt_ymd, 'yyyy-MM-dd' ) as TIMESTAMP) = #{day}  and del_flg = 0) a
+        inner join
+        mst_guard b
+        on
+        (a.guard_id = b.guard_id)
+        inner join
+        mst_stu c
+        on
+        (a.stu_id = c.stu_id)
+        inner join mst_cod_d as mcd on mcd.cod_cd = c.schy_div and mcd.cod_key = 'SCHY_DIV' and mcd.del_flg = 0
+        <if test="roleDiv == 2">
+            inner join mentor_stu as ms on ms.stu_id = a.stu_id and ms.mentor_id = #{userId} and ms.del_flg = 0
+        </if>
+        where
+        b.del_flg = 0
+        and c.del_flg = 0
+        <if test="roleDiv == 1">
+            AND a.org_id = #{orgId}
+        </if>
+        order by a.tgt_ymd desc
+        <if test="offset != null">
+            Limit #{limit} offset #{offset}
+        </if>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            (select stu_id, guard_id,org_id, cret_datime, abs_sts, late_tm, abs_reason, bikou from late_abs_hst where CAST(to_char( tgt_ymd, 'yyyy-MM-dd' ) as TIMESTAMP) = #{day}  and del_flg = 0) a
+        inner join
+            mst_guard b
+        on
+            (a.guard_id = b.guard_id)
+        inner join
+            mst_stu c
+        on
+            (a.stu_id = c.stu_id)
+        inner join
+            mst_cod_d d
+        on
+            (a.abs_reason = d.cod_cd and d.cod_key = 'ABS_REASON')
+        inner join mst_cod_d as mcd on mcd.cod_cd = c.schy_div and mcd.cod_key = 'SCHY_DIV' and mcd.del_flg = 0
+        <if test="roleDiv == 2">
+            inner join mentor_stu as ms on ms.stu_id = a.stu_id and ms.mentor_id = #{userId} and ms.del_flg = 0
+        </if>
+        where
+            b.del_flg = 0
+            and c.del_flg = 0
+            and d.del_flg = 0
+        <if test="roleDiv == 1">
+            and a.org_id = #{orgId}
+        </if>
+    </select>
+</mapper>

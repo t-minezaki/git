@@ -1,0 +1,30 @@
+html, body {
+    background: white;
+    height: 100%;
+}
+
+.send-user {
+    height: 42px;
+    font-size: 2em;
+    line-height: 42px;
+    border-top: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+    margin-left: 2%;
+    padding: 0 2%;
+    width: 96%;
+}
+
+.content {
+    width: 96%;
+    margin-left: 2%;
+    margin-top: 21px;
+    font-size: 2em;
+    overflow-y: auto;
+    height: calc(98% - 63px);
+    padding: 0 2%;
+    word-break: break-all;
+}
+
+#app {
+    height: 100%;
+}

@@ -1,0 +1,165 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+    margin: unset !important;
+}
+
+.box{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid red;*/
+    /*margin:300px auto;*/
+    position: relative;
+    /*width: 12vw;*/
+    /*height: 4vh;*/
+    /*line-height: 4vh;*/
+    /*font-size: 1vw;*/
+    /*font-weight: bolder;*/
+    /*color: #05B253;*/
+    /*border: 2px #05B253 solid;*/
+    /*border-radius: 5px;*/
+    /*background: transparent;*/
+    /*position: relative;*/
+    /*top: 0.5vh;*/
+    /*left: 2vw;*/
+    /*padding: 0px;*/
+}
+.colorMenu{
+    width: 60px;
+    height: 27px;
+    float:left;
+    position: relative;
+    text-indent: 5px;
+    cursor: default;
+    line-height: 27px;
+    font-size: 14px;
+}
+.colorMenu:hover{
+    background: #d8e1f2;
+    cursor: default;
+    font-size: 14px;
+}
+#triangle-top{
+    width:0px;
+    height:0px;
+    float: left;
+    border:8px solid;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    border-color:#000 transparent transparent transparent;
+    border-style:solid dashed dashed dashed;
+}
+.container{
+    width: 100%;
+    height: 80%;
+    /*border: 1px solid green;*/
+    /*position: absolute;*/
+    /*top:27px;*/
+    /*display: none;*/
+}
+.container div.preColor{
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+    margin-top: 5px;
+    background: blue;
+    float: left;
+    margin-bottom: 5px;
+}
+.container div.preColor:hover{
+    /*border: 1px solid orange;*/
+    width: 8px;
+    height: 8px;
+}
+
+.arrColor div{
+    width: 25px;
+    height: 25px;
+    margin-left: 11px;
+    margin-top: 5px;
+    background: blue;
+    float: left;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+.container div.txt{
+    background: #eee;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-indent: 10px;
+    font-size: 14px;
+    cursor: default;
+}
+.clear{
+    clear: both;
+}
+.normColor{
+    width: 100%;
+    height: 15px;
+    /*border-bottom: 1px solid #d4d4d4;*/
+    margin: 2px auto;
+}
+.normColor div{
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+    margin-top: 2px;
+    background: green;
+    float: left;
+}
+.moreColor{
+    width: 100%;
+    height: 25px;
+    /*text-indent: 10px;*/
+    /*line-height: 25px;*/
+    font-size: 14px;
+    cursor: default;
+    position:absolute;
+}
+input.moreColor{
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    padding: unset !important;
+    border: unset;
+    opacity: 0;
+    left: 5.5vw;
+    bottom: 5vh;
+}
+
+.selectedColor{
+    position: absolute;
+    left: 30vw;
+    width: 20px;
+    height: 20px;
+    background: white;
+    float: left;
+    border: 1px solid grey;
+    bottom: 4vh;
+}
+
+#setColor{
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border: unset;
+    background: #696969;
+    color: white;
+}
+
+/*input.moreColor:hover{*/
+    /*background: #d8e1f2;*/
+    /*cursor: default;*/
+/*}*/
+/*.color:hover{*/
+    /*width: 8px;*/
+    /*height: 10px;*/
+    /*!*border: 1px solid #f29436;*!*/
+/*}*/

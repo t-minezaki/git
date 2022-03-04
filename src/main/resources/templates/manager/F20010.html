@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title id="F20010"></title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F20010.css"/>
+</head>
+<body>
+<div id="el" v-cloak>
+    <iframe src="../common/F40003.html?id=F20010" width="100%"
+            style="padding:0;border:none;margin-top:1vw;scrolling : no;height: calc(2.7vw + 2px)"></iframe>
+    <div class="content">
+        <ul class="title_tab_two">
+            <li class="title_li_one active" @click="typeBtn('1')">定期テスト</li>
+            <li @click="typeBtn('4')">実力テスト</li>
+            <li @click="typeBtn('3')">模試</li>
+            <li @click="typeBtn('2')" class="title_li_end">通知表</li>
+            <!--<li id="tomorrow" class="title_li_end">明日の学力</li>-->
+        </ul>
+        <div class="contentDiv">
+            <div class="contentTitle">
+                <select v-model="stuSchy.schyVal" name="" id="schySelect" @change="schyChange(schyList)">
+                    <option v-for="idx in schyList">{{idx.schyVal}}</option>
+                </select>
+            </div>
+            <div id="message" class="topMessage"></div>
+            <div class="contentT">
+                <table cellspacing="0">
+                    <tr class="trTitle">
+                        <th v-if="subjtTitle.length != 0" colspan="3" class="first"></th>
+                        <th v-for="i in 11" :class="setTitleClass(i)">
+                            <span v-if="i <= subjtTitle.length">{{subjtTitle[i-1].subjtVal}}</span>
+                            <span v-else="i > subjtTitle.length"></span>
+                        </th>
+                    </tr>
+                    <tbody v-for="i in pointList">
+                    <tr class="topSolid textRight">
+                        <th colspan="2" rowspan="3" class="tableTitle first">{{i.seasnTitle}}</th>
+                        <th class="pointTitle">得点</th>
+                        <td v-for="a in 11" :class="getClass(a)">
+                            <span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a-1].resultPoints != null" style="color: green">{{i.resultPointsAreaMap[a-1].resultPoints}}</span>
+                            <span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a-1].resultPoints == null" style="color: green"></span>
+                            <span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a-1].resultPoints != null">/</span>
+                            <span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a-1].resultPerfectPoints != null">{{i.resultPointsAreaMap[a-1].resultPerfectPoints}}</span>
+                            <span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a-1].resultPerfectPoints == null"></span>
+                        </td>
+                    </tr>
+                    <tr class="textRight">
+                        <th class="pointTitle">平均点</th>
+                        <td v-for="a in 11" :class="getClass(a)">
+                            <span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a-1].resultAvg != null">{{i.resultPointsAreaMap[a-1].resultAvg}}</span>
+                            <span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a-1].resultAvg == null"></span>
+                            <span v-if="(a == 6 || a == 11) && a <= i.resultPointsAreaMap.length &&
+                            i.resultPointsAreaMap[a-1].resultAvg != null && i.resultPointsAreaMap[a-1].goalPerfectPoints != null">/</span>
+                            <span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a-1].goalPerfectPoints != null && (a == 6 || a ==11)">{{i.resultPointsAreaMap[a-1].goalPerfectPoints}}</span>
+                            <span v-if="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a-1].goalPerfectPoints == null && (a == 6 || a ==11)"></span>
+                        </td>
+                    </tr>
+                    <tr class="textRight">
+                        <th class="pointTitle">順位</th>
+                        <td v-for="a in 11" :class="getClass(a)">
+                            <span v-if="a <= i.resultPointsAreaMap.length && i.resultPointsAreaMap[a-1].resultRank != null">{{i.resultPointsAreaMap[a-1].resultRank}}</span>
+                            <span v-else="a > i.resultPointsAreaMap.length || i.resultPointsAreaMap[a-1].resultRank == null"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F20010.js"></script>
+</html>

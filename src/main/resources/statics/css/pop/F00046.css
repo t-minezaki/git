@@ -1,0 +1,232 @@
+html {
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+}
+
+.main{
+    height: 100%;
+    width: 100%;
+}
+
+#app{
+    height: 100%;
+    width: 100%;
+}
+
+.header_operat {
+    width: auto;
+}
+
+.content {
+    padding: 0;
+}
+
+.popTitle {
+    color: #000;
+    width: 100%;
+    height: 5.6vw;
+    line-height: 3.6vw;
+    font-size: 1.2vw;
+    text-align: center;
+    font-weight: bold;
+}
+
+.end_btn {
+    width: 28%;
+    border-radius: 4px;
+    background: #009944;
+    border: 2px solid #009944;
+    color: white;
+    /*margin-left: 3%;*/
+    /*margin-right: 3%;*/
+    font-size: 1.5vw;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+.button_div {
+    width: 100%;
+    /*text-align: center;*/
+}
+
+.button_div div:first-child {
+    width: 50%;
+    float: left;
+    text-align: right;
+    padding-right: 6vw;
+}
+
+.button_div div:nth-child(2) {
+    width: 50%;
+    float: left;
+    text-align: left;
+    padding-left: 6vw;
+}
+
+select {
+    width: 100%;
+    height: 100%;
+}
+
+.select_div .name {
+    float: left;
+    margin-left: 4.6vw;
+    margin-top: 0.1vw;
+}
+
+.select_div select {
+    float: left;
+    margin-left: 0.4vw;
+    width: 20vw;
+}
+
+.searchBtn button {
+    width: 14%;
+    border-radius: 4px;
+    background: #009944;
+    border: 2px solid #009944;
+    color: white;
+    margin-left: 7.6vw;
+    font-size: 1.5vw;
+    border-bottom: 3px rgba(0,0,0,.2) solid;
+    margin-top: 15px;
+}
+
+.span_title {
+    width: 100%;
+    height: 9vh;
+    text-align: center;
+    font-size: 2vw;
+    line-height: 9vh;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    border: 1px solid grey;
+}
+
+.box{
+    margin-top: 30px;
+}
+
+.box select {
+    background: none;
+}
+
+#select1, #select2 {
+    border-color: grey !important;
+    background: white;
+    overflow: auto;
+}
+
+.box1 {
+    width: 41%;
+    height: 100%;
+    float: left;
+}
+
+div.symbol {
+
+    float: left;
+    display: inline-block;
+    width: 9%;
+    height: 29vh;
+    text-align: center;
+    padding-right: 0.7vw;
+    position: relative;
+    top: -1vh;
+    /*background: #444;*/
+}
+
+div.symbol button {
+    display: inline-block;
+    width: 5vw;
+    height: 10vh;
+    line-height: 6vh;
+    background-color: rgb(247, 247, 247);
+    border: 1px grey solid;
+    padding: 0;
+    color: grey;
+    font-size: 5vw;
+    margin-left: 1vw;
+    border-radius: 13px;
+    overflow: hidden;
+}
+
+div.symbol div {
+    height: auto;
+    line-height: 0vh;
+    margin-top: 1vh;
+}
+
+#toleft {
+    background: url(../../img/left_button.png) no-repeat center/100%;
+}
+
+#allToLeft {
+    background: url(../../img/left_all_button.png) no-repeat center/100%;
+}
+
+#toright {
+    background: url(../../img/right_button.png) no-repeat center/100%;
+}
+
+#allToRight {
+    background: url(../../img/right_all_button.png) no-repeat center/100%;
+}
+
+.box2 button{
+    height: 18.5%;
+    width: 50%;
+    border-radius: 0.3vw;
+    background: none;
+    border: 2px solid #009944;
+    color: #009944;
+    font-weight: bolder;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 0.9vw;
+    /*margin-bottom: 1vh;*/
+}
+
+img {
+    width: 54%;
+    height: 51%;
+    display: block;
+    margin: auto;
+    padding: 20%;
+    margin-left: 1.8vw !important;
+}
+
+#chk_area > input[type="checkbox"]:checked::before {
+    content: "✔";
+    font-size: 0.8em;
+    vertical-align: super;
+    padding-left: 0.4vw;
+}
+
+#chk_area {
+    width: 2vw;
+    height: 4.8vh;
+    float: left;
+    margin-left: 4vw;
+}
+
+#selectAll {
+    -webkit-appearance: none;
+    width: 3.3vh;
+    height: 3.3vh;
+    border: 1px solid black;
+}
+
+.search-input{
+    background: white;
+    height: 6vh;
+    float: left;
+    padding-left: 5px;
+    margin-left: 40px;
+    margin-top: 2px;
+}

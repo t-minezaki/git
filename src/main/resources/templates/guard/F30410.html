@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>保護者面談の申込内容キャンセル画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30410.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="content" v-cloak>
+    <div class="title_div commonTabTitle" style="display: block">
+        <div class="back" onclick="back()">
+            <img src="../img/left.png">
+        </div>
+        <span id="guardNm">申込キャンセル</span>
+    </div>
+    <div class="content_all">
+        <div class="content_div">
+            <ul>
+                <li style="background: #F2F2F2;height: 5%;margin-top: 0">
+                    <p class="text1" style="font-weight: bold;color: red;">申込内容</p>
+                </li>
+                <li class="text3" style="border-bottom: 1px dashed grey;height: 7%;margin-top: 3vw;">
+                    <p class="text4" style="float:left;font-weight: bold;margin-left: 5vw">生徒氏名</p>
+                    <p class="text5" style="margin-left: 25vw">{{guardEventApplySts.stuName}}</p></li>
+                <li class="text2 text3" style="margin-top: 3vh;height:9%;">
+                    <p class="text4" style="float: left;width: 20vw;margin-left: 5vw;font-weight: bold;margin-top: 1px;">日時</p>
+                    <p class="text5">{{guardEventApplySts.sgdStartTime}}</p></li>
+                <li style="height:5%;color: red;background:#F2F2F2"><p  class="text1 text6" style="font-weight: bold;">確認事項</p></li>
+                <li class="message-item-container" v-if="answerResult.noteCont"><p class="message-item-title">備考</p>
+                    <p class="message-item-content">{{answerResult.noteCont ? answerResult.noteCont : ''}}</p></li>
+                <li
+                        class="message-item-container" v-for="item in answerResult.talkRecordDEntityList"
+                        v-if="item.questionName">
+                    <p class="message-item-title">{{item.questionName}}</p>
+                    <p class="message-item-content" v-if="item.answerTypeDiv !== '3'">{{item.answerReltCont}}</p>
+                    <div class="message-item-content" v-if="item.answerTypeDiv === '3'">
+                        <div :id="'photoContainer' + item.askNum" class="photo-container">
+                            <img :src="item.answerReltCont" class="photo-image"
+                                 onerror="this.src='../img/logo2.png'"
+                                 :onclick="'vm.showImg(' + item.askNum + ')'"
+                                 :id="'image' + item.askNum"/>
+                        </div>
+                    </div>
+                </li>
+                <li id="btnDiv">
+                    <div class="topMessage" style="font-weight: bolder;height: 3.5vh;font-size: 4.3vw">{{msgTop}}</div>
+                    <div class="topMessage" style="height: 5vh;font-size: 3.8vw">{{msgBottom}}</div>
+                    <button id="change" class="_btn" onclick="remove()" style="background: #4BC783">申込をキャンセルする</button>
+                    <button id="cancel" class="_btn" onclick="back()" style="margin-top: 3vw;background: #BFBFBF">戻る
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="image-container" id="imageContainer" style="display: none;">
+</div>
+<div class="div_bottom">
+    <iframe src="../common/F40004.html?id=F30301" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30410.js"></script>
+</html>

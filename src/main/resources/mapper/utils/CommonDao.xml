@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.utils.dao.CommonDao">
+
+    <!-- 対象日より、生徒固定スケジュール設定と個別スケジュール調整情報取得と計画ブロック-->
+    <select id="selectSchdlList" resultType="jp.learningpark.modules.common.utils.dto.SchdlDto">
+        select * from (
+        select
+        null as id,
+        false as editable,
+        true as is_fixed,
+        tgt.tgt_ymd,
+        sfs.block_id,
+        '' as BLOCK_TYPE_DIV,
+        case when sisa.block_dispy_nm is null then sfs.block_dispy_nm else sisa.block_dispy_nm end as block_dispy_nm,
+        NULL as memo,
+        case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+        else to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sisa.block_start_time,'hh24:mi:ss') end as start_time,
+        case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+        else to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sisa.block_end_time,'hh24:mi:ss') end as end_time,
+        null as subjt_div,
+        null as subjt_nm,
+        null as stu_term_plan_id,
+        null as stu_plan_learn_tm,
+        null as perf_learn_tm,
+        null as learn_lev_unds,
+        null as remain_disp_flg,
+        null as upd_datime,
+        null as plan_learn_seasn_id,
+        sisa.fixd_block_abolt_flg,
+        mcb.color_id
+        from (SELECT #{startYmd}::DATE + GENERATE_SERIES(0, 7) as tgt_ymd) tgt
+        left join stu_fixd_schdl sfs on  <![CDATA[ sfs.block_start_date <=tgt.tgt_ymd and sfs.block_end_date >= tgt.tgt_ymd ]]>
+        and sfs.del_flg = 0
+        and '1'=(CASE extract(DOW FROM tgt.tgt_ymd)
+        WHEN '1' THEN sfs.MO_DW_CHOC_FLG WHEN '2' THEN sfs.TU_DW_CHOC_FLG
+        WHEN '3' THEN sfs.WE_DW_CHOC_FLG WHEN '4' THEN sfs.TH_DW_CHOC_FLG
+        WHEN '5' THEN sfs.FR_DW_CHOC_FLG WHEN '6' THEN sfs.SA_DW_CHOC_FLG
+        ELSE sfs.SU_DW_CHOC_FLG
+        end)
+        left join stu_indiv_schdl_adjust sisa on sfs.id = sisa.stu_fixd_schdl_id and sisa.del_flg = 0 and sisa.plan_ymd=tgt.tgt_ymd
+        left join mst_color_block mcb on mcb.stu_id = #{stuId} and ( mcb.block_id = sisa.block_id or mcb.block_id = sfs.block_id ) and mcb.del_flg = 0
+        left join mst_holiday mh on mh.tgt_ymd=tgt.tgt_ymd and mh.country_div ='JP' and mh.del_flg = 0
+        where sfs.stu_id = #{stuId}
+        and sfs.block_id is not null and mh.id is null
+        union all
+        SELECT distinct
+        swpp.id,
+        case when swpp.perf_learn_tm is null then true else false end as editable,
+        false as is_fixed,
+        swpp.plan_ymd as tgt_ymd,
+        swpp.unit_id as block_id,
+        swpp.block_type_div,
+        case when swpp.block_type_div in ('S1', 'W1', 'R1','V1','P1')
+        then swpp.subjt_nm
+        else swpp.block_dispy_nm
+        end as block_dispy_nm,
+        swpp.block_dispy_nm as memo,
+        to_char(swpp.plan_learn_start_time,'yyyy-mm-dd hh24:mi:ss') as start_time,
+        to_char(swpp.plan_learn_start_time+ (swpp.stu_plan_learn_tm || ' min')::interval,'yyyy-mm-dd hh24:mi:ss') as end_time,
+        swpp.subjt_div,
+        swpp.subjt_nm,
+        swpp.stu_term_plan_id,
+        swpp.stu_plan_learn_tm,
+        swpp.perf_learn_tm,
+        swpp.learn_lev_unds,
+        swpp.remain_disp_flg,
+        swpp.upd_datime,
+        swpp.plan_learn_seasn_id,
+        '0' AS fixd_block_abolt_flg,
+        --         case when swpp.block_type_div = 'P1' then mcb1.color_id else mcb.color_id end as color_id
+        CASE
+        WHEN swpp.block_type_div = 'P1' THEN mcb1.color_id
+        when swpp.block_type_div like '%O%' then mcb2.color_id
+        when swpp.block_type_div in ('R1', 'W1', 'V1') then mcb1.color_id
+        else mcb.color_id
+        END AS color_id
+        FROM STU_WEEKLY_PLAN_PERF swpp
+        left join mst_color_block mcb on mcb.stu_id = #{stuId} and mcb.block_type_div = swpp.block_type_div and mcb.subjt_div = swpp.subjt_div and mcb.del_flg = 0
+        left join mst_color_block mcb1 on mcb1.stu_id = #{stuId} and mcb1.block_type_div = 'S1' and mcb1.subjt_div = swpp.subjt_div and mcb1.del_flg = 0
+        left join mst_color_block mcb2 on mcb2.stu_id = #{stuId} AND mcb2.block_type_div = swpp.block_type_div and mcb2.block_id = swpp.unit_id and mcb2.del_flg = 0
+        left join mst_color_block mcb3 on mcb3.stu_id = #{stuId} AND mcb3.block_type_div in ('R1', 'W1', 'V1') and mcb3.block_type_div = swpp.block_type_div and mcb3.del_flg
+        = 0
+        WHERE swpp.STU_ID = #{stuId}
+        AND swpp.PLAN_YMD between #{startYmd} and #{endYmd}
+        <if test="flg != 'all'">
+            AND swpp.BLOCK_TYPE_DIV in ('R1', 'S1', 'P1', 'W1','V1')
+        </if>
+        AND swpp.DEL_FLG = '0'
+        ) A
+        WHERE coalesce(A.fixd_block_abolt_flg, '0') != '1'
+        ORDER BY A.tgt_ymd, A.start_time, A.end_time DESC
+    </select>
+
+    <select id="selectPlanBlockList" resultType="jp.learningpark.modules.common.utils.dto.SchdlDto">
+        -- 計画ブロック
+        SELECT distinct
+        swpp.id,
+        CASE
+        WHEN swpp.perf_learn_tm IS NULL THEN
+        TRUE ELSE FALSE
+        END AS editable,
+        FALSE AS is_fixed,
+        swpp.plan_ymd AS tgt_ymd,
+        swpp.unit_id AS block_id,
+        swpp.block_type_div,
+        CASE
+        WHEN swpp.block_type_div IN ( 'S1', 'W1', 'R1', 'V1', 'P1' ) THEN
+        swpp.subjt_nm ELSE swpp.block_dispy_nm
+        END AS block_dispy_nm,
+        swpp.block_dispy_nm as memo,
+        to_char ( swpp.plan_learn_start_time, 'yyyy-mm-dd hh24:mi:ss' ) AS start_time,
+        to_char ( swpp.plan_learn_start_time + ( swpp.stu_plan_learn_tm || ' min' ) :: INTERVAL, 'yyyy-mm-dd hh24:mi:ss' ) AS end_time,
+        swpp.subjt_div,
+        swpp.subjt_nm,
+        swpp.stu_term_plan_id,
+        swpp.stu_plan_learn_tm,
+        swpp.perf_learn_tm,
+        swpp.learn_lev_unds,
+        swpp.remain_disp_flg,
+        swpp.upd_datime,
+        swpp.plan_learn_seasn_id,
+        '0' AS fixd_block_abolt_flg,
+        --         case when swpp.block_type_div = 'P1' then mcb1.color_id else mcb.color_id end as color_id
+        CASE
+        WHEN swpp.block_type_div = 'P1' THEN mcb1.color_id
+        when swpp.block_type_div like '%O%' then mcb2.color_id
+        when swpp.block_type_div in ('R1', 'W1', 'V1') then mcb1.color_id
+        else mcb.color_id
+        END AS color_id
+        FROM
+        STU_WEEKLY_PLAN_PERF swpp
+        left join mst_color_block mcb on mcb.stu_id = #{stuId} and mcb.block_type_div = swpp.block_type_div and mcb.subjt_div = swpp.subjt_div and mcb.del_flg = 0
+        left join mst_color_block mcb1 on mcb1.stu_id = #{stuId} and mcb1.block_type_div = 'S1' AND mcb1.subjt_div = swpp.subjt_div and mcb1.del_flg = 0
+        left join mst_color_block mcb2 on mcb2.stu_id = #{stuId}
+        AND mcb2.block_type_div = swpp.block_type_div
+        and mcb2.block_id = swpp.unit_id
+        and mcb2.del_flg = 0
+        left join mst_color_block mcb3 on mcb3.stu_id = #{stuId} AND mcb3.block_type_div in ('R1', 'W1', 'V1') and mcb3.subjt_div = swpp.subjt_div and mcb3.del_flg
+        = 0
+        WHERE swpp.STU_ID = #{stuId}
+        AND swpp.PLAN_YMD between #{startYmd} and #{endYmd}
+        <if test="flg != 'all'">
+            AND swpp.BLOCK_TYPE_DIV in ('R1', 'S1', 'P1', 'W1','V1')
+        </if>
+        AND swpp.DEL_FLG = '0'
+    </select>
+
+    <select id="selectPrintPlanBlockList" resultType="jp.learningpark.modules.common.utils.dto.SchdlDto">
+        -- 計画ブロック
+        SELECT
+        swpp.id,
+        case when swpp.perf_learn_tm is null then true else false end as editable,
+        false as is_fixed,
+        swpp.plan_ymd as tgt_ymd,
+        swpp.unit_id as block_id,
+        swpp.block_type_div,
+        case when swpp.block_type_div in ('S1', 'W1', 'R1','V1','P1')
+        then swpp.subjt_nm
+        else split_part(swpp.block_dispy_nm,' ',1)
+        end as block_dispy_nm,
+        to_char(swpp.plan_learn_start_time,'yyyy-mm-dd hh24:mi:ss') as start_time,
+        to_char(swpp.plan_learn_start_time+ (swpp.stu_plan_learn_tm || ' min')::interval,'yyyy-mm-dd hh24:mi:ss') as end_time,
+        swpp.subjt_div,
+        swpp.subjt_nm,
+        swpp.stu_term_plan_id,
+        swpp.stu_plan_learn_tm,
+        swpp.perf_learn_tm,
+        swpp.learn_lev_unds,
+        swpp.remain_disp_flg,
+        swpp.upd_datime,
+        swpp.plan_learn_seasn_id,
+        '0' AS fixd_block_abolt_flg
+        FROM STU_WEEKLY_PLAN_PERF swpp
+        WHERE swpp.STU_ID = #{stuId}
+        AND swpp.PLAN_YMD between #{startYmd} and #{endYmd}
+        <if test="flg != 'all'">
+            AND swpp.BLOCK_TYPE_DIV in ('R1', 'S1', 'P1', 'W1','V1')
+        </if>
+        AND swpp.DEL_FLG = '0'
+    </select>
+
+    <select id="selectFixedBlockList" resultType="jp.learningpark.modules.common.utils.dto.SchdlDto">
+        -- 生徒固定スケジュールと個別スケジュール調整情報
+        select * from (
+        select
+        false as editable,
+        true as is_fixed,
+        tgt.tgt_ymd,
+        sfs.block_id,
+        '' as BLOCK_TYPE_DIV,
+        case when sisa.block_dispy_nm is null then sfs.block_dispy_nm else sisa.block_dispy_nm end as block_dispy_nm,
+        <if test="checkStart==true">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp + '1 day','yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+            else to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sisa.block_start_time,'hh24:mi:ss') end as start_time,
+        </if>
+        <if test="checkStart==false">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+            else to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sisa.block_start_time,'hh24:mi:ss') end as start_time,
+        </if>
+        <if test="checkEnd==true">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp + '1 day','yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+            else to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sisa.block_end_time,'hh24:mi:ss') end as end_time,
+        </if>
+        <if test="checkEnd==false">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp,'yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+            else to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sisa.block_end_time,'hh24:mi:ss') end as end_time,
+        </if>
+        null as subjt_div,
+        null as subjt_nm,
+        null as stu_term_plan_id,
+        null as stu_plan_learn_tm,
+        null as perf_learn_tm,
+        null as learn_lev_unds,
+        null as remain_disp_flg,
+        null as upd_datime,
+        null as plan_learn_seasn_id,
+        sisa.fixd_block_abolt_flg,
+        mcb.color_id
+        from (SELECT #{startYmd}::DATE + GENERATE_SERIES(0, 7) as tgt_ymd) tgt
+        left join stu_fixd_schdl sfs on
+        <![CDATA[ sfs.block_start_date <= tgt.tgt_ymd and sfs.block_end_date >= tgt.tgt_ymd ]]>
+        and sfs.id = #{id}
+        and sfs.del_flg = 0
+        and '1'=(CASE extract(DOW FROM tgt.tgt_ymd)
+        WHEN '1' THEN sfs.MO_DW_CHOC_FLG WHEN '2' THEN sfs.TU_DW_CHOC_FLG
+        WHEN '3' THEN sfs.WE_DW_CHOC_FLG WHEN '4' THEN sfs.TH_DW_CHOC_FLG
+        WHEN '5' THEN sfs.FR_DW_CHOC_FLG WHEN '6' THEN sfs.SA_DW_CHOC_FLG
+        ELSE sfs.SU_DW_CHOC_FLG
+        end)
+        left join stu_indiv_schdl_adjust sisa on sfs.id = sisa.stu_fixd_schdl_id and sisa.del_flg = 0 and sisa.plan_ymd=tgt.tgt_ymd
+        left join mst_color_block mcb on mcb.stu_id = #{stuId} and ( mcb.block_id = sisa.block_id or mcb.block_id = sfs.block_id ) and mcb.del_flg = 0
+        left join mst_holiday mh on mh.tgt_ymd=tgt.tgt_ymd and mh.country_div ='JP' and mh.del_flg = 0
+        where sfs.stu_id = #{stuId}
+        and sfs.block_id is not null and mh.id is null
+        ) A
+        WHERE coalesce(A.fixd_block_abolt_flg, '0') != '1'
+        ORDER BY A.tgt_ymd, A.start_time
+    </select>
+
+    <select id="selectPrintFixedBlockList" resultType="jp.learningpark.modules.common.utils.dto.SchdlDto">
+        -- 生徒固定スケジュールと個別スケジュール調整情報
+        select * from (
+        select
+        false as editable,
+        true as is_fixed,
+        tgt.tgt_ymd,
+        sfs.block_id,
+        '' as BLOCK_TYPE_DIV,
+        case when sisa.block_dispy_nm is null then sfs.block_dispy_nm else sisa.block_dispy_nm end as block_dispy_nm,
+        <if test="checkStart==true">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp + '1 day','yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+            else to_char(sisa.block_start_time,'yyyy-mm-dd hh24:mi:ss') end as start_time,
+        </if>
+        <if test="checkStart==false">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_start_time,'hh24:mi:ss')
+            else to_char(sisa.block_start_time,'yyyy-mm-dd hh24:mi:ss') end as start_time,
+        </if>
+        <if test="checkEnd==true">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd::timestamp + '1 day','yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+            else to_char(sisa.block_end_time,'yyyy-mm-dd hh24:mi:ss') end as end_time,
+        </if>
+        <if test="checkEnd==false">
+            case when sisa.block_dispy_nm is null then to_char(tgt.tgt_ymd,'yyyy-mm-dd ') || to_char(sfs.block_end_time,'hh24:mi:ss')
+            else to_char(sisa.block_end_time,'yyyy-mm-dd hh24:mi:ss') end as end_time,
+        </if>
+        null as subjt_div,
+        null as subjt_nm,
+        null as stu_term_plan_id,
+        null as stu_plan_learn_tm,
+        null as perf_learn_tm,
+        null as learn_lev_unds,
+        null as remain_disp_flg,
+        null as upd_datime,
+        null as plan_learn_seasn_id,
+        sisa.fixd_block_abolt_flg
+        from (SELECT #{startYmd}::DATE + GENERATE_SERIES(0, 7) as tgt_ymd) tgt
+        left join stu_fixd_schdl sfs on
+        <![CDATA[ sfs.block_start_date <= tgt.tgt_ymd and sfs.block_end_date >= tgt.tgt_ymd ]]>
+        and sfs.id = #{id}
+        and sfs.del_flg = 0
+        and '1'=(CASE extract(DOW FROM tgt.tgt_ymd)
+        WHEN '1' THEN sfs.MO_DW_CHOC_FLG WHEN '2' THEN sfs.TU_DW_CHOC_FLG
+        WHEN '3' THEN sfs.WE_DW_CHOC_FLG WHEN '4' THEN sfs.TH_DW_CHOC_FLG
+        WHEN '5' THEN sfs.FR_DW_CHOC_FLG WHEN '6' THEN sfs.SA_DW_CHOC_FLG
+        ELSE sfs.SU_DW_CHOC_FLG
+        end)
+        left join stu_indiv_schdl_adjust sisa on sfs.id = sisa.stu_fixd_schdl_id and sisa.del_flg = 0 and sisa.plan_ymd=tgt.tgt_ymd
+        left join mst_holiday mh on mh.tgt_ymd=tgt.tgt_ymd and mh.country_div ='JP' and mh.del_flg = 0
+        where sfs.stu_id = #{stuId}
+        and sfs.block_id is not null and mh.id is null
+        ) A
+        WHERE coalesce(A.fixd_block_abolt_flg, '0') != '1'
+        ORDER BY A.tgt_ymd, A.start_time
+    </select>
+
+    <select id="seletctCrmLearnPrdIdAfterUpdateSchy" resultType="integer" parameterType="string">
+        select t.id from (	SELECT
+                clpm.id,1 as b
+            FROM
+                mst_crmsch_learn_prd clpm
+            WHERE
+                clpm.use_flg = '1'
+                AND clpm.del_flg = 0
+                AND clpm.schy_div = #{schyDiv}
+                AND clpm.org_id = #{orgId}
+        union all
+            SELECT
+                clpm2.id ,2 as b
+            FROM
+                mst_crmsch_learn_prd clpm2
+                INNER JOIN mst_org om ON om.upplev_org_id = clpm2.org_id
+                AND om.org_id = #{orgId}
+                AND om.brand_cd = #{brandCd}
+            WHERE
+                clpm2.schy_div = #{schyDiv}
+                AND clpm2.use_flg = '1'
+                AND clpm2.del_flg = 0
+                ) t
+        order by t.b LIMIT 1
+    </select>
+    <select id="selectThisAndLowerOrgId" parameterType="String" resultType="jp.learningpark.modules.common.utils.dto.OrgAndLowerOrgIdDto">
+		 WITH RECURSIVE cte AS (
+            SELECT
+                a1.* ,
+                a1.org_id || ' ' || a1.org_nm as orgNmDisplay,
+                '1' as orgDiv
+            FROM
+                mst_org a1
+            WHERE
+                a1.org_id = #{orgId}
+                AND a1.brand_cd=#{brandCd}
+                AND a1.del_flg = 0
+                UNION ALL
+            SELECT
+                a2.* ,
+                a2.org_id || ' ' || a2.org_nm as orgNmDisplay,
+                '2' as orgDiv
+            FROM
+                cte
+                C INNER JOIN mst_org a2 ON C.org_id = a2.upplev_org_id
+                AND a2.del_flg = 0
+                ) SELECT DISTINCT  s.* FROM cte s
+        ORDER BY
+            s.LEVEL asc,
+            s.org_id
+    </select>
+
+    <select id="selectAllOrgList" parameterType="string" resultType="jp.learningpark.modules.common.utils.dto.OrgAndLowerOrgIdDto">
+        SELECT
+            *
+        FROM
+            (
+        SELECT DISTINCT
+            *
+        FROM
+            (
+            WITH RECURSIVE up AS (
+        SELECT
+            *,
+            '1' AS orgDiv
+        FROM
+            mst_org om
+        WHERE
+            om.org_id =#{ orgId }
+            AND om.del_flg = 0 UNION ALL
+        SELECT
+            d.*,
+            '3' AS orgDiv
+        FROM
+            up
+            C INNER JOIN mst_org d ON C.upplev_org_id = d.org_id
+            AND d.del_flg = 0
+            ) SELECT
+            *
+        FROM
+            up
+            ) A UNION
+        DISTINCT SELECT DISTINCT
+            *
+        FROM
+            (
+            WITH RECURSIVE cte AS (
+        SELECT
+            *,
+            '1' AS orgDiv
+        FROM
+            mst_org om
+        WHERE
+            om.org_id =#{ orgId }
+            AND om.del_flg = 0 UNION ALL
+        SELECT
+            e.*,
+            '2' AS orgDiv
+        FROM
+            cte
+            C INNER JOIN mst_org e ON C.org_id = e.upplev_org_id
+            AND e.del_flg = 0
+            ) SELECT
+            *
+        FROM
+            cte
+            ) B
+            ) C
+        ORDER BY
+            C.LEVEL,
+            C.org_id
+    </select>
+    <!--ログインユーザーの複数組織を取得する。-->
+    <select id="selectOrgsForChoose" resultType="String">
+        select
+            mo.org_id
+        from mst_usr mu
+        inner join mst_org mo
+            on mo.org_id = mu.org_id
+             <if test="manaFlg == null or manaFlg == 0">
+                 and mo.brand_cd = #{brandCd}
+             </if>
+            and mo.del_flg = 0
+        where
+            mu.after_usr_id = #{afterUsrId}
+            and mu.del_flg = 0
+    </select>
+    <select id="getUpLvOrgList" parameterType="String" resultType="jp.learningpark.modules.common.utils.dto.OrgAndLowerOrgIdDto">
+        WITH RECURSIVE cte AS (
+            SELECT
+                a1.* ,
+                a1.org_id || ' ' || a1.org_nm as orgNmDisplay,
+                '1' as orgDiv
+            FROM
+                mst_org a1
+            WHERE
+                a1.org_id = #{orgId}
+              AND a1.brand_cd=#{brandCd}
+              AND a1.del_flg = 0
+            UNION ALL
+            SELECT
+                a2.* ,
+                a2.org_id || ' ' || a2.org_nm as orgNmDisplay,
+                '2' as orgDiv
+            FROM
+                cte
+                    C INNER JOIN mst_org a2 ON C.upplev_org_id = a2.org_id
+                    AND a2.level != 0
+                    AND a2.del_flg = 0
+        ) SELECT DISTINCT  s.* FROM cte s
+        ORDER BY
+            s.LEVEL asc,
+            s.org_id
+    </select>
+
+    <select id="findUpperOrg" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+        select org_id,
+               org_nm,
+               level,
+               upplev_org_id
+        from mst_org
+        where brand_cd = #{brandCd}
+          AND org_id = (
+                select upplev_org_id
+                from mst_org
+                where org_nm = #{orgInfo.orgNm}
+                  AND org_id = #{orgInfo.orgId}
+                );
+    </select>
+
+    <select id="selectServer" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+        select
+            cod_value
+            , cod_value_2
+            , cod_value_3
+            , cod_value_4
+            , cod_value_5
+        from mst_cod_d
+        where
+            cod_key = 'PIC_PATH'
+          and cod_cd = '1'
+          and del_flg = 0
+    </select>
+
+    <select id="getHolidayByTgtYmd" resultType="jp.learningpark.modules.common.entity.MstHolidayEntity">
+        SELECT
+            holiday_nm,
+            tgt_ymd
+        FROM
+            mst_holiday
+        WHERE
+            "year" = #{year}
+            AND del_flg = 0
+    </select>
+</mapper>

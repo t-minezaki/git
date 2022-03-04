@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title></title>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F10308.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $('#demo_select').mobiscroll().select({
+                mode: "scroller",
+                display: "inline",
+                lang: "zh",
+                rows: 3
+            });
+        })
+
+    </script>
+</head>
+<body>
+<div id="app" class="theme_selec">
+    <h2 v-html="'その他の'+bigBlock.blockDispyNm+'<br/>'+bigBlock.blockDispyNm+'の名前を登録してください'"></h2>
+    <div class="toph">
+        <img :src="'../img/'+blockPicDiv" alt="">
+        <h1 v-text="bigBlock.blockDispyNm"></h1>
+    </div>
+    <div class="showcontent">
+        <p class="showleft">予定内容</p>
+        <p id="showright" v-text="smallBlock.blockDispyNm">右边类容</p>
+    </div>
+    <div class="check_time">
+        <input name="smallBlockNm" onkeyup="changeValue()" type="text" placeholder="予定内容を入力" maxlength="30" :value="flag?smallBlock.blockDispyNm:''"/>
+    </div>
+    <div class="theme_btn">
+        <button @click="cancelFn" style="border: 0;color: red">
+            キャンセル
+        </button>
+        <button id="insertBtn" @click="submitFn">
+            登録
+        </button>
+        <button id="delBtn" @click="delFn">
+            削除
+        </button>
+    </div>
+</div>
+
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" type="text/javascript" src="${request.contextPath}/js/pop/F10308.js"></script>
+</body>
+</html>

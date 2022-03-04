@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>21050_学生カルテ（個人詳細）の問合せ</title>
+    <!--<link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>-->
+    <link rel="stylesheet" href="${request.contextPath}/css/common/newtui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/pop/F21050.css">
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/js/common/common.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="page">
+    <div class="content">
+        <div class="topInput">
+            <div class="topTitle">
+                <input placeholder="タイトル" maxlength="50" class="title">
+            </div>
+        </div>
+
+        <div class="time">
+            <div class="chooseTime">
+                <div class="img_div">
+                    <img src="../img/timeBtn.png" alt="" id="timeBtn">
+                </div>
+                <input type="text" class="time_input"id="showTime" style="border: 1px solid grey"
+                       name="cretTimeStart" placeholder="問い合わせ日時"  readonly>
+            </div>
+        </div>
+
+        <div class="bottomInput">
+            <div class="areaInput">
+                <textarea maxlength="10000" placeholder="内容" class="detail">{{content}}</textarea>
+            </div>
+        </div>
+
+        <div class="bottomBtn">
+            <div v-if="flag">
+                <button class="btn" onclick="update()">
+                    修正
+                </button>
+                <button class="btn" onclick="getDel()">
+                    削除
+                </button>
+            </div>
+            <div v-else>
+                <button class="btn" onclick="back()">
+                    キャンセル
+                </button>
+                <button class="btn" onclick="add()">
+                    登録
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/pop/F21050.js"></script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>固定活動登録画面(POP)</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F10102.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.animation.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_F10102.js"></script>
+</head>
+<body>
+<div class="theme_selec" id="info">
+    <!--<div class="topTitle topTitle1">-->
+
+    <!--</div>-->
+    <div class="topTitle">
+        <img :src="f10102Form.blockPicDiv != undefined ? '../img/'+f10102Form.blockPicDiv : ''" alt="">
+        <p v-text="f10102Form.blockDispyNm" id="blockDispyNm"></p>
+    </div>
+
+    <div class="content_them">
+        <div class="contentDiv">
+            <div class="title">期間</div>
+            <div class="divContent">
+                <div>
+                    <input type="text"
+                           :value="f10102Form.blockStartDate != undefined ? f10102Form.blockStartDate : maxWeeklyPlanYmdAfter"
+                           disabled="disabled" class="onetime" name="blockStartDate" id="start_date">
+                    <p class="timeBtn"><img src="../img/timeBtn.png" alt=""></p>
+                    <p class="timeCon oneBtn"></p>
+                </div>
+                <div class="line">~</div>
+                <div>
+                    <input type="text" :value=" f10102Form.blockEndDate != undefined ? f10102Form.blockEndDate : ''"
+                           disabled="disabled" class="twotime" name="blockEndDate" id="end_date">
+                    <p class="timeBtn"><img src="../img/timeBtn.png" alt=""></p>
+                    <p class="timeCon twoBtn"></p>
+                </div>
+            </div>
+        </div>
+        <div class="contentDiv">
+            <div class="title">曜日</div>
+            <ul class="divContent">
+                <li disabled="disabled" :class="f10102Form.moDwChocFlg=='1'?'one active':'one'">月</li>
+                <li :class="f10102Form.tuDwChocFlg=='1'?'active':' '">火</li>
+                <li :class="f10102Form.weDwChocFlg=='1'?'active':' '">水</li>
+                <li :class="f10102Form.thDwChocFlg=='1'?'active':' '">木</li>
+                <li :class="f10102Form.frDwChocFlg=='1'?'active':' '">金</li>
+                <li :class="f10102Form.saDwChocFlg=='1'?'active':' '">土</li>
+                <li :class="f10102Form.suDwChocFlg=='1'?'end active':'end'">日</li>
+
+            </ul>
+        </div>
+        <div class="contentDiv">
+            <div class="title" style="border-bottom: 1px solid #999;">時間</div>
+            <section class="form_item_content">
+                <section class="time_item time_itemO" id="div1">
+                    <span class="label">開始</span>
+                    <!--<p class="p_che"><input type="checkbox" id="in_check_start"/><label>翌日</label></p>-->
+                    <p class="checktimeO" id="blockStartTime" :value="f10102Form.blockStartTime"></p>
+                    <input type="text" id="time_picker_begin" style="display:none;"/>
+                </section>
+                <section class="time_item time_itemT" id="div2">
+                    <span class="label">終了</span>
+                    <!--<p class="p_che"><input type="checkbox" id="in_check_end"/><label>翌日</label></p>-->
+                    <p class="checktimeT"
+                       id="blockEndTime" :value="f10102Form.blockEndTime"></p>
+                    <input type="text" id="time_picker_end" style="display:none;"/>
+                </section>
+            </section>
+        </div>
+        <div class="theme_btn">
+            <!--<button style="border: 0;color: #EA331B;width: 45%" id="deleteBtn">削除</button>-->
+            <button style="border: 0;color: #EA331B;width: 33%" id="cancelBtn">キャンセル</button>
+            <button id="submitOrUpdate" v-text="key=='1'?'追加':'変更'"></button>
+            <button style="border: 0;color: #EA331B;width: 33%" id="deleteBtn">削除</button>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F10102.js"></script>
+</body>
+</html>

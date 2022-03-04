@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>スケジュールブロックの色設定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10004.css"/>
+</head>
+<body>
+<header>
+    <iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div id="app">
+    <div id="message" class="topMessage"></div>
+    <div class="color_list">
+        <p class="blockTitle">学習ブロック(教科別)</p>
+        <div class="color_div" v-for="subjt in subjtList">
+            <div :id="subjt.cod" class="subjt">
+                <img class="subjt_img" :src="subjt.imgSrc"/><span class="subjt_span">{{ subjt.name }}</span>
+            </div>
+            <!--<button  class="color_btn">-->
+            <!--<input class="color_select" @change = "colorSelect(subjt.id, subjt.color,subjt.blockId,subjt.cod)" type="color" v-model="subjt.color">-->
+            <!--<span>色を設定する</span>-->
+            <!--</button>-->
+            <button class="color_btn" @click="colorPop(subjt.id, subjt.blockId, subjt.cod,subjt.color)">色を設定する</button>
+            <input class="colorBlock" :style='"background:" + subjt.color' disabled> <br>
+        </div>
+    </div>
+<!--    <div class="color_list">-->
+<!--        <p class="blockTitle">フリーブロック</p>-->
+<!--        <div class="color_div" v-for="freeBlock in freeBlockList">-->
+<!--            <div class="freeBlock">-->
+<!--                <img class="subjt_img" :src="freeBlock.blockPicDiv"/><span class="subjt_span">{{-->
+<!--                freeBlock.blockDispyNm }}</span>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;<button  class="color_btn">&ndash;&gt;-->
+<!--            &lt;!&ndash;<input class="color_select" @change = "colorSelect( freeBlock.id,freeBlock.color,freeBlock.blockId)" type="color" v-model="freeBlock.color">&ndash;&gt;-->
+<!--            &lt;!&ndash;<span>色を設定する</span>&ndash;&gt;-->
+<!--            &lt;!&ndash;</button>&ndash;&gt;-->
+<!--            <button class="color_btn" @click="colorPop(freeBlock.id,freeBlock.blockId,'',freeBlock.color)">色を設定する</button>-->
+<!--            <input class="colorBlock" :style='"background:" + freeBlock.color' disabled> <br>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="color_list">
+        <p class="blockTitle">固定ブロック</p>
+        <div class="color_div" v-for="fixedBlock in fixedBlockList">
+            <div class="fixedBlock">
+                <img class="subjt_img" :src="fixedBlock.blockPicDiv"/><span class="subjt_span">{{ fixedBlock.blockDispyNm }}</span>
+            </div>
+            <!--<button  class="color_btn">-->
+            <!--<input class="color_select" @change = "colorSelect(fixedBlock.id,fixedBlock.color,fixedBlock.blockId)" type="color" v-model="fixedBlock.color">-->
+            <!--<span>色を設定する</span>-->
+            <!--</button>-->
+            <button class="color_btn" @click="colorPop(fixedBlock.id,fixedBlock.blockId,'',fixedBlock.color)">色を設定する</button>
+            <input class="colorBlock" :style='"background:" + fixedBlock.color' disabled> <br>
+        </div>
+    </div>
+    <div class="color_list">
+        <p class="blockTitle">その他ブロック</p>
+        <div class="color_div" v-for="otherBlock in otherBlockList">
+            <div class="otherBlock">
+                <img class="subjt_img" :src="otherBlock.blockPicDiv"/><span class="subjt_span">{{ otherBlock.blockDispyNm }}</span>
+            </div>
+            <!--<button  class="color_btn">-->
+            <!--<input class="color_select" @change = "colorSelect(otherBlock.id,otherBlock.color,otherBlock.blockId)" type="color" v-model="otherBlock.color">-->
+            <!--<span>色を設定する</span>-->
+            <!--</button>-->
+            <button class="color_btn" @click="colorPop(otherBlock.id,otherBlock.blockId,'',otherBlock.color)">色を設定する</button>
+            <input class="colorBlock" :style='"background:" + otherBlock.color' disabled> <br>
+        </div>
+    </div>
+
+</div>
+<div class="btn_div">
+    <button id="btn_return">戻る</button>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/student/F10004.js">
+</script>
+</html>

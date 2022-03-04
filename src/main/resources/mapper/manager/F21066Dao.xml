@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F21066Dao">
+    <!-- 組織情報、面談メッセージ閲覧状況より、取得する。 -->
+    <select id="selectStuById" resultType="jp.learningpark.modules.pop.dto.F21066Dto">
+        SELECT
+        CONCAT( stu.flnm_nm, ' ', stu.flnm_lnm ) AS stunm,
+        usr.after_usr_id as stu_id
+        FROM
+        talk_reading_sts trs,
+        mst_stu stu,
+        mst_usr usr
+        WHERE
+        trs.message_id = #{messageId}
+        AND trs.org_id = #{orgId}
+        AND trs.deliver_id = stu.stu_id
+        AND trs.reading_sts_div = #{readFlg}
+        AND usr.usr_id = stu.stu_id
+        AND trs.del_flg = 0
+        AND stu.del_flg = 0
+        AND usr.del_flg = 0
+        ORDER BY
+        usr.after_usr_id
+        <if test="pageSize != null">
+            Limit #{limit} offset #{pageSize}
+        </if>
+    </select>
+    <select id="selectStuCount" resultType="java.lang.Integer">
+        SELECT
+        count (*)
+        FROM
+        talk_reading_sts trs,
+        mst_stu stu,
+        mst_usr usr
+        WHERE
+        trs.message_id = #{messageId}
+        AND trs.org_id = #{orgId}
+        AND trs.deliver_id = stu.stu_id
+        AND trs.reading_sts_div = #{readFlg}
+        AND usr.usr_id = stu.stu_id
+        AND trs.del_flg = 0
+        AND stu.del_flg = 0
+        AND usr.del_flg = 0
+    </select>
+</mapper>

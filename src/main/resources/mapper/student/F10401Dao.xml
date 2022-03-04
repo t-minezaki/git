@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10401Dao">
+
+    <select id="getDegreeTotal" resultType="java.util.Map">
+        select
+            wpp.subjt_nm as subjtN,
+            wpp.subjt_div as subjtdiv,
+            SUM ( CASE WHEN wpp.learn_lev_unds = '0' THEN perf_learn_tm ELSE 0 END ) AS lev0,
+            SUM ( CASE WHEN wpp.learn_lev_unds = '1' THEN perf_learn_tm ELSE 0 END ) AS lev1,
+            SUM ( CASE WHEN wpp.learn_lev_unds = '2' THEN perf_learn_tm ELSE 0 END ) AS lev2,
+            SUM ( CASE WHEN wpp.learn_lev_unds = '3' THEN perf_learn_tm ELSE 0 END ) AS lev3,
+            SUM ( CASE WHEN wpp.learn_lev_unds = '4' THEN perf_learn_tm ELSE 0 END ) AS lev4
+        FROM
+            (
+        SELECT
+        id,
+        stu_term_plan_id,
+        block_type_div,
+        stu_id,
+        plan_ymd,
+        subjt_div,
+        learn_lev_unds,
+        subjt_nm,
+        del_flg,
+        CASE
+
+        WHEN EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN
+        perf_learn_tm ELSE (
+        perf_learn_tm - EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60
+        )
+        END AS perf_learn_tm ,
+        CASE
+        WHEN EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN
+        stu_plan_learn_tm ELSE (
+        stu_plan_learn_tm - EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60
+        )
+        END AS stu_plan_learn_tm
+        FROM
+        stu_weekly_plan_perf
+        WHERE
+        del_flg = 0
+        AND stu_id = #{stuId}  UNION ALL
+        SELECT
+        id,
+        stu_term_plan_id,
+        block_type_div,
+        stu_id,
+        to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' AS plan_ymd,
+        subjt_div,
+        learn_lev_unds,
+        subjt_nm,
+        del_flg,
+        CASE
+        WHEN
+        EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN 0
+        ELSE EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 END AS perf_learn_tm,
+        CASE
+        WHEN
+        EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN 0
+        ELSE EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 END AS stu_plan_learn_tm
+        FROM
+        stu_weekly_plan_perf
+        WHERE
+        del_flg = 0
+        AND stu_id = #{stuId}
+        AND (EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 > 0
+        OR
+        EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 > 0
+        )
+        ) wpp
+           where wpp.block_type_div in ('R1','S1','P1','W1','V1')
+             and wpp.stu_id=#{stuId}
+             and wpp.plan_ymd between #{startYmd} and #{endYmd}
+			  AND wpp.del_flg=0
+        group by
+        wpp.subjt_div
+        , wpp.subjt_nm
+    </select>
+
+    <select id="getLearnTimeCircleTotal" resultType="java.util.Map">
+        select
+        sum(COALESCE(wpp.stu_plan_learn_tm,0)) as stuPlanTm
+        ,sum(COALESCE(wpp.perf_learn_tm,0)) as perfTm
+        ,case when sum(COALESCE(wpp.perf_learn_tm,0))=0 then 0
+        else case when sum(COALESCE(wpp.stu_plan_learn_tm,0))=0 then 0
+        else sum(COALESCE(wpp.perf_learn_tm,0))*100/sum(COALESCE(wpp.stu_plan_learn_tm,0)) end
+        end as proportion
+        from
+        (
+        SELECT
+        id,
+        stu_term_plan_id,
+        block_type_div,
+        stu_id,
+        plan_ymd,
+        subjt_div,
+        CASE
+
+        WHEN EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN
+        perf_learn_tm ELSE (
+        perf_learn_tm - EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60
+        )
+        END AS perf_learn_tm ,
+        CASE
+
+        WHEN EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN
+        stu_plan_learn_tm ELSE (
+        stu_plan_learn_tm - EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60
+        )
+        END AS stu_plan_learn_tm
+        FROM
+        stu_weekly_plan_perf
+        WHERE
+        del_flg = 0
+        AND stu_id = #{stuId}  UNION ALL
+        SELECT
+        id,
+        stu_term_plan_id,
+        block_type_div,
+        stu_id,
+        to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' AS plan_ymd,
+        subjt_div,
+        CASE
+        WHEN
+        EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN 0
+        ELSE EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 END AS perf_learn_tm,
+        CASE
+        WHEN
+        EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN 0
+        ELSE EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 END AS stu_plan_learn_tm
+        FROM
+        stu_weekly_plan_perf
+        WHERE
+        del_flg = 0
+        AND stu_id = #{stuId}
+        AND (EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 > 0
+        OR
+        EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 > 0
+        )
+        ) wpp
+        <where>
+            wpp.block_type_div in (
+            'R1','S1','P1','W1','V1'
+            )
+            and wpp.plan_ymd between #{startYmd} and #{endYmd}
+            <if test="subjtDiv != null and subjtDiv != ''">
+                and wpp.subjt_div=#{subjtDiv}
+            </if>
+        </where>
+    </select>
+
+    <select id="getLearnTimeHorizontalTotal" resultType="java.util.Map">
+        select
+        sum(COALESCE(tp.plan_learn_tm,0)) as planTm
+        ,sum(COALESCE(wpp.stu_plan_learn_tm,0)) as stuPlanTm
+        ,sum(COALESCE(wpp.perf_learn_tm,0)) as perfTm
+        from (
+
+        SELECT
+        id,
+        stu_term_plan_id,
+        block_type_div,
+        stu_id,
+        plan_ymd,
+        subjt_div,
+        CASE
+
+        WHEN EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN
+        perf_learn_tm ELSE (
+        perf_learn_tm - EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60
+        )
+        END AS perf_learn_tm ,
+        CASE
+
+        WHEN EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN
+        stu_plan_learn_tm ELSE (
+        stu_plan_learn_tm - EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60
+        )
+        END AS stu_plan_learn_tm
+        FROM
+        stu_weekly_plan_perf
+        WHERE
+        del_flg = 0
+        AND stu_id = #{stuId}  UNION ALL
+        SELECT
+        id,
+        stu_term_plan_id,
+        block_type_div,
+        stu_id,
+        to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' AS plan_ymd,
+        subjt_div,
+        CASE
+        WHEN
+        EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN 0
+        ELSE EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 END AS perf_learn_tm,
+        CASE
+        WHEN
+        EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 <![CDATA[ < ]]> 0 THEN 0
+        ELSE EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 END AS stu_plan_learn_tm
+        FROM
+        stu_weekly_plan_perf
+        WHERE
+        del_flg = 0
+        AND stu_id = #{stuId}
+        AND (EXTRACT(
+        EPOCH
+        FROM
+        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 > 0
+        OR
+        EXTRACT(
+        EPOCH
+        FROM
+        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+        ) / 60 > 0
+        )
+        ) wpp
+        left JOIN stu_term_plan tp on tp.id=wpp.stu_term_plan_id
+        AND tp.plan_learn_seasn_id is not NULL
+        AND tp.del_flg=0
+        <where>
+            wpp.block_type_div in ('R1','S1','P1','W1','V1')
+            and wpp.plan_ymd between #{startYmd} and #{endYmd}
+            <if test="subjtDiv != null and subjtDiv != ''">
+                and wpp.subjt_div=#{subjtDiv}
+            </if>
+        </where>
+    </select>
+</mapper>

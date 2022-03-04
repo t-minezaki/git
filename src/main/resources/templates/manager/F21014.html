@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>個人別月状況確認</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <!--    <link rel="stylesheet" href="${request.contextPath}/css/common/my_select.css"/>-->
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21014.css">
+</head>
+<body id="body">
+<div id="message" class="topMessage hasHeight"></div>
+<div id="one" class="one">
+    <div>
+        <ul class="one-ul">
+            <li>出席簿管理</li>
+            <li> ＞ 指導状況一覧</li>
+        </ul>
+    </div>
+</div>
+<div id="content">
+    <div id="div-select" class="select row">
+        <div class="stuNameDiv left-item">
+            <label>{{stuName}}</label>
+        </div>
+        <div class="left-item">
+            <div class="label">表示月</div>
+            <input disabled="disabled" class="input" id="monthSelect">
+            <img src="../img/timeBtn2.png" class="dayPic" id="dayPic">
+        </div>
+    </div>
+    <div id="div-download" class="download row">
+        <button onclick="exportExcel()" class="button download">ダウンロード</button>
+    </div>
+    <div id="div-grid" class="listContent row">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <div id="div-button" class="btnContent row">
+        <button class="button back" onclick="toF21013()">戻る</button>
+    </div>
+    <form id="exportForm" method="post" action="${request.contextPath}/manager/F21014/download" >
+        <input type="hidden" id="fileName" name="fileName">
+        <input type="hidden" id="month" name="month">
+        <input type="hidden" id="stuId" name="stuId">
+    </form>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js" charset="UTF-8"></script>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/xlsx.core.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21014.js"></script>
+</html>

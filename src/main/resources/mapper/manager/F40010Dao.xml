@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F40010Dao">
+    <select id="updateMstOrgFunList" resultType="java.lang.Integer">
+        UPDATE mst_org_fun_list SET
+        <if test="managerOrMentor == 0">
+            mgr_flg = '0',
+        </if>
+        <if test="managerOrMentor == 1">
+            ment_flg = '0',
+        </if>
+        upd_usr_id = #{updUsrId},
+        upd_datime = '${updDatime}'
+        WHERE
+        org_id = #{orgId}
+        AND del_flg = 0
+    </select>
+
+    <select id="selectMst" resultType="jp.learningpark.modules.manager.dto.F40010DspDto">
+        (
+        SELECT
+        mm.flnm_nm ||flnm_lnm as name,
+        mu.usr_id as userId
+        FROM mst_usr as mu
+        INNER join mst_manager as mm on mm.mgr_id = mu.usr_id and mm.del_flg = 0
+        where
+        mu.org_id =#{orgId}
+        <if test='roleDiv!="" and roleDiv=="1"'>
+            and (mu.role_div = '1'
+            or  mu.role_div = '2')
+        </if>
+        <if test='roleDiv!="" and roleDiv=="2"'>
+            and mu.role_div = '1'
+        </if>
+        <if test='roleDiv!="" and roleDiv=="3"'>
+            and mu.role_div = '2'
+        </if>
+        and mu.del_flg = 0
+        )
+        UNION ALL
+        (
+        SELECT
+        mm.flnm_nm ||flnm_lnm as name,
+        mu.usr_id as userId
+        FROM mst_usr as mu
+        INNER join mst_mentor as mm on mm.mentor_id = mu.usr_id and mm.del_flg = 0
+        where
+        mu.org_id =#{orgId}
+        <if test='roleDiv!="" and roleDiv=="1"'>
+            and (mu.role_div = '1'
+            or  mu.role_div = '2')
+        </if>
+        <if test='roleDiv!="" and roleDiv=="2"'>
+            and mu.role_div = '1'
+        </if>
+        <if test='roleDiv!="" and roleDiv=="3"'>
+            and mu.role_div = '2'
+        </if>
+        and mu.del_flg = 0
+        )
+    </select>
+</mapper>

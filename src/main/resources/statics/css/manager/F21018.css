@@ -1,0 +1,236 @@
+body#body {
+    height: unset;
+}
+
+.div_header {
+    position: fixed;
+}
+
+div#content {
+    overflow-y: scroll;
+    margin-top: 10vh;
+}
+
+.photo-container {
+    height: 30vw;
+    width: 30vw;
+    float: left;
+    position: relative;
+    left: 50%;
+    transform: rotate(0deg) translate(-50%);
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.photo {
+    position: relative;
+    top: 0;
+    border-radius: 21vw;
+    z-index: -999;
+}
+
+.camera {
+    width: 9vw;
+    height: 9vw;
+    position: relative;
+    right: -30.5vw;
+    top: 22.5vw;
+    z-index: 999;
+    border-radius: 50%;
+}
+
+.filepath {
+    width: 9vw;
+    opacity: 0;
+    z-index: 999;
+    height: 7vw;
+    position: relative;
+    top: 22.5vw;
+    right: -20vw;
+}
+
+.row {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.avatar {
+    height: 30vw;
+    text-align: unset;
+}
+
+.black-border {
+    border: 1px solid black !important;
+}
+
+.name {
+    margin-top: 2vh;
+}
+
+#proxyLogin {
+    background-color: #3398CB;
+    color: white;
+    border: 1px solid #3398CB;
+    border-radius: 100vw;
+    width: 40%;
+    height: 4.5vh;
+}
+
+.title {
+    text-align: center;
+    background-color: #e5e5e5;
+    font-weight: unset !important;
+    width: 100px;
+    border: 1px solid #D4D4D4;
+}
+
+.content {
+    border-top: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
+    border-right: 1px solid #EDEDED;
+    text-align: left;
+    height: 30px;
+    padding-left: 14px;
+}
+
+.tableCss {
+    margin-top: 5px;
+    margin-left: 2%;
+    width: 96%;
+    border-collapse: collapse !important;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.editable {
+    background-color: #FFE2EA !important;
+}
+
+.input {
+    width: 100%;
+    border: 0;
+}
+
+.textarea {
+    width: 100%;
+    border: 0;
+    resize: none;
+    height: 20vh;
+
+}
+
+.san {
+    width: 8vw !important;
+    font-size: smaller;
+    background: white;
+    color: black;
+}
+
+.submit-button {
+    width: 40%;
+    height: 2.5em;
+    color: white;
+    border: 0;
+    padding: 5px;
+    background: #009944;
+    border-radius: 1.25em;
+}
+
+.mail {
+    color: blue;
+}
+
+.telnumber {
+    color: blue;
+    text-decoration: underline;
+}
+
+button#proxyLogin[disabled = 'disabled'] {
+    background: gray;
+    border: gray;
+}
+
+.div_bottom {
+    height: 54px !important;
+    position: unset;
+}
+
+.checkbox-container {
+    float: left;
+    padding: 5px 0;
+    width: 20%;
+    height: 30px;
+}
+
+.submit-container {
+    margin-bottom: 10px;
+}
+
+.in_checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 90%;
+    height: 100%;
+    font-size: 1.2vw;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+}
+
+.in_checkbox:before {
+    content: '\a0';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 16px;
+    float: left;
+    border: 1px solid #CCC;
+    box-sizing: border-box;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.in_checkbox:after {
+    display: inline-block;
+    width: calc(100% - 18px);
+    height: 20px;
+    line-height: 20px;
+    content: attr(title);
+    float: left;
+    font-size: 14px;
+    text-align: center;
+}
+
+.in_checkbox:checked:before {
+    content: "\2713";
+    color: white;
+    background: #FF80A5 !important;
+    border: 1px solid #FF80A5;
+}
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+div#layui-layer3 {
+    width: 80% !important;
+}
+div#layui-layer5 {
+    width: 80% !important;
+}

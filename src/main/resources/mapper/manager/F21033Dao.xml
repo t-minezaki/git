@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21033Dao">
+    <select id="getSchoolData" resultType="java.lang.Double">
+        SELECT
+        CASE WHEN
+            (
+        SELECT
+        count( * )
+        FROM
+            mst_usr AS mu
+            INNER JOIN stu_weekly_plan_perf AS swpp1 ON mu.usr_id = swpp1.stu_id
+            AND to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+            AND #{ymdEnd} > to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' )
+            AND swpp1.del_flg = 0
+        WHERE
+            mu.org_id = #{orgId}
+            AND mu.del_flg = 0
+            ) = 0 THEN
+                0 ELSE (
+                SELECT
+                    count( * )
+                FROM
+                    mst_usr AS mu
+                    INNER JOIN stu_weekly_plan_perf AS swpp2 ON mu.usr_id = swpp2.stu_id
+                    AND to_char ( swpp2.perf_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+                    AND #{ymdEnd} > to_char ( swpp2.perf_ymd, 'yyyy-MM-dd' )
+                    AND swpp2.del_flg = 0
+                WHERE
+                    mu.org_id = #{orgId}
+                    AND mu.del_flg = 0
+                    ) / (
+                SELECT
+                    count( * )
+                FROM
+                    mst_usr AS mu
+                    INNER JOIN stu_weekly_plan_perf AS swpp1 ON mu.usr_id = swpp1.stu_id
+                    AND to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+                    AND #{ymdEnd} > to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' )
+                    AND swpp1.del_flg = 0
+                WHERE
+                    mu.org_id = #{orgId}
+                    AND mu.del_flg = 0
+                ) :: FLOAT8
+        END AS per
+    </select>
+    <select id="getGroupData" resultType="java.lang.Double">
+        SELECT
+        CASE WHEN
+            (
+        SELECT
+        count( * )
+        FROM
+            stu_grp AS sg
+            INNER JOIN stu_weekly_plan_perf AS swpp1 ON sg.stu_id = swpp1.stu_id
+            AND to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+            AND #{ymdEnd} > to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' )
+            AND swpp1.del_flg = 0
+        WHERE
+            sg.grp_id = #{grpId}
+            AND sg.del_flg = 0
+            ) = 0 THEN
+                0 ELSE (
+                SELECT
+                    count( * )
+                FROM
+                    stu_grp AS sg
+                    INNER JOIN stu_weekly_plan_perf AS swpp2 ON sg.stu_id = swpp2.stu_id
+                    AND to_char ( swpp2.perf_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+                    AND #{ymdEnd} > to_char ( swpp2.perf_ymd, 'yyyy-MM-dd' )
+                    AND swpp2.del_flg = 0
+                WHERE
+                    sg.grp_id = #{grpId}
+                    AND sg.del_flg = 0
+                    ) / (
+                SELECT
+                    count( * )
+                FROM
+                    stu_grp AS sg
+                    INNER JOIN stu_weekly_plan_perf AS swpp1 ON sg.stu_id = swpp1.stu_id
+                    AND to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+                    AND #{ymdEnd} > to_char ( swpp1.plan_ymd, 'yyyy-MM-dd' )
+                    AND swpp1.del_flg = 0
+                WHERE
+                    sg.grp_id = #{grpId}
+                    AND sg.del_flg = 0
+                ) :: FLOAT8
+        END AS per
+    </select>
+    <select id="getMap2" resultType="java.lang.Double">
+        SELECT
+            CASE
+            WHEN SUM ( swpp.perf_learn_tm ) IS NULL THEN 0
+            ELSE SUM ( swpp.perf_learn_tm ) / COUNT ( DISTINCT swpp.stu_id )
+            END AS per
+        FROM
+        <if test="lineType != 'group'">
+            mst_usr AS mu
+            INNER JOIN mst_stu AS ms ON mu.usr_id = ms.stu_id
+        </if>
+        <if test="lineType == 'group'">
+            stu_grp AS sg
+            INNER JOIN mst_stu AS ms ON sg.stu_id = ms.stu_id
+        </if>
+            AND ms.schy_div = #{schyDiv}
+        AND ms.del_flg = 0
+        INNER JOIN stu_weekly_plan_perf AS swpp ON swpp.stu_id = ms.stu_id
+        AND to_char ( swpp.perf_ymd, 'yyyy-MM-dd' ) >= #{ymdStart}
+        AND #{ymdEnd} > to_char ( swpp.perf_ymd, 'yyyy-MM-dd' )
+        AND swpp.del_flg = 0
+        <if test="lineType != 'group'">
+            <if test="orgId != null">
+                WHERE
+                mu.org_id = #{orgId}
+            </if>
+        </if>
+        <if test="lineType == 'group'">
+            WHERE
+            sg.grp_id = #{grpId}
+        </if>
+    </select>
+    <select id="getInformation" resultType="jp.learningpark.modules.manager.dto.F21033Dto">
+        SELECT
+        mm.id,
+        mm.message_title,
+        mm.message_level_div,
+        mm.pub_plan_start_dt,
+        trs.reading_sts_div,
+        mu.flnm_nm||' '||mu.flnm_lnm as usr_nm
+        FROM
+        mst_message mm
+        INNER JOIN
+        talk_reading_sts trs
+        ON (mm.id = trs.message_id AND trs.del_flg = 0 AND trs.deliver_id = #{usrId})
+        LEFT JOIN
+        (
+        SELECT
+        mentor_id as usr_id,
+        flnm_nm,
+        flnm_lnm,
+        del_flg
+        FROM
+        mst_mentor
+        UNION ALL
+        SELECT
+        mgr_id as usr_id,
+        flnm_nm,
+        flnm_lnm,
+        del_flg
+        FROM
+        mst_manager
+        ) mu
+        ON (mu.del_flg = 0 AND mu.usr_id = mm.upd_usr_id)
+        WHERE
+        mm.del_flg = 0
+        AND mm.message_type_div = '2'
+        AND now() >= mm.pub_plan_start_dt
+        AND mm.pub_plan_end_dt >= now()
+        ORDER BY
+        trs.reading_sts_div = '0' DESC,
+        mm.message_level_div = '2' DESC,
+        mm.pub_plan_start_dt DESC
+        <if test="page != null">
+            limit #{limit} OFFSET #{page}
+        </if>
+    </select>
+    <select id="getInformationCount" resultType="java.lang.Integer">
+        SELECT
+            count (*)
+        FROM
+            mst_message mm
+        INNER JOIN
+            talk_reading_sts trs
+        ON (mm.id = trs.message_id AND trs.del_flg = 0 AND trs.deliver_id = #{usrId})
+        LEFT JOIN
+            mst_usr mu
+        ON (mu.del_flg = 0 AND mu.usr_id = mm.upd_usr_id)
+        WHERE
+            mm.del_flg = 0
+            AND mm.message_type_div = '2'
+            AND now() >= mm.pub_plan_start_dt
+        AND mm.pub_plan_end_dt >= now()
+    </select>
+</mapper>

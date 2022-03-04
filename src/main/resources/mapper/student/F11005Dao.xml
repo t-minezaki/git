@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11005Dao">
+    <select id="init" resultType="jp.learningpark.modules.student.dto.F11005Dto">
+        SELECT
+            *,
+            b.cod_value
+        FROM
+            STU_WEEKLY_PLAN_PERF a
+                LEFT JOIN mst_cod_d b ON (a.LEARN_LEV_UNDS = b.cod_cd AND b.cod_key = 'LEARN_LEV_UNDS' AND b.del_flg = 0)
+        WHERE
+            a.del_flg = 0
+            AND a.id = #{id}
+    </select>
+</mapper>

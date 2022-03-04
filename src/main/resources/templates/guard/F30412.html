@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>時間変更・欠席連絡画面</title>
+    <!-- fullcalendar -->
+    <link rel="stylesheet" type="text/css"
+          href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css"
+          media='print'/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30412.css"/>
+</head>
+<body id="body">
+<div class="div_header" id="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<!--<div class="title" id="title2">登録内容</div>-->
+<div class="content" id="content">
+    <div class="title top commonTabTitle" id="title1">時間変更・欠席連絡</div>
+
+    <!--    <div class="row" id="contentDiv">-->
+<!--        <div class="left float">内容</div>-->
+<!--        <div class="mid float">：</div>-->
+<!--        <div class="right float" id="contentVal">{{contentVal}}</div>-->
+<!--    </div>-->
+<!--    <div class="line" id="line1"></div>-->
+<!--    <div class="row" id="lateTimeDiv">-->
+<!--        <div class="left float">遅刻時間（分）</div>-->
+<!--        <div class="mid float">：</div>-->
+<!--        <div class="right float" id="lateTimeVal">{{lateTimeVal}}</div>-->
+<!--    </div>-->
+<!--    <div class="line" id="line2"></div>-->
+<!--    <div class="row" id="dayDiv">-->
+<!--        <div class="left float">対象日</div>-->
+<!--        <div class="mid float">：</div>-->
+<!--        <div class="right float" id="dayVal">{{dayVal}}</div>-->
+<!--    </div>-->
+<!--    <div class="line" id="line3"></div>-->
+<!--    <div class="row" id="reasonDiv">-->
+<!--        <div class="left float">理由</div>-->
+<!--        <div class="mid float">：</div>-->
+<!--        <div class="right float" id="reasonVal">{{reasonVal}}</div>-->
+<!--    </div>-->
+<!--    <div class="line" id="line4"></div>-->
+<!--    <div class="row" id="remarkDiv">-->
+<!--        <div class="left float">備考</div>-->
+<!--        <div class="mid float">：</div>-->
+<!--        <div class="right float" id="remarkVal">{{remarkVal}}</div>-->
+<!--    </div>-->
+<!--    <div class="line" id="line5"></div>-->
+    <div class="textareaDiv" id="textareaDiv">
+        <textarea id="textarea">送信しました。</textarea>
+    </div>
+    <div class="btnRow" id="btnDiv">
+        <button class="btn" onclick="toNotice()">お知らせ画面へ</button>
+    </div>
+</div>
+<div class="div_bottom" id="div_bottom">
+    <iframe src="../common/F40004.html?id=F30412" frameborder="0" width="100%" height="100%" name="common_bottom"></iframe>
+</div>
+</body>
+
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<!-- fullcalendar -->
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-all.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="${request.contextPath}/js/guard/calendar.js"></script>
+<script src="${request.contextPath}/js/guard/F30412.js"></script>
+</html>

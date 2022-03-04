@@ -1,0 +1,343 @@
+/*#app {*/
+/*    padding-bottom: 5vh;*/
+/*}*/
+
+#sendMsg, #objDownload, #deliver {
+    width: 12vw;
+    text-align: center;
+    font-size: 0.9vw;
+    margin-left: 5vw;
+    height: 4vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+.one {
+
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+.div_body {
+
+    margin-top: 3vh;
+}
+
+.div_main {
+
+    margin-top: 1vh;
+}
+
+.div_head {
+
+    margin-bottom: 10px;
+}
+
+.div_head_title {
+
+    font-size: 1vw;
+    font-weight: bolder;
+    color: #777;
+    text-indent: 5vw;
+    margin-bottom: 2vh;
+    letter-spacing: 0.1em;
+}
+
+#objTable {
+    border-collapse: collapse;
+    width: 90vw;
+    margin: calc(-4vh - 4px) 0 0 0;
+    border: 0;
+}
+
+#objTable tr th {
+
+    border: 2px #CCC solid;
+    background-color: #eee;
+    height: 4vh;
+    visibility: hidden;
+}
+
+#objTable tr td {
+
+    border: 2px #CCC solid;
+    color: black;
+    background-color: white;
+    height: 4vh;
+    text-align: center;
+    font-size: 0.8vw;
+}
+
+#tbl_title {
+
+    border-collapse: collapse;
+    width: 90vw;
+    margin-left: 4vw;
+    margin-top: 3vh;
+}
+
+#tbl_title tr th {
+    border: 2px #CCC solid;
+    color: black;
+    height: 4vh;
+    font-weight: 100;
+    font-size: 0.8vw;
+}
+
+input[type="checkbox"] {
+
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background: #fff;
+    border: #999 solid 1px;
+    border-radius: 3px;
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+input[type="checkbox"]:checked::after {
+
+    content: '\2714';
+    position: relative;
+    top: -0.7vh;
+    left: 0.1vw;
+    font-size: 1.5vw;
+}
+
+.record_btn {
+    width: 5vw !important;
+    text-align: center;
+    font-size: 0.7vw !important;
+    height: 3vh !important;
+    color: BLACK !important;
+    text-decoration: none !important;
+    border-radius: 12px;
+    line-height: 3vh !important;
+    border: 1px #ccc solid !important;
+    background: none;
+}
+
+#sendMsg_down {
+    width: 12vw;
+    text-align: center;
+    font-size: 1vw;
+    margin-left: 5vw;
+    height: 4vh;
+    margin-top: 3.5vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+#btn_cancel {
+    position: absolute;
+    left: 80%;
+    top: 94%;
+    width: 7vw;
+    text-align: center;
+    font-size: 1vw;
+    height: 4vh;
+    color: white;
+    background: #00a65a;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+.line{
+    height: 2px;
+    border: 0;
+    background: #777;
+    margin-left: 4vw;
+    width: 89.9vw;
+}
+.tbl_div {
+    max-height: 67vh;
+    overflow-y: auto;
+    width: 91vw;
+    box-sizing: border-box;
+    user-select: text;
+    margin-left: 4vw;
+}
+
+.noFocus {
+    pointer-events: none;
+    background-color: #ccc !important;
+}
+
+.span_div {
+
+    margin-right: -0.4vw;
+}
+.ui-jqgrid-bdiv {
+    /*height: 600px !important;*/
+    width: 100% !important;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+#load_jqGrid {
+    display: none !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    border-bottom: 2px solid #ccc;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view {
+    margin-top: 10px !important;
+}
+
+.layui-layer {
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 10px 5px #777;
+    background: #F0F0F0;
+}
+#jqGridPager_right {
+    text-align: left;
+}
+
+#pg_jqGridPager {
+    width: 100%;
+}
+
+.layui-layer-content {
+    height: calc(100% - 35px);
+    /*height: 100%;*/
+}
+
+.layui-layer-iframe {
+    overflow-y: unset !important;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 0.1em;
+    font-size: 1.5em;
+    font-weight: bolder;
+    height: 35px;
+    line-height: 35px;
+}
+
+.layui-layer-myskin2 .layui-layer-title {
+    background-color: #F0F0F0 !important;
+    height: 20px;
+    border: none !important;
+}
+
+.layui-layer-setwin {
+    top: 8px !important;
+    right: 5px !important;
+}
+
+.layui-layer-content iframe {
+    border-radius: 10px !important;
+}
+
+.layui-layer-title {
+    border-radius: 10px !important;
+}
+
+#layui-layer2 {
+    border-radius: unset !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    height: 32px !important;
+    line-height: 27px !important;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: auto !important;
+}
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    overflow: unset !important;
+    border: 0px solid !important;
+}
+input#cb_jqGrid {
+    margin-left: 2px;
+}
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+    border: none!important;
+    background: none!important;
+    color: black!important;;
+}
+.ui-jqgrid td input, .ui-jqgrid td select, .ui-jqgrid td textarea {
+    padding-top: 0px !important;
+}
+div#gview_jqGrid{
+    margin-left: 4vw;
+}
+div#gbox_jqGrid {
+    margin-top: 2vw;
+}

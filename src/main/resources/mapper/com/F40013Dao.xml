@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40013Dao">
+    <select id="getF40013DtoList" resultType="jp.learningpark.modules.com.dto.F40013Dto">
+        SELECT
+            a.org_id,
+            b.org_nm || '　' || a.org_nm as orgNm,
+            a.role_div,
+            a.level
+        FROM
+        (
+            SELECT
+                mo.org_id,
+                mo.org_nm,
+                mo.brand_cd,
+                mo.level,
+                mu.role_div
+            FROM mst_usr mu
+            inner join mst_org mo
+                on mo.org_id = mu.org_id
+                <if test='manaFlag == "0" and manaFlag != ""'>
+                    AND mo.brand_cd = #{brandCd}
+                </if>
+
+                <if test='orgId != null and orgId != ""'>
+                    AND mo.org_id like CONCAT('%',trim(#{orgId}),'%')
+                </if>
+
+                <if test='orgNm != null and orgNm != ""'>
+                    and mo.org_nm like CONCAT('%',trim(#{orgNm}),'%')
+                </if>
+                and mo.del_flg = 0
+                <!--NWT　楊　2021/07/20　MANAMIRU1-727-①　Edit　Start-->
+                <if test='gid == "1" and (tchCd != "" and tchCd != null) '>
+                    INNER join mst_manager mm on mu.usr_id = mm.mgr_id
+                    and mm.tch_cd = #{tchCd}
+                </if>
+            WHERE
+                mu.del_flg = 0
+              <if test='gid == "1" and (tchCd == "" or tchCd == null) '>
+                  <!--NWT　楊　2021/07/20　MANAMIRU1-727-①　Edit　End-->
+                  and mu.gidpk = #{gidPk}
+              </if>
+              <if test='gid != "1"'>
+                  and mu.after_usr_id = #{userId}
+              </if>
+            order by
+                mo.LEVEL
+                , mo.org_id
+            <if test="offset != null">
+                limit #{limit} OFFSET #{offset}
+            </if>
+        ) a
+        INNER JOIN mst_org b
+            on b.org_id = a.brand_cd
+            and b.del_flg = 0
+        ORDER BY
+            a.level
+            , a.org_id
+    </select>
+
+    <select id="selectOrgCount" resultType="java.lang.Integer">
+        select
+            count (s.org_id)
+        from
+        (
+            SELECT
+                a.org_id,
+                b.org_nm || '　' || a.org_nm as orgNm,
+                a.role_div,
+                a.level
+            FROM
+            (
+                SELECT
+                    mo.org_id,
+                    mo.org_nm,
+                    mo.brand_cd,
+                    mo.level,
+                    mu.role_div
+                FROM mst_usr mu
+                inner join mst_org mo
+                    on mo.org_id = mu.org_id
+                    <if test='manaFlag == "0" and manaFlag != ""'>AND mo.brand_cd = #{brandCd}
+                        AND mo.org_id like CONCAT('%',trim(#{orgId}),'%')</if>
+                    <if test='orgId != null and orgId != ""'>
+                            AND mo.org_id like CONCAT('%',trim(#{orgId}),'%')
+                    </if>
+                    <if test='orgNm != null and orgNm != ""'>
+                        and mo.org_nm like CONCAT('%',trim(#{orgNm}),'%')
+                    </if>
+                    and mo.del_flg = 0
+                    <!--NWT　楊　2021/07/15　MANAMIRU1-727　Edit　Start-->
+                    <if test='gid == "1" and (gidPk == "" or gidPk == null) '>
+                        INNER join mst_manager mm on mu.usr_id = mm.mgr_id
+                        and mm.tch_cd = #{tchCd}
+                    </if>
+                WHERE
+                    mu.del_flg = 0
+                    <if test='gid == "1" and gidPk != "" and gidPk != null '>
+                        <!--NWT　楊　2021/07/15　MANAMIRU1-727　Edit　End-->
+                        and mu.gidpk = #{gidPk}
+                    </if>
+                    <if test='gid != "1"'>
+                        and mu.after_usr_id = #{userId}
+                    </if>
+                order by
+                    mo.LEVEL
+                    , mo.org_id
+            ) a
+            INNER JOIN mst_org b
+                on b.org_id = a.brand_cd
+                and b.del_flg = 0
+        ) s
+    </select>
+</mapper>

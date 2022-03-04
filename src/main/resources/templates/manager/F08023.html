@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>未読・未回答者送信一覧画面（学習連絡）</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F08023.css">
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app">
+    <div class="one">
+        <div>
+            <ul class="one-ul">
+                <li>学習連絡</li>
+                <li>  ＞   配信設定/状況確認</li>
+                <li>  ＞   {{ title }}</li>
+                <li v-if = "menuStatus == 2">  ＞   送信対象者</li>
+            </ul>
+        </div>
+    </div>
+    <div class="div_body">
+        <div class="div_head">
+
+            <div class="div_head_title" v-if = "menuStatus == 2">
+                {{ headMsg }}
+            </div>
+            <div class="div_head_title">
+                <span class="span_div" v-if = "menuStatus == 1">{{ title }}</span>
+                <span class="span_div" v-if = "menuStatus == 2">送信</span>
+                対象者一覧: {{ objSum }}名
+            </div>
+            <div>
+                <button v-if = "menuStatus == 1" id="objDownload">対象者ダウンロード</button>
+                <button v-if = "menuStatus == 1" id="deliver" >再通知</button>
+            </div>
+        </div>
+        <div class="div_main">
+            <div class="first_div">
+                <table id="tbl_title"  border="2px">
+                    <tr>
+                        <th width="5%" v-if = "menuStatus == 1">
+                            <input id="all_select" type="checkbox"/>
+                        </th>
+                        <th width="13%">保護者ID</th>
+                        <th width="15%">保護者名</th>
+                        <th width="13%">生徒ID</th>
+                        <th width="15%">生徒名</th>
+                        <th width="5%">ステータス</th>
+                        <!--2020/11/30 V9.0 cuikailin modify start-->
+                        <th width="15%">メールアドレス</th>
+                        <!--2020/11/30 V9.0 cuikailin modify end-->
+                    </tr>
+                </table>
+                <div class="tbl_div">
+                    <table id="objTable" border="2px">
+                        <tr>
+                            <th width="5%" v-if = "menuStatus == 1">
+
+                            </th>
+                            <th width="13%"></th>
+                            <th width="15%"></th>
+                            <th width="13%"></th>
+                            <th width="15%"></th>
+                            <th width="5%"></th>
+                            <th width="15%"></th>
+                        </tr>
+                        <tr v-for = "(obj,index) in dataChange(menuStatus, objList, sendObjList)" style="height: 5vh;">
+                            <td v-if = "menuStatus == 1">
+                                <input :content="index" class="child_select" type="checkbox" onchange="vm.check()" :checked="isChecked(obj)"/>
+                            </td>
+                            <td>{{ obj.guardLoginId }}</td>
+                            <td>{{ obj.guardNm }}</td>
+                            <td>{{ obj.stuLoginId }}</td>
+                            <td>{{ obj.stuNm }}</td>
+                            <td>{{ getStatus(obj.readingStsDiv) }}</td>
+                            <td>{{ obj.mailad }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div :style="display()" class="line"></div>
+                <button v-if = "menuStatus == 2" id="sendMsg_down">再通知</button>
+                <button id="btn_cancel">戻る</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F08023.js"></script>
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10502Dao">
+	<select id="selectSubjtDivByStuId" parameterType="String" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+		SELECT
+		DISTINCT
+			cd.cod_cd,
+			cd.cod_value,
+			cd.cod_value_2,
+			cd.cod_cont,
+			cd.sort
+		FROM
+			mst_cod_d cd
+			INNER JOIN mst_textb tm ON tm.subjt_div = cd.cod_cd
+			AND tm.del_flg = 0
+			INNER JOIN mst_stu sm ON sm.schy_div = tm.schy_div
+			AND sm.stu_id = #{stuId}
+		WHERE
+			cd.cod_key = 'SUBJT_DIV'
+		ORDER BY
+			cd.sort
+	</select>
+	<select id="selectWithCodById"  resultType="jp.learningpark.modules.student.dto.F10502Dto">
+		SELECT
+			sd.*,
+			cd.cod_value,
+			cd.cod_value_2,
+			cd.cod_value_3,
+			cd.cod_cont,
+			cd.cod_cd
+		FROM stu_test_goal_result_d sd
+		LEFT JOIN mst_cod_d cd
+			ON sd.subjt_div = cd.cod_cd
+			and cd.del_flg=0
+			and cd.cod_key='TEST_SUBJT_DIV'
+			and #{schyDiv} =  ANY ( regexp_split_to_array ( cd.cod_value_5, ',' ) )
+		WHERE
+			sd.del_flg=0
+			and sd.id=#{id}
+		order by cd.sort
+	</select>
+	<select id="getTestSubjt" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+		SELECT
+			cod_cd,
+			cod_value,
+			cod_value_2,
+			cod_value_3,
+			cod_cont
+		FROM
+			mst_cod_d
+		WHERE
+			cod_key = 'TEST_SUBJT_DIV'
+			AND del_flg = 0
+			AND #{schyDiv} = ANY ( regexp_split_to_array ( cod_value_5, ',' ) )
+		ORDER BY
+			sort ASC
+	</select>
+	<select id="getSubjt" resultType="java.lang.String">
+		SELECT
+			subjt_div
+		FROM stu_test_goal_result_d
+		WHERE id in
+		<foreach item="item" collection="detailIds" separator="," open="(" close=")" index="">
+			#{item, jdbcType=INTEGER}
+		</foreach>
+	</select>
+	<select id="getHeadId" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			id
+		FROM stu_test_goal_result_h
+		<where>
+			<if test="headId != null">
+				id <![CDATA[ <> ]]> #{headId}
+			</if>
+			and stu_id = #{stuId}
+			and schy_div = #{schyDiv}
+			and test_kind_div = #{testKindDiv}
+			and test_type_div = #{testTypeDiv}
+			and test_tgt_y = #{year}
+			and test_tgt_m = #{month}
+			and del_flg = 0
+		</where>
+	</select>
+</mapper>

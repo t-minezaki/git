@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40006Dao">
+    <!--取得したロールは「生徒」の場合、メールアドレスが一致するかどうかを確認する-->
+    <!-- 2021/10/11　MANAMIRU1-776 cuikl　Edit　Start-->
+    <select id="selectCountStuById" resultType="Integer" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+                mst_stu stu
+                        INNER JOIN mst_guard gua ON stu.guard_id = gua.guard_id
+                        AND gua.del_flg = 0
+                        INNER JOIN mst_usr AS mu ON mu.usr_id = stu.stu_id
+                        AND mu.del_flg = 0
+        WHERE
+                gua.mailad =  #{email}
+          AND mu.after_usr_id = #{id}
+          AND stu.del_flg = 0
+    </select>
+    <!--取得したロールは「保護者」の場合、メールアドレスが一致するかどうかを確認する-->
+    <select id="selectCountGuaById" resultType="Integer" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+                mst_guard as mg
+                        INNER JOIN mst_usr AS mu ON mu.usr_id = mg.guard_id
+                        AND mu.del_flg = 0
+        WHERE
+                mu.after_usr_id = #{id}
+          AND mg.mailad = #{email}
+          AND mg.del_flg = 0
+    </select>
+    <!--取得したロールは「メンター」の場合、メールアドレスが一致するかどうかを確認する-->
+    <select id="selectCountMenById" resultType="Integer" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+                mst_mentor as mm
+                        INNER JOIN mst_usr AS mu ON mu.usr_id = mm.mentor_id
+                        AND mu.del_flg = 0
+        WHERE
+                mu.after_usr_id = #{id}
+          AND mm.mailad = #{email}
+          AND mm.del_flg = 0
+    </select>
+    <!--取得したロールは「管理者」の場合、メールアドレスが一致するかどうかを確認する-->
+    <select id="selectCountManById" resultType="Integer" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+                mst_manager as mm
+                        INNER JOIN mst_usr AS mu ON mu.usr_id = mm.mgr_id
+                        AND mu.del_flg = 0
+        WHERE
+                mu.after_usr_id = #{id}
+          AND mm.mailad = #{email}
+          AND mm.del_flg = 0
+    </select>
+    <!--画面．ＩＤがユーザ基本マスタに存在するかどうかを検索する-->
+    <!--データを1つだけ選択してください-->
+    <!--変更後ユーザＩＤ、学研IDプライマリキーとGIDフラグ-->
+    <select id="selectRoleDivById" resultType="jp.learningpark.modules.common.entity.MstUsrEntity">
+        SELECT
+            usr.usr_id,
+            usr.AFTER_USR_ID,
+            usr.role_div,
+            usr.GIDPK,
+            usr.GID_FLG
+        FROM
+            mst_usr usr,
+            mst_org org
+        WHERE
+        usr.usr_sts = '1'
+        <!-- 2021/10/13 manamiru1-776 cuikl edit start -->
+        <if test="gidpk == null">
+            AND usr.after_usr_id = #{id}
+            <!-- 2021/10/25 manamiru1-776 cuikl add start -->
+            AND usr.gid_flg = '0'
+            <!-- 2021/10/25 manamiru1-776 cuikl add end -->
+        </if>
+        <if test="gidpk != null">
+            AND usr.gidpk = #{gidpk}
+            <!-- 2021/10/25 manamiru1-776 cuikl add start -->
+            AND usr.gid_flg = '1'
+            <!-- 2021/10/25 manamiru1-776 cuikl add end -->
+        </if>
+        <!-- 2021/10/13 manamiru1-776 cuikl edit end -->
+        AND usr.org_id = org.org_id
+        AND usr.del_flg = 0
+        <if test="manaFlag == null or manaFlag == 0">
+            AND org.brand_cd = #{brandCd}
+        </if>
+    </select>
+    <!-- 2021/03/09 manamiru4-37 add start -->
+    <select id="selectGuardByStu"  parameterType="String" resultType="String">
+        SELECT
+                muGuard.after_usr_id
+                ,muGuard.gidpk
+        FROM
+                mst_usr usr
+                        INNER JOIN mst_stu stu ON stu.stu_id = usr.usr_id
+                        AND stu.del_flg = 0
+                        INNER JOIN mst_usr AS muGuard ON muGuard.usr_id = stu.guard_id
+                        AND muGuard.del_flg = 0
+        WHERE
+                usr.after_usr_id = #{id}
+          AND usr.del_flg = 0
+        LIMIT 1
+    </select>
+    <!-- 2021/03/09 manamiru4-37 add end -->
+
+    <select id="selectTchCod" resultType="Integer" parameterType="String">
+        SELECT
+                COUNT (tch_cd)
+        FROM
+                mst_manager as mm
+                        INNER JOIN mst_usr AS mu ON mu.usr_id = mm.mgr_id
+                        AND mu.del_flg = 0
+        WHERE
+                mu.after_usr_id = #{afterUserId}
+          AND mm.del_flg = 0
+          AND mm.tch_cd is not null
+          AND mm.tch_cd <![CDATA[<>]]> ''
+    </select>
+    <!-- 2021/10/11　MANAMIRU1-776 cuikl　Edit　End-->
+</mapper>

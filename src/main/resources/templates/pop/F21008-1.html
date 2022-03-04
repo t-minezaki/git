@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00054.css"/>
+</head>
+<body>
+<div class="content" id="data" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="one" v-if="flg!=2" style="font-size: 15px;height: 22vh;margin-top: 2vh;border-bottom: 1px solid #000;width: 100%">
+        <span class="span" >対象者選択</span>
+        <div style="margin-top: 2vh;" id="checkSelect">
+            <span class="span" style="margin-left: 8vh;">カテゴリー選択１</span>
+            <div class="div_radiobox">
+                <input class="newtui-radio-one nolabel" id="all" type="radio" value="all" name="select" title="全員" checked>
+                <input class="newtui-radio-one nolabel" type="radio" value="schy" name="select" title="学年">
+                <input class="newtui-radio-one nolabel" type="radio" value="group" name="select" title="グループ">
+                <input class="newtui-radio-one nolabel" type="radio" value="someone" name="select" title="個別検索">
+            </div>
+            <input id="stuName" style="background: none;border: 1px solid black;margin-left: 25vw" disabled>
+        </div>
+        <div style="float: left">
+            <span class="span" style="margin-left: 8vh;">カテゴリー選択2</span>
+            <select type="text" id="typeDiv" style="background: none;width: 8vw" name="schy">
+                <option></option>
+                <option v-if="searchDiv == 'schy'" v-for="schy in mstCodDEntityList" :value="schy.codCd">{{schy.codValue}}</option>
+                <option v-if="searchDiv == 'group'"v-for="group in grpEntityList" :value="group.grpId">{{group.grpNm}}</option>
+            </select>
+        </div>
+        <button type="button" class="selectBtn" style="margin-left: 80vh;color: rgba(100, 100, 100, 1); background: white; border: 1px grey solid;border-bottom: 3px grey solid;" @click="search()" >検索</button>
+    </div>
+    <div class="box">
+        <div class="box1" style="margin-left: 21%" >
+            <div class="title">検索結果</div>
+            <div>
+                <select multiple="multiple" id="select1" class="select">
+                    <option v-for="stu in searchStuList" :value="stu.stuId" class="stuList">{{stu.stuName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="box2">
+            <button> <img src="../img/listleft.png" id="toleft"></button>
+            <button> <img src="../img/listright.png" id="toright"></button>
+        </div>
+        <div class="box1">
+            <div class="title">対象者とする</div>
+            <div>
+                <select multiple="multiple" id="select2" class="select">
+                    <option v-for="stu in stuList" :value="stu.stuId" class="stuList">{{stu.stuName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="footDiv">
+        <div class="footAuto">
+            <button class="selectBtn footBtn" @click="submit()">選択</button>
+            <button class="selectBtn footBtn" style="margin-left: 7vw" onclick="cancle()">戻る</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F21008-1.js"></script>
+</html>

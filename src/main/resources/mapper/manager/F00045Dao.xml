@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00045Dao">
+    <select id="getInitCont" resultType="jp.learningpark.modules.manager.dto.F00045Dto">
+        (SELECT
+            u1.after_usr_id stuId,
+            a.flnm_nm stuSei,
+            a.flnm_lnm stuMei,
+            a.flnm_kn_nm stuKnSei,
+            a.flnm_kn_lnm stuKnMei,
+            a.birthd,
+            c2.cod_value sex,
+            c1.cod_value schy,
+            u2.after_usr_id guardId,
+            u2.usr_id userId,
+            b.flnm_nm guardSei,
+            b.flnm_lnm guardMei,
+            b.flnm_kn_nm guardKnSei,
+            b.flnm_kn_lnm guardKnMei,
+            b.telnum,
+            b.urg_telnum,
+            b.mailad,
+            b.postcd_mnum postcdMnum,
+            b.postcd_bnum postcdBnum,
+            b.adr1,
+            b.adr2,
+            a.upd_datime updDatime,
+            c3.cod_value tuzukiGara 
+        FROM
+            mst_stu a
+            LEFT JOIN mst_usr u1 ON u1.del_flg = 0 
+            AND a.stu_id = u1.usr_id
+            LEFT JOIN mst_guard b ON b.del_flg = 0 
+            AND a.guard_id = b.guard_id
+            LEFT JOIN mst_usr u2 ON u2.del_flg = 0 
+            AND b.guard_id = u2.usr_id
+            LEFT JOIN mst_cod_d c1 ON c1.cod_key = 'SCHY_DIV' 
+            AND c1.cod_cd = a.schy_div 
+            AND c1.del_flg = 0
+            LEFT JOIN mst_cod_d c2 ON c2.cod_key = 'GENDR_DIV' 
+            AND c2.cod_cd = a.gendr_div 
+            AND c2.del_flg = 0
+            LEFT JOIN mst_cod_d c3 ON c3.cod_key = 'RELTNSP_DIV' 
+            AND c3.cod_cd = b.reltnsp_div 
+            AND c3.del_flg = 0 
+        WHERE
+            a.stu_id = #{stuId} 
+            AND a.del_flg = 0)
+            union all
+            (SELECT
+            u1.after_usr_id stuId,
+            a.flnm_nm stuSei,
+            a.flnm_lnm stuMei,
+            a.flnm_kn_nm stuKnSei,
+            a.flnm_kn_lnm stuKnMei,
+            a.birthd,
+            c2.cod_value sex,
+            c1.cod_value schy,
+            u2.after_usr_id guardId,
+            u2.usr_id userId,
+            b.flnm_nm guardSei,
+            b.flnm_lnm guardMei,
+            b.flnm_kn_nm guardKnSei,
+            b.flnm_kn_lnm guardKnMei,
+            b.telnum,
+            b.urg_telnum,
+            b.mailad,
+            b.postcd_mnum postcdMnum,
+            b.postcd_bnum postcdBnum,
+            b.adr1,
+            b.adr2,
+            a.upd_datime updDatime,
+            c3.cod_value tuzukiGara
+        FROM
+            mst_stu a
+            LEFT JOIN mst_usr u1 ON u1.del_flg = 0
+            AND a.stu_id = u1.usr_id
+            INNER JOIN mst_guard b ON b.del_flg = 0
+            AND a.guard1_id = b.guard_id
+            LEFT JOIN mst_usr u2 ON u2.del_flg = 0
+            AND b.guard_id = u2.usr_id
+            LEFT JOIN mst_cod_d c1 ON c1.cod_key = 'SCHY_DIV'
+            AND c1.cod_cd = a.schy_div
+            AND c1.del_flg = 0
+            LEFT JOIN mst_cod_d c2 ON c2.cod_key = 'GENDR_DIV'
+            AND c2.cod_cd = a.gendr_div
+            AND c2.del_flg = 0
+            LEFT JOIN mst_cod_d c3 ON c3.cod_key = 'RELTNSP_DIV'
+            AND c3.cod_cd = b.reltnsp_div
+            AND c3.del_flg = 0
+        WHERE
+            a.stu_id = #{stuId}
+            AND a.del_flg = 0)
+            union all
+            (SELECT
+            u1.after_usr_id stuId,
+            a.flnm_nm stuSei,
+            a.flnm_lnm stuMei,
+            a.flnm_kn_nm stuKnSei,
+            a.flnm_kn_lnm stuKnMei,
+            a.birthd,
+            c2.cod_value sex,
+            c1.cod_value schy,
+            u2.after_usr_id guardId,
+            u2.usr_id userId,
+            b.flnm_nm guardSei,
+            b.flnm_lnm guardMei,
+            b.flnm_kn_nm guardKnSei,
+            b.flnm_kn_lnm guardKnMei,
+            b.telnum,
+            b.urg_telnum,
+            b.mailad,
+            b.postcd_mnum postcdMnum,
+            b.postcd_bnum postcdBnum,
+            b.adr1,
+            b.adr2,
+            a.upd_datime updDatime,
+            c3.cod_value tuzukiGara
+        FROM
+            mst_stu a
+            LEFT JOIN mst_usr u1 ON u1.del_flg = 0
+            AND a.stu_id = u1.usr_id
+            INNER JOIN mst_guard b ON b.del_flg = 0
+            AND a.guard2_id = b.guard_id
+            LEFT JOIN mst_usr u2 ON u2.del_flg = 0
+            AND b.guard_id = u2.usr_id
+            LEFT JOIN mst_cod_d c1 ON c1.cod_key = 'SCHY_DIV'
+            AND c1.cod_cd = a.schy_div
+            AND c1.del_flg = 0
+            LEFT JOIN mst_cod_d c2 ON c2.cod_key = 'GENDR_DIV'
+            AND c2.cod_cd = a.gendr_div
+            AND c2.del_flg = 0
+            LEFT JOIN mst_cod_d c3 ON c3.cod_key = 'RELTNSP_DIV'
+            AND c3.cod_cd = b.reltnsp_div
+            AND c3.del_flg = 0
+        WHERE
+            a.stu_id = #{stuId}
+            AND a.del_flg = 0)
+            union all
+            (SELECT
+            u1.after_usr_id stuId,
+            a.flnm_nm stuSei,
+            a.flnm_lnm stuMei,
+            a.flnm_kn_nm stuKnSei,
+            a.flnm_kn_lnm stuKnMei,
+            a.birthd,
+            c2.cod_value sex,
+            c1.cod_value schy,
+            u2.after_usr_id guardId,
+            u2.usr_id userId,
+            b.flnm_nm guardSei,
+            b.flnm_lnm guardMei,
+            b.flnm_kn_nm guardKnSei,
+            b.flnm_kn_lnm guardKnMei,
+            b.telnum,
+            b.urg_telnum,
+            b.mailad,
+            b.postcd_mnum postcdMnum,
+            b.postcd_bnum postcdBnum,
+            b.adr1,
+            b.adr2,
+            a.upd_datime updDatime,
+            c3.cod_value tuzukiGara
+        FROM
+            mst_stu a
+            LEFT JOIN mst_usr u1 ON u1.del_flg = 0
+            AND a.stu_id = u1.usr_id
+            INNER JOIN mst_guard b ON b.del_flg = 0
+            AND a.guard3_id = b.guard_id
+            LEFT JOIN mst_usr u2 ON u2.del_flg = 0
+            AND b.guard_id = u2.usr_id
+            LEFT JOIN mst_cod_d c1 ON c1.cod_key = 'SCHY_DIV'
+            AND c1.cod_cd = a.schy_div
+            AND c1.del_flg = 0
+            LEFT JOIN mst_cod_d c2 ON c2.cod_key = 'GENDR_DIV'
+            AND c2.cod_cd = a.gendr_div
+            AND c2.del_flg = 0
+            LEFT JOIN mst_cod_d c3 ON c3.cod_key = 'RELTNSP_DIV'
+            AND c3.cod_cd = b.reltnsp_div
+            AND c3.del_flg = 0
+        WHERE
+            a.stu_id = #{stuId}
+            AND a.del_flg = 0)
+            union all
+            (SELECT
+            u1.after_usr_id stuId,
+            a.flnm_nm stuSei,
+            a.flnm_lnm stuMei,
+            a.flnm_kn_nm stuKnSei,
+            a.flnm_kn_lnm stuKnMei,
+            a.birthd,
+            c2.cod_value sex,
+            c1.cod_value schy,
+            u2.after_usr_id guardId,
+            u2.usr_id userId,
+            b.flnm_nm guardSei,
+            b.flnm_lnm guardMei,
+            b.flnm_kn_nm guardKnSei,
+            b.flnm_kn_lnm guardKnMei,
+            b.telnum,
+            b.urg_telnum,
+            b.mailad,
+            b.postcd_mnum postcdMnum,
+            b.postcd_bnum postcdBnum,
+            b.adr1,
+            b.adr2,
+            a.upd_datime updDatime,
+            c3.cod_value tuzukiGara 
+        FROM
+            mst_stu a
+            LEFT JOIN mst_usr u1 ON u1.del_flg = 0 
+            AND a.stu_id = u1.usr_id
+            INNER JOIN mst_guard b ON b.del_flg = 0
+            AND a.guard4_id = b.guard_id
+            LEFT JOIN mst_usr u2 ON u2.del_flg = 0 
+            AND b.guard_id = u2.usr_id
+            LEFT JOIN mst_cod_d c1 ON c1.cod_key = 'SCHY_DIV' 
+            AND c1.cod_cd = a.schy_div 
+            AND c1.del_flg = 0
+            LEFT JOIN mst_cod_d c2 ON c2.cod_key = 'GENDR_DIV' 
+            AND c2.cod_cd = a.gendr_div 
+            AND c2.del_flg = 0
+            LEFT JOIN mst_cod_d c3 ON c3.cod_key = 'RELTNSP_DIV' 
+            AND c3.cod_cd = b.reltnsp_div 
+            AND c3.del_flg = 0 
+        WHERE
+            a.stu_id = #{stuId} 
+            AND a.del_flg = 0)
+	
+    </select>
+    <select id="selectGuardInfo" resultType="jp.learningpark.modules.manager.dto.F00045Dto">
+        SELECT
+            b.after_usr_id guardId,
+            a.flnm_nm guardSei,
+            a.flnm_lnm guardMei,
+            a.flnm_kn_nm guardKnSei,
+            a.flnm_kn_lnm guardKnMei,
+            a.telnum,
+            a.mailad,
+            a.urg_telnum,
+            a.postcd_mnum postcdMnum,
+            a.postcd_bnum postcdBnum,
+            a.adr1,
+            a.adr2,
+            c.cod_value tuzukiGara,
+            b.usr_id userId
+        FROM
+            mst_guard a
+            inner join mst_usr b on b.del_flg = 0
+            left join mst_cod_d c on c.cod_key = 'RELTNSP_DIV' and c.cod_cd = a.reltnsp_div and c.del_flg = 0
+        WHERE
+            a.guard_id = #{guardId}
+            and a.guard_id = b.usr_id
+            and b.usr_sts = '1'
+            and a.del_flg = 0
+    </select>
+</mapper>

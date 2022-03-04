@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title id="F20009">理解度詳細画面（PC）</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <!-- layer -->
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F20009.css"/>
+    <script type="text/javascript" src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+    <!--2021/1/14 UT-133 cuikailin modify start-->
+<header style="width: 100%;padding: 0 15px; display: none;">
+    <!--2021/1/14 UT-133 cuikailin modify end-->
+    <div class="header_logo" onclick="window.location.href='F20001.html'"></div>
+    <div class="mentorInfo">
+        <span id="mentorNm" class="mentorNm"></span>
+        <span>さん、ようこそ！</span>
+    </div>
+    <ul class="header_operat">
+        <div class="btn_div">
+            <button onclick="window.location.href='F20001.html'">生徒一覧</button>
+        </div>
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout"/>
+        </li>
+    </ul>
+    <div class="headerBtn">
+        <button onclick="window.location.href='../common/F40008.html'">ID/パスワード変更</button>
+        <button onclick="window.location.href='F21001.html'">基本情報変更</button>
+    </div>
+    <div class="studentInfo">
+        <span id="studentNm" class="studentNm"></span>
+        <span>さんの情報</span>
+    </div>
+</header>
+    <!--2021/1/14 UT-133 cuikailin modify start-->
+<iframe src="${request.contextPath}/common/F40003.html?id=F20009" width="100%"
+        style="border:none;margin-top:2vh;scrolling : no;background: #fff;height: calc(2.7vw + 2px)"></iframe>
+    <!--2021/1/14 UT-133 cuikailin modify end-->
+<div id="message" class="topMessage"></div>
+<div class="content" id="pageF20009">
+    <div id="time_tab">
+        <div class="title_div">
+            <ul class="plan_time">
+                <li class="isSlected">
+                    <a id="week" href="#tab-1" class="isSlected active">週</a>
+                </li>
+                <li>
+                    <a id="month" href="#tab-2" class="unSlected">月</a>
+                </li>
+                <li>
+                    <a id="year" href="#tab-3" class="unSlected">年</a>
+                </li>
+            </ul>
+            <div class="btn_div" style="top: 0.4vw;">
+                <button onclick="getPrd()">時期指定</button>
+            </div>
+        </div>
+    </div>
+    <div class="statistics" id="tab2">
+        <div class="statistics_info">
+            <h2 id="subjtNm" v-text="subjtNm ? '詳細理解度'+'  【'+subjtNm+'】' :'詳細理解度'"></h2>
+            <div class="renturnBtn"><img src="../img/left.png" alt=""></div>
+        </div>
+        <div class="degreeDiv" v-for="li in f20009DtoList">
+            <div class="degreeTitle"><span :style="'color:'+li.codValue2">●</span> {{li.codValue}}</div>
+            <div class="degreeContent" v-for="li1 in li.f20009SecDtoList">
+                <div class="childDiv">
+                    <!-- 2021/01/14 UT-134 cuikailin modify start -->
+                    <p class="childPT" v-if="li1.blockTypeDiv=='S1' && li1.stuTermPlanId"
+                       v-text="li1.chaptNm.length>10 ? li1.chaptNm.substr(0,10)+'...' : li1.chaptNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='S1' && li1.stuTermPlanId == null" v-text="li1.blockNm"></p>
+                    <!-- 2021/01/14 UT-134 cuikailin modify end -->
+                    <p class="childPT" v-if="li1.blockTypeDiv=='R1'" v-text="li1.blockNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='P1'" v-text="li1.blockNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='W1'" v-text="li1.blockNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='V1'" v-text="li1.blockNm"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="statistics" id="tab3"></div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F20009.js"></script>
+</html>

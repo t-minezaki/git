@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>配信先設定画面</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!--<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>-->
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F04004.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/demo.css" type="text/css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/ztree-3.5.40/css/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <script type="text/javascript" src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/ztree-3.5.40/js/jquery.ztree.excheck.js"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/select2/css/select2.css" type="text/css">
+    <script type="text/javascript" src="${request.contextPath}/plugins/select2/js/select2.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/kuroshiro/dist/kuroshiro.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/kuroshiro-analyzer-kuromoji/dist/kuroshiro-analyzer-kuromoji.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="main" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="content" id="app">
+        <div class="popTitle">配信先設定画面</div>
+        <div class="topSessionTitle">
+            <div id="orgId">組織ID:</div>
+            <div>{{org.orgId}}</div>
+            <div id="orgNm">組織名:</div>
+            <div>{{org.orgNm}}</div>
+        </div>
+        <div class="zTreeDemoBackground left" style="margin-left: 2rem;height:25vh;width: 35%">
+            <div class="topTitle">配信組織</div>
+            <div id="chk_area">
+                <input type="checkbox" id="selectAll" style="margin-left: 0vw" checked="checked">
+            </div>
+            <span style="font-size: 12px;margin-left: 5px;line-height: 3vw;">全体</span>
+            <ul id="treeDemo" class="ztree" style="height: 20vh;width: 65vw;margin-left: 2.5rem"></ul>
+        </div>
+        <div style=" margin-top: 2vh;overflow: hidden;"><p class="midTitile">絞り込み項目</p></div>
+        <div class="select_div">
+            <!--2020/11/03 modify LiYuHuan -->
+            <div class="conditions">
+                <div class="name" style="font-size: 12px">学年</div>
+                <select type="text" id="schy" style="background: none;height: 4vh" name="schy">
+                    <option></option>
+                    <option v-for="schy in schyList" :value="schy.codCd">{{schy.codValue}}</option>
+                </select>
+            </div>
+            <div class="conditions">
+                <div class="name" style="font-size: 12px">グループ</div>
+                <select type="text" id="group" style="background: none;height: 2.5vw;width: 20vw;"  multiple>
+                    <option v-for="grp in mstGrpEntityList" :value="grp.grpId">{{grp.grpNm}}</option>
+                </select>
+            </div>
+            <div class="conditions">
+                <div class="name" id="stu" style="font-size: 12px;">生徒名</div>
+                <input  id="stuInput" style="background: none;"/>
+            </div>
+            <div class="conditions">
+                <div  class="name" id="stuId" style="font-size: 12px">生徒ID</div>
+                <input  id="stuIdtext" style="background: none;"/>
+            </div>
+        </div>
+        <div style="overflow: hidden;">
+            <!--/* 2020/12/17 V9.0 cuikailin modify start */-->
+            <div id="import">外部データで絞り込み</div>
+            <!--/* 2020/12/17 V9.0 cuikailin modify end */-->
+            <input id="showPath" readonly="readonly"  style="background: none;" disabled/>
+            <button id="file_btn" type="button" onclick="F_Open_dialog()">ファイルを指定</button>
+            <input type="file" multiple="multiple" id="btn_file">
+            <a id="download" onclick="getTemplate()" >ファイルテンプレート</a>
+                <button @click="search()" class="searchBtn">絞り込み</button>
+        </div>
+        <!--2020/11/03 -->
+
+        <div class="box">
+            <div class="box1" style="margin-left: 4.5rem;">
+                <!--/* 2020/12/17 V9.0 cuikailin modify start */-->
+                <div class="title" style="font-size: 12px"><span class="span_title">絞り込み結果</span></div>
+                <!--/* 2020/12/17 V9.0 cuikailin modify end */-->
+                <div style="width: 100%;height: 72%">
+                    <table id="jqGrid"></table>
+                </div>
+            </div>
+            <div class="symbol">
+                <div>
+                    <div class="symbol_div">
+                        <button id="toright"></button>
+                    </div>
+                    <div class="symbol_div">
+                        <button id="allToRight"></button>
+                    </div>
+                    <div class="symbol_div">
+                        <button id="toleft"></button>
+                    </div>
+                    <div class="symbol_div">
+                        <button id="allToLeft"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="box1">
+                <!--/* 2020/12/17 V9.0 cuikailin modify start */-->
+                <div class="title" style="font-size: 12px"><span class="span_title">配信対象</span></div>
+                <!--/* 2020/12/17 V9.0 cuikailin modify end */-->
+                <div style="width: 100%;height: 72%">
+                    <table id="jqGridRight"></table>
+                </div>
+            </div>
+        </div>
+        <div class="button_div">
+            <div>
+                <!--/* 2020/12/17 V9.0 cuikailin modify start */-->
+                <button class="end_btn" id="chooseBtn">決定</button>
+                <!--/* 2020/12/17 V9.0 cuikailin modify end */-->
+            </div>
+            <div>
+                <button class="end_btn" id="closeBtn">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="getTemplate" method="post" action="${request.contextPath}/pop/f04004/getTemplate" >
+    <input type="hidden"  name="div">
+</form>
+</body>
+<script src="${request.contextPath}/js/pop/F04004.js" type="text/javascript" charset="utf-8"></script>
+</html>

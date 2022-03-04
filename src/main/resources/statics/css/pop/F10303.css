@@ -1,0 +1,250 @@
+html,body{
+	margin: 0;
+	padding: 0;
+}
+
+*{
+	box-sizing: border-box;
+}
+.theme_selec{
+	width:100%;
+	height:100%;
+	position:relative;
+	text-align: center;
+	background:#fff;
+	overflow:hidden;
+	margin: auto;
+	padding: 4vw 0;
+}
+.theme_selec h2{
+	line-height: 10vw;
+	font-size: 5vw;
+	color: #000;
+	margin: 0;
+	font-weight: 500;
+	border-bottom: 1px solid #ccc;
+	height: 10vw;
+}
+.theme_btn{
+	width: 100%;
+	z-index: 99;
+	background-color: #fff;
+	height: 12vw;
+	padding: 0 4%;
+	top: 2vw;
+	position: relative;
+}
+.theme_btn button{
+	width: 56%;
+	float: left;
+	border: 2px solid #00b050;
+	color: #00b050;
+	border-radius: 12vw;
+	height: 100%;
+	background: none;
+}
+.theme_btn button.theme_btn_left{
+	border: 0;
+	color: #E94738;
+	width: 44%;
+}
+.theme_selec ul .active{
+	background:#00b050;
+}
+#demo_select{
+	width:36%;
+	height:140px;
+	border:1px solid #00b050!important;
+	margin:0 auto;
+	float:left;
+}
+.mbsc-mobiscroll{
+	width:36%;
+	float:left;
+	margin:0 auto;
+}
+.dwwr{
+	min-width: 100%!important;
+	height: 26vh;
+	border: 1px solid #00b050!important;
+	margin: 0 auto;
+	float: left;
+}
+.check_time{
+	height: 36vw;
+}
+.check_time p{
+	color: #00b050;
+	width: calc(64% / 2);
+	float: left;
+	margin-top: 11.5vh;
+	font-size: 5vw;
+}
+#demo_select_dummy{
+	display:none;
+}
+.dw-ul{
+	margin-top: 9vw!important;
+}
+.dww{
+	height: 30vw!important;
+}
+.popDiv{
+	width: 100%;
+	height: auto!important;
+	overflow: auto
+}
+.popDiv::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+.popDiv::-webkit-scrollbar-thumb {
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	background-color: #AAAAAA;
+}
+.popDiv::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+	border-radius: 1px;
+	background-color: #dadada;
+}
+.disNone{
+	display: none;
+}
+.showIput{
+	width: 92%;
+	height: 16vw;
+	margin: 1vw 4%;
+}
+.showIput p{
+	width: 20%;
+	height: 100%;
+	line-height: 5vw;
+	font-size: 4vw;
+	color: #000000;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+.showIput textarea{
+	width: 80%;
+	padding: 0 2vw;
+	line-height: 5vw;
+	float: left;
+	font-size: 4vw;
+	color: #999;
+	height: 16vw;
+}
+.showTime {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	height: 6vh;
+	line-height: 6vh;
+	color: #999;
+	width: 80%;
+	margin-left: 10%;
+	padding: 0 2vw;
+}
+.showTime p {
+	float: left;
+	margin: 0;
+	font-size: 13px;
+}
+.showTime p.showTimeRight {
+	float: right;
+	width: 40px;
+	text-align: right;
+}
+.showteach{
+	margin: 2vw 4%;
+	width: 92%;
+	position: relative;
+	border-top: 1px solid #ccc;
+	padding: 0 1vw;
+	border-bottom: 1px solid #ccc;
+	height: 13vw;
+}
+.showteach p{
+	float: left;
+	width: 20%;
+	font-size: 4vw;
+	line-height: 12vw;
+	position: absolute;
+	height: 12vw;
+	left: 1vw;
+	margin: 0;
+	color: #000000;
+	top: 0;
+	text-align: left;
+}
+.showteach div{
+	width: 100%;
+	font-size: 4vw;
+	text-align: center;
+	height: 12vw;
+	line-height: 12vw;
+	color: #000000;
+}
+.check_sub{
+	height: 34vw;
+	overflow: hidden;
+}
+#dom_sub_dummy{
+	display: none;
+}
+.mbsc-mobiscroll{
+	width: 100%;
+}
+.mbsc-mobiscroll .dwwr{
+	background: none;
+}
+#demo_select{
+	width:100%;
+	height:140px;
+	border:0!important;
+}
+.dwwr{
+	min-width: 100%!important;
+	height: 26vh;
+	border: 0!important;
+	margin: 0 auto;
+	float: left;
+}
+.mbsc-mobiscroll .dwwol{
+	border-top: 1px solid #eee!important;
+	border-bottom: 1px solid #eee!important;
+}
+.dw,.dwwr,.dwcc,.dwhl,dwwc.dwfl,.dwwl0,.dwww,dww,.dw-ul,dw-bf,.dw-li{
+	width: 100%!important;
+	height:100%!important;
+}
+.mbsc-mobiscroll .dwfl{
+	padding: 0;
+	background: #fff;
+}
+.dw-li{
+	opacity: 0.5!important;
+}
+.dw-sel{
+	opacity: 1!important;
+}
+.dw-i{
+	font-size: 14px;
+}
+.mbsc-mobiscroll .dwwr{
+	background: none;
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+	border-radius: 1px;
+	background-color: #dadada;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	background-color: #AAAAAA;
+}
+::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}

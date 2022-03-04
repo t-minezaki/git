@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30402Dao">
+    <!-- 塾ニュース -->
+    <select id="getEventNews" resultType="jp.learningpark.modules.guard.dto.F30402Dto">
+        SELECT DISTINCT
+        b.id                  AS  id
+        , a.event_title       AS  eventTitle
+        , a.event_cont        AS  eventCont
+        , a.attach_file_path  AS  attFilePath
+        , a.title_img_path    AS  titleImgPath
+        , c.cod_value         AS  codValue
+        , b.reading_sts_div   AS  readingStsDiv
+        , b.reply_sts_div
+        , a.apply_start_dt    AS  applyStartDt
+        , a.apply_end_dt      AS  applyEndDt
+        FROM
+        mst_event a
+        INNER JOIN guard_event_apply_sts b
+        ON a.id = b.event_id
+        AND b.guard_id = #{guardId}
+        AND b.stu_id = #{stuId}
+        INNER JOIN mst_cod_d c
+        ON c.cod_cd = a.event_sts_div
+        AND c.cod_key = 'EVENT_STS_DIV'
+        WHERE a.del_flg = 0
+        AND b.del_flg = 0
+        AND c.del_flg = 0
+        AND a.id = #{id}
+    </select>
+</mapper>

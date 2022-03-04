@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.pop.dao.F21004Dao">
+    <resultMap id="lateAbsHistoryDetail" type="jp.learningpark.modules.pop.dto.F21004Dto">
+        <result property="content" column="content"/>
+        <result property="lateTime" column="late_tm"/>
+        <result property="reason" column="reason"/>
+        <result property="remark" column="bikou"/>
+    </resultMap>
+    <select id="getDetail" resultMap="lateAbsHistoryDetail">
+        SELECT
+            C.cod_value AS CONTENT,
+            b.cod_value AS reason,
+            A.bikou,
+            A.after_usr_id
+        FROM
+            (
+        SELECT
+            abs_sts,
+            abs_reason,
+            bikou,
+            mu.after_usr_id
+        FROM
+            late_abs_hst AS lah
+            INNER JOIN mst_usr AS mu ON mu.usr_id = lah.stu_id
+            AND mu.del_flg = 0
+        WHERE
+            lah.ID =  #{id}
+            AND lah.del_flg = 0
+            ) A
+            INNER JOIN mst_cod_d b ON ( A.abs_reason = b.cod_cd AND b.cod_key = 'ABS_REASON' )
+            INNER JOIN mst_cod_d C ON ( A.abs_sts = C.cod_cd AND C.cod_key = 'ABS_STS' )
+        WHERE
+            b.del_flg = 0
+    </select>
+</mapper>

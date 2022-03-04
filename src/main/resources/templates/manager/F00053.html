@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒グループ関係検索一覧</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00053.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app" class="content">
+    <div class="popTitle" >生徒グループ関係検索一覧画面</div>
+    <div class="topSessionTitle">
+        <div class="bold">組織ID:</div>
+        <div id="sOrgId"></div>
+        <div class="bold">組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <form id="f00053Form">
+        <div class="inputDiv">
+            <div class="inputMessage">
+                <div style="width: 8%; ">グループ名</div>
+                <input type="text" id="groupName" style="background: white;height: 1.5vw;width: 10%;" name="groupName">
+                <div style="width: 5%;margin-left: 6vw; ">組織</div>
+                <select id="selectOrgId" style="background: white;height: 1.5vw;width: 10%;">
+                    <option ></option>
+                    <option v-for = "orgList in mstOrgEntityList" :value ="orgList.orgId">{{orgList.orgNm}}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div class="one">
+        <div class="btn">
+            <button onclick="window.location.href='./F00054.html?flg=0'">新規追加</button>
+            <button onclick="searchFn()" id="select" style="margin-left: 6vw;">検索</button>
+        </div>
+        <!--<div class="exprot">-->
+            <!--<a href="./F00005.html">一括登録＆エクスポート</a>-->
+        <!--</div>-->
+    </div>
+    <div id="jqGridPager"></div>
+    <table id="jqGrid"></table>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F00053.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>検索画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/my_select.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F08009-1.css" />
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div class="all" id="app">
+    <div class="content_new">
+        <form id="form1">
+            <div>
+                <p>カテゴリ</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="ctgy_nm"/>
+                </div>
+            </div>
+
+            <div>
+                <p>タイトル</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="event_title"/>
+                </div>
+            </div>
+
+            <div>
+                <p>作成日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeNine">
+                        </div>
+                        <input class="time_input" type="text" id="cretTimeStart" name="cretTimeStart" readonly>
+                    </div>
+                    <div class="time_split">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeTen">
+                        </div>
+                        <input class="time_input" type="text" id="cretTimeEnd" name="cretTimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>最終更新日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeEleven">
+                        </div>
+                        <input class="time_input" type="text" id="updDatimeStart" name="updDatimeStart" readonly>
+                    </div>
+                    <div class="time_split">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeTwelve">
+                        </div>
+                        <input class="time_input" type="text" id="updDatimeEnd" name="updDatimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>状態</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <select class="my_select" id="status">
+                        <option></option>
+                    </select>
+                    <label for = "status"></label>
+                </div>
+            </div>
+
+            <div>
+                <p>公開開始日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeOne">
+                        </div>
+                        <input class="time_input" type="text" id="pubStartDtStart" name="pubStartDtStart" readonly>
+                    </div>
+                    <div class="time_split">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeTwo">
+                        </div>
+                        <input class="time_input" type="text" id="pubStartDtEnd" name="pubStartDtEnd" readonly>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>公開終了日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeThree">
+                        </div>
+                        <input class="time_input" type="text" id="pubEndDtStart" name="pubEndDtStart" readonly>
+                    </div>
+                    <div class="time_split">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeFour">
+                        </div>
+                        <input class="time_input" type="text" id="pubEndDtEnd" name="pubEndDtEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>申請開始日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeFive">
+                        </div>
+                        <input class="time_input" type="text" id="applyStartDtStart" name="applyStartDtStart" readonly>
+                    </div>
+                    <div class="time_split">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeSix">
+                        </div>
+                        <input class="time_input" type="text" id="applyStartDtEnd" name="applyStartDtEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>申請終了日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeSeven">
+                        </div>
+                        <input class="time_input" type="text" id="applyEndDtStart" name="applyEndDtStart" readonly>
+                    </div>
+                    <div class="time_split">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeEight">
+                        </div>
+                        <input class="time_input" type="text" id="applyEndDtEnd" name="applyEndDtEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>作成者名</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="cretUserName"/>
+                </div>
+            </div>
+
+            <div>
+                <p>最終更新者名</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="updUserName"/>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="theme_btn">
+            <button id="submitbtn">検索</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F08009-1.js"></script>
+</html>

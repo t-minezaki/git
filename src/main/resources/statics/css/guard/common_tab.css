@@ -1,0 +1,40 @@
+.layui-layer-dialog {
+    width: 80% !important;
+    max-width: none !important;
+}
+
+.layui-layer-dialog .layui-layer-title {
+    font-size: 1.18rem;
+    height: 46px;
+    line-height: 46px;
+}
+
+.layui-layer-dialog .layui-layer-content {
+    padding: 40px 30px 50px 30px;
+    font-size: 1.15rem;
+}
+
+.layui-layer-dialog .layui-layer-btn a {
+    height: 55px;
+    line-height: 53px;
+    font-size: 1.28rem;
+    width: 9rem;
+    border-radius: 25px;
+    border: 2px solid #8CC11F !important;
+}
+
+.layui-layer-dialog .layui-layer-btn {
+    padding: 0 15px 20px;
+}
+
+.commonTabTitle {
+    height: 52px;
+    background: #8CC11F;
+    line-height: 52px;
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 100%;
+    font-weight: bold;
+    letter-spacing: 2px;
+}

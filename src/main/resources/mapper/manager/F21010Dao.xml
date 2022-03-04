@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21010Dao">
+    <!--  指導報告書ヘーダから指導報告書情報を取得し -->
+    <select id="select" resultType="jp.learningpark.modules.manager.dto.F21010Dto">
+SELECT
+		grd.guid_repr_deliver_cd,
+		grd.pub_start_dt,
+		grd.pub_end_dt,
+		COALESCE(a1.flnm_nm || a1.flnm_lnm,b1.flnm_nm || b1.flnm_lnm) as cret_usr_id,
+		COALESCE(a2.flnm_nm || a2.flnm_lnm,b2.flnm_nm || b2.flnm_lnm) as upd_usr_id,
+		mcd.cod_cd as cod_cd,
+		mcd.cod_value as eventStsDiv,
+		grd.tgt_ymd,
+		grd.cret_datime,
+		grd.upd_datime,
+		sum( CASE WHEN gras.reading_sts_div = '0' OR gras.reading_sts_div = '1' THEN 1 END ) AS countSend,
+		sum( CASE WHEN gras.reading_sts_div = '0' THEN 1 END ) AS countNotRead,
+		sum( CASE WHEN gras.reading_sts_div = '1' THEN 1 END ) AS countRead
+FROM
+		guid_repr_deliver grd
+		left JOIN mst_manager a1 ON ( a1.mgr_id = grd.cret_usr_id AND grd.del_flg = 0 )
+		left JOIN mst_manager a2 ON ( a2.mgr_id = grd.upd_usr_id AND grd.del_flg = 0 )
+		left JOIN mst_mentor b1 ON ( b1.mentor_id = grd.cret_usr_id AND grd.del_flg = 0 )
+		left JOIN mst_mentor b2 ON ( b2.mentor_id = grd.upd_usr_id AND grd.del_flg = 0 )
+		INNER JOIN mst_usr c1 ON ( c1.usr_id = grd.cret_usr_id AND grd.del_flg = 0 )
+		INNER JOIN mst_usr c2 ON ( c2.usr_id = grd.upd_usr_id AND grd.del_flg = 0 )
+		INNER JOIN guid_repr_apply_sts gras ON ( grd.guid_repr_deliver_cd = gras.guid_repr_deliver_cd AND grd.org_id=gras.org_id AND gras.del_flg = 0 )
+		INNER JOIN mst_cod_d mcd ON (mcd.cod_cd = grd.event_sts_div AND mcd.del_flg = 0)
+WHERE
+		grd.org_id = #{orgId}
+		AND c1.usr_sts = '1'
+		AND mcd.cod_key = 'EVENT_STS_DIV'
+
+			<if test='paramsMap.eventStsDiv != null and paramsMap.eventStsDiv != "" or paramsMap.eventStsDiv == 0'>
+				AND grd.event_sts_div = '${paramsMap.eventStsDiv}'
+			</if>
+			<if test='paramsMap.pubStartDt != null and paramsMap.pubStartDt != ""'>
+				AND grd.pub_start_dt >= '${paramsMap.pubStartDt}'
+			</if>
+			<if test='paramsMap.pubEndDt != null and paramsMap.pubEndDt != ""'>
+				AND '${paramsMap.pubEndDt}' >= grd.pub_end_dt
+			</if>
+			<if test='paramsMap.cretTimeStart != null and paramsMap.cretTimeStart != ""'>
+				AND grd.cret_datime >= '${paramsMap.cretTimeStart}'
+			</if>
+			<if test='paramsMap.cretTimeEnd != null and paramsMap.cretTimeEnd != ""'>
+				AND '${paramsMap.cretTimeEnd}'	>= grd.cret_datime
+			</if>
+			<if test='paramsMap.updDatimeStart != null and paramsMap.updDatimeStart != ""'>
+				AND grd.upd_datime >= '${paramsMap.updDatimeStart}'
+			</if>
+			<if test='paramsMap.updDatimeEnd != null and paramsMap.updDatimeEnd != ""'>
+				AND '${paramsMap.updDatimeEnd}' >= grd.upd_datime
+			</if>
+			<if test='paramsMap.cretUserName != null and paramsMap.cretUserName != ""'>
+				AND (a1.flnm_nm || a1.flnm_lnm like '%${paramsMap.cretUserName}%'
+				or b1.flnm_nm || b1.flnm_lnm like '%${paramsMap.cretUserName}%')
+			</if>
+			<if test='paramsMap.updUserName != null and paramsMap.updUserName != ""'>
+				AND (a2.flnm_nm || a2.flnm_lnm like '%${paramsMap.updUserName}%'
+				or b2.flnm_nm || b2.flnm_lnm like '%${paramsMap.updUserName}%')
+			</if>
+
+
+GROUP BY
+		grd.guid_repr_deliver_cd,
+		grd.pub_start_dt,
+		grd.pub_end_dt,
+		a1.flnm_nm,
+		a1.flnm_lnm,
+		b1.flnm_nm,
+		b1.flnm_lnm,
+		a2.flnm_nm,
+		a2.flnm_lnm,
+		b2.flnm_nm,
+		b2.flnm_lnm,
+		mcd.cod_value,
+		grd.tgt_ymd,
+		grd.cret_datime,
+		grd.upd_datime,
+        mcd.cod_cd
+ORDER by
+		grd.cret_datime DESC
+
+		<if test="offset != null">
+			limit #{limit} OFFSET #{offset}
+
+		</if>
+   </select>
+	<select id="count" resultType="java.lang.Integer">
+SELECT
+count(DISTINCT grd.id)
+FROM
+	guid_repr_deliver grd
+	LEFT JOIN mst_manager a1 ON ( a1.mgr_id = grd.cret_usr_id AND grd.del_flg = 0 )
+	LEFT JOIN mst_manager a2 ON ( a2.mgr_id = grd.upd_usr_id AND grd.del_flg = 0 )
+	LEFT JOIN mst_mentor b1 ON ( b1.mentor_id = grd.cret_usr_id AND grd.del_flg = 0 )
+	LEFT JOIN mst_mentor b2 ON ( b2.mentor_id = grd.upd_usr_id AND grd.del_flg = 0 )
+	INNER JOIN mst_usr c1 ON ( c1.usr_id = grd.cret_usr_id AND grd.del_flg = 0 )
+	INNER JOIN mst_usr c2 ON ( c2.usr_id = grd.upd_usr_id AND grd.del_flg = 0 )
+	INNER JOIN guid_repr_apply_sts gras ON ( grd.guid_repr_deliver_cd = gras.guid_repr_deliver_cd AND grd.org_id = gras.org_id AND gras.del_flg = 0 )
+	INNER JOIN mst_cod_d mcd ON ( mcd.cod_cd = grd.event_sts_div AND mcd.del_flg = 0 )
+WHERE
+	grd.org_id = #{orgId}
+	AND c1.usr_sts = '1'
+	AND mcd.cod_key = 'EVENT_STS_DIV'
+		<if test='paramsMap.eventStsDiv != null and paramsMap.eventStsDiv != "" or paramsMap.eventStsDiv == 0'>
+			AND grd.event_sts_div = '${paramsMap.eventStsDiv}'
+		</if>
+		<if test='paramsMap.pubStartDt != null and paramsMap.pubStartDt != ""'>
+			AND grd.pub_start_dt >= '${paramsMap.pubStartDt}'
+		</if>
+		<if test='paramsMap.pubEndDt != null and paramsMap.pubEndDt != ""'>
+			AND '${paramsMap.pubEndDt}' >= grd.pub_end_dt
+		</if>
+		<if test='paramsMap.cretTimeStart != null and paramsMap.cretTimeStart != ""'>
+			AND grd.cret_datime >= '${paramsMap.cretTimeStart}'
+		</if>
+		<if test='paramsMap.cretTimeEnd != null and paramsMap.cretTimeEnd != ""'>
+			AND '${paramsMap.cretTimeEnd}'	>= grd.cret_datime
+		</if>
+		<if test='paramsMap.updDatimeStart != null and paramsMap.updDatimeStart != ""'>
+			AND grd.upd_datime >= '${paramsMap.updDatimeStart}'
+		</if>
+		<if test='paramsMap.updDatimeEnd != null and paramsMap.updDatimeEnd != ""'>
+			AND '${paramsMap.updDatimeEnd}' >= grd.upd_datime
+		</if>
+		<if test='paramsMap.cretUserName != null and paramsMap.cretUserName != ""'>
+			AND (a1.flnm_nm || a1.flnm_lnm like '%${paramsMap.cretUserName}%'
+			or b1.flnm_nm || b1.flnm_lnm like '%${paramsMap.cretUserName}%')
+		</if>
+		<if test='paramsMap.updUserName != null and paramsMap.updUserName != ""'>
+			AND (a2.flnm_nm || a2.flnm_lnm like '%${paramsMap.updUserName}%'
+			or b2.flnm_nm || b2.flnm_lnm like '%${paramsMap.updUserName}%')
+		</if>
+	</select>
+	<select id="getDetail" resultType="jp.learningpark.modules.pop.dto.F04007Dto">
+		SELECT
+			mu.after_usr_id AS stuId,
+			ms.flnm_nm || ' ' || ms.flnm_lnm AS stunm,
+			mu2.after_usr_id AS guardId,
+			mg.flnm_nm || ' ' || mg.flnm_lnm AS guardnm,
+			mg.mailad,
+			case when gras.reading_sts_div='0' then '未読'
+			else '既読' end as reading_sts_div
+		FROM
+			guid_repr_apply_sts AS gras
+			INNER JOIN mst_stu AS ms ON gras.stu_id = ms.stu_id
+			AND ms.del_flg = 0
+			INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+			AND mu.del_flg = 0
+			LEFT JOIN mst_guard AS mg ON ms.guard_id = mg.guard_id
+			AND mg.del_flg = 0
+			LEFT JOIN mst_usr AS mu2 ON mu2.usr_id = mg.guard_id
+			AND mu2.del_flg = 0
+		WHERE
+			gras.guid_repr_deliver_cd = #{guidReprDeliverCd}
+			<if test="readFlg != '-1'">
+				AND gras.reading_sts_div = #{readFlg}
+			</if>
+			AND gras.org_id = #{orgId}
+	</select>
+</mapper>

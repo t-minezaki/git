@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <logger name="org.springframework.web" level="INFO"/>
+    <property name="log.path" value="logs" />
+    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+
+    <!-- システム -->
+    <appender name="SYSTEM_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/system.log</file>
+        <append>true</append>
+        <!-- 日志输出编码 --> 
+        <layout class="ch.qos.logback.classic.PatternLayout"> 
+          <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+          <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern> 
+        </layout> 
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- ファイル名のパターン -->
+            <fileNamePattern>${log.path}/system.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 1ファイルの上限容量10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- 60か月間（5年間）保持するものとする。 -->
+            <maxHistory>1800</maxHistory>
+        </rollingPolicy>
+
+        <!--
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${log.path}/platform/system-%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+        </rollingPolicy>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${log.path}/platform/system%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        -->
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="jp.learningpark.framework.log.layout.OutputStackTracePatternLayout">
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}]  %-5level    %logger{255}    %X{tenant.id}   %X{log.id}  %X{request.id}  -   [%X{log.message.code}]  %msg%nopex%n</pattern>
+    
+                <enableOutputStackTrace>true</enableOutputStackTrace>
+                <stackTraceDir>${log.path}/exception/</stackTraceDir>
+                <stackTraceFilename>'exception_'yyyy-MM-dd_HH-mm-ss'_%logId.log'</stackTraceFilename>
+            </layout>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+
+    <logger name="SYSTEM_LOG" additivity="false">
+        <level value="info" />
+        <appender-ref ref="SYSTEM_FILE" />
+    </logger>
+    
+    <logger name="jp.learningpark" level="info" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SYSTEM_FILE"/>
+    </root>
+</configuration>

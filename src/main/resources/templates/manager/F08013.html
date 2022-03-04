@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>配信設定状況確認カレンダー表示画面</title>
+    <!-- common js lib -->
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <!-- fullcalendar -->
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_all.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-ja.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" media="print"/>
+    <script src="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08013.css"/>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="div_head">
+    <a>イベント管理</a> <i class="layui-icon layui-icon-right"></i><a>配信設定/状況確認</a>
+    <button onclick="window.location.href='./F08009.html'" class="btn_img" style="margin-right: 3vh;"><img src="../img/icon_menu1.png"/></button>
+    <button onclick="window.location.href='./F08013.html'" class="btn_img" style="background-color: rgb(59,134,134);"><img src="../img/icon_menu2.png"/></button>
+    <button id="flush_btn" onclick="window.location.reload()"><i class="layui-icon layui-icon-refresh"></i>更新</button>
+</div>
+<div id="pageF08013" class="content">
+    <div id="left_div">
+        <button id="proxy_login" onclick="proxyLogin()">
+            <img src="../img/proxy-cross.png" height="16" width="16" alt=""> 代理登録
+        </button>
+        <div class="date" id="time"></div>
+        <div class="div_lbot">
+            <input id="user_input" placeholder="教室・先生を検索">
+            <div id="user_area">
+                <div v-for="user in userCheckList" class="user_area" style="">
+                    <div class="checkbox_area">
+                        <input type="checkbox" :value="user.refId" class="checkbox_style" checked="true" style="float: left">
+                    </div>
+                    <span>{{getOrgName(user.displayNm)}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="div_event" style="margin-top: 1vh">
+            <input id="event_input" placeholder="イベントを検索">
+            <div id="event_area">
+                <div v-for="event in mstEventEntityList" class="event_area">
+                    <div class="checkbox_area">
+                        <input type="checkbox" :value="event.id" class="event_chk" checked="true" style="float: left">
+                    </div>
+                    <span>{{event.eventTitle}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="right_div">
+        <div id="calendar"></div>
+    </div>
+    <button id="turn_back" onclick="window.location.href = 'F08009.html'">戻る</button>
+</div>
+</body>
+<script type="text/javascript">
+</script>
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<!-- fullcalendar -->
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-all.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/js/guard/calendar.js"></script>
+<script src="${request.contextPath}/js/manager/F08013.js" type="text/javascript" charset="utf-8"></script>
+</html>

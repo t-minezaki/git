@@ -1,0 +1,155 @@
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.popTitle {
+    width: 100%;
+    height: 3.6vw;
+    line-height: 3.6vw;
+    font-size: 1.2vw;
+    text-align: center;
+    font-weight: bold;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: auto;
+}
+
+.title {
+    height: 2.2vw;
+    margin-top: 0.5vw;
+    padding: 0 30%;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.title div {
+    width: 15%;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+}
+
+.main {
+    width: 100%;
+    height: auto;
+    padding: 0.5vw 22% 0.5vw 30%;
+}
+
+.one {
+    width: 100%;
+    height: 2.2vw;
+    margin-top: 1vw;
+}
+
+.one div {
+    width: 20%;
+    padding-right: 2%;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    float: left;
+    padding-left: 2.2vw;
+}
+
+.one .userId {
+    float: left;
+    width: 26%;
+    margin-right: 4%;
+    padding: 0 0.5vw;
+    border: 1px solid #000;
+    border-radius: 0.1vw;
+    line-height: 2.2vw;
+    height: 2.2vw;
+}
+
+.one input:disabled {
+    background: none;
+}
+
+.one button {
+    float: left;
+    width: 26%;
+    height: 2.2vw;
+    border-radius: 4px;
+    font-size: 0.9vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+.one p {
+    width: 36%;
+    float: left;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+}
+
+#orgI {
+    margin-left: 5.5%;
+}
+
+.lockCheck {
+    width: 22%!important;
+    padding-left: 3.5% !important;
+}
+
+.lockCheck .lockText {
+    width: 65%;
+    padding: 0;
+}
+
+.lock input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    border: 1px solid #999;
+    width: 0.9vw;
+    height: 0.9vw;
+    position: absolute;
+    margin: 0;
+}
+
+.lock input[type="checkbox"]:checked::before {
+    content: "\2713";
+    width: 0.7vw;
+    height: 0.7vw;
+    font-size: 0.1vw;
+    line-height: 0.9vw;
+    position: absolute;
+    margin: 0;
+    background: #fff;
+}
+
+.lock {
+    line-height: 1.5vw!important;
+    padding: 0 !important;
+    margin: 7.5% 0;
+}

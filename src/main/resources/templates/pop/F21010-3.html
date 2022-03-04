@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>F21010-3</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F08019.css">
+    <script src="${request.contextPath}/plugins/jquery-cookie-1.4.1/jquery.cookie.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="app">
+    <div class="one">
+        <div>
+            <ul class="one-ul">
+                <li>学習連絡</li>
+                <li>  ＞   配信設定/状況確認</li>
+                <li>  ＞   {{ title }}</li>
+                <!--<li v-if = "menuStatus == 2">  ＞   送信対象者</li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="div_body">
+        <div class="div_main">
+            <div class="first_div">
+                <table id="tbl_title" border="2px">
+                    <tr>
+                        <th width="15%">保護者ID</th>
+                        <th width="15%">保護者名</th>
+                        <th width="15%">生徒ID</th>
+                        <th width="15%">生徒名</th>
+                        <th width="10%">ステータス</th>
+                        <th width="25">メールアドレス</th>
+                    </tr>
+                </table>
+                <div class="tbl_div">
+                    <table id="objTable" border="2px">
+                        <tr>
+                            <th width="15%"></th>
+                            <th width="15%"></th>
+                            <th width="15%"></th>
+                            <th width="15%"></th>
+                            <th width="10%"></th>
+                            <th width="25"></th>
+                        </tr>
+                        <tr v-for = "obj in detail">
+                            <td>{{ obj.guardId }}</td>
+                            <td>{{ obj.guardnm }}</td>
+                            <td>{{ obj.stuId }}</td>
+                            <td>{{ obj.stunm }}</td>
+                            <td>{{ obj.readingStsDiv }}</td>
+                            <td>{{ obj.mailad }}</td>
+                        </tr>
+
+
+                    </table>
+                </div>
+                <button id="btn_cancel" onclick="cancelFn()">戻る</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/pop/F21010-3.js"></script>
+</html>

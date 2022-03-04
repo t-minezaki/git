@@ -1,0 +1,169 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: unset !important;
+}
+
+#page {
+    height: 100%;
+    overflow: hidden;
+}
+
+.div_header {
+    width: 100%;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    height: 10%;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.content {
+    width: 100% !important;
+    height: calc(90% - 54px) !important;
+    padding: 0 2vw !important;
+}
+
+#head {
+    height: 7%;
+    width: calc(96vw * 0.9);
+    text-align: center;
+    font-size: 0;
+    border-radius: 20px;
+    border: 0px solid;
+    margin-left: calc(96vw * 0.05);
+    background-color: #E6E5E4;
+    margin-top: 2%;
+}
+
+.headBtns {
+    width: 50%;
+    height: 100%;
+    background: none;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid #E6E5E4;
+    font-weight: bold;
+    padding: 0;
+    border-radius: 20px;
+    color: #949291;
+}
+
+.active {
+    background: #FF80A5;
+    color: white;
+    width: 50%;
+    border: 1px solid #FF80A5;
+}
+
+.stu-list {
+    padding-left: 10px !important;
+    height: 8vh;
+    margin-top: 1vh;
+    width: 100%;
+    padding: 1vh 0;
+    border-bottom: 1px solid #ECECEC;
+}
+
+.cont_div {
+    width: 70%;
+    float: left;
+    color: #555555;
+    height: 100%;
+}
+
+.stu-name {
+    height: 50%;
+    line-height: 4vh;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cont_div > span, a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 3vh;
+    height: 50%;
+    font-size: 1.3em;
+}
+
+#status {
+    font-size: 3vw;
+    text-indent: 3vw;
+}
+
+#datas {
+    margin-top: 20px;
+    height: calc(93% - 4vh - 20px - 5vw * 0.96);
+    overflow-y: auto;
+}
+
+.topTitle {
+    line-height: 4vh;
+    height: 4vh;
+    margin-left: 2%;
+    margin-top: 3%;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 22px;
+}
+
+.stsDiv {
+    float: right;
+    width: 80%;
+    margin-right: 4.8vw;
+    color: #555555;
+    background: white;
+    border: 1px solid #555555;
+    height: 3.5vh;
+    border-radius: 999px;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-left: 1vw;
+}
+
+.btn_div {
+    width: 30%;
+    float: left;
+    height: 100%;
+}
+
+.insert {
+    width: 45%;
+    height: 7%;
+    float: left;
+    color: #009944;
+    background: none;
+    font-size: 13px;
+    text-align: center;
+    border: 2px solid #009944;
+    margin-left: 30%;
+    margin-top: 4% !important;
+    border-radius: 8px;
+    margin-bottom: 2% !important;
+    padding-right: 10px;
+}
+
+.telnumber {
+    font-weight: bold;
+    color: #59A8ED;
+}
+
+/*2020/12/28 liyuhuan modify start*/
+.back {
+    width: 7%;
+    float: left;
+}
+
+.back img {
+    height: 25px;
+    float: left;
+    margin-top: 11px;
+}
+/*2020/12/28 liyuhuan modify end*/

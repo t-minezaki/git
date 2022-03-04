@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>理解度詳細画面（IPAD）</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10401.css"/>
+    <script type="text/javascript" src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+<header>
+    <iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div id="message" class="topMessage"></div>
+<div class="content" id="pageF10402">
+    <div id="time_tab">
+        <div class="timeDiv">
+            <button onclick="getPrd()">時期指定</button>
+        </div>
+        <ul class="plan_time">
+            <li>
+                <a href="#tab-1" id="week" class="active">週</a>
+            </li>
+            <li>
+                <a href="#tab-2" id="month">月</a>
+            </li>
+            <li>
+                <a href="#tab-3" id="year">年</a>
+            </li>
+        </ul>
+    </div>
+    <div class="statistics" id="tab2">
+        <div class="statistics_info">
+            <h2 id="subjtNm" v-text="subjtNm ? '詳細理解度'+'【'+subjtNm+'】' :'詳細理解度'"></h2>
+            <div class="renturnBtn"><img src="../img/left.png" alt=""></div>
+        </div>
+        <div class="degreeDiv" v-for="li in f10402DtoList">
+            <div class="degreeTitle"><span :style="'color:'+li.codValue2">●</span> {{li.codValue}}</div>
+            <div class="degreeContent" v-for="li1 in li.f10402SecDtoList">
+                <div class="childDiv">
+                    <p class="childPT" v-if="li1.blockTypeDiv=='S1' && li1.stuTermPlanId"
+                       v-text="li1.chaptNm.length>10 ? li1.chaptNm.substr(0,10)+'...' : li1.chaptNm"></p>
+                    <!--2021/01/26 cuikailin add start -->
+                    <p class="childPT" v-if="li1.blockTypeDiv=='S1' && li1.stuTermPlanId == null" v-text="li1.blockNm"></p>
+                    <!--2021/01/26 cuikailin add end -->
+                    <p class="childPT" v-if="li1.blockTypeDiv=='R1'" v-text="li1.blockNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='P1'" v-text="li1.blockNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='W1'" v-text="li1.blockNm"></p>
+                    <p class="childPT" v-if="li1.blockTypeDiv=='V1'" v-text="li1.blockNm"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="statistics" id="tab3"></div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/student/F10402.js"></script>
+</html>

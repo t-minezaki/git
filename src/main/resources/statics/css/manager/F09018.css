@@ -1,0 +1,60 @@
+*{
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+html, body,#page {
+    height: 100%;
+    margin: 0;
+}
+.div_header,.div_bottom{
+    height: 10%;
+}
+.content{
+    height: calc(90% - 54px);
+}
+.img_div{
+    width: 33%;
+    float: left;
+    text-align: center;
+    margin-top: 3vh;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+
+img {
+    height: 3rem;
+    width: 3rem;
+}
+
+p {
+    font-size: 3.5vw;
+    margin-top: 0;
+    color: #808080;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒学習実績標準値設定画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21031.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+</head>
+<body>
+    <div id="main" v-clock>
+        <div class="topMessage"></div>
+        <div class="learnTime">
+            <p>一日の学習時間</p>
+            <div class="passLine">
+                <label>合格ライン</label>
+                <input v-model="f21031Dto.dayPassH" class="dayPassLine day" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="dayPassLine" v-model="f21031Dto.dayPassM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+            <div class="passLine">
+                <label>中間ライン</label>
+                <input v-model="f21031Dto.dayMidH" class="dayMidLine day" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="dayMidLine" v-model="f21031Dto.dayMidM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+            <div class="passLine">
+                <label>不合格ライン</label>
+                <input v-model="f21031Dto.dayUnpassH" class="dayUnpassLine day" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="dayUnpassLine" v-model="f21031Dto.dayUnpassM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+        </div>
+        <div class="learnTime">
+            <p>一週間の学習時間</p>
+            <div class="passLine">
+                <label>合格ライン</label>
+                <input v-model="f21031Dto.weekPassH" class="weekPassLine week" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="weekPassLine" v-model="f21031Dto.weekPassM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+            <div class="passLine">
+                <label>中間ライン</label>
+                <input v-model="f21031Dto.weekMidH" class="weekMidLine week" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="weekMidLine" v-model="f21031Dto.weekMidM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+            <div class="passLine">
+                <label>不合格ライン</label>
+                <input v-model="f21031Dto.weekUnpassH" class="weekUnpassLine week" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="weekUnpassLine" v-model="f21031Dto.weekUnpassM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+        </div>
+        <div class="learnTime">
+            <p>一ヶ月の学習時間</p>
+            <div class="passLine">
+                <label>合格ライン</label>
+                <input v-model="f21031Dto.monthPassH" class="monthPassLine month" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="monthPassLine" v-model="f21031Dto.monthPassM" >
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+            <div class="passLine">
+                <label>中間ライン</label>
+                <input v-model="f21031Dto.monthMidH" class="monthMidLine month" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="monthMidLine" v-model="f21031Dto.monthMidM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+            <div class="passLine">
+                <label>不合格ライン</label>
+                <input v-model="f21031Dto.monthUnpassH" class="monthUnpassLine month" onchange="getDisabled(this)" type="number">
+                <label>時間</label>
+                <select id="monthUnpassLine" v-model="f21031Dto.monthUnpassM">
+                    <option value="0">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label>分</label>
+            </div>
+        </div>
+        <div id="btnDiv">
+            <button id="submit" @click="submit()">設定</button>
+        </div>
+    </div>
+</body>
+<script src="${request.contextPath}/js/pop/F21031.js"></script>
+</html>

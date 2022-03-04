@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<#include "/header.html" />
+    <title>塾時期新規・変更画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F01002.css" />
+</head>
+<body>
+<div class="all">
+	<div class="topTitle">塾時期の追加修正画面</div>
+	<div class="content" id="app">
+		<div>
+			<p id="orgNm" maxlength="60" class="longP"></p>
+		</div>
+		<div>
+			<p>適用</p>
+			<input type="checkbox" checked="" id="check">
+		</div>
+		<div>
+			<p>学年</p>
+			<span>*</span>
+			<select name="" id="select1" >
+				<option style='display: none' id="selected"></option>
+				<option v-for="li in codList" :value="li.codCd" :selected="li.codCd == crmList.schyDiv ? 'selected' : '' ">{{li.codValue}}</option>
+			</select>
+		</div>
+		<div>
+			<p>時期名</p>
+			<span>*</span>
+			<input type="text" :value="crmList.prdNm" class="getData">
+		</div>
+		<div>
+			<p>時期開始日</p>
+			<span>*</span>
+			<input type="text" value="" class="startInput" disabled>
+			<h1>
+				<img src="../img/timeBtn.png" alt="">
+				<button id="startTime"></button>
+			</h1>
+		</div>
+		<div>
+			<p>時期終了日</p>
+			<span>*</span>
+			<input type="text" value="" class="endInput" disabled>
+			<h1>
+				<img src="../img/timeBtn.png" alt="">
+				<button id="endTime"></button>
+			</h1>
+		</div>
+	</div>
+	<div class="theme_btn">
+        <button @click="cancelFn()">キャンセル</button>
+		<button @click="submitFn()" class="left" >登録</button>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F01002.js"></script>
+</html>

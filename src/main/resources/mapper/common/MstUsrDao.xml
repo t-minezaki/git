@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstUsrDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstUsrEntity" id="mstUsrMap">
+        <result property="id" column="id"/>
+        <result property="usrId" column="usr_id"/>
+        <result property="usrPassword" column="usr_password"/>
+        <result property="fstLoginFlg" column="fst_login_flg"/>
+        <result property="usrNm" column="usr_nm"/>
+        <result property="roleDiv" column="role_div"/>
+        <result property="orgId" column="org_id"/>
+        <result property="pwUpFlg" column="pw_up_flg"/>
+        <result property="usrSts" column="usr_sts"/>
+        <result property="specAuthFlg" column="spec_auth_flg"/>
+        <result property="afterUsrId" column="after_usr_id"/>
+        <result property="errorCount" column="error_count"/>
+        <result property="lockFlg" column="lock_flg"/>
+        <result property="gidpk" column="gidpk"/>
+        <result property="gidFlg" column="gid_flg"/>
+        <result property="systemKbn" column="system_kbn"/>
+        <result property="orgCommKey" column="org_comm_key"/>
+        <result property="gidRuleFlg" column="gid_rule_flg"/>
+        <result property="manaRuleFlg" column="mana_rule_flg"/>
+        <result property="perlInfoRuleFlg" column="perl_info_rule_flg"/>
+        <result property="safModifyFlg" column="saf_modify_flg"/>
+        <result property="mgrModifyFlg" column="mgr_modify_flg"/>
+        <result property="ownerOrgFlg" column="owner_org_flg"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

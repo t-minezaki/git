@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>イベント管理日程の設定画面</title>
+    <!-- common js lib -->
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <!-- fullcalendar -->
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_all.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-ja.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" media="print"/>
+    <script src="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+    <link href="${request.contextPath}/plugins/swiper-4.4.2/swiper.min.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08005.css"/>
+
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div id="div_head">
+    <a>イベント管理</a> <i class="layui-icon layui-icon-right"></i> <a>日程の設定</a>
+</div>
+<div id="pageF08005" class="content">
+    <div id="left_div">
+        <button onclick="window.location.href='./F08001.html'" id="turn_back">
+            戻る
+        </button>
+        <div class="date" id="time"></div>
+        <div class="div_lbot" style="height: 22vh">
+            <input id="user_input" type="text" placeholder="教室・先生を検索">
+            <div id="user_area">
+                <div class="user_area" id="select_classroom" v-if="mstEventEntity.refType == '0'">
+                    <input type="checkbox" :value="mstOrgEntity.orgId" class="checkbox_style" checked="checked" style="float: left"> <span>{{mstOrgEntity.orgNm}}</span>
+                </div>
+                <div v-for="user in userCheckList" class="user_area" id="select_mentor" v-if="mstEventEntity.refType == '1'">
+                    <div>
+                        <input type="checkbox" :value="user.usrId" class="checkbox_style" checked="checked" style="float: left">
+                    </div>
+                    <span>{{user.userName}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="right_div">
+        <div id="calendar"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+</script>
+<!-- common js lib -->
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<!-- fullcalendar -->
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-all.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/js/guard/calendar.js"></script>
+<script src="${request.contextPath}/js/manager/F08005.js" type="text/javascript" charset="utf-8"></script>
+</html>

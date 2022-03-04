@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.job.dao.BTGKA1006Dao">
+    <update id="delMstUsrByLogic">
+        UPDATE mst_usr
+        SET  del_flg = 1
+        WHERE
+            mst_usr.cret_usr_id = 'BTGKA1006'
+    </update>
+    <update id="delMstStuByLogic">
+        UPDATE mst_stu
+        SET  del_flg = 1
+        WHERE
+            mst_stu.cret_usr_id = 'BTGKA1006'
+    </update>
+    <select id="orgIdExistenceCheck" resultType="string">
+        SELECT
+            a.org_id
+        FROM
+            mst_org a
+        WHERE
+            a.org_id =#{orgNum}
+          AND a.del_flg=0
+    </select>
+    <select id="getUser" resultType="string">
+        SELECT
+            a.usr_id
+        FROM
+            mst_usr a
+        LEFT JOIN mst_stu b on a.usr_id = b.stu_id
+        WHERE
+            b.careeres_num =#{careerId}
+          AND a.org_id =#{orgValue}
+    </select>
+    <select id="getMaxIdOfStu" resultType="integer">
+        SELECT
+            SUBSTRING ( MAX ( max_id ) FROM 2 ) AS MAX
+        FROM
+            mst_numass
+        WHERE
+            del_flg = 0
+            AND role_div = '4'
+    </select>
+    <update id="mstUsrUpdate">
+        UPDATE mst_usr
+        SET usr_nm        = #{userName},
+            org_id        = #{orgValue},
+            after_usr_id  = #{afterUsrId},
+            gid_flg       = #{gidFlg},
+            upd_datime    = #{updDatime},
+            upd_usr_id    = 'BTGKA1006',
+            del_flg       = #{flg}
+        WHERE mst_usr.usr_id = #{usrId}
+    </update>
+<update id="mstStuUpdate">
+    UPDATE mst_stu
+    SET sch         = #{sch},
+        flnm_nm     = #{flnm_nm},
+        flnm_lnm    = #{flnm_lnm},
+        flnm_kn_nm  = #{flnm_kn_nm},
+        flnm_kn_lnm = #{flnm_kn_lnm},
+        gendr_div   = #{gendr_div},
+        birthd      = #{birthd},
+        schy_div    = #{schy_div},
+        oria_cd     = #{oria_cd},
+        upd_datime  = #{updDatime},
+        upd_usr_id  = 'BTGKA1006',
+        del_flg     = #{flg}
+    WHERE  mst_stu.stu_id = #{usrId}
+</update>
+</mapper>

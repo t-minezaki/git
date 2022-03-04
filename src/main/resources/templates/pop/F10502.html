@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>テスト目標結果登録画面</title>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F10502.css" />
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .dw-i {
+            font-size: 16px;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="theme_content">
+    <!--学年-->
+    <div class="pop disNone">
+        <div class="popTitle">学年</div>
+        <div class="popContent">
+            <select class="demo_select" id="schy" name="schy">
+                <option v-for="schy in schyList1" :value="schy.codCd" v-text="schy.codValue"></option>
+            </select>
+        </div>
+        <div class="popBtn">
+            <div class="left" @click="cancelFn">キャンセル</div>
+            <div @click="schySubmitFn">登録</div>
+        </div>
+    </div>
+    <!--テスト分類-->
+    <div class="pop disNone">
+        <div class="popTitle">テスト分類</div>
+        <div class="popContent">
+            <select class="demo_select" id="testPrd" name="testPrd">
+                <option v-for="prd in testPrdList1" :value="prd.codCd" v-text="prd.codValue"></option>
+            </select>
+        </div>
+        <div class="popBtn">
+            <div class="left" @click="cancelFn">キャンセル</div>
+            <div @click="testPrdSubmitFn">登録</div>
+        </div>
+    </div>
+    <!--テスト種別-->
+    <div class="pop disNone">
+        <div class="popTitle">テスト種別</div>
+        <div class="popContent">
+            <select class="demo_select" id="testDiv" name="testDiv">
+                <option v-for="testDiv in testDivList1" :value="testDiv.codCd" v-text="testDiv.codValue"></option>
+            </select>
+        </div>
+        <div class="popBtn">
+            <div class="left" @click="cancelFn">キャンセル</div>
+            <div @click="testDivSubmitFn">登録</div>
+        </div>
+    </div>
+    <!--年-->
+    <div class="pop disNone">
+        <div class="popTitle">年</div>
+        <div class="popContent">
+            <select class="demo_select" id="year">
+                <option v-for="year in yearList" :value="year" v-text="year"></option>
+            </select>
+        </div>
+        <div class="popBtn">
+            <div class="left" @click="cancelFn">キャンセル</div>
+            <div @click="yearSubmitFn">登録</div>
+        </div>
+    </div>
+    <!--月-->
+    <div class="pop disNone">
+        <div class="popTitle">月</div>
+        <div class="popContent">
+            <select class="demo_select" id="month">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <div class="popBtn">
+            <div class="left" @click="cancelFn">キャンセル</div>
+            <div @click="monthSubmitFn">登録</div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    var param=getParam();
+    var index = parent.layer.getFrameIndex(window.name);
+    var div =$(".theme_content").children()
+    div.eq(param.id).removeClass("disNone")
+    $('.demo_select').mobiscroll().select({
+        mode: "scroller",
+        display: "inline",
+        lang: "zh",
+        rows: 5
+    });
+    var vm = new Vue({
+        el: '.theme_content',
+        data: function(){
+            return {
+                schyList1:'',
+                testPrdList1:'',
+                testDivList1:'',
+                subjtList1:'',
+                yearList:''
+            }
+        },
+        updated: function () {
+            $('.demo_select').mobiscroll().select({
+                mode: "scroller",
+                display: "inline",
+                lang: "zh",
+                rows: 5
+            });
+            if(param.id!='2'){
+                vm.schyList1=parent.vm.schyList;
+                vm.testPrdList1=parent.vm.testPrdList;
+                vm.subjtList1=parent.vm.subjtList;
+            }
+        },
+        mounted: function () {
+            this.getInfo();
+        },
+        methods: {
+            getInfo: function () {
+                $.ajax({
+                    url: ctxPath + '/student/F10502/popGetInfo',
+                    type: 'GET',
+                    datatype: 'json',
+                    data:{
+                        codCd:param.codCd
+                    },
+                    success: function (data) {
+                        if (data.msg != "success") {
+                            parent.layer.alert(data.msg, {
+                                skin: 'layui-layer-molv',
+                                closeBtn: 0,
+                                anim: 1,
+                            });
+                        }
+                        if (data.testDivList) {
+                            vm.testDivList1 = data.testDivList;
+                        }
+                        if(data.yearList){
+                            vm.yearList=data.yearList;
+
+                        }                    },
+                    error: function () {
+                    }
+                })
+            },
+            schySubmitFn: function () {
+                if(param.schy==$("#schy").val()){
+                    return;
+                }
+                $.ajax({
+                    url: ctxPath + '/student/F10502/popGetSubjtList',
+                    type: 'GET',
+                    datatype: 'json',
+                    data:{
+                        schyDiv:$("#schy").val()
+                    },
+                    success: function (data) {
+                        if (data.code == 0) {
+                            parent.vm.subjtList=data.subjtList;
+                            parent.vm.stuTextDList=data.stuTextDList;
+                            $("#schyDiv",window.parent.document).attr("desc",$("#schy").val());
+                            $("#schyDiv",window.parent.document).text($("#schy").find("option:selected").text());
+                            $("#schyDiv",window.parent.document).removeClass("grey");
+                            //点数目標が除去する
+                            $(".goal",window.parent.document).find("input").val("");
+                            $(".result",window.parent.document).find("input").val("");
+                            parent.layer.close(index);
+                        }
+                    },
+                    error: function () {
+                    }
+                })
+            },
+            testPrdSubmitFn: function () {
+                $("#testPrd",window.parent.document).attr("desc",$("#testPrd").val());
+                $("#testPrd",window.parent.document).text($("#testPrd").find("option:selected").text());
+                $("#testPrd",window.parent.document).removeClass("grey");
+                //テスト種別が空を清める
+                if(param.codCd!=$("#testPrd").val()){
+                    $("#testDiv",window.parent.document).attr("desc","");
+                    $("#testDiv",window.parent.document).text("選択してください")
+                    $("#testDiv",window.parent.document).addClass("grey");
+                }
+                if($("#testPrd").val()=='3'||$("#testPrd").val()=='4'){
+                    $("#triggleDiv",window.parent.document).addClass("disNone");
+                }else{
+                    $("#triggleDiv",window.parent.document).removeClass("disNone");
+                }
+                parent.layer.close(index);
+            },
+            testDivSubmitFn: function () {
+                $("#testDiv",window.parent.document).attr("desc",$("#testDiv").val());
+                $("#testDiv",window.parent.document).text($("#testDiv").find("option:selected").text());
+                $("#testDiv",window.parent.document).removeClass("grey");
+                parent.layer.close(index);
+            },
+            yearSubmitFn: function () {
+                $("#testTgtY",window.parent.document).attr("desc",$("#year").val());
+                $("#testTgtY",window.parent.document).text($("#year").val());
+                $("#testTgtY",window.parent.document).removeClass("grey");
+                parent.layer.close(index);
+            },
+            monthSubmitFn: function () {
+                $("#testTgtM",window.parent.document).attr("desc",$("#month").val());
+                $("#testTgtM",window.parent.document).text($("#month").val());
+                $("#testTgtM",window.parent.document).removeClass("grey");
+                parent.layer.close(index);
+            },
+            cancelFn: function () {
+                parent.layer.close(index);
+            }
+        }
+
+    });
+</script>
+</html>

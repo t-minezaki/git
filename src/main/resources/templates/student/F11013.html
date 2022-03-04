@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>スマホ_塾からのイベント詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/newtui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11013.css"/>
+</head>
+<body>
+<div class="newt-layout-body">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11013" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content">
+        <!--<div class="oneTitle">-->
+            <!--<ul id="titleUl">-->
+                <!--<li id="notice_tab">-->
+                    <!--<p onclick="window.location.href = './F11010.html'">お知らせ</p>-->
+                    <!--<div class="numCount"></div>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="content_div">
+            <div class="back" onclick="window.location.href='./F11010.html'">
+                <img src="../img/left.png">
+            </div>
+            <div class="title"></div>
+            <div class="div_img"><img src="" class="img"></div>
+            <div class="description"></div>
+            <div class="div_files"></div>
+        </div>
+        <div class="foot">
+            <!-- 2020/11/16 V9.0 cuikailin modify start -->
+            <button class="btn"onclick="toF11014()">申込/回答</button>
+            <!-- 2020/11/16 V9.0 cuikailin modify end -->
+            <p id="bottomMsg"></p>
+        </div>
+    </div>
+    <div class="newt-layout-fixed div_bottom">
+        <iframe src="../common/F40012.html?id=F11010" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/hammer/hammer.js"></script>
+<script src="${request.contextPath}/js/student/F11013.js" type="text/javascript" charset="utf-8"></script>
+</html>

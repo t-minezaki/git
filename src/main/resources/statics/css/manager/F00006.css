@@ -1,0 +1,217 @@
+.header_operat{
+	width: auto;
+}
+.one a{
+	width: 8%;
+	height: 2.2vw;
+	/*margin-left: 2.2vw;*/
+	text-decoration: underline;
+	color: blue;
+	font-size: 0.9vw;
+	line-height: 2.2vw;
+	float: left;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	background: none;
+	font-size: 0.9vw;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+.popTitle{
+	width: 100%;
+	height: 3.6vw;
+	line-height: 3.6vw;
+	font-size: 1.2vw;
+	text-align: center;
+	font-weight: bold;
+}
+.content{
+	width: 100%;
+	height: auto;
+	padding: 0;
+	overflow: auto;
+}
+.title{
+	height: 2.2vw;
+	margin-top: 0.5vw;
+	padding: 0 20%;
+	width: 100%;
+	border-bottom: 1px solid #000;
+}
+.title div{
+	width: auto;
+	height: 100%;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	color: #000;
+	float: left;
+	padding-right: 1vw;
+}
+.main{
+	width: 100%;
+	border-bottom: 1px solid #000;
+	height: auto;
+	padding: 0.5vw 4%;
+}
+.one{
+	width: 100%;
+	height: 2.2vw;
+	margin-top: 1vw;
+	position: relative;
+}
+.one div{
+	width: 32%;
+	padding-right: 2%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	padding-left: 12vw;
+}
+.one div.onecen{
+	width: 38%;
+	margin-right: 3%;
+	border: 1px dashed #000;
+	padding: 0 0.5vw;
+}
+.one input{
+	float: left;
+	width: 38%;
+	margin-right: 2%;
+	padding: 0 0.5vw;
+	border: 1px solid #000;
+	border-radius: 4px;
+	line-height: 2.2vw;
+	height: 2.2vw;
+}
+.noData{
+	opacity: 0;
+}
+.one input:disabled{
+	background: none;
+	color: #000;
+}
+.one button{
+	float: left;
+	width: 8%;
+	height: 2.2vw;
+	margin-right: 1.5%;
+	border-radius: 4px;
+	font-size: 0.9vw;
+	color: rgba(100, 100, 100, 1);
+	background: white;
+	border: 1px grey solid;
+	border-bottom: 3px grey solid;
+}
+.two{
+	width: 100%;
+	height: 6.6vw;
+	margin-top: 1vw;
+}
+.left{
+	width: 32%;
+	height: 2.2vw;
+	float: left;
+}
+.center{
+	float: left;
+	width: 38%;
+	margin-right: 3%;
+	border: 1px dashed #000;
+	border-radius: 0.1vw;
+	height: 6.6vw;
+}
+.center_top{
+	width: 100%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	border-bottom: 1px dashed #000;
+	padding: 0 0.5vw;
+}
+.center_center{
+	width: 100%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	padding: 0 0.5vw;
+}
+input[type="radio"]{
+	width: 10vw !important;
+}
+.center_bottom{
+	padding: 0 0.5vw;
+	width: 100%;
+	height: 2.2vw;
+	line-height: 2.2vw;
+}
+div>label{
+	position: relative;
+	width: 50%;
+	float: left;
+}
+div>label>p{
+	height: 100%;
+	width: auto;
+	font-size: 0.9vw;
+	margin: 0;
+	padding: 0;
+	line-height: 2.2vw;
+	float: left;
+}
+div>label::before{
+	display: inline-block;
+	content: "";
+	width: 0.8vw;
+	height: 0.8vw;
+	border-radius: 100%;
+	border: 1px solid #ccc;
+	margin-right: 0.5vw;
+	vertical-align: bottom;
+	margin-top: 0.5vw;
+	float: left;
+	background: white;
+}
+div>input:checked+label::after{
+	display: inline-block;
+	content: "";
+	width: 0.4vw;
+	height: 0.4vw;
+	border-radius: 100%;
+	position: absolute;
+	left: 0.3vw;
+	bottom: 0.9vw;
+	background-color: #2e2e2e;
+	float: left;
+}
+.fileForm{
+	width: 11%;
+	height: 2.2vw;
+	position: absolute;
+	left: 72%;
+	top: 0;
+	opacity: 0;
+	margin-right: 0;
+}
+.one input.getFile{
+	width: 100%;
+	height: 2.2vw;
+	margin-right: 0;
+}
+
+/*2021/02/01 liyuhuan add start */
+.layui-layer-molv4 .layui-layer-content {
+	text-align: center !important;
+}
+/*2021/02/01 liyuhuan add end */

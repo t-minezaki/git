@@ -1,0 +1,344 @@
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+#table {
+    width: 100%;
+}
+
+#setOrg {
+    margin-left: 6vw !important;
+    border: 1px solid #009944;
+    color: #009944;
+    background: white;
+    border-radius: 5px;
+    width: 8vw;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 8%;
+    padding-right: 1vw;
+}
+
+.inputMessage input,
+.inputMessage select {
+    height: 1.6vw;
+    margin-right: 1vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    float: left;
+    width: 14%;
+    padding: 0 0.4vw;
+    border: 1px solid #000;
+}
+
+.inputMessage img {
+    height: 1.5vw;
+    float: left;
+    padding-left: 0.65vw;
+}
+
+.inputMessage button {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    height: 100%;
+    width: 12.5%;
+    padding: 0 1.6vw;
+    margin-left: 5vw;
+    line-height: 2vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+.inputMessage a {
+    margin-left: 4vw;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+    text-decoration: underline;
+    color: blue;
+}
+
+.buttonDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    padding: 1vw 0;
+    position: relative;
+}
+
+.buttonDiv button {
+    width: 14vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    color: #009944;
+    border: 2px solid #009944;
+    font-size: 0.9vw;
+    border-radius: 4px;
+}
+
+.buttonDiv div {
+    width: 12vw;
+    height: 2.2vw;
+    float: left;
+    margin: 0 1vw;
+    color: #333;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+}
+
+.buttonDiv input {
+    width: 14vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    font-size: 0.9vw;
+    color: #333;
+    border: 2px solid #aaa;
+    padding: 0 0.4vw;
+}
+
+.buttonDiv input.chooseFile {
+    position: absolute;
+    top: 1vw;
+    left: 31vw;
+    z-index: 999;
+    margin: 0;
+    width: 14vw;
+    opacity: 0;
+}
+
+.list {
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+    border-top: 1px solid #009944;
+}
+
+.oneTd table {
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.oneTd th, .oneTd td {
+    text-align: center;
+    height: 2.2vw;
+    font-weight: 500;
+    font-size: 0.9vw;
+    padding: 0;
+}
+
+.oneTd td {
+    color: #666;
+}
+
+.oneTd td a {
+    color: #1322a3;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+td button {
+    background: none;
+    color: #1322a3;
+    width: auto;
+    border: 0;
+    font-size: 0.9vw;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/*.ui-jqgrid tr.ui-row-ltr td {*/
+/*padding: 0 3vw;*/
+/*}*/
+.layui-laydate-list > li {
+    width: 50% !important;
+}
+
+.layui-laydate-list > li:last-child {
+    display: none
+}
+
+.laydate-time-list ol li {
+    width: 150% !important;
+    padding-left: 55px !important;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    width: 880px;
+    border: 2px solid #ccc !important;
+    /*background-color: #009944;*/
+}
+
+.ui-jqgrid-hbox {
+    width: 100%;
+    padding-right: 0 !important;
+}
+
+#jqGridPager_right {
+    text-align: left;
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view {
+    left: 0.4vw !important;
+}
+
+.titleDiv {
+    font-weight: bold;
+    font-size: 0.9vw;
+    text-align: left;
+    margin-top: 15px;
+}
+
+/*#schy ,*/
+/*#orgId {*/
+/*    width: 14%;*/
+/*    height: 1.6vw;*/
+/*    line-height: 1.6vw;*/
+/*}*/
+
+.btnSearchAndLoad button {
+    font-size: 0.9vw;
+    margin-left: 7vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    height: 100%;
+    width: 8vw
+}
+
+.btnSearchAndLoad a {
+    margin-left: 2vw;
+    font-size: 0.9vw;
+    color: #0521fd;
+    border-bottom: 1px solid
+}
+
+#pg_jqGridPager {
+    border-top: solid;
+    border-width: 0.5px;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#gbox_jqGrid {
+    margin-top: 20vh;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 3em;
+    font-weight: bolder;
+    margin-top: 0.8vh;
+}
+
+/*.layui-layer-title {*/
+    /*visibility: hidden !important;*/
+/*}*/
+#del{
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+}

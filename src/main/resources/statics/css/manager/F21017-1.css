@@ -1,0 +1,249 @@
+*{
+    font-family: Hiragino Sans;
+}
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: unset !important;
+}
+
+#page {
+    height: 100%;
+    overflow: hidden;
+}
+
+.div_header {
+    width: 100%;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    height: 10%;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.content {
+    width: 100% !important;
+    height: calc(100% - 54px - 10%) !important;
+    padding: 3vw 2vw 0 2vw !important;
+    overflow-y: hidden !important;
+}
+/*add at 2021/08/10 for V9.02 by NWT wen START*/
+select {
+    height: 4rem;
+    width: 20rem;
+    margin: 0 1rem 0 1rem;;
+    border: none !important;
+    background: #F2F2F2;
+    color: #B9B9B9;
+    border-radius: 0.8rem;
+}
+/*add at 2021/08/10 for V9.02 by NWT wen END*/
+
+#head {
+    height: 9%;
+    width: 100%;
+    text-align: center;
+    font-size: 0;
+    margin-top: 2%;
+}
+
+.headBtns {
+    width: 50%;
+    height: 100%;
+    background: none;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid #E5E5E5;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 0;
+    color: #676767;
+}
+
+.active {
+    background: #FF80A5;
+    color: white;
+    border: 1px solid #FF80A5;
+}
+
+li {
+    /* modify at 2021/08/25 for V9.02 by NWT wen START */
+    /*text-indent: 1em;*/
+    /* modify at 2021/08/25 for V9.02 by NWT wen END */
+    font-size: 3.5vw;
+}
+
+.status {
+    /*text-indent: 1vw;*/
+    font-size: 1.5rem !important;
+    line-height: 3vh;
+    font-weight: bold ;
+    color: #605E5E;
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+._entryTime {
+    height: 100%;
+    width: 50%;
+    float: left;
+    line-height: 3vh;
+    text-align: right;
+    color: red;
+    font-weight: bolder;
+}
+
+
+._center {
+    width: calc(98% - 6vw - 8%);
+    height: 100%;
+    float: left;
+}
+
+.sts{
+    font-weight: unset!important;
+    font-size: 1rem!important;
+    float: left;
+    word-break: keep-all;
+}
+.absSts{
+    width: 100%;
+    height: 50% !important;
+    font-size: 10px !important;
+    line-height: unset !important;
+}
+.birthSts{
+    width: 100%;
+    height: 50% !important;
+    font-size: 10px !important;
+    line-height: unset !important;
+}
+.photo-container {
+    width: 4vw;
+    height: 4vw;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 2vw;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+#textDiv {
+    width: 100%;
+    padding: 0 0.5rem 0 0.5rem;
+    /* position: relative; */
+    float: left;
+    /* line-height: 50%; */
+    /* top: 50%; */
+    /* transform: translate(0, -50%); */
+    height: 50%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/* add at 2021/08/25 for V9.02 by NWT wen START */
+._entry {
+    width: 100%;
+    padding: 0.5rem;
+    /* padding: 5px 0; */
+    height: 50%;
+    float: left;
+}
+
+._entry p{
+    height: 100%;
+    float: left;
+    line-height: 2rem;
+}
+
+._center p {
+    line-height: 3rem;
+    font-size: 1.5rem;
+}
+/* add at 2021/08/25 for V9.02 by NWT wen END */
+
+ul {
+    height: 100%;
+    width: 100%;
+}
+
+
+#datas {
+    margin-top: 20px;
+    overflow-y: auto;
+    height: calc(89% - 3vw);
+}
+
+#btnDiv {
+    width: 40%;
+    margin-left: 30%;
+    border-radius: 20px;
+    background: #E6E5E4;
+    height: 73%;
+}
+
+.img2 {
+    float: right;
+    pointer-events: auto;
+    width: 6%;
+    margin-right: 2%;
+    border-radius: 50%;
+    background: white;
+    vertical-align: middle;
+    transform: translate(0, -50%);
+    margin-top: 9%;
+}
+
+.img1 {
+    position: relative;
+    float: left;
+    height: 5vw !important;
+    left: -4px;
+}
+
+.insert {
+    width: 20%;
+    float: left;
+    color: #FF80A5;
+    background: none;
+    font-size: 13px;
+    text-align: center;
+    border: 2px solid #FF80A5;
+    margin-left: 40%;
+    margin-top: calc(3% - 5px);
+    border-radius: 8px;
+    margin-bottom: 3%;
+    height: 5vh;
+    line-height: 5vh;
+}
+
+.liClass {
+    transform: rotate(0deg);
+    height: calc(6vw + 11px);
+    width: 32%;
+    float: left;
+    margin: 0.5%;
+}
+
+.stu-container {
+    transform: rotate(0deg);
+    height: 7vw;
+    border: 1px solid #CCCCCC;
+}
+
+.bottom-line {
+    border-top: 1px solid #ECECEC;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    display: none;
+}
+.div_bottom {
+    height: 54px !important;
+    overflow: hidden;
+}

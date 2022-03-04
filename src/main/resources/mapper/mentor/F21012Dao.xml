@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21012Dao">
+    <select id="getStuIdAndGuiRepId" resultType="jp.learningpark.modules.manager.dto.F21012Dto">
+        SELECT DISTINCT
+            c.stu_id AS stuId,
+            c.guid_repr_id AS guiRepId,
+            case when d.subjt_div = '99' then d.yobi1
+            else e.cod_value end AS codValue
+        FROM
+            ( SELECT id, attend_book_cd FROM attend_book_h WHERE tgt_ymd = #{date} AND org_id = #{orgId} ) a
+        INNER JOIN
+            guid_repr_h b
+        ON
+            ( a.attend_book_cd = b.attend_book_cd and b.del_flg = 0)
+        INNER JOIN
+            ( SELECT id, stu_id, guid_repr_id FROM guid_repr_d where del_flg = 0) c
+        ON
+            ( b.id = c.guid_repr_id)
+        Inner join
+            attend_book_d d
+        on
+            (a.id = d.attend_book_id and c.stu_id = d.stu_id and d.del_flg = 0)
+        left join
+            mst_cod_d e
+        on
+            (d.subjt_div = e.cod_cd and e.cod_key = 'SUBJT_DIV' and e.del_flg = 0)
+        where
+            c.stu_id in
+                <foreach item="list" index="index"
+                         collection="list" open="("
+                         separator="," close=")"> #{list.stuId}</foreach>
+    </select>
+    <select id="getGuidApplyByDeliverId" resultType="jp.learningpark.modules.manager.dto.F21012Dto">
+        select
+            distinct
+            b.id as guidReprApplyStsId,
+            b.stu_id as stuId,
+            b.guid_repr_id as guiRepId
+        from
+            (SELECT guid_repr_deliver_cd from guid_repr_deliver where guid_repr_deliver_cd = #{guidDeliverCD} and del_flg = 0) a
+        inner join
+            (select id, stu_id, guid_repr_id, guid_repr_deliver_cd from guid_repr_apply_sts where org_id = #{orgId} and del_flg = 0) b
+        on
+            (a.guid_repr_deliver_cd = b.guid_repr_deliver_cd);
+    </select>
+</mapper>

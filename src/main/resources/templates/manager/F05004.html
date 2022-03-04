@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <#include "/header.html" />
+    <TITLE>お知らせ照会画面</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F05004.css"/>
+</HEAD>
+<BODY>
+<div class="page" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">お知らせ照会画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div>{{org.orgId}}</div>
+        <div>組織名:</div>
+        <div>{{org.orgNm}}</div>
+        <div class="right">{{dto.updateStr}}</div>
+        <div class="right">最新更新日時:</div>
+    </div>
+    <div class="div_main">
+        <div class="one">
+            <div class="mailLabel">お知らせ名</div>
+            <div id="noticeTitle" v-text="notice.noticeTitle==null ? '' : notice.noticeTitle"></div>
+            <p class="noticeLevelDiv" v-if="notice.noticeLevelDiv!=null" :style="notice.noticeLevelDiv == '2' ? 'color:red;' : 'display:none' ">★</p>
+        </div>
+        <div class="two">
+            <div class="mailLabel">内容</div>
+            <div id="noticeCont" class="noticeCont"></div>
+        </div>
+        <div class="file_drag">
+            <div id="file_label">添付ファイル</div>
+            <div class="drag_area">
+                <!--<a :href='notice.attachFilePath' id="showPath1">{{path}}</a>-->
+            </div>
+        </div>
+        <div class="content_wrap">
+            <div class="mailLabel">配信先</div>
+            <ul v-if="stuList!=null">
+                <li v-for="stu in stuList">{{stu.guaId+"&nbsp;"+stu.guaName+","+stu.afterUserId+"&nbsp;"+stu.stuName}}</li>
+            </ul>
+        </div>
+        <div class="three">
+            <div class="mailLabel">掲載開始日時</div>
+            <p class="timeCon oneBtn" v-text="dto.pubPlanStartDtStr==null ? '' : dto.pubPlanStartDtStr"></p>
+            <div style="margin: 0 2vw">～</div>
+            <div class="mailLabel" id="end_label">掲載終了日時</div>
+            <p class="timeCon twoBtn" v-text="dto.pubPlanEndDtStr==null ? '' : dto.pubPlanEndDtStr"></p>
+        </div>
+        <div class="four">
+            <button id="backBtn">戻る</button>
+        </div>
+    </div>
+</div>
+</BODY>
+<script type="text/javascript" src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F05004.js"></script>
+</HTML>

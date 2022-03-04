@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>生徒面談記録詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/student/F11020.css">
+</head>
+<body id="body">
+<div class="newt-layout-line div_header">
+    <iframe src="${request.contextPath}/common/F40027.html?id=F11020" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+
+<div class="content newt-layout-line" id="content" v-cloak>
+    <div class="title newt-layout-line" id="title1">
+        <div class="back" onclick="window.history.go(-1)">
+            <img src="../img/left.png">
+        </div>
+        {{messageTitle}}
+    </div>
+    <div class="container">
+        <div class="ask-container" v-if="askDisplayFlg">
+            <div class="subtitle newt-layout-line">{{askItemName}}</div>
+            <div
+                    class="question-answer newt-layout-line" v-for="item in askAndTalkList"
+                    v-if="item.itemTypeDiv === '0' && item.askDispFlg === '1'">
+                <p class="question-name">{{item.questionName}}</p>
+                <div v-if="item.answerTypeDiv !== '3'">
+                    <p class="answer">{{item.answerReltCont}}</p>
+                </div>
+                <div v-else id="imgDiv">
+                    <img :src="item.answerReltCont" @click="previewImg(item.answerReltCont)" class="imgStyle">
+                </div>
+            </div>
+        </div>
+        <div class="talk-container" v-if="talkDisplayFlg">
+            <div class="subtitle newt-layout-line">{{talkItemName}}</div>
+            <div
+                    class="question-answer newt-layout-line" v-for="item in askAndTalkList"
+                    v-if="item.itemTypeDiv === '1' && item.talkDispFlg === '1'">
+                <p class="question-name">{{item.questionName}}</p>
+                <p class="answer">{{item.answerReltCont}}</p>
+            </div>
+        </div>
+        <div id="noteCont">
+            <!--/* 2021/1/13 UT-116 cuikailin modify start */-->
+            <p>{{noteTitle}}</p>
+            <!--/* 2021/1/13 UT-116 cuikailin modify end */-->
+            <p>{{noteCont}}</p>
+        </div>
+    </div>
+</div>
+<div class="div_bottom" id="div_bottom">
+    <iframe
+            src="../common/F40012.html?id=F11010" frameborder="0" width="100%" height="100%" name="common_bottom"
+            id="common_bottom"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/student/F11020.js"></script>
+</html>

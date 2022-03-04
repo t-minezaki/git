@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>検索画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/my_search.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F08016-2.css" />
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div class="all" id="app">
+    <div class="content">
+        <div class="head">
+            <input id="search_left" class="my_search" type="text"/>
+            <button id="search_left_btn">検索</button>
+        </div>
+        <div class="head"><span class="title">表示可能項目</span></div>
+        <form id="form_left">
+        </form>
+    </div>
+    <div class="symbol">
+        <div>
+            <div>
+                <button id="right"><span>&#155</span></button>
+            </div>
+            <div>
+                <button id="right_all"><span>&#187</span></button>
+            </div>
+            <div>
+                <button id="left"><span>&#139</span></button>
+            </div>
+            <div>
+                <button id="left_all"><span>&#171</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="head">
+            <input id="search_right" class="my_search" type="text"/>
+            <button id="search_right_btn">検索</button>
+        </div>
+        <div class="head"><span class="title">表示項目</span></div>
+        <form id="form_right">
+            <!--<div><input type="checkbox" value="eventCod" content="メベントコード"/><span class="cont">メベントコード</span></div>-->
+        </form>
+    </div>
+    <div class="symbol">
+        <div>
+            <div>
+                <button id="up"><span>&#155</span></button>
+            </div>
+            <div>
+                <button id="up_all"><span>&#187</span></button>
+            </div>
+            <div>
+                <button id="down"><span>&#139</span></button>
+            </div>
+            <div>
+                <button id="down_all"><span>&#171</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="theme_btn">
+        <button id="conf">確定</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F08016-2.js"></script>
+</html>

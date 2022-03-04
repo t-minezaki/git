@@ -1,0 +1,440 @@
+.header_operat {
+    width: auto;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    /*overflow: auto;*/
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.div_main {
+    width: 100%;
+    height: auto;
+    padding: 0vw 1.8%;
+}
+
+.one {
+    width: 100%;
+    height: 4vh;
+    margin-top: 0.5vw;
+    position: relative;
+}
+
+.one div {
+    float: left;
+}
+
+.mailLabel {
+    margin-top: 0.5vh;
+    width: 10%;
+    font-size: 0.9vw;
+    color: #000;
+    line-height: 2vh;
+    font-weight: bold;
+}
+
+.asterisk {
+    width: 1%;
+    color: red;
+    line-height: 3.6vh !important;
+}
+
+.mailset {
+    border-radius: 4px;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    margin-left: 0 !important;
+}
+
+#inputArea {
+    width: 46%;
+}
+
+#mail_name {
+    width: 85%;
+    border: 1px solid #d4d4d4!important;
+    height: 4vh;
+    padding-left: 8px;
+    font-size: 0.9vw;
+}
+
+#levelDiv {
+    line-height: 3.5vh;
+}
+
+#checkBoxArea {
+    width: 3.3vw;
+    line-height: 3.5vh;
+}
+
+.one div > button {
+    font-size: 0.8vw;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    /*margin-left: 18vw;*/
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+#edui163_body {
+    margin-top: 3vh;
+}
+
+.two {
+    width: 100%;
+    height: 36vh;
+    margin-top: 1vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.two div {
+    /*width: 16.6%;*/
+    float: left;
+}
+
+.mail_content {
+    height: 100%;
+    width: 64%;
+    /*overflow: auto;*/
+}
+
+.mail_content input {
+    height: 100%;
+    width: 49.2vw;
+}
+
+#edui1_iframeholder {
+    height: calc(28vh) !important;
+}
+
+.content_wrap {
+    width: 100% !important;
+    height: 3vh !important;
+    /*margin-top: 0.1vh !important;*/
+    position: relative;
+}
+
+.content_wrap div {
+    float: left;
+}
+
+#edui1_bottombar {
+    display: none;
+}
+
+#edui191_body {
+    display: none;
+}
+
+#edui115 {
+    visibility: hidden;
+}
+
+#treeDemo {
+    height: 90%;
+}
+
+.ztree_div {
+    width: auto;
+    height: 15vh;
+    padding-left: 5vw;
+}
+
+.checkboxAll {
+    margin-top: 2.2vh;
+}
+
+.zTreeDemoBackground left {
+    margin-top: 3.2vh !important;
+}
+
+.three {
+    width: 100%;
+    height: 2.2vh;
+    position: relative;
+}
+
+.three * {
+    float: left;
+}
+
+.three input {
+    width: 15%;
+    border: 1px solid grey;
+    height: 1.6vw;
+}
+
+.three p {
+    width: 7%;
+}
+
+#end_label {
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.three p > img {
+    margin-left: 0.5vw;
+    height: 1.6vw;
+}
+
+.timer {
+    width: 100%;
+    /*height: 1vh;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+}
+
+.timer * {
+    float: left;
+}
+
+.four {
+    width: 77%;
+    margin-top: 3.5vh;
+    height: 8vh;
+}
+
+.four div {
+    width: 50%;
+    float: left;
+}
+
+.return_btn {
+    width: 50%;
+}
+
+.submit_btn {
+    width: 50%;
+}
+
+button {
+    width: 10vw;
+    height: 5vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+    font-size: 0.9vw;
+}
+
+.return_btn button {
+    float: right;
+    margin-right: 20%;
+    margin-top: 1.5%;
+}
+
+.submit_btn button {
+    float: left;
+    margin-left: 20%;
+    margin-top: 1.5%;
+}
+
+/* 2020/12/04 V9.0 liguangxin modify start */
+.layui-laydate-list > li {
+    width: 33% !important;
+    margin: 5px 0 !important;
+}
+/*.layui-laydate-list>li:last-child{display: none}*/
+/* 2020/12/04 V9.0 liguangxin modify end */
+
+.laydate-time-list ol li {
+    width: 150% !important;
+    padding-left: 55px !important;
+}
+
+#edui232 {
+    position: fixed;
+    top: 11.9vw;
+    left: 69.8%;
+    background: #000;
+    width: 6vw !important;
+    height: 2.7vh !important;
+    opacity: 0;
+}
+
+#edui232 .edui-default, #edui232 .edui-toolbar, #edui232 .edui-button, #edui232 .edui-icon {
+    width: 6vw !important;
+    height: 2.7vh !important;
+}
+
+/*.edui-default .edui-dialog-fullscreen-flag {*/
+/*margin-top: 11.3vw*/
+/*}*/
+
+.edui-message-content .edui-default {
+    display: block !important;
+}
+
+#edui244 {
+    display: block !important;
+}
+
+#edui78 > .edui-listitem-body > .edui-label > .edui-default {
+    font-size: 16px !important;
+}
+
+#edui79 > .edui-listitem-body > .edui-label > .edui-default {
+    font-size: 16px !important;
+}
+
+.file_drag * {
+    float: left;
+}
+
+.file_drag {
+    height: 6vh;
+    margin-top: 2vh;
+}
+
+#file_label {
+    font-weight: bold;
+    color: black;
+    font-size: 0.9vw;
+    font-weight: bold;
+    color: black;
+    width: 11%;
+}
+
+.drag_area {
+    width: 53vw;
+    height: 6vh;
+}
+
+#showPath1 {
+    width: 53vw;
+    height: 6vh;
+    border-width: 1px;
+    border-style: double;
+    text-overflow: ellipsis;
+}
+
+#btn_file {
+    opacity: 0;
+    width: 53vw;
+    height: 6vh;
+    position: relative;
+    z-index: 999;
+    bottom: 6vh;
+}
+
+#file_btn {
+    width: 18vh;
+    background: #92D050;
+    color: white;
+    height: 4vh;
+    margin-top: 2vh;
+    border: none;
+    margin-left: 1vw;
+}
+
+div#chk_area {
+    margin-left: 1%;
+}
+#update_time_area {
+    float: right !important;
+    visibility: hidden;
+}
+#img-mail{
+    width: 20px;
+    margin-top: 2px;
+}
+#mail-submit{
+    width: 7vw;
+    height: 3vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    font-size: 0.8vw;
+}
+.template_area {
+    height: 6vh;
+    line-height: 6vh;
+}
+
+#temp_label {
+    font-size: 0.9vw;
+    font-weight: bold;
+    color: black;
+    width: 10%;
+}
+
+.template_area div {
+    float: left;
+}
+
+#temp_nm {
+    margin-left: 1vw;
+    background: none;
+    width: 10vw;
+}
+
+#temp_nm + span {
+    height: 4vh;
+    width: 10.6vw !important;
+    margin-left: 1vw;
+}
+
+#apply_area {
+    width: 12vh;
+    text-align: center;
+}
+
+#apply_btn {
+    width: 4vw;
+    height: 4vh;
+    font-size: 0.9vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+.select2-container .select2-selection--single {
+    height: 4vh !important;
+}
+.select2-selection__rendered{
+    height: 4vh;
+    line-height: 4vh !important;
+}
+li.select2-results__option {
+    min-height: 4vh;
+}

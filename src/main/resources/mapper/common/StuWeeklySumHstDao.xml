@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.StuWeeklySumHstDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.StuWeeklySumHstEntity" id="stuWeeklySumHstMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="pubStartDate" column="pub_start_date"/>
+        <result property="pubEndDate" column="pub_end_date"/>
+        <result property="sumStartDate" column="sum_start_date"/>
+        <result property="sumEndDate" column="sum_end_date"/>
+        <result property="subjtDiv" column="subjt_div"/>
+        <result property="schyDiv" column="schy_div"/>
+        <result property="sumPerfLeaTime" column="sum_perf_lea_time"/>
+        <result property="perfLeaRanking" column="perf_lea_ranking"/>
+        <result property="perfLeaRankingAll" column="perf_lea_ranking_all"/>
+        <result property="totalLeaTmLevelDiv" column="total_lea_tm_level_div"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,102 @@
+.header_operat{
+	width: auto;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	font-size: 0.9vw;
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+.idDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+}
+.idMessage{
+	width: auto;
+	float: left;
+	padding: 0 4vw 0 1vw;
+	height: auto;
+	/*border: 2px solid #EA331B;*/
+}
+.idMessage div{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: auto;
+	padding-right: 1.5vw;
+}
+
+
+.topSessionTitle button{
+	width: 12vw;
+	height: 2.2vw;
+	float: right;
+	margin: 0 1vw;
+	font-size: 0.9vw;
+	border-radius: 4px;
+	background: #00a65a;
+	color: white;
+	border: 0;
+	border-bottom: 3px grey solid;
+}
+.topSessionTitle{
+	height: 3.2vw;
+}
+.topSessionTitle div{
+	line-height: 4.2vw;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+	border: 2px solid #ccc !important;
+	color: black !important;
+	height: 6vh;
+	font-weight: 400;
+	border-bottom: none !important;
+	border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+	border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+	border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+	border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+	background-color: #eee !important;
+}
+
+.jqgfirstrow td{
+	border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+	height: 6vh !important;
+}
+.ui-jqgrid .ui-jqgrid-view button {
+	text-decoration: unset !important;
+	color: black !important;
+	border: 1px #ccc solid !important;
+	border-radius: 12px !important;
+	width: 6vw !important;
+	height: 4vh !important;
+	font-size: 1.1em !important;
+}

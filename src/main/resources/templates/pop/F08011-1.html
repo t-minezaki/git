@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>検索画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/my_select.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F08011-1.css" />
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div class="all" id="app">
+    <div class="content_new">
+        <form id="form1">
+            <div>
+                <p>保護者名</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="guardName"/>
+                </div>
+            </div>
+            <div>
+                <p>生徒名</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="stuName"/>
+                </div>
+            </div>
+
+            <div>
+                <p>ステータス</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <select class="my_select" id="status">
+                        <option value=""></option>
+                        <option v-for="status in statusList"  :data-key="status.codKey" :value="status.codCd">{{status.codValue}}</option>
+                    </select>
+                    <label></label>
+                </div>
+            </div>
+
+            <div>
+                <p>既読日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeOne">
+                        </div>
+                        <input type="text" id="readTimeStart" name="readTimeStart" readonly>
+                    </div>
+                    <div style="text-align: center">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeTwo">
+                        </div>
+                        <input type="text" id="readTimeEnd" name="readTimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>回答日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeThree">
+                        </div>
+                        <input type="text" id="replyTimeStart" name="replyTimeStart" readonly>
+                    </div>
+                    <div style="text-align: center">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeFour">
+                        </div>
+                        <input type="text" id="replyTimeEnd" name="replyTimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+            <div  v-if="refType !== '2'">
+                <p>申込日程</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeFive">
+                        </div>
+                        <input type="text" id="applyDatimeStart" name="applyDatimeStart" readonly>
+                    </div>
+                    <div style="text-align: center">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeSix">
+                        </div>
+                        <input type="text" id="applyDatimeEnd" name="applyDatimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div id="role" v-if="refType !== '2'">
+                <p v-if="refType == '1'">担当講師</p>
+                <p v-if="refType == '0'">教室</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="roleName"/>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="theme_btn">
+            <button id="submitbtn">検索</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F08011-1.js"></script>
+</html>

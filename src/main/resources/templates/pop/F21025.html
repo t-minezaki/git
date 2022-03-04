@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21025.css"/>
+</head>
+<body id="body">
+<div class="content" id="content" v-cloak>
+    <div class="row" id="dayDiv">
+        <div class="left float">会員名</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="dayVal">{{stuName}}</div>
+    </div>
+    <div class="line" id="line1"></div>
+    <!--<div class="row" id="contentDiv">-->
+        <!--<div class="left float">生徒ID</div>-->
+        <!--<div class="mid float">：</div>-->
+        <!--<div class="right float" id="contentVal">{{stuId}}</div>-->
+    <!--</div>-->
+    <!--<div class="line" id="line3"></div>-->
+    <div class="row" id="reasonDiv">
+        <div class="left float">連絡先</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="reasonVal"><a class="telnumber" @click="getHref(telnum)">{{getDisplayTelNumber(telnum)}}</a></div>
+    </div>
+    <div class="line" id="line4"></div>
+    <div class="row" id="cretDatime">
+        <div class="left float">送信日</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="cretDatimeVal">{{cretDatime}}</div>
+    </div>
+    <div class="line" id="line3"></div>
+    <div class="row" id="remarkDiv">
+        <div class="left float">内容</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="remarkVal">{{content}}</div>
+    </div>
+    <div class="line" id="line6"></div>
+    <div class="row" id="aaa">
+        <div class="left float">理由</div>
+        <div class="mid float">：</div>
+        <div class="right float" id="aaaval">{{reason}}</div>
+    </div>
+    <div class="line" id="line7"></div>
+    <div class="row" id="aaaa">
+        <div class="left float">備考</div>
+        <div class="mid float">：</div>
+        <p class="right float" id="aaaaval">{{bikou}}</p>
+    </div>
+    <div class="btnRow" id="btnDiv">
+        <div>
+            <button class="float submit-btn btn" onclick="submit()">「確認しました」<br/>保護者に送信</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="${request.contextPath}/js/pop/F21025.js"></script>
+</html>

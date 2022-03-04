@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F09003Dao">
+    <select id="getStuList" resultType="jp.learningpark.modules.pop.dto.F09003Dto">
+        <!--2020/11/16 LiYuHuan modify start-->
+        SELECT DISTINCT
+            ms.stu_id,
+            ms.flnm_nm || ms.flnm_lnm AS stuName,
+            ms.qr_cod,
+            ms.oria_cd,
+            mcd.cod_value as schy,
+            mu.after_usr_id
+        FROM
+            mst_usr AS mu
+            INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+            AND ms.del_flg = 0
+        <if test='paramsMap != null '>
+            <if test='paramsMap.searchDiv == "group" and paramsMap.searchDiv != ""'>
+                LEFT JOIN stu_grp AS sg ON sg.stu_id = ms.stu_id
+                AND sg.del_flg = 0
+                LEFT JOIN mst_grp AS mg ON mg.org_id = mu.org_id
+                AND mg.grp_id = sg.grp_id
+                AND mg.del_flg = 0
+         <!--2020/11/16 LiYuHuan modify end-->
+            </if>
+        </if>
+        <if test="roleDiv == 2">
+           inner join mentor_stu as ms2 on ms2.stu_id= ms.stu_id and ms2.crmsch_id = #{orgId} and ms2.mentor_id = #{userId} and ms2.del_flg = 0
+           inner join mst_org as mo on mo.org_id = ms2.crmsch_id and mo.del_flg = 0
+        </if>
+        left join mst_cod_d mcd on ms.schy_div = mcd.cod_cd and mcd.cod_key = 'SCHY_DIV' and mcd.del_flg = 0
+        <where>
+            <if test="roleDiv == 1">
+                AND mu.org_id = #{orgId}
+                AND MU.role_div = '4'
+                AND MU.usr_sts = '1'
+                AND MU.del_flg = 0
+            </if>
+            <if test='paramsMap != null '>
+                <if test='paramsMap.value != ""'>
+                    <if test='paramsMap.searchDiv == "schy"'>
+                        AND ms.schy_div = '${paramsMap.value}'
+                    </if>
+                    <if test='paramsMap.searchDiv == "group"'>
+                        AND sg.grp_id = '${paramsMap.value}'
+                    </if>
+                    <if test='paramsMap.searchDiv == "someone"'>
+                        AND ms.flnm_nm || ms.flnm_lnm like CONCAT('%',trim('${paramsMap.value}'),'%')
+                    </if>
+                    <!--2020/11/9 zhangminghao modify start-->
+                    <if test='paramsMap.searchDiv == "absSts"'>
+                        <!--「すべて」選択された場合、-->
+                        <if test='paramsMap.value == "0"'>
+                            AND ms.stu_id in (
+                                select distinct stu_id
+                                from entry_exit_hst
+                                where del_flg = 0
+                                union
+                                select distinct stu_id
+                                from late_abs_hst
+                                where del_flg = 0)
+                        </if>
+                        <!--「出席」選択された場合、-->
+                        <if test='paramsMap.value == "1"'>
+                            AND ms.stu_id in (
+                                select distinct stu_id
+                                from entry_exit_hst
+                                where del_flg = 0)
+                        </if>
+                        <!--「欠席」選択された場合、-->
+                        <if test='paramsMap.value == "2"'>
+                            AND ms.stu_id in (
+                                select distinct stu_id
+                                from late_abs_hst
+                                where abs_sts = '1')
+                        </if>
+                        <!--「遅刻」選択された場合、-->
+                        <if test='paramsMap.value == "3"'>
+                            AND ms.stu_id in (
+                                select distinct stu_id
+                                from late_abs_hst
+                                where abs_sts = '0')
+                        </if>
+                    </if>
+                </if>
+                <!--2020/11/9 zhangminghao modify end-->
+                <if test='paramsMap.searchDiv == "loginDate"'>
+                    <if test='paramsMap.startDate != "" '>
+                        AND ms.cret_datime >= '${paramsMap.startDate}'
+                    </if>
+                    <if test=' paramsMap.endDate != "" '>
+                        AND '${paramsMap.endDate}' >= ms.cret_datime
+                    </if>
+                </if>
+            </if>
+        </where>
+    </select>
+</mapper>

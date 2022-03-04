@@ -1,0 +1,66 @@
+#お客様AWS本番検証環境
+spring:
+  datasource:
+    jndi-name: gakken_app
+server:
+  servlet:
+    context-path: /
+ans-url:
+  NOTICE_REMOTE_URL_appLoginCheck: http://localhost/ans/v1/1/device
+  NOTICE_REMOTE_URL_unReadGet: http://localhost/ans/v1/1/message/unread
+  NOTICE_REMOTE_URL_sendMessage: http://localhost/ans/v1/1/message
+  NOTICE_REMOTE_URL_errorData: http://localhost/ans/v1/1/message/errorData
+  token: oNafDchSFINctAXUSBoSxIW14D63XPZcb8rJNOl/e1zcigIUH3yuxhmAuQkXilUC
+
+# 本番API
+# 学研API 2020/11/27 高見良一
+#登録日2020/11/27 17:12:47
+gakken-api:
+  #本仮APIフラグ
+  realApi: true
+  #REQUEST_URL
+  requestUrl: https://idgear.x.itecgw.jp/gid/services/
+  #SOAP認証用UsernameToken
+  user: GEDMMIUNTP
+  #SOAP認証用Password
+  password: afe85d30d09ef0c2f241e141b6d827f1
+  #特権アクセストークン
+  priToken: db3869c2e4394b41a5a27b33a840c506
+  #サービスサイトコード
+  serviceCd: GEDMMISSIP
+  #サービスショップコード
+  shopCd: GEDMMISSHP
+  #GakkenTID履歴キー
+  gakkenTidHistKey: get_info_hist
+  #メールアドレスキー
+  gakkenMailKey: get_mail_address
+  #指導者コードキー
+  teacherCodeKey: get_teacher_code_01
+  #サービスサイトコード2
+  serviceCd2: GEDWESSSIP
+
+#domain
+learningpark-domain:
+#  LE-AWS本番環境
+  domain: https://gapri.manamiru.com
+
+ueditor:
+  urlPrefix: https://gapri.manamiru.com
+
+localFlag: false
+
+#saml2の設定
+saml2:
+  regId: https://gapri.manamiru.com/saml2/service-provider-metadata/manamirusp
+  #IdP エンティティID
+  idpEntityId: https://gonline-auth.gakken.jp/simplesaml/saml2/idp/metadata.php
+  #IdP SSOエンドポイント
+  idpSSOLocation: https://gonline-auth.gakken.jp/simplesaml/saml2/idp/SSOService.php
+  #SPの秘密鍵
+  spPrivateKey: /cert/sp.pem
+  #SPの共通鍵
+  spCertificate: /cert/sp.crt
+  #IDPの共通鍵
+  idpCertificate: /cert/idp.crt
+  # 認証失敗
+  failureUrl: /login/onair

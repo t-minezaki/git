@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        #preview {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #preview * {
+            font-family: sans-serif;
+            line-height: 170%;
+        }
+
+        #preview p {
+            margin: unset;
+        }
+    </style>
+</head>
+<body class="view">
+<div id="content" style="margin-left: auto;margin-right: auto;">
+    <div style="margin-left: auto;margin-right: auto; width: 320px">
+        <input type="radio" value="375_667" name="size" onchange="changesize(375,667)" checked/>iPhone 4.7インチ
+        <input type="radio" value="360_747" name="size" onchange="changesize(360,747)"/>HUAWEI 5.84インチ
+        <input type="checkbox" value="1" id="isHorizontal" onchange="changescreen()"/>回転
+    </div>
+    <div id="preview" style="overflow: auto;border:1px solid black;word-break: break-all"></div>
+</div>
+</body>
+<script>
+    document.getElementById('content').style.width = "375px";
+    document.getElementById('content').style.height = "667px";
+    function changesize(w, h) {
+        if (document.getElementById("isHorizontal").checked) {
+            document.getElementById('content').style.width = h + "px";
+            document.getElementById('content').style.height = w + "px";
+        } else {
+            document.getElementById('content').style.width = w + "px";
+            document.getElementById('content').style.height = h + "px";
+        }
+    }
+
+    function changescreen() {
+        var width = document.getElementById('content').style.width;
+        var height = document.getElementById('content').style.height;
+        document.getElementById('content').style.width = height;
+        document.getElementById('content').style.height = width;
+    }
+</script>
+</html>

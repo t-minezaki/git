@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F09020Dao">
+    <select id="init1" resultType="jp.learningpark.modules.manager.dto.F09020Dto">
+        SELECT
+          cod_cd
+          ,cod_value
+        FROM
+          mst_cod_d
+        WHERE
+          cod_key = 'NOTICE_TYPE_DIV'
+          AND cod_cd in ('1','2')
+          AND del_flg = 0
+    </select>
+    <select id="init2" resultType="jp.learningpark.modules.manager.dto.F09020Dto">
+        SELECT
+          mn.org_id
+          ,mo.org_nm
+          ,mo.mgr_flg
+          ,mn.notice_title
+          ,mn.notice_cont
+          ,mn.notice_type_div
+          ,mcd.cod_value
+          ,mn.notice_level_div
+          ,mn.pub_plan_start_dt
+          ,mn.pub_plan_end_dt
+          ,mn.attach_file_path
+        FROM
+          mst_notice mn
+            INNER JOIN mst_org mo ON (mn.org_id = mo.org_id and mo.del_flg = 0)
+            INNER JOIN mst_cod_d mcd ON (mn.notice_type_div = mcd.cod_cd AND mcd.cod_key = 'NOTICE_TYPE_DIV' AND mcd.del_flg = 0)
+        WHERE
+          mn.id = #{noticeId}
+          AND mn.del_flg = 0
+    </select>
+
+    <select id="getDeliverStuList" resultType="jp.learningpark.modules.manager.dto.F09020Dto">
+        SELECT
+          mn.org_id
+          ,mo.org_nm
+          ,mo.mgr_flg
+          ,mn.notice_title
+          ,mn.notice_cont
+          ,mn.notice_type_div
+          ,mcd.cod_value
+          ,mn.notice_level_div
+          ,mn.pub_plan_start_dt
+          ,mn.pub_plan_end_dt
+          ,mn.attach_file_path
+          ,mnd.stu_id
+          ,mnd.guard_id
+        FROM
+          mst_notice mn
+            INNER JOIN mst_org mo ON (mn.org_id = mo.org_id and mo.del_flg = 0)
+            INNER JOIN mst_cod_d mcd ON (mn.notice_type_div = mcd.cod_cd AND mcd.cod_key = 'NOTICE_TYPE_DIV' AND mcd.del_flg = 0)
+            INNER join mst_notice_deliver MND on(mn.id = mnd.notice_id and mnd.del_flg =0)
+        WHERE
+          mn.id = #{noticeId}
+          AND mn.del_flg = 0
+    </select>
+
+    <select id="getList" resultType="jp.learningpark.modules.manager.dto.F09020Dto">
+        SELECT
+            MS.stu_id,
+            mg.guard_id,
+            MU.org_id,
+            MO.mgr_flg
+        FROM mst_stu MS
+        INNER JOIN mst_usr MU
+            ON MS.stu_id = MU.usr_id
+            AND MU.usr_sts = '1'
+            AND MU.org_id IN
+            <foreach collection="orgIdlist" item ="orgid" index="i" open="(" close=")" separator=",">
+                 #{orgid}
+            </foreach>
+            AND MU.del_flg = 0
+        INNER JOIN mst_org MO
+            on MO.del_flg = 0
+            and MO.org_id IN
+            <foreach collection="orgIdlist" item ="orgid" index="i" open="(" close=")" separator=",">
+                #{orgid}
+            </foreach>
+        inner join mst_guard mg
+             on ( mg.guard_id = ms.guard_id
+--             or mg.guard_id = ms.guard1_id
+--             or mg.guard_id = ms.guard2_id
+--             or mg.guard_id = ms.guard3_id
+--             or mg.guard_id = ms.guard4_id
+            )
+            and mg.del_flg = 0
+        WHERE
+            MS.del_flg = 0
+            AND MS.stu_id IN
+            <foreach collection="stuIdlist" item ="stuid" index="i" open="(" close=")" separator=",">
+                 #{stuid}
+            </foreach>
+    </select>
+</mapper>

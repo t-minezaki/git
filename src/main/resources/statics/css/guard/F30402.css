@@ -1,0 +1,698 @@
+.content {
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 48px);
+    overflow: auto;
+    padding: 4px;
+    padding-bottom: 0;
+    padding-top: 84px;
+}
+
+.div_header .logout {
+    margin-top: 1.8vw !important;
+}
+
+.div_header .headerBtn {
+    margin-top: 1.5vw !important;
+}
+
+.oneTitle {
+    width: calc(100% - ((42px / 3) * 2));
+    margin: calc(52px / 3) calc(42px / 3) 0 calc(42px / 3);
+    height: calc(88px / 3);
+}
+
+.oneTitle ul {
+    width: 100%;
+    height: 100%;
+    /*border-radius: 5px;*/
+    overflow: hidden;
+}
+
+.newsCount {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cf2d28;
+    color: #fff;
+    font-size: 10px;
+    left: 64%;
+    top: 12px;
+    line-height: 18px;
+    display: none;
+}
+
+.oneTitle li {
+    width: 50%;
+    height: 100%;
+    float: left;
+    color: #009944;
+    background: none;
+    font-size: calc(42px / 3);
+    text-align: center;
+}
+
+.oneTitle li.active {
+    color: #CCCCCC;
+    border-bottom: 4px solid #BABABA;
+    font-weight: bold;
+}
+
+.oneTitle li.active1 {
+    font-weight: bold;
+    color: black;
+    border-bottom: 4px solid #8CC11F;
+}
+
+.count1 {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cf2d28;
+    color: #fff;
+    font-size: 10px;
+    left: 25%;
+    top: 12px;
+    line-height: 18px;
+    display: none;
+}
+
+.content_div {
+    width: 100%;
+    overflow: auto;
+    height: auto;
+    /*margin-top: 40px;*/
+    box-sizing: border-box;
+}
+
+.title_div {
+    width: 100%;
+    float: left;
+}
+
+.back {
+    width: 100%;
+    float: left;
+}
+
+.back img {
+    height: 20px;
+    float: left;
+    margin-top: 16px;
+}
+
+.title_div .updateTime {
+    float: right;
+    font-size: 12px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.title {
+    width: 90%;
+    margin-left: calc(7% - 20px);
+    margin-top: 15px;
+    font-size: 18px;
+    float: left;
+    color: #444;
+    text-align: left;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.div_img {
+    text-align: center;
+    margin: 2vw;
+}
+
+.img {
+    width: 80%;
+}
+
+.description {
+    width: 93%;
+    font-size: 15px;
+    color: #555;
+    margin-left: 7%;
+    overflow: hidden;
+    border-top: 1px solid #CCCCCC;
+}
+
+.description p {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+p > span {
+    line-height: 170%;
+}
+
+.url {
+    font-size: 12px;
+    padding: 5px;
+    float: right;
+    text-align: center;
+    border: 2px solid #009944;
+    border-radius: 5px;
+    color: #009944;
+    margin-top: 10px;
+}
+
+video {
+    max-width: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+.content .div_btnbox {
+    width: 100%;
+    height: 10vh;
+    line-height: 10vh;
+    margin-top: 2vh;
+    text-align: center;
+    display: none;
+}
+
+.div_btnbox button {
+    width: 40vw;
+    /* 2021/01/30 MANAMIRU1-412 cuikailin modify start */
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    /* 2021/01/30 MANAMIRU1-412 cuikailin modify end */
+    color: #FFF;
+    font-weight: bolder;
+    background-color: #BFBFBF;
+    border: none;
+    box-sizing: border-box;
+}
+
+.div_btnbox button.green {
+    background-color: #8CC11F;
+}
+
+.div_files {
+    margin-top: 2vh;
+    text-align: center;
+}
+
+.div_files a {
+    color: red;
+    text-decoration: none;
+    border-bottom: 0.5vh solid red;
+    line-height: 4vh;
+}
+
+.content .div_msgbox {
+    width: 95%;
+    height: 20vh;
+    line-height: 4vh;
+    margin-left: 3%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding: 2vh 2vw;
+    background-color: #F2F2F2;
+    box-sizing: border-box;
+    font-size: 2vh;
+    text-align: left;
+    border-radius: 1vh;
+    display: none;
+}
+
+.topTitle {
+    height: 40px;
+    background: rgb(140, 193, 31);
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    position: fixed;
+    top: 44px;
+    width: 100%;
+    font-weight: bold;
+    z-index: 999;
+}
+
+ /*Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width: 534px) and (max-device-width: 768px) {
+
+    .div_img {
+        width: 100%;
+        background-color: white;
+        padding: 0.2rem 3.4rem;
+        margin: 0;
+    }
+
+    .div_btnbox button {
+        width: 8rem;
+        height: 3rem;
+        color: #FFF;
+        font-weight: bolder;
+        background-color: #BFBFBF;
+        border: none;
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+
+    .title {
+        width: 88%;
+        margin-left: 2.4rem;
+        font-size: 1.18rem;
+        color: #202020;
+        background-color: white;
+        display: block;
+        -webkit-box-orient: unset;
+        margin-top: 0;
+        float: none;
+    }
+
+    .topTitle {
+        position: fixed;
+        top: 56px;
+        letter-spacing: 0;
+        z-index: 1;
+    }
+
+    .img {
+        width: auto;
+    }
+
+    .oneTitle {
+        width: 100%;
+        padding: 10px 5px 0 5px;
+        height: 41px;
+    }
+
+    .oneTitle ul {
+        width: 100%;
+        height: 100%;
+        /*border-radius: 5px;*/
+        overflow: hidden;
+    }
+
+    .count {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #cf2d28;
+        color: #fff;
+        font-size: 10px;
+        right: 15px;
+        top: 60px;
+        line-height: 18px;
+        display: none;
+    }
+
+    .oneTitle li {
+        width: 50%;
+        height: 100%;
+        float: left;
+        color: #009944;
+        background: none;
+        font-size: 13px;
+        line-height: 25px;
+        text-align: center;
+    }
+
+    .oneTitle li.active {
+        color: #555;
+        border-bottom: 4px solid #555;
+    }
+
+    .oneTitle li.active1 {
+        color: #009944;
+        border-bottom: 4px solid #009944;
+    }
+
+    .content {
+        width: 100%;
+        overflow: auto;
+        padding-top: 40px;
+        height: calc(100% - 90px);
+        padding-bottom: unset;
+    }
+
+    .content_div {
+        width: 100%;
+        overflow: auto;
+        height: calc(100% - 2.7rem);
+        margin-top: 1.9rem;
+        box-sizing: border-box;
+    }
+
+    .description {
+        font-size: 1rem;
+        color: #202020;
+        margin-left: 3.4rem;
+        margin-top: 0;
+        width: calc(100% - 3.4rem);
+        border-top: 1px solid #CCCCCC;
+        overflow: unset;
+        padding-top: 1.3rem;
+    }
+
+    .description p {
+        text-align: justify;
+        font-size: 1rem;
+        width: 97%;
+    }
+
+    p > span {
+        line-height: 170%;
+    }
+
+    .title_div {
+        background-color: white;
+        margin-bottom: 0;
+        width: 100%;
+        float: none;
+    }
+
+    .div_files {
+        margin-top: 2vh;
+        text-align: center;
+    }
+
+    .div_files a {
+        color: red;
+        text-decoration: none;
+        border-bottom: 0.5vh solid red;
+    }
+
+    .back {
+        padding-left: 1.2rem;
+        background-color: white;
+        width: 100%;
+        float: none;
+    }
+
+    .back img {
+        width: 1.2rem;
+        height: 1.2rem;
+        float: left;
+        margin-top: 0.4rem;
+    }
+
+    .url {
+        font-size: 12px;
+        padding: 5px;
+        float: right;
+        text-align: center;
+        border: 2px solid #009944;
+        border-radius: 5px;
+        color: #009944;
+        margin-top: 10px;
+    }
+
+    .updateTime {
+        float: right;
+        font-size: 12px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    video {
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .content .div_msgbox {
+        width: auto;
+        height: 20vh;
+        line-height: 4vh;
+        margin: 2vh 3.5rem;
+        padding: 2vh 2vw;
+        background-color: #F2F2F2;
+        box-sizing: border-box;
+        font-size: 2vh;
+        text-align: left;
+        border-radius: 1vh;
+        display: none;
+    }
+}
+
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width: 768px) {
+
+    .div_bottom {
+        height: 60px;
+    }
+
+    .content {
+        height: calc(100% - 116px - 1rem);
+        width: 100%;
+        overflow: auto;
+        padding-top: 52px;
+        padding-bottom: unset;
+        top: 56px;
+    }
+
+    .div_header .logout {
+        margin-top: 1.8vw !important;
+    }
+
+    .div_header .headerBtn {
+        margin-top: 1.5vw !important;
+    }
+
+    .oneTitle {
+        position: fixed;
+        width: 100%;
+        padding: 10px 5px 0 5px;
+        height: 6vh;
+        background-color: #FFF;
+        box-sizing: border-box;
+    }
+
+    .oneTitle ul {
+        width: 100%;
+        height: 100%;
+        /*border-radius: 5px;*/
+        overflow: hidden;
+    }
+
+    .newsCount {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #cf2d28;
+        color: #fff;
+        font-size: 10px;
+        left: 64%;
+        top: 12px;
+        line-height: 18px;
+        display: none;
+    }
+
+    .oneTitle li {
+        width: 33%;
+        height: 100%;
+        float: left;
+        color: #009944;
+        background: none;
+        font-size: 13px;
+        line-height: 25px;
+        text-align: center;
+    }
+
+    .oneTitle li.active {
+        color: #555;
+        border-bottom: 4px solid #555;
+    }
+
+    .oneTitle li.active1 {
+        color: #009944;
+        border-bottom: 4px solid #009944;
+    }
+
+    .count1 {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #cf2d28;
+        color: #fff;
+        font-size: 10px;
+        left: 25%;
+        top: 12px;
+        line-height: 18px;
+        display: none;
+    }
+
+
+    .title_div {
+        background-color: white;
+        width: 100%;
+        float: none;
+    }
+
+    .back {
+        padding-left: 1.5rem;
+        background-color: white;
+        width: 100%;
+    }
+
+    .back img {
+        width: 1.5rem;
+        height: 1.5rem;
+        float: left;
+        margin-top: 0.5rem;
+    }
+
+    .title_div .updateTime {
+        float: right;
+        font-size: 12px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    .title {
+        width: 80%;
+        margin-left: 2.5rem;
+        font-size: 1.5rem;
+        color: #202020;
+        background-color: white;
+        display: block;
+        -webkit-box-orient: unset;
+        margin-top: 0;
+        height: auto;
+        float: none;
+    }
+
+    .div_img {
+        width: 100%;
+        background-color: white;
+        padding: 0.4rem 4rem;
+    }
+
+    .img {
+        width: unset;
+        max-width: 80%;
+        max-height: 5rem;
+    }
+
+    .description {
+        font-size: 1.5rem;
+        color: #202020;
+        margin-left: 4rem;
+        margin-top: 0;
+        width: calc(100% - 4rem);
+        border-top: 1px solid #CCCCCC;
+        overflow: unset;
+        padding-top: 2.1rem;
+    }
+
+    .description p {
+        width: 84%;
+        font-size: 1.25rem;
+    }
+
+    p > span {
+        line-height: 170%;
+    }
+
+    .url {
+        font-size: 12px;
+        padding: 5px;
+        float: right;
+        text-align: center;
+        border: 2px solid #009944;
+        border-radius: 5px;
+        color: #009944;
+        margin-top: 10px;
+    }
+
+    video {
+        max-width: 100%;
+    }
+
+    .content .div_btnbox {
+        display: none;
+    }
+
+    .div_btnbox button {
+        width: 10rem;
+        height: 3.8rem;
+        color: #FFF;
+        font-weight: bolder;
+        background-color: #BFBFBF;
+        border: none;
+        box-sizing: border-box;
+        font-size: 1.3rem;
+    }
+
+    .div_btnbox button.green {
+        background-color: #8CC11F;
+    }
+
+    .div_files a {
+        color: red;
+        text-decoration: none;
+        border-bottom: 0.5vh solid red;
+    }
+
+    .content .div_msgbox {
+        width: auto;
+        height: 20vh;
+        line-height: 4vh;
+        margin: 2rem 4rem;
+        padding: 2vh 2vw;
+        background-color: #F2F2F2;
+        box-sizing: border-box;
+        font-size: 2vh;
+        text-align: left;
+        border-radius: 1vh;
+        display: none;
+    }
+
+    .topTitle {
+        z-index: 999;
+        position: fixed;
+    }
+
+    .content_div {
+        width: 100%;
+        overflow: auto;
+        height: calc(100% - 2.4rem);
+        margin-top: 2.4rem;
+        box-sizing: border-box;
+    }
+}
+.hyper_link{
+    color: blue;
+    text-decoration: underline;
+}
+/*2020/12/14 liguangxin add start*/
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+    object-fit: contain;
+    background-color: transparent;
+}
+.layui-layer-page .layui-layer-content{
+    overflow:hidden!important;
+}
+.layui-layer-page,.layui-layer-content{
+    background-color: transparent;
+    box-shadow:none;
+}
+.layui-layer-molv123 a.layui-layer-ico.layui-layer-close.layui-layer-close1 {
+    right: 40px !important;
+    top: -6px !important;
+}
+/*2020/12/14 liguangxin add end*/

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>学習情報登録｜タイマー登録</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+<!--    <link rel="stylesheet" href="${request.contextPath}/css/common/newtui.css">-->
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/student/F11006.css">
+</head>
+<body id="body">
+    <div class="newt-layout-line div_header">
+        <iframe src="${request.contextPath}/common/F40027.html?id=F11007" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="newt-layout-line oneTitle">
+        <ul id="titleUl">
+            <li onclick="vm.toF11001()" class="negative" id="plan_login">計画登録</li>
+            <li class="active" id="perf_login" onclick="vm.toF11004()">実行登録</li>
+        </ul>
+    </div>
+    <div class="newt-layout-line content">
+        <div id="frame1">
+            <div class="circle">
+            <div class="btn_start_container" @click="start()">
+                <div class="btn_start" type="button">記録<br/>開始</div>
+            </div>
+            </div>
+        </div>
+        <div id="frame2" style="display: none;">
+            <div class="timer_text_block" id="timer_show_block">
+                <!--/* 2020/12/25 ITA-031 cuikailin modify start */-->
+                <span style="float: left; font-size: 30vw; margin-left: 15vw; line-height: 25vh;">{{minText}}</span>
+                <span style="float: left; line-height: 25vh; margin-left: 4vw; font-size: 13vw;">{{secondText}}</span>
+                <!--/* 2020/12/25 ITA-031 cuikailin modify end */-->
+            </div>
+                <div class="control_block" id="control_block">
+                    <div class="div_btn_bottom button_container_1">
+                        <div class="circle4">
+                            <button class="btn_reset" @click="reset()">リセット</button>
+                        </div>
+                    </div>
+                    <div class="div_btn_bottom button_container_2">
+                        <div class="circle2">
+                            <button class="btn_end" @click="end()">完了</button>
+                        </div>
+                    </div>
+
+                    <div class="div_btn_bottom button_container_3">
+                        <div @click="pause()">
+                            <div class="circle3">
+                                <button class="btn_pause">一時停止</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+    <div class="newt-layout-fixed div_bottom">
+        <iframe frameborder="0" height="100%" src="../common/F40012.html?id=F11004" width="100%"></iframe>
+    </div>
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/js/student/F11006.js"></script>
+</html>

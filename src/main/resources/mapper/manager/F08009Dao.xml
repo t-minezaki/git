@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08009Dao">
+    <!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+    <select id="selectAll" resultType="jp.learningpark.modules.manager.dto.F08009Dto">
+		select
+			sum (case when es.event_id = data.id then 1 else 0 end ) as scheduleCount,
+			data.*,
+			count( DISTINCT fls.id ) AS errorDataList
+		from
+		(
+			SELECT
+				ME.id
+				, ME.event_cd
+				, ME.cret_datime
+				, ME.upd_datime
+				, ME.ctgy_nm
+				, ME.event_title
+				, ME.attach_file_path
+				, MCD1.cod_value AS status
+				, ME.pub_start_dt
+				, ME.pub_end_dt
+				, ME.apply_start_dt
+				, ME.apply_end_dt
+				, ME.ref_type
+				, MAX(GEAS.again_send_dt) AS again_send_dt
+				, SUM(CASE WHEN (ME.org_id = #{params.orgId} AND GEAS.id is not NULL ) OR GEAS.org_id = #{params.orgId} THEN 1 ELSE 0 END ) AS delever_sum
+				, SUM(CASE WHEN GEAS.reading_sts_div = '0' 							    AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS not_reading_sum
+				, SUM(CASE WHEN GEAS.reading_sts_div = '1'									AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS reading_sum
+				, SUM(CASE WHEN (GEAS.reply_sts_div = '0' OR GEAS.reply_sts_div = '2')		AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS not_reply_sum
+				, SUM(CASE WHEN GEAS.reply_sts_div = '1'    								AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS reply_sum
+				, SUM(CASE WHEN GEAS.reply_sts_div = '1'    								AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS conf_sum
+				, A1.flnm_nm || A1.flnm_lnm AS cret_user_name
+				, A2.flnm_nm || A2.flnm_lnm AS upd_user_name
+				, case when geas.flg = '0' then 't' else 'f' end as usrFlg
+			FROM mst_event ME
+			INNER JOIN mst_event_deliver MED      ON ( MED.event_id = ME.ID           AND MED.del_flg = 0 )
+			LEFT JOIN mst_manager A1             ON ( A1.mgr_id = ME.cret_usr_id    	AND A1.del_flg = 0 )
+			LEFT JOIN mst_manager A2             ON ( A2.mgr_id = ME.upd_usr_id     	AND A2.del_flg = 0 )
+			INNER JOIN mst_cod_d MCD1             ON ( MCD1.cod_cd = ME.event_sts_div AND MCD1.cod_key = 'EVENT_STS_DIV' AND MCD1.del_flg = 0)
+			LEFT JOIN (
+				SELECT
+					geass.ID,
+					geass.event_id,
+					geass.org_id,
+					geass.reading_sts_div,
+					geass.reply_sts_div,
+					geass.again_send_dt,
+					geass.del_flg,
+					'0' AS flg,
+					geass.guard_id AS deliverId
+				FROM guard_event_apply_sts geass
+				/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add start */
+				INNER JOIN mst_usr mu
+					on mu.usr_id=geass.stu_id
+					and mu.del_flg=0
+				/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add end */
+				UNION ALL
+				SELECT
+					seass.ID,
+					seass.event_id,
+					seass.org_id,
+					seass.reading_sts_div,
+					seass.reply_sts_div,
+					seass.again_send_dt,
+					seass.del_flg,
+					'1' AS flg,
+					seass.stu_id AS deliverId
+				FROM stu_event_apply_sts seass
+				/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add start */
+				INNER JOIN mst_usr mu
+					on mu.usr_id=seass.stu_id
+					and mu.del_flg=0
+			/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add end */
+			) GEAS ON GEAS.event_id = ME.ID AND GEAS.del_flg = 0
+			WHERE
+				ME.event_level_div = '0'
+				AND ME.del_flg = '0'
+				AND MED.org_id = #{params.orgId}
+				<if test='params.tmplateId != null and params.tmplateId != ""'>
+					AND ME.temp_id = #{params.tmplateId}
+				</if>
+				<if test='params.ctgyNm != null and params.ctgyNm != ""'>
+					AND ME.ctgy_nm     LIKE '%${params.ctgyNm}%'
+				</if>
+				<if test='params.eventTitle != null and params.eventTitle != ""'>
+					AND ME.event_title LIKE '%${params.eventTitle}%'
+				</if>
+				<if test='params.cretDatimeStart != null and params.cretDatimeStart != ""'>
+					AND to_char(ME.cret_datime, 'yyyy/mm/dd') >= '${params.cretDatimeStart}'
+				</if>
+				<if test='params.cretDatimeEnd != null and params.cretDatimeEnd != ""'>
+					AND '${params.cretDatimeEnd}' >= to_char(ME.cret_datime, 'yyyy/mm/dd')
+				</if>
+				<if test='params.updDatimeStart != null and params.updDatimeStart != ""'>
+					AND to_char(ME.upd_datime, 'yyyy/mm/dd') >= '${params.updDatimeStart}'
+				</if>
+				<if test='params.updDatimeEnd != null and params.updDatimeEnd != ""'>
+					AND '${params.updDatimeEnd}' >= to_char(ME.upd_datime, 'yyyy/mm/dd')
+				</if>
+				<if test='params.pubStartDtStart != null and params.pubStartDtStart != ""'>
+					AND to_char(ME.pub_start_dt, 'yyyy/mm/dd') >= '${params.pubStartDtStart}'
+				</if>
+				<if test='params.pubStartDtEnd != null and params.pubStartDtEnd != ""'>
+					AND '${params.pubStartDtEnd}' >= to_char(ME.pub_start_dt, 'yyyy/mm/dd')
+				</if>
+				<if test='params.pubEndDtStart != null and params.pubEndDtStart != ""'>
+					AND to_char(ME.pub_end_dt, 'yyyy/mm/dd') >= '${params.pubEndDtStart}'
+				</if>
+				<if test='params.pubEndDtEnd != null and params.pubEndDtEnd != ""'>
+					AND '${params.pubEndDtEnd}' >= to_char(ME.pub_end_dt, 'yyyy/mm/dd')
+				</if>
+				<if test='params.applyStartDtStart != null and params.applyStartDtStart != ""'>
+					AND to_char(ME.apply_start_dt, 'yyyy/mm/dd') >= '${params.applyStartDtStart}'
+				</if>
+				<if test='params.applyStartDtEnd != null and params.applyStartDtEnd != ""'>
+					AND '${params.applyStartDtEnd}' >= to_char(ME.apply_start_dt, 'yyyy/mm/dd')
+				</if>
+				<if test='params.applyEndDtStart != null and params.applyEndDtStart != ""'>
+					AND to_char(ME.apply_end_dt, 'yyyy/mm/dd') >= '${params.applyEndDtStart}'
+				</if>
+				<if test='params.applyEndDtEnd != null and params.applyEndDtEnd != ""'>
+					AND '${params.applyEndDtEnd}' >= to_char(ME.apply_end_dt, 'yyyy/mm/dd')
+				</if>
+				<if test='params.cretUserName != null and params.cretUserName != ""'>
+					AND A1.flnm_nm || A1.flnm_lnm LIKE '%${params.cretUserName}%'
+				</if>
+				<if test='params.updUserName != null and params.updUserName != ""'>
+					AND A2.flnm_nm || A2.flnm_lnm LIKE '%${params.updUserName}%'
+				</if>
+				<if test='params.eventStsDiv != null and params.eventStsDiv != ""'>
+					AND ME.event_sts_div = '${params.eventStsDiv}'
+				</if>
+			GROUP BY
+				ME.id
+				, cret_user_name
+				, upd_user_name
+				, status
+				, usrFlg
+			) data
+		left join event_schedule es
+			on es.del_flg = 0
+		LEFT JOIN push_err_dat fls ON ( fls.msg_id = DATA.id AND fls.resend_sts = '1' )
+		WHERE
+			es.del_flg = 0
+		GROUP BY
+			data.ID,
+			data.event_cd,
+			data.cret_datime,
+			data.upd_datime,
+			data.ctgy_nm,
+			data.event_title,
+			data.attach_file_path,
+			data.status
+			, data.pub_start_dt
+			, data.pub_end_dt
+			, data.apply_start_dt
+			, data.apply_end_dt
+			, data.ref_type,
+			data.again_send_dt,
+			data.delever_sum,
+			data.not_reading_sum,
+			data.reading_sum,
+			data.not_reply_sum,
+			data.reply_sum,
+			data.conf_sum,
+			data.cret_user_name,
+			data.upd_user_name,
+			data.usrFlg
+		ORDER BY
+			data.cret_datime desc
+			, data.upd_datime
+    </select>
+	<!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+	<select id="selectDspItems" resultType="jp.learningpark.modules.manager.dto.F08009Dto">
+		SELECT DISTINCT COALESCE
+			( UDIS.display_items, MCD.cod_value ) AS dsp_items,
+			MCD.cod_value_2 as mustItems,
+            MCD.cod_value_3 as allItems
+		FROM
+			user_display_item_set UDIS
+			RIGHT JOIN mst_cod_d MCD ON ( UDIS.user_id = #{userId} AND UDIS.menu_id = #{menuId} AND UDIS.del_flg = 0)
+		WHERE
+			MCD.cod_key = 'EVENT_ITEM'
+			AND MCD.cod_cd = #{menuId}
+			AND MCD.del_flg = 0
+    </select>
+	<!--  从ユーザ表示項目設定取得行數-->
+	<select id="getDspCount" resultType="java.lang.Integer">
+		SELECT
+			COUNT( * )
+		FROM
+			user_display_item_set UDIS
+		WHERE
+			UDIS.user_id = #{userId}
+			AND UDIS.menu_id = #{menuId}
+			AND UDIS.del_flg=0
+    </select>
+	<!--  ユーザ表示項目設定に登録する -->
+	<select id="insertDspItem" resultType="java.lang.Integer">
+		INSERT INTO user_display_item_set ( user_id, menu_id, display_items, cret_datime, cret_usr_id, upd_datime, upd_usr_id, del_flg )
+		VALUES (#{userId},#{menuId},#{dspItems},#{cretDatime},#{cretUsrId},#{updDatime},#{updUsrId},#{delFlg})
+    </select>
+	<!--  ユーザ表示項目設定に更新する -->
+	<select id="updateDspItem" resultType="java.lang.Integer">
+   		UPDATE user_display_item_set
+		SET display_items =  #{dspItems}, upd_datime = #{updDatime}, upd_usr_id = #{updUsrId}
+		WHERE
+			user_id = #{userId}
+		AND menu_id = #{menuId}
+		AND del_flg = 0
+    </select>
+	<!--  从テンプレート得到所有 -->
+	<select id="getTmplateAll" resultType="jp.learningpark.modules.common.entity.MstTmplateEntity">
+		SELECT
+			*
+		FROM
+			mst_tmplate
+		WHERE
+			del_flg=0
+    </select>
+	<select id="countAll" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM (
+			select
+				sum (case when es.event_id = data.id then 1 else 0 end ) as scheduleCount,
+				data.*,
+				count( DISTINCT fls.id ) AS errorDataList
+			from
+			(
+				SELECT
+					ME.id
+					, ME.event_cd
+					, ME.cret_datime
+					, ME.upd_datime
+					, ME.ctgy_nm
+					, ME.event_title
+					, ME.attach_file_path
+					, MCD1.cod_value AS status
+					, ME.pub_start_dt
+					, ME.pub_end_dt
+					, ME.apply_start_dt
+					, ME.apply_end_dt
+					, ME.ref_type
+					, MAX(GEAS.again_send_dt) AS again_send_dt
+					, SUM(CASE WHEN (ME.org_id = #{params.orgId} AND GEAS.id is not NULL ) OR GEAS.org_id = #{params.orgId} THEN 1 ELSE 0 END ) AS delever_sum
+					, SUM(CASE WHEN GEAS.reading_sts_div = '0' 							    AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS not_reading_sum
+					, SUM(CASE WHEN GEAS.reading_sts_div = '1'									AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS reading_sum
+					, SUM(CASE WHEN (GEAS.reply_sts_div = '0' OR GEAS.reply_sts_div = '2')		AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS not_reply_sum
+					, SUM(CASE WHEN GEAS.reply_sts_div = '1'    								AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS reply_sum
+					, SUM(CASE WHEN GEAS.reply_sts_div = '1'    								AND (ME.org_id = #{params.orgId} OR GEAS.org_id = #{params.orgId}) THEN 1 ELSE 0 END) AS conf_sum
+					, A1.flnm_nm || A1.flnm_lnm AS cret_user_name
+					, A2.flnm_nm || A2.flnm_lnm AS upd_user_name
+					, case when geas.flg = '0' then 't' else 'f' end as usrFlg
+				FROM mst_event ME
+				INNER JOIN mst_event_deliver MED      ON ( MED.event_id = ME.ID           AND MED.del_flg = 0 )
+				LEFT JOIN mst_manager A1             ON ( A1.mgr_id = ME.cret_usr_id    	AND A1.del_flg = 0 )
+				LEFT JOIN mst_manager A2             ON ( A2.mgr_id = ME.upd_usr_id     	AND A2.del_flg = 0 )
+				INNER JOIN mst_cod_d MCD1             ON ( MCD1.cod_cd = ME.event_sts_div AND MCD1.cod_key = 'EVENT_STS_DIV' AND MCD1.del_flg = 0)
+				LEFT JOIN (
+					SELECT
+						geass.ID,
+						geass.event_id,
+						geass.org_id,
+						geass.reading_sts_div,
+						geass.reply_sts_div,
+						geass.again_send_dt,
+						geass.del_flg,
+						'0' AS flg,
+						geass.guard_id AS deliverId
+					FROM guard_event_apply_sts geass
+					/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add start */
+					INNER JOIN mst_usr mu
+						on mu.usr_id=geass.stu_id
+						and mu.del_flg=0
+					/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add end */
+					UNION ALL
+					SELECT
+						seass.ID,
+						seass.event_id,
+						seass.org_id,
+						seass.reading_sts_div,
+						seass.reply_sts_div,
+						seass.again_send_dt,
+						seass.del_flg,
+						'1' AS flg,
+						seass.stu_id AS deliverId
+					FROM stu_event_apply_sts seass
+					/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add start */
+					INNER JOIN mst_usr mu
+						on mu.usr_id=seass.stu_id
+						and mu.del_flg=0
+				/* 2021/01/05 mst_usrでdel_flgが0のデータをフィルタリングします add end */
+				) GEAS ON GEAS.event_id = ME.ID AND GEAS.del_flg = 0
+				WHERE
+					ME.event_level_div = '0'
+					AND ME.del_flg = '0'
+					AND MED.org_id = #{params.orgId}
+					<if test='params.tmplateId != null and params.tmplateId != ""'>
+						AND ME.temp_id = #{params.tmplateId}
+					</if>
+					<if test='params.ctgyNm != null and params.ctgyNm != ""'>
+						AND ME.ctgy_nm     LIKE '%${params.ctgyNm}%'
+					</if>
+					<if test='params.eventTitle != null and params.eventTitle != ""'>
+						AND ME.event_title LIKE '%${params.eventTitle}%'
+					</if>
+					<if test='params.cretDatimeStart != null and params.cretDatimeStart != ""'>
+						AND ME.cret_datime >= '${params.cretDatimeStart}'
+					</if>
+					<if test='params.cretDatimeEnd != null and params.cretDatimeEnd != ""'>
+						AND '${params.cretDatimeEnd}' >= ME.cret_datime
+					</if>
+					<if test='params.updDatimeStart != null and params.updDatimeStart != ""'>
+						AND ME.upd_datime >= '${params.updDatimeStart}'
+					</if>
+					<if test='params.updDatimeEnd != null and params.updDatimeEnd != ""'>
+						AND '${params.updDatimeEnd}' >= ME.upd_datime
+					</if>
+					<if test='params.pubStartDtStart != null and params.pubStartDtStart != ""'>
+						AND ME.pub_start_dt >= '${params.pubStartDtStart}'
+					</if>
+					<if test='params.pubStartDtEnd != null and params.pubStartDtEnd != ""'>
+						AND '${params.pubStartDtEnd}' >= ME.pub_start_dt
+					</if>
+					<if test='params.pubEndDtStart != null and params.pubEndDtStart != ""'>
+						AND ME.pub_end_dt >= '${params.pubEndDtStart}'
+					</if>
+					<if test='params.pubEndDtEnd != null and params.pubEndDtEnd != ""'>
+						AND '${params.pubEndDtEnd}' >= ME.pub_end_dt
+					</if>
+					<if test='params.applyStartDtStart != null and params.applyStartDtStart != ""'>
+						AND ME.apply_start_dt >= '${params.applyStartDtStart}'
+					</if>
+					<if test='params.applyStartDtEnd != null and params.applyStartDtEnd != ""'>
+						AND '${params.applyStartDtEnd}' >= ME.apply_start_dt
+					</if>
+					<if test='params.applyEndDtStart != null and params.applyEndDtStart != ""'>
+						AND ME.apply_end_dt >= '${params.applyEndDtStart}'
+					</if>
+					<if test='params.applyEndDtEnd != null and params.applyEndDtEnd != ""'>
+						AND '${params.applyEndDtEnd}' >= ME.apply_end_dt
+					</if>
+					<if test='params.cretUserName != null and params.cretUserName != ""'>
+						AND A1.flnm_nm || A1.flnm_lnm LIKE '%${params.cretUserName}%'
+					</if>
+					<if test='params.updUserName != null and params.updUserName != ""'>
+						AND A2.flnm_nm || A2.flnm_lnm LIKE '%${params.updUserName}%'
+					</if>
+					<if test='params.eventStsDiv != null and params.eventStsDiv != ""'>
+						AND ME.event_sts_div = '${params.eventStsDiv}'
+					</if>
+				GROUP BY
+					ME.id
+					, cret_user_name
+					, upd_user_name
+					, status
+					, usrFlg
+				) data
+				left join event_schedule es
+					on es.del_flg = 0
+				LEFT JOIN push_err_dat fls ON ( fls.msg_id = DATA.id AND fls.resend_sts = '1' )
+				WHERE
+					es.del_flg = 0
+				GROUP BY
+					data.ID,
+					data.event_cd,
+					data.cret_datime,
+					data.upd_datime,
+					data.ctgy_nm,
+					data.event_title,
+					data.attach_file_path,
+					data.status
+					, data.pub_start_dt
+					, data.pub_end_dt
+					, data.apply_start_dt
+					, data.apply_end_dt
+					, data.ref_type,
+					data.again_send_dt,
+					data.delever_sum,
+					data.not_reading_sum,
+					data.reading_sum,
+					data.not_reply_sum,
+					data.reply_sum,
+					data.conf_sum,
+					data.cret_user_name,
+					data.upd_user_name,
+					data.usrFlg
+		) a
+	</select>
+</mapper>

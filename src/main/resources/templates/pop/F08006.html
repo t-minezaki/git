@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>固定活動登録画面(POP)</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F08006.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/select2/css/select2.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div class="theme_selec" id="info" v-cloak>
+    <div style="float: left">
+
+        <div id="close_btn" @click="close()">&#10006</div>
+        <p style="width: 37vw;font-size: 6vw;margin-left: 9vw;margin-top: 8vw">イベント作成</p>
+    </div>
+    <div class="content_them">
+        <div class="contentDiv" id="weeksel" style="display: none">
+            <div class="title">曜日</div>
+            <ul class="divContent">
+                <li disabled="disabled" id="monday" value="1">月</li>
+                <li id="tusedday" class="li" value="2">火</li>
+                <li id="wenday" class="li" value="3">水</li>
+                <li id="thday" class="li" value="4">木</li>
+                <li id="friday" class="li" value="5">金</li>
+                <li id="satday" class="li" value="6">土</li>
+                <li id="sunday" class="li" value="7">日</li>
+            </ul>
+        </div>
+        <div class="inputDiv">
+            <form id="f08006form">
+                <div style="float: left">
+                    <!--2021/1/15 UT-139 cuikailin modify start-->
+                    <img class="img" src="../img/userName.png"  style="float: left;margin-top:4px;margin-left: 4vw;height: 4vw"/>
+                    <label style="font-size: 15px;margin-left: 1vw">先生&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:</label>
+                    <select style="width: 54vw;appearance: none;background-color: darkgrey;border-radius: 5px;height: 9vw;text-indent:1em;" id="searchUser" disabled >
+                    </select>
+                </div>
+                <div style="float: left">
+                    <img class="img" src="../img/userPic.png"  style="float: left;margin-top:6px;margin-left: 4vw"/>
+                    <label style="font-size: 15px;margin-left: 4px">定員&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:</label>
+                    <input style="background-color: darkgrey;width: 54vw;height: 8vw;text-indent:1em;border: 2px solid;" id="usernumber"  type="number" 　disabled
+                           placeholder="定員を入力">
+                </div>
+                <div style="float: left">
+                    <img class="img" src="../img/time.png"  style="float: left;margin-top:9px;margin-left: 4vw"/>
+                    <!--2021/1/15 UT-139 cuikailin modify end-->
+                    <label style="font-size: 15px;margin-left: 1vw">開催時間&nbsp&nbsp:</label>
+                    <input type="text" id="time_picker_begin" style="width: 24vw;height: 9vw;text-align: center"/>
+                    <label>～</label>
+                    <input type="text" id="time_picker_end" style="width: 24vw;height: 9vw;text-align: center"/>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="theme_btn">
+            <button style="border: 0;background: #009944;width: 28%;color: white;box-shadow: 0px 2px 0px grey;" id="close" @click="close()">キャンセル
+            </button>
+
+            <button style="border: 0;background: #009944;width: 28%;color: white;box-shadow: 0px 2px 0px grey;" id="deleteBtn" v-if="applySts != '1'"
+                    @click="save()">保存
+            </button>
+
+            <button style="border-color:grey;border-width:1px;background: #F7F7F7;width: 28%;color: black;box-shadow: 0px 2px 0px grey;" id="submitOrUpdate" v-if="showFlg==true"
+                    @click="show(false)">一括登録
+            </button>
+            <button style="border: 0;background: red;width: 28%;color: white;box-shadow: 0px 2px 0px grey;" id="delButton" v-if="applySts != ''"
+                    onclick="del()">削除
+            </button>
+            <button style="border-color:grey;border-width:1px;background: #F7F7F7;width: 28%;color: black;box-shadow: 0px 2px 0px grey" id="back" v-if="showFlg==false"
+                    @click="show(true)">戻る
+            </button>
+
+        </div>
+    </div>
+
+</div>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/select2/js/select2.js"></script>
+<script src="${request.contextPath}/plugins/select2/js/i18n/ja.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F08006.js"></script>
+</body>
+</html>

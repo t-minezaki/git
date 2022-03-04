@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F10102Dao">
+	<delete id="fixdschdlDel">
+        DELETE
+FROM
+	stu_fixd_schdl sfs
+WHERE
+	sfs.ID IN ( SELECT sisa.stu_fixd_schdl_id FROM stu_indiv_schdl_adjust sisa WHERE sisa.stu_fixd_schdl_id = #{id} AND sisa.del_flg=0 )
+	AND sfs.ID = #{id}
+	AND sfs.del_flg =0
+    </delete>
+</mapper>

@@ -1,0 +1,194 @@
+/*#app {*/
+/*    padding-bottom: 5vh;*/
+/*}*/
+
+#sendMsg, #objDownload, #deliver {
+    width: 12vw;
+    text-align: center;
+    font-size: 0.9vw;
+    margin-left: 5vw;
+    height: 4vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+.one {
+
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+.div_body {
+
+    margin-top: 3vh;
+}
+
+.div_main {
+
+    margin-top: 1vh;
+}
+
+.div_head {
+
+    margin-bottom: 10px;
+}
+
+.div_head_title {
+
+    font-size: 1vw;
+    font-weight: bolder;
+    color: #777;
+    text-indent: 5vw;
+    margin-bottom: 2vh;
+    letter-spacing: 0.1em;
+}
+
+#objTable {
+    border-collapse: collapse;
+    width: 90vw;
+    margin: calc(-4vh - 4px) 0 0 0;
+    border: 0;
+}
+
+#objTable tr th {
+
+    border: 2px #CCC solid;
+    background-color: #eee;
+    height: 4vh;
+    visibility: hidden;
+}
+
+#objTable tr td {
+
+    border: 2px #CCC solid;
+    color: black;
+    background-color: white;
+    height: 4vh;
+    text-align: center;
+    font-size: 0.8vw;
+}
+
+#tbl_title {
+
+    border-collapse: collapse;
+    width: 90vw;
+    margin-left: 4vw;
+    margin-top: 3vh;
+}
+
+#tbl_title tr th {
+    border: 2px #CCC solid;
+    color: black;
+    height: 4vh;
+    font-weight: 100;
+    font-size: 0.8vw;
+}
+
+input[type="checkbox"] {
+
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background: #fff;
+    border: #999 solid 1px;
+    border-radius: 3px;
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+input[type="checkbox"]:checked::after {
+
+    content: '\2714';
+    position: relative;
+    top: -0.7vh;
+    left: 0.1vw;
+    font-size: 1.5vw;
+}
+
+.record_btn {
+    width: 5vw;
+    text-align: center;
+    font-size: 0.7vw;
+    height: 3vh;
+    color: BLACK;
+    text-decoration: none !important;
+    border-radius: 12px;
+    line-height: 3vh !important;
+    border: 1px #ccc solid !important;
+    background: none;
+}
+
+#sendMsg_down {
+    width: 12vw;
+    text-align: center;
+    font-size: 1vw;
+    margin-left: 5vw;
+    height: 4vh;
+    margin-top: 3vh;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+
+#btn_cancel {
+    position: absolute;
+    left: 80%;
+    top: 95%;
+    width: 7vw;
+    text-align: center;
+    font-size: 1vw;
+    height: 4vh;
+    color: white;
+    background: #00a65a;
+    border: 0;
+    border-bottom: 3px grey solid;
+    border-radius: 4px;
+}
+.line{
+    height: 2px;
+    border: 0;
+    background: #777;
+    margin-left: 4vw;
+    width: 89.9vw;
+}
+.tbl_div {
+    max-height: 67vh;
+    overflow-y: auto;
+    width: 91vw;
+    box-sizing: border-box;
+    user-select: text;
+    margin-left: 4vw;
+}
+
+.span_div {
+
+    margin-right: -0.4vw;
+}

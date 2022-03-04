@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title id="F20006">学習者の進捗一覧画面(ウィークリー)（PC）</title>
+    <!-- fullcalendar -->
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.print.min.css" media='print'/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F20006.css" />
+
+    <#include "/header.html" />
+
+    <!-- common js lib -->
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+
+    <!-- fullcalendar -->
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/fullcalendar.min.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/locale-all.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/jquery.touch-punch.js" type="text/javascript"></script>
+
+    <!-- layer -->
+    <!--<script src="${request.contextPath}/js/common/layer/layer.js" type="text/javascript" charset="utf-8"></script>-->
+
+</head>
+<body>
+<div id="pageF20006" v-cloak>
+    <iframe src="${request.contextPath}/common/F40003.html?id=F20006" width="100%" style="padding:0;border:none;margin-top:1vw;scrolling : no;height:calc(2.7vw + 2px)"></iframe>
+    <div id="message" class="topMessage"></div>
+    <div class="content" style="overflow: hidden">
+        <div class="info_subj" style="height: 100%">
+            <div class="fc-toolbar fc-header-toolbar">
+                <div class="fc-left" style="position: absolute;left: 23px;top: 6vw;">
+                    <div class="fc-button-group">
+                        <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left" aria-label="prev"><span class="fc-icon fc-icon-left-single-arrow"></span></button>
+                    </div>
+                    <h2><span v-text="tgtYmd"></span></h2>
+                    <div class="fc-button-group">
+                        <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right" aria-label="next"><span class="fc-icon fc-icon-right-single-arrow"></span></button>
+                    </div>
+                </div>
+                <!--0620 wen-->
+                <div class="printingDiv" style="margin-left: 16.5vw;">
+                    <a id="todayPrintBtn" href="#"><img src="../img/printing.png" alt="当日～">
+                        <p>当日～</p></a>
+                </div>
+                <div class="printingDiv">
+                    <a id="printBtn" href="#"><img src="../img/printing-blue.png" alt="月曜～">
+                        <p>月曜～</p></a>
+                </div>
+                <div class="fc-right" style="margin-top: 1em;margin-right: 2em;"></div>
+            </div>
+            <div id="calendar"></div>
+        </div>
+        <div class="schedule">
+            <ul class="plan_time">
+                <li v-if="prevYmd || prevYmd ==''" style="border: 0;">
+                    <a href="javascript:void(0)" class="blockWeekBtn" :tgtymd="prevYmd"><span v-text="prevSeasn" @click="showData(prevYmd)"></span></a>
+                </li>
+                <li class="active">
+                    <a href="javascript:void(0)" class="blockWeekBtn" id="current" :tgtymd="currentYmd" ><span v-text="currentLbl" @click="showData(currentYmd)"></span></a>
+                </li>
+                <li v-if="nextYmd || nextYmd ==''" style="border: 0;">
+                    <a href="javascript:void(0)" class="blockWeekBtn" :tgtymd="nextYmd"><span v-text="nextSeasn" @click="showData(nextYmd)"></span></a>
+                </li>
+            </ul>
+            <ul class="openPopInit">
+                <li class="openPopInit_Li" style="margin-top: 0" v-for="item in learnBlock" :id="item.id" :termId="item.termId" :isTerm="item.isTerm"  :stuId="item.stuId" :unitId="item.unitId" :bnum="item.bnum" :blockTypeDiv="item.blockTypeDiv"  :learnLevUnds="item.learnLevUnds">
+                    <div class="sch_left">
+                        <p v-text="item.dayWeek"></p>
+                    </div>
+                    <div class="sch_center">
+                        <p :class="item.subjtDiv">{{item.subjtNm}}</p>
+                        <h2 :class="setClass(item.learnLevUnds, item.remainDispFlg)">{{setLearnLevUnds(item.learnLevUnds)}}</h2>
+                    </div>
+                    <div class="sch_right">
+                        <p class="right-bold" v-if="item.blockTypeDiv != 'S1'" v-text="item.blockDispyNm!=null ? item.blockDispyNm: ''"></p>
+                        <p class="right-bold" v-else
+                           v-text="item.blockDispyNm!=null ? item.blockDispyNm.replace(item.blockDispyNm.split(' ')[0],'') : ''"></p>
+                        <p class="overP">{{item.unitNm}}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<form id="downloadPdf" method="post" action="${request.contextPath}/manager/F20006/download">
+    <input type="hidden" name="fileName" id="fileName">
+</form>
+<script src="${request.contextPath}/js/manager/F20006.js"></script>
+</body>
+</html>

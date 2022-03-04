@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11011Dao">
+    <select id="init" resultType="jp.learningpark.modules.student.dto.F11011Dto">
+        SELECT b.id,
+               a.message_title,
+               a.message_cont,
+               a.title_img_path,
+               b.reading_sts_div,
+               A.attach_file_path,
+               b.opened_flg,
+               a.message_level_div
+        FROM mst_message a
+                     INNER JOIN talk_reading_sts b ON (a.id = b.message_id AND b.del_flg = 0)
+        WHERE a.id = #{messageId}
+          AND b.deliver_id = #{stuId}
+          AND a.del_flg = 0
+    </select>
+
+    <!--2020/11/12 zhangminghao modify start-->
+    <update id="updateOpenedFlg">
+        update talk_reading_sts
+        set opened_flg = '1',
+            upd_usr_id = #{userId},
+            upd_datime = #{latestTime}
+        where message_id = #{noticeId}
+          AND deliver_id = #{userId}
+    </update>
+    <!--2020/11/12 zhangminghao modify end-->
+</mapper>

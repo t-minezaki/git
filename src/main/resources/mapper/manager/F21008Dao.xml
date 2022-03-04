@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21008Dao">
+    <!--  グループマスタ、生徒基本マスタと遅刻欠席連絡履歴から生徒基本情報を取得 -->
+    <select id="getNewStuList" resultType="jp.learningpark.modules.manager.dto.F21008Dto">
+        SELECT
+        ms.id,
+        sg.stu_id,
+        mu.after_usr_id as afterUsrId,
+        ms.flnm_nm || ms.flnm_lnm AS stuNm,
+        b.abs_sts as absSts,
+        b.late_tm as lateTm,
+        b.abs_reason as absReason,
+        CASE	WHEN b.role_div in ('3','1') THEN	'0'
+        <!--WHEN b.role_div = '1' then '1'-->
+        ELSE null END AS connectFlg,
+        ms.schy_div,
+        CASE WHEN entry.id IS NOT NULL THEN '0' END AS absStsDiv
+        FROM
+        stu_grp AS sg
+        INNER JOIN mst_stu AS ms ON ms.stu_id = sg.stu_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+        AND mu.del_flg = 0
+        LEFT JOIN (SELECT
+        MAX( id ) as id,
+        eeh.stu_id
+        FROM
+        entry_exit_hst AS eeh
+        WHERE
+        <![CDATA[ eeh.entry_dt >= #{dateStartTime} AND eeh.entry_dt < #{dateEndTime} ]]>
+        AND eeh.del_flg = 0
+        GROUP BY
+        eeh.stu_id)as entry
+        on entry.stu_id = ms.stu_id
+        LEFT JOIN (
+        WITH a AS (
+        SELECT
+        lah.stu_id,
+        max( lah.tgt_ymd ) AS tgtYmd
+        FROM
+        late_abs_hst lah
+        INNER JOIN stu_grp AS sg ON lah.stu_id = sg.stu_id
+        AND sg.grp_id = #{grpId}
+        AND sg.del_flg = 0
+        WHERE
+        <![CDATA[ lah.tgt_ymd >= #{dateStartTime} and lah.tgt_ymd < #{dateEndTime} ]]>
+        AND lah.del_flg = 0
+        GROUP BY
+        lah.stu_id
+        ) SELECT
+        lah1.abs_sts,
+        lah1.late_tm,
+        lah1.abs_reason,
+        lah1.stu_id,
+        mu.role_div
+        FROM
+        late_abs_hst AS lah1
+        INNER JOIN a ON a.stu_id = lah1.stu_id
+        AND a.tgtYmd = lah1.tgt_ymd
+        INNER JOIN mst_usr AS mu ON mu.usr_id = lah1.cret_usr_id
+        AND mu.del_flg = 0
+        WHERE
+        lah1.del_flg = 0
+        ) AS b ON b.stu_id = sg.stu_id
+        WHERE
+        sg.grp_id = #{grpId}
+        <if test="absDiv != null and absDiv != '' ">
+            <if test="absDiv == 1 or absDiv == 2" >
+                AND b.abs_sts = #{absDiv}
+            </if>
+            <if test="absDiv == 3">
+                and entry.ID is not null
+            </if>
+        </if>
+        AND sg.del_flg = 0
+        ORDER BY
+        ms.id ASC
+    </select>
+    <!--  出席簿ヘーダ、出席簿明細、生徒基本マスタと遅刻欠席連絡履歴から出席簿情報を取得し -->
+    <select id="getEditStuList" resultType="jp.learningpark.modules.manager.dto.F21008Dto">
+        SELECT
+        ms.id,
+        ms.stu_id,
+        mu.after_usr_id as afterUsrId,
+        ms.flnm_nm || ms.flnm_lnm AS stuNm,
+        abd.subjt_div as subjtDiv,
+        abd.home_wk_div as homeWkDiv,
+        abd.test_points as testPoints,
+        abd.care_div as careDiv,
+        -- add at 2021/08/11 for V9.02 by NWT wen START
+        abd.test_pass_kbn as testPassKbn,
+        -- add at 2021/08/11 for V9.02 by NWT wen END
+        abd.yobi1 as yobi1,
+        b.abs_sts as absSts,
+        b.late_tm as lateTm,
+        b.abs_reason as absReason,
+        ms.schy_div,
+        CASE	WHEN b.role_div in ('3','1') THEN	'0'
+        <!--WHEN b.role_div = '1' then '1'-->
+        ELSE null END AS connectFlg,
+        CASE
+        WHEN abd.abs_sts_div IS NOT NULL and abd.abs_sts_div != '' THEN	abd.abs_sts_div
+        when entry.id is not null then '0'
+        ELSE null end as absStsDiv
+        FROM
+        attend_book_d AS abd
+        INNER JOIN attend_book_h AS abh ON abd.attend_book_id = abh.id
+        AND abh.del_flg = 0
+        LEFT JOIN mst_stu AS ms ON abd.stu_id = ms.stu_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+        AND mu.del_flg = 0
+        LEFT JOIN (SELECT
+        MAX( id ) as id,
+        eeh.stu_id
+        FROM
+        entry_exit_hst AS eeh
+        WHERE
+        <![CDATA[ eeh.entry_dt >= #{dateStartTime} AND eeh.entry_dt < #{dateEndTime} ]]>
+        AND eeh.del_flg = 0
+        GROUP BY
+        eeh.stu_id)as entry
+        on entry.stu_id = ms.stu_id
+        LEFT JOIN (
+        WITH a AS (
+        SELECT
+        lah.stu_id,
+        max( lah.tgt_ymd ) AS tgtYmd
+        FROM
+        late_abs_hst lah
+        WHERE
+        <![CDATA[ lah.tgt_ymd >= #{dateStartTime} and lah.tgt_ymd < #{dateEndTime} ]]>
+        AND lah.del_flg = 0
+        GROUP BY
+        lah.stu_id
+        ) SELECT
+        lah1.abs_sts,
+        lah1.late_tm,
+        lah1.abs_reason,
+        lah1.stu_id,
+        mu.role_div
+        FROM
+        late_abs_hst AS lah1
+        INNER JOIN a ON a.stu_id = lah1.stu_id
+        AND a.tgtYmd = lah1.tgt_ymd
+        INNER JOIN mst_usr AS mu ON mu.usr_id = lah1.cret_usr_id
+        AND mu.del_flg = 0
+        WHERE
+        lah1.del_flg = 0
+        ) AS b ON b.stu_id = abd.stu_id
+        WHERE
+        abh.id = #{attendBookId}
+        <if test="absDiv != null and absDiv != '' ">
+            <if test="absDiv == 2">
+                AND abd.abs_sts_div in ('3','4')
+            </if>
+            <if test="absDiv == 1">
+                AND abd.abs_sts_div in ('1','2')
+            </if>
+            <if test="absDiv == 3">
+                and (((abd.abs_sts_div is null or abd.abs_sts_div = '') and entry.ID is not null) or (abd.abs_sts_div is not null and abd.abs_sts_div = '0') )
+            </if>
+        </if>
+        AND abd.del_flg = 0
+        ORDER BY
+        ms.id ASC
+    </select>
+    <!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+    <select id="selectDspItems" resultType="jp.learningpark.modules.manager.dto.F21008Dto">
+        SELECT DISTINCT COALESCE
+                                ( UDIS.display_items, MCD.cod_value ) AS dsp_items,
+                        MCD.cod_value_2 as mustItems,
+                        MCD.cod_value_3 allItems
+        FROM
+                user_display_item_set UDIS
+                        RIGHT JOIN mst_cod_d MCD ON ( UDIS.user_id = #{userId} AND UDIS.menu_id = #{menuId} AND UDIS.del_flg = 0)
+        WHERE
+                MCD.cod_key = 'EVENT_ITEM'
+          AND MCD.cod_cd = #{menuId}
+          AND MCD.del_flg = 0
+    </select>
+    <select id="addStu" resultType="jp.learningpark.modules.manager.dto.F21008Dto">
+        SELECT
+        ms.stu_id,
+        mu.after_usr_id as afterUsrId,
+        ms.flnm_nm || ms.flnm_lnm AS stuNm,
+        b.abs_sts,
+        b.abs_reason,
+        b.late_tm,
+        ms.schy_div,
+        CASE WHEN b.role_div = '3' THEN	'0'
+        WHEN b.role_div = '1' then '1'
+        ELSE null END AS connectFlg
+        FROM
+        mst_stu AS ms
+        INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+        AND mu.del_flg = 0
+        LEFT JOIN (
+        WITH a AS (
+        SELECT
+        lah.stu_id,
+        max( lah.tgt_ymd ) AS tgtYmd
+        FROM
+        late_abs_hst lah
+        WHERE
+        <![CDATA[ lah.tgt_ymd >= #{dateStartTime} and lah.tgt_ymd < #{dateEndTime} ]]>
+        AND lah.del_flg = 0
+        GROUP BY
+        lah.stu_id
+        ) SELECT
+        lah1.abs_sts,
+        lah1.late_tm,
+        lah1.abs_reason,
+        lah1.stu_id,
+        a.tgtYmd,
+        mu.role_div
+        FROM
+        late_abs_hst AS lah1
+        INNER JOIN a ON a.stu_id = lah1.stu_id
+        AND a.tgtYmd = lah1.tgt_ymd
+        INNER JOIN mst_usr AS mu ON mu.usr_id = lah1.cret_usr_id
+        AND mu.del_flg = 0
+        WHERE
+        lah1.del_flg = 0
+        ) AS b ON b.stu_id = ms.stu_id
+        WHERE
+        ms.stu_id IN
+        <foreach collection="stuIdList" item ="stuId" index="i" open="(" close=")" separator=",">
+            #{stuId}
+        </foreach>
+        AND ms.del_flg = 0
+    </select>
+
+    <!--add at 2021/08/11 for V9.02 by NWT wen START-->
+    <insert id="insertPointHst">
+        <foreach collection="stuList" item="stu" index="index" separator=";">
+            insert into attend_book_get_point_hst(tgt_ymd, attend_book_id, org_id, stu_id, pass_score_point, full_score_point, hwork_out_point,
+            abs_login_point, get_point_datime, create_time, create_by, update_time, update_by)
+            values
+            (
+                #{tgtYmd, jdbcType=DATE}
+                , #{attendBookId}
+                , #{orgId}
+                , #{stu.stuId}
+                , #{stu.passScorePoint}
+                , #{stu.fullScorePoint}
+                , #{stu.hworkOutPoint}
+                , #{stu.absLoginPoint}
+                , now()
+                , now()
+                , #{userId}
+                , now()
+                , #{userId}
+            )
+        </foreach>
+    </insert>
+    <update id="updatePointHst">
+        <foreach collection="stuList" item="stu" index="index" separator=";">
+            update attend_book_get_point_hst
+            set
+                pass_score_point = #{stu.passScorePoint}
+                , full_score_point = #{stu.fullScorePoint}
+                , hwork_out_point = #{stu.hworkOutPoint}
+                , abs_login_point = #{stu.absLoginPoint}
+                , get_point_datime = now()
+                , update_time = now()
+                , update_by = #{userId}
+            where
+                attend_book_id = #{attendBookId}
+                and org_id = #{orgId}
+                and stu_id = #{stu.stuId}
+        </foreach>
+    </update>
+    <!--add at 2021/08/11 for V9.02 by NWT wen END-->
+</mapper>

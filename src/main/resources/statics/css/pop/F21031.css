@@ -1,0 +1,69 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+}
+
+.learnTime {
+    height: 27%;
+    width: 100%;
+}
+
+.passLine {
+    width: 100%;
+    height: 24%;
+    line-height: 5vh;
+    padding-top: 4px;
+}
+
+.passLine label {
+    float: left;
+    width: 16%;
+    text-indent: 20%;
+    font-size: 2vw;
+    font-weight: bold;
+    margin-left: 3%;
+    align-items: center;
+    display: grid;
+}
+
+input,select {
+    width: 17%;
+    float: left;
+    margin-left: 3%;
+}
+select{
+    -webkit-appearance: none;
+}
+
+p {
+    font-size: 2vw;
+    text-indent: 4%;
+    height: 25%;
+    align-items: center;
+    display: grid;
+}
+#btnDiv{
+    text-align: center;
+    margin-top: 5%;
+    height: 7%;
+
+}
+#btnDiv button{
+    border: 0;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+    background: #00a65a;
+    color: white;
+    border-radius: 10px;
+    width: 16%;
+    height: 100%;
+}
+.day, .week,.month{
+    background-color: white;
+    border-width: 1px!important;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>学習連絡新規・編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21011.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body id="body" style="overflow-y: hidden">
+<div id="message" class="topMessage"></div>
+<div id="app" v-cloak>
+<div class="one" id="one">
+    <div>
+        <ul class="one-ul">
+            <li>出席簿管理</li>
+            <li> ＞ 学習連絡</li>
+        </ul>
+    </div>
+</div>
+<div style="font-size: 1.4em;margin-left: 6%">
+    <div id="statusTitle" style="padding-bottom: 2vh;padding-top: 2vh;">
+        <span style="margin-left: 1vw;font-weight: bold;">公開有無</span>
+    </div>
+    <div style="margin: 0 0 2vh 1vw;width: 5%;float: left;" v-for="mstCodDEntity in mstCodDEntityList" class="eventStsDiv">
+        <input type="radio" class="choose newtui-radio-one nolabel" name="a" v-model="pick" :value="mstCodDEntity.codCd" v-bind:title="mstCodDEntity.codValue"/>
+    </div>
+    <label style="color: red;font-size: 1vw;float: left">★重要度★</label>
+    <input type="checkbox" style="margin-left: 2vw;margin-top:0.3vw" id="noticeLevelDiv">
+    <div id="choose" style="margin-bottom: 2vh;margin-top:7vh;">
+        <span style="margin-left: 1vw;font-weight: bold;">対象者</span>
+        <!--     2020/11/11 huangxinliang modify start   -->
+        <button class="chooseBtn" id="toF04004" >対象者を選択する</button>
+        <!--     2020/11/11 huangxinliang modify end   -->
+        <span style="font-weight: bold">選択数：{{selectStuCount}}名</span>
+    </div>
+    <div>
+        <div class="div_main">
+            <div class="first_div">
+                <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                <div id="jqGridPager"style="margin-left: 1vw;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="timeChoose" class="div_input">
+    <label class="time_title" style="margin-left: 1%">出席簿対象日</label>
+    <div class="inputMessage" style="width: 80%;margin-left: 1%">
+        <div class="time_div">
+            <div class="img_div">
+                <img src="../img/timeBtn2.png" alt="" id="dayPic">
+            </div>
+            <input :value="attendanceBookDate" type="text" id="attendanceBookDate" class="time_input"
+                   name="attendanceBookDate" style="width: 18%" readonly>
+        </div>
+    </div>
+    <label class="time_title" style="margin-left: 1%">公開期間</label>
+    <div class="inputMessage" style="width: 80%;margin-left: 1%">
+        <div class="time_div">
+            <div class="img_div">
+                <img src="../img/timeBtn2.png" alt="" id="timeOne">
+            </div>
+            <input :value="timeFormat(startTime)" type="text" id="pubStartDt" class="time_input"
+                   name="cretTimeStart" style="width: 18%" readonly>
+        </div>
+        <div class="time_split">～</div>
+        <div class="time_div">
+            <div class="img_div">
+                <img src="../img/timeBtn2.png" alt="" id="timeTwo">
+            </div>
+            <input :value="timeFormat(endTime)" type="text" id="pubEndDt" class="time_input"
+                   name="cretTimeEnd" style="width: 18%" readonly>
+        </div>
+    </div>
+</div>
+<div id="bottomBtn" class="bottom">
+    <button class="bottomBtn" id="backBtn">戻る</button>
+    <button class="bottomBtn" id="btn_ok">確認</button>
+</div>
+</div>
+
+</body>
+<script src="${request.contextPath}/js/manager/F21011.js"></script>
+</html>

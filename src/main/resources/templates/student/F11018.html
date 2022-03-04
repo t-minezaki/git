@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒面談の申込内容キャンセル画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F11018.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40027.html?id=F11018" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="content" v-cloak>
+    <div class="title_div" style="display: block">
+        <div class="back" onclick="back()">
+            <img src="../img/left.png">
+        </div>
+        <span id="guardNm">申込キャンセル</span>
+    </div>
+    <div class="content_all">
+        <div class="content_div">
+            <ul>
+                <li class="apply_li">
+                    <p>申込内容</p>
+                </li>
+                <li class="name_div">
+                    <p>生徒氏名</p>
+                    <p>{{f11018Dto.stuNm}}</p>
+                </li>
+                <li class="time_div">
+                    <p>日時</p>
+                    <p>{{f11018Dto.displayTime}}</p>
+                </li>
+                <li class="conf_li">
+                    <p>確認事項</p>
+                </li>
+                <li class="item_div">
+                    <p>備考</p>
+                    <p>{{f11018Dto.noteCont}}</p>
+                </li>
+                <li class="item_div" v-for="dto in f11018Dtos">
+                    <p>{{dto.questionName}}</p>
+                    <p v-if="dto.answerTypeDiv !== '3'">{{dto.answerReltCont}}</p>
+                    <div v-if="dto.answerTypeDiv === '3'">
+                        <div :id="'photoContainer' + dto.askNum" class="photo-container">
+                            <img :src="dto.answerReltCont" class="photo-image"
+                                 onerror="this.src='../img/logo2.png'"
+                                 :onclick="'vm.showImg(' + dto.askNum + ')'"
+                                 :id="'image' + dto.askNum"/>
+                        </div>
+                    </div>
+                </li>
+                <li id="btnDiv">
+                    <div class="topMessage">{{msgTop}}</div>
+                    <div class="topMessage">{{msgBottom}}</div>
+                    <button id="change" class="_btn" onclick="remove()">申込をキャンセルする</button>
+                    <button id="cancel" class="_btn" onclick="back()">戻る</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="image-container" id="imageContainer" style="display: none;">
+</div>
+<div class="div_bottom">
+    <iframe src="${request.contextPath}/common/F40012.html?id=F11018" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script src="${request.contextPath}/js/student/F11018.js"></script>
+</html>

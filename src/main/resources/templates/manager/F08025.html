@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>テンプレート新規編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/layui/layui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08025.css"/>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor-event.config.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.all.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/lang/jp/jp_event.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/exif/exif.js" charset="utf-8"></script>
+</head>
+<body style="width: 100%">
+<div class="div_body" id="div_body" style="width: 100%">
+    <div class="topMessage" id="message"></div>
+    <div class="div_top">
+        <div>ニュース管理</div>
+        <div><i class="layui-icon layui-icon-right"></i></div>
+        <div>テンプレート一覧</div>
+        <div><i class="layui-icon layui-icon-right"></i></div>
+        <div>作成</div>
+    </div>
+    <div class="div_main">
+        <div class="div_one">
+            <label>種別</label>
+            <select id="in_type" type="text" onchange="selectChange()" >
+
+            </select>
+        </div>
+        <div class="div_one">
+            <label>タイトル</label>
+            <input id="in_title" type="text" placeholder="タイトルを入力(最大長：100)" maxlength="100">
+            <button onclick="viewopen()" id="view">プレビュー</button>
+        </div>
+        <div class="div_two">
+            <label>本文</label>
+            <div class="mail_content">
+                <div id="editor" name="editor" type="text/plain"></div>
+            </div>
+        </div>
+        <div class="div_three">
+            <label>添付ファイル</label>
+            <div class="div_file">
+                <label id="la_name">ドラッグ＆ドロッブ</label>
+                <input type="file" multiple name="attfile" id="in_file" accept=".png,.jpg,.jpeg,.gif,.bmp,.pdf,.xlsx,.xls,.csv,.pptx,.docx">
+                <button onclick="F_Open_dialog()">ファイル選択</button>
+            </div>
+        </div>
+        <div class="div_four">
+            <button onclick="window.location.href = 'F08024.html'">戻る</button>
+            <button onclick="save()">登録</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08017AskTalkTemplate.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08025.js"></script>
+</html>

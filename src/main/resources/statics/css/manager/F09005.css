@@ -1,0 +1,178 @@
+@media screen and (max-width: 1200px){
+    .div_input {
+        margin-bottom: 2vh;
+    }
+    .div_title {
+        margin: 2vh 0 0 0;
+        display: block;
+        font-size: 1.4em;
+    }
+}
+@media screen and (min-width: 1200px){
+    .div_input {
+        margin-bottom: 5vh;
+    }
+    .div_title {
+        margin: 4vh 0 0 0;
+        display: block;
+        font-size: 1.4em;
+    }
+}
+
+html,body {
+    height: 100%;
+}
+#div_bottom {
+
+    text-align: center;
+}
+
+.ui-jqgrid-bdiv {
+
+    width: 100% !important;
+}
+.ui-jqgrid-hbox {
+    padding-right: 0!important;
+}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+
+    padding: 0px 0px;
+}
+
+#load_jqGrid {
+
+    display: none !important;
+}
+.ui-widget-content {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: black;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: #333333 !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    font-size: 0.9vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+    font-size: 0.9vw;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+    width: auto!important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+    width: auto!important;
+}
+
+.jqgfirstrow td{
+    border: 0;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+
+    overflow-x: unset !important;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 4vh !important;
+}
+
+#jqGridPager_right {
+
+    text-align: left;
+}
+
+#pg_jqGridPager {
+
+    top: 95%;
+    width: 100%;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+
+    height: 22px !important;
+}
+
+.layui-laydate .laydate-btns-now {
+
+    display: none;
+}
+.div_foot {
+    width: 100%;
+    text-align: center;
+    bottom: 6%;
+    z-index: 999;
+    padding-bottom: 10px;
+}
+
+#conf {
+    margin-left: 5%;
+    margin-right: 13%;
+}
+button{
+    width: 10vw;
+    height: 2.2vw;
+    font-size: 0.9vw;
+    border: none;
+    background: #00a65a;
+    color: whitesmoke;
+    border-radius: 4px;
+    cursor: pointer;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+#back {
+    margin-left: 1%;
+}
+
+.one {
+
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+
+    display: inline-block;
+    margin-right: 0.5vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}

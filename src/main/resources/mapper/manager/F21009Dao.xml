@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21009Dao">
+    <!--  指導報告書ヘーダから指導報告書情報を取得し -->
+    <select id="getGrdData" resultType="jp.learningpark.modules.manager.dto.F21009Dto">
+        SELECT
+        grh.id as id,
+        ms.flnm_nm ||' '|| ms.flnm_lnm AS stuNm,
+        mu.usr_id AS stuId,
+        mu.after_usr_id as afterUsrId,
+        grd.abs_sts_div AS absStsDiv,
+        grd.use_cont AS useCont,
+        grd.guid_cont AS guidCont,
+        grd.hwk_cont AS hwkCont,
+        grd.test_unit_nm AS testUnitNm,
+        grd.last_time_hwk_div AS lastTimeHwkDiv,
+        grd.sch_sts_div AS schStsDiv,
+        grd.lect_shape_div AS lectShapeDiv,
+        grd.conc_item_cont AS concItemCont
+        FROM
+        guid_repr_h AS grh
+        INNER JOIN guid_repr_d AS grd ON grd.guid_repr_id = grh.id
+        AND grd.del_flg = 0
+        INNER JOIN mst_stu AS ms ON ms.stu_id = grd.stu_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+        AND mu.del_flg = 0
+        WHERE
+        grh.attend_book_cd = #{attendBookCd}
+        AND grh.org_id = #{orgId}
+        <if test="absDiv !=0">
+            <if test="absDiv == 1">
+                AND grd.abs_sts_div  IN ( '1', '2' )
+            </if>
+            <if test="absDiv == 2">
+                AND grd.abs_sts_div IN ( '3', '4' )
+            </if>
+            <if test="absDiv == 3">
+                AND grd.abs_sts_div = '0'
+            </if>
+        </if>
+        AND grh.del_flg = 0
+        ORDER BY
+        ms.id
+    </select>
+
+    <select id="getAbhData" resultType="jp.learningpark.modules.manager.dto.F21009Dto">
+        SELECT DISTINCT
+        ms.ID,
+        ms.flnm_nm ||' '|| ms.flnm_lnm AS stuNm,
+        mu.usr_id AS stuId,
+        mu.after_usr_id as afterUsrId,
+        abd.abs_sts_div AS absStsDiv
+        FROM
+        attend_book_h AS abh
+        INNER JOIN attend_book_d AS abd ON abd.attend_book_id = abh.id
+        AND abd.del_flg = 0
+        INNER JOIN mst_stu AS ms ON ms.stu_id = abd.stu_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+        AND mu.del_flg = 0
+        WHERE
+        abh.attend_book_cd = #{attendBookCd}
+        AND abh.org_id = #{orgId}
+        <if test="absDiv !=0">
+            <if test="absDiv == 1">
+                AND abd.abs_sts_div IN ( '1', '2' )
+            </if>
+            <if test="absDiv == 2">
+                AND abd.abs_sts_div IN ( '3', '4' )
+            </if>
+            <if test="absDiv == 3">
+                AND abd.abs_sts_div = '0'
+            </if>
+        </if>
+        AND abh.del_flg = 0
+        ORDER BY
+        ms.id
+    </select>
+</mapper>

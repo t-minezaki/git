@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30420Dao">
+    <select id="init" resultType="jp.learningpark.modules.guard.dto.F30420Dto">
+        SELECT
+          GRS.id
+          ,MN.notice_title
+          ,MN.notice_cont
+          ,MN.title_img_path
+          ,MCD.cod_value
+          ,MN.upd_datime as updTime
+          ,GRS.reading_sts_div
+          ,MN.attach_file_path
+        /**2020/11/12 cuikailin V9.0 add start ***/
+          ,MN.notice_level_div
+        /**2020/11/12 cuikailin V9.0 add end ***/
+        /**2020/12/4 cuikailin V9.0 add start ***/
+          ,GRS.opened_flg
+        /**2020/12/4 cuikailin V9.0 add END ***/
+        FROM
+          mst_notice MN
+            INNER JOIN guard_reading_sts GRS ON (MN.id = GRS.notice_id AND GRS.guard_id = #{guardId} AND GRS.stu_id = #{stuId} AND GRS.del_flg = 0)
+            INNER JOIN mst_cod_d MCD ON (MN.notice_level_div = MCD.cod_cd AND MCD.cod_key = 'NOTICE_LEVEL_DIV')
+        WHERE
+          MN.id = #{noticeId}
+          AND MN.del_flg = 0
+    </select>
+
+</mapper>

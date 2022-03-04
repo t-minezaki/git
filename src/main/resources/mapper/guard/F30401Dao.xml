@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30401Dao">
+    <select id="selectNews" resultType="jp.learningpark.modules.guard.dto.F30401Dto">
+        SELECT DISTINCT
+        a.id                  AS  id
+        , a.event_title       AS  eventTitle
+        , a.title_img_path    AS  imgPath
+        , b.again_send_dt
+        , b.reading_sts_div   AS  readStsDiv
+        , a.pub_start_dt      AS  pubStartDt
+        , a.event_level_div   AS  eventLevelDiv
+        FROM
+        mst_event a
+        INNER JOIN guard_event_apply_sts b
+        ON a.id = b.event_id
+        AND b.guard_id = #{guardId}
+        AND b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt &lt;= now()
+        AND a.pub_end_dt > now()
+        WHERE a.del_flg = 0
+        AND b.del_flg = 0
+        ORDER BY
+        b.reading_sts_div
+        , b.again_send_dt
+        , a.event_level_div
+        , a.pub_start_dt
+        <if test="page != null">
+            limit #{limit} OFFSET #{page}
+        </if>
+    </select>
+    <select id="selectNewsCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM  mst_event a
+        INNER JOIN guard_event_apply_sts b
+        ON a.id = b.event_id
+        AND b.guard_id = #{guardId}
+        AND b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt &lt;= now()
+        AND a.pub_end_dt > now()
+        WHERE a.del_flg = 0
+        AND b.del_flg = 0
+    </select>
+    <select id="getNewsCount" resultType="Integer">
+        SELECT
+        count( DISTINCT a.id )
+        FROM
+         mst_event a
+        INNER JOIN guard_event_apply_sts b
+        ON a.id = b.event_id
+        AND b.guard_id = #{guardId}
+        AND b.stu_id = #{stuId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt &lt;= now()
+        AND a.pub_end_dt > now()
+        AND b.reading_sts_div = '0'
+        WHERE a.del_flg = 0
+        AND b.del_flg = 0
+    </select>
+</mapper>

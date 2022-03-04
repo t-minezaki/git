@@ -1,0 +1,207 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body, #page {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: unset;
+}
+
+p {
+    margin: unset;
+}
+
+.div_header {
+    position: fixed;
+    width: 100%;
+    height: 44px;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.content {
+    height: 90%;
+    padding-top: 44px;
+}
+
+.items_div span {
+    display: inline-block;
+    width: 94%;
+    margin-left: 3%;
+    height: 6vh;
+    line-height: 8vh;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.items_div ul {
+    width: 97%;
+    margin-left: 3%;
+    margin: unset;
+    padding-left: 3%;
+}
+
+.items_div ul li {
+    display: flex;
+    list-style: none;
+    min-height: 5vh;
+    height: auto;
+    line-height: 5vh;
+    border-bottom: 1px solid #ccc;
+}
+
+.items_div ul li p {
+    font-size: 0.9rem;
+    float: left;
+}
+
+.items_div ul li p:nth-child(1) {
+    font-weight: bold;
+    width: 30%;
+}
+
+.items_div ul li p:nth-child(2) {
+    width: 70%;
+    word-break: break-all;
+}
+
+#noteCont {
+    width: 97%;
+    margin-left: 3%;
+    margin: unset;
+    padding-left: 3%;
+    margin-top: 2vh;
+}
+
+#noteCont p {
+    font-size: 0.9rem;
+    float: left;
+}
+
+#noteCont p:nth-child(1) {
+    display: inline-block;
+    width: 30%;
+    height: 5vh;
+    line-height: 5vh;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#noteCont p:nth-child(2) {
+    min-height: 5vh;
+    height: auto;
+    line-height: 5vh;
+    width: 70%;
+    word-break: break-all;
+}
+
+.div_bottom {
+    height: 10%;
+}
+
+.title_div {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color: black;
+    font-size: calc(56px / 3);
+    font-weight: bold;
+}
+
+.title_div span {
+    display: block;
+    height: 100%;
+    line-height: 4vh;
+}
+
+.back {
+    height: 40px;
+    float: left;
+    margin-left: 14px;
+    position: absolute;
+    line-height: 40px;
+}
+
+.back img {
+    height: 13px;
+}
+
+.items_div {
+    /*height: calc(50% - 3vh);*/
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    width: 100px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+.topTitle{
+    height: 40px;
+    background: rgb(140, 193, 31);
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    position: fixed;
+    top: 44px;
+    width: 100%;
+    font-weight: bold;
+}
+#imgDiv{
+    overflow: hidden;
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+#imgDiv img{
+    top: 0;
+    left: 0;
+    position: relative;
+    transition: transform 0.3s;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+    object-fit: contain;
+    background-color: transparent;
+}
+.layui-layer-content {
+    overflow: hidden !important;
+}

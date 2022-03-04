@@ -1,0 +1,109 @@
+* {
+    user-select: none;
+}
+
+#app {
+    font-size: 4vw;
+    color: #777;
+}
+
+#title_img {
+    width: 8vh;
+    height: 8vh;
+    float: left;
+    border-radius: 10px;
+    margin-left: 3vw;
+}
+
+.div_title {
+    margin-top: 8vh;
+}
+
+.label_title {
+    font-weight: bolder;
+    margin-left: 3vw;
+    font-size: 1em;
+    display: inline-block;
+    height: 8vh;
+    line-height: 9vh;
+}
+
+.div_time {
+    margin-top: 9vh;
+}
+
+.div_name {
+    margin-top: 6vh;
+}
+
+.label_nm_title {
+    margin-left: 1em;
+    font-size: 0.8em;
+}
+
+.label_nm {
+    margin-left: 1em;
+}
+
+.div_btn {
+    margin-top: 23vh;
+    text-align: center;
+}
+
+#btn_change {
+    width: 33vw;
+    height: 10vh;
+    margin-right: 7vw;
+    font-size: 1em;
+    background: rgb(0,32,96);
+    color: white;
+    outline: none;
+}
+
+#btn_order {
+    width: 33vw;
+    font-size: 1em;
+    height: 10vh;
+    color: white;
+    background: rgb(0,32,96);
+    outline: none;
+}
+
+.label_time_title {
+
+    margin-left: 14vw;
+}
+
+.label_time_cont {
+
+    margin-left: 2vw;
+    font-size: 0.9em;
+    letter-spacing: 0.2vw;
+}
+
+#btn_close {
+
+    position: absolute;
+    left: 92vw;
+    top: -1vh;
+    border: 0px;
+    background: transparent;
+    font-size: 2em;
+    color: #777;
+    outline: none;
+}
+
+#btn_close:hover {
+
+    color: #ccc;
+}
+
+
+#geasId {
+
+    width: 30vw;
+    height: 8vh;
+    border: 2px #ccc solid;
+    border-radius: 8px;
+    outline: none;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.GuidReprDDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.GuidReprDEntity" id="guidReprDMap">
+        <result property="id" column="id"/>
+        <result property="guidReprId" column="guid_repr_id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="absStsDiv" column="abs_sts_div"/>
+        <result property="useCont" column="use_cont"/>
+        <result property="guidCont" column="guid_cont"/>
+        <result property="hwkCont" column="hwk_cont"/>
+        <result property="testUnitNm" column="test_unit_nm"/>
+        <result property="lastTimeHwkDiv" column="last_time_hwk_div"/>
+        <result property="schStsDiv" column="sch_sts_div"/>
+        <result property="lectShapeDiv" column="lect_shape_div"/>
+        <result property="concItemCont" column="conc_item_cont"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

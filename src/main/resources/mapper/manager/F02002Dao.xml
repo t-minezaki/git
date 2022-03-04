@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F02002Dao">
+    <!--  本組織及び上下層組織リストの取得 -->
+    <select id="getOrgList" resultType="jp.learningpark.modules.manager.dto.F02002Dto">
+        (SELECT
+            org_id,
+            org_nm,
+            LEVEL,
+            1 AS flg
+        FROM
+            mst_org org
+        WHERE
+            org.org_id = #{orgId}
+            AND org.brand_cd = #{brandCd}
+             ORDER by LEVEL,org_id )UNION ALL
+        (SELECT
+            org2.org_id,
+            org2.org_nm,
+            org2.LEVEL,
+            2 AS flg
+        FROM
+            mst_org org1,
+            mst_org org2
+        WHERE
+            org1.org_id = org2.upplev_org_id
+            AND org1.brand_cd = #{brandCd}
+            AND org1.org_id = #{orgId}
+            ORDER by org2.LEVEL,org2.org_id) UNION ALL
+        (SELECT
+            org1.org_id,
+            org1.org_nm,
+            org1.LEVEL,
+            3 AS flg
+        FROM
+            mst_org org1,
+            mst_org org2
+        WHERE
+            org1.org_id = org2.upplev_org_id
+            AND org1.brand_cd = #{brandCd}
+            AND org2.org_id = #{orgId}
+            ORDER by org1.LEVEL,org1.org_id)
+    </select>
+    <!-- 単元情報検索一覧を表示するため -->
+    <select id="getUnitList" resultType="jp.learningpark.modules.manager.dto.F02002UnitDto">
+        SELECT
+            unit.id,
+            org.org_id,
+            org.org_nm,
+            CASE WHEN org.org_id = #{currentOrgId} THEN 1   else 0 END as flg,
+            cod1.cod_value as codValue1,
+            cod2.cod_value as codValue2,
+            unit_mst_cd,
+            unit.unit_nm,
+            unit.sectn_nm,
+            unit.chapt_nm,
+            unit.upd_datime
+        FROM
+            mst_unit unit
+            INNER JOIN mst_org org ON unit.org_id = org.org_id AND org.del_flg = 0
+            INNER JOIN mst_cod_d cod1 ON cod1.cod_key = 'SCHY_DIV' AND cod1.cod_cd = unit.schy_div AND cod1.del_flg = 0
+            INNER JOIN mst_cod_d cod2 ON cod2.cod_key = 'SUBJT_DIV' AND cod2.cod_cd = unit.subjt_div AND cod2.del_flg = 0
+        WHERE
+            unit.org_id in
+        <foreach collection="orgIdList" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+        </foreach>
+        AND unit.del_flg = 0
+        ORDER BY
+            org.level,
+            cod1.sort,
+            cod2.sort,
+            unit.unit_mst_cd
+        <if test="pageSize != null">
+            Limit #{limit} offset #{pageSize}
+        </if>
+    </select>
+    <!-- 単元情報検索一覧総数 -->
+    <select id="getUnitListCount" resultType="Integer">
+        SELECT
+        count (*)
+        FROM
+        mst_unit unit
+        INNER JOIN mst_org org ON unit.org_id = org.org_id AND org.del_flg = 0
+        INNER JOIN mst_cod_d cod1 ON cod1.cod_key = 'SCHY_DIV' AND cod1.cod_cd = unit.schy_div AND cod1.del_flg = 0
+        INNER JOIN mst_cod_d cod2 ON cod2.cod_key = 'SUBJT_DIV' AND cod2.cod_cd = unit.subjt_div AND cod2.del_flg = 0
+        WHERE
+        unit.org_id IN
+        <foreach collection="orgIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND unit.del_flg = 0
+    </select>
+    <!-- 単元情報検索一覧を表示するため search -->
+    <select id="searchUnitList" resultType="jp.learningpark.modules.manager.dto.F02002UnitDto">
+        SELECT
+            unit.id,
+            org.org_id,
+            org.org_nm,
+        CASE
+            WHEN org.org_id = #{currentOrgId} THEN
+            1 ELSE 0
+            END AS flg,
+            cod1.cod_value AS codValue1,
+            cod2.cod_value AS codValue2,
+            unit_mst_cd,
+            unit.unit_nm,
+            unit.sectn_nm,
+            unit.chapt_nm,
+            unit.upd_datime
+        FROM
+            mst_unit unit
+            INNER JOIN mst_org org ON unit.org_id = org.org_id AND org.del_flg = 0
+            INNER JOIN mst_cod_d cod1 ON cod1.cod_key = 'SCHY_DIV' AND cod1.cod_cd = unit.schy_div AND cod1.del_flg = 0
+            INNER JOIN mst_cod_d cod2 ON cod2.cod_key = 'SUBJT_DIV' AND cod2.cod_cd = unit.subjt_div AND cod2.del_flg = 0
+        WHERE
+            unit.del_flg = 0
+                AND unit.org_id IN
+            <foreach collection="orgIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="schyDiv != null and schyDiv != ''">
+                AND unit.schy_div = #{schyDiv}
+            </if>
+            <if test="subjtDiv != null and subjtDiv != ''">
+                AND unit.subjt_div = #{subjtDiv}
+            </if>
+            <if test="unitNm != null and unitNm != ''">
+                AND unit.unit_nm LIKE CONCAT('%',#{unitNm},'%')
+            </if>
+        ORDER BY
+            org.level,
+            cod1.sort,
+            cod2.sort,
+            unit.unit_mst_cd
+        <if test="pageSize != null">
+            Limit #{limit} offset #{pageSize}
+        </if>
+    </select>
+    <!-- 単元情報検索一覧を表示するため search -->
+    <select id="searchUnitListCount" resultType="Integer">
+        SELECT
+        count (*)
+        FROM
+            mst_unit unit
+            INNER JOIN mst_org org ON unit.org_id = org.org_id AND org.del_flg = 0
+            INNER JOIN mst_cod_d cod1 ON cod1.cod_key = 'SCHY_DIV' AND cod1.cod_cd = unit.schy_div AND cod1.del_flg = 0
+            INNER JOIN mst_cod_d cod2 ON cod2.cod_key = 'SUBJT_DIV' AND cod2.cod_cd = unit.subjt_div AND cod2.del_flg = 0
+        WHERE
+        unit.del_flg = 0
+            AND unit.org_id IN
+        <foreach collection="orgIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="schyDiv != null and schyDiv != ''">
+            AND unit.schy_div = #{schyDiv}
+        </if>
+        <if test="subjtDiv != null and subjtDiv != ''">
+            AND unit.subjt_div = #{subjtDiv}
+        </if>
+        <if test="unitNm != null and unitNm != ''">
+            AND unit.unit_nm LIKE CONCAT('%',#{unitNm},'%')
+        </if>
+    </select>
+    <!--全部の下層組織-->
+    <select id="selectLowerOrg" parameterType="string" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+        with RECURSIVE cte as
+        (
+        select * from mst_org om
+        where om.upplev_org_id=#{orgId}
+        and om.del_flg=0
+        union all
+        select d.* from cte c inner join mst_org d
+        on c.org_id=d.upplev_org_id
+        and d.del_flg=0
+        )
+        select  DISTINCT cte.org_id,cte.org_nm,cte.LEVEL from cte
+        ORDER BY cte.LEVEL,cte.org_id
+    </select>
+    <!--全部の上層組織-->
+    <select id="selectUpOrg" parameterType="string" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+        WITH RECURSIVE cte AS (
+        SELECT
+        *
+        FROM
+        mst_org om
+        WHERE
+        om.org_id = #{orgId}
+        AND om.del_flg = 0 UNION ALL
+        SELECT
+        d.*
+        FROM
+        cte C
+        INNER JOIN mst_org d ON C.upplev_org_id = d.org_id
+        AND d.del_flg = 0
+        ) SELECT DISTINCT
+        s.org_id,
+        s.org_nm,
+        s.LEVEL
+        FROM
+        cte s
+        ORDER BY s.LEVEL,s.org_id
+    </select>
+
+</mapper>

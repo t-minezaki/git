@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>保護者共通メニュー画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40004.css"/>
+    <style type="text/css">
+        button#changeOrg:after {
+            content: '教室切替';
+            height: 100%;
+            display: inline-block;
+            line-height: 13px;
+        }
+        button {
+            margin-right: 2px;
+            margin-left: 2px;
+            float: left;
+        }
+
+        #changeOrg {
+            width: 26px;
+            padding: unset
+        }
+    </style>
+</head>
+<body>
+<div class="div_header" id="v_If">
+    <div>
+        <div class="logo" onclick="window.parent.location.reload()" style="margin-left: 3px">
+            <img src="../img/logo.png" style="margin-left: unset">
+        </div>
+        <div class="logout" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout">
+        </div>
+        <div class="headerBtn">
+            <!--<button id="changeOrg" style="float: left;font-size: 13px; width: 5%; height: 105%; border-radius: 1vw; border: unset;background: #DCDDDD;color:-->
+             <!--#8E8E8E" onclick="window.location.href='../common/F40016.html'">教室切替-->
+            <!--</button>-->
+            <button id="changeOrg" onclick="window.parent.location.href='../common/F40016.html'" title="教室切替"></button>
+            <button onclick="window.parent.location.href='../common/F40008.html'">ID/パスワード変更</button>
+            <button onclick="window.parent.location.href='../student/F10000.html'">基本情報変更</button>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $.ajax({
+        url: ctxPath + '/common/F40012/init',
+        type: 'GET',
+        datatype: 'json',
+        success: function (data) {
+            if (data.stuNm != null) {
+                var s = "<b>" + data.stuNm + "</b><p>さん、今週も頑張りましょう！</p>";
+                $(".header_stuNm").html(s);
+            }
+            $("#changeOrg").attr("disabled", data.disa ? "disabled" : false);
+        },
+        error: function () {
+        }
+    });
+</script>
+<script src="${request.contextPath}/js/common/F40004.js"></script>
+</html>

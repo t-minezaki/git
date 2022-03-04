@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>運用管理｜担当生徒管理｜紐付け設定</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00062.css"/>
+</head>
+<body>
+<div class="content" id="data">
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">運用管理｜担当生徒管理｜紐付け設定</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="two">
+        <div class="top title62"><span>◆　先生情報</span></div>
+        <div class="infoContent">
+            <div>
+                <button onclick="selectBtn('2')" type="button" class="selectBtn">検索</button>
+            </div>
+            <ul>
+                <li>
+                    <div class="title62">先生ＩＤ</div>
+                    <input type="text" id="mentorId" disabled>
+                </li>
+                <li>
+                    <div class="title62">先生姓名</div>
+                    <input type="text" id="mentorNm" disabled>
+                </li>
+                <li>
+                    <div class="title62">カナ姓名</div>
+                    <input type="text" id="mentorKnNm" disabled>
+                </li>
+                <li>
+                    <div class="title62">メール</div>
+                    <input type="text" id="mailad" disabled>
+                </li>
+                <li>
+                    <div class="title62">電話番号</div>
+                    <input type="text" id="telnum" disabled>
+                </li>
+            </ul>
+        </div>
+        <div class="title62" style="margin-top: 2vw;"><span>◆　生徒情報</span></div>
+        <div class="infoContent">
+            <div>
+                <button onclick="selectBtn('4')" type="button" class="selectBtn">検索</button>
+            </div>
+            <ul>
+                <li>
+                    <div class="title62">生徒ＩＤ</div>
+                    <input type="text" id="stuId" disabled>
+                </li>
+                <li>
+                    <div class="title62">生徒姓名</div>
+                    <input type="text" id="stuNm" disabled>
+                </li>
+                <li>
+                    <div class="title62">カナ姓名</div>
+                    <input type="text" id="stuKnNm" disabled>
+                </li>
+                <li>
+                    <div class="title62">生年月日</div>
+                    <input type="text" id="birthd" disabled>
+                </li>
+                <li>
+                    <div class="title62">性別</div>
+                    <input type="text" id="sex" disabled>
+                </li>
+                <li>
+                    <div class="title62">学年</div>
+                    <input type="text" id="schy" disabled>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footDiv">
+        <div class="footAuto">
+            <button onclick="updateBtn()" id="login" class="selectBtn footBtn">登録</button>
+            <button onclick="window.location.href = 'F00061.html'" id="back" class="selectBtn footBtn">戻る</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F00062.js"></script>
+</html>

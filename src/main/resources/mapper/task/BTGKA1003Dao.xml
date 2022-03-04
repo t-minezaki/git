@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.job.dao.BTGKA1003Dao">
+    <select id="getUserList" resultType="jp.learningpark.modules.job.entity.BTGKA1003Dto">
+        SELECT
+        mu.after_usr_id,
+        mu.usr_password,
+        <if test="roleType == 1">
+            mm.flnm_nm || '' || mm.flnm_lnm AS userName,
+            mm.flnm_kn_nm || '' || mm.flnm_kn_lnm AS userKName,
+            mm.telnum,
+            mm.mailad,
+            mcd3.cod_value AS specAuth,
+        </if>
+        <if test="roleType == 2">
+            mm.flnm_nm || '' || mm.flnm_lnm AS userName,
+            mm.flnm_kn_nm || '' || mm.flnm_kn_lnm AS userKName,
+            mm.telnum,
+            mm.mailad,
+        </if>
+        <if test="roleType == 3">
+            mg.flnm_nm || '' || mg.flnm_lnm AS userName,
+            mg.flnm_kn_nm || '' || mg.flnm_kn_lnm AS userKName,
+            mg.telnum,
+            mg.mailad,
+            mg.postcd_mnum|| '' || mg.postcd_bnum as email,
+            mg.adr1,
+            mg.adr2,
+            mcd3.cod_value AS reltnspDiv,
+        </if>
+        mcd1.cod_value AS role,
+        mcd2.cod_value AS del,
+        <if test="roleType == 4" >
+            ms.flnm_nm || '' || ms.flnm_lnm AS userName,
+            ms.flnm_kn_nm || '' || ms.flnm_kn_lnm AS userKName,
+            ms.birthd,
+            mcd3.cod_value AS schy,
+            mcd4.cod_value AS gender,
+            ms.guard_id,
+            ms.guard1_id,
+            ms.guard2_id,
+            ms.guard3_id,
+            ms.guard4_id,
+        </if>
+        mu.org_id
+        FROM
+        mst_usr AS mu
+        <if test="roleType == 1">
+            INNER JOIN mst_manager AS mm ON mm.mgr_id = mu.usr_id
+            AND mm.del_flg = mu.del_flg
+            INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'MANAGER_TYPE'
+            AND mcd3.cod_cd = mu.spec_auth_flg
+        </if>
+        <if test="roleType == 2">
+            INNER JOIN mst_mentor AS mm ON mm.mentor_id = mu.usr_id
+            AND mm.del_flg = mu.del_flg
+        </if>
+        <if test="roleType == 3">
+            INNER JOIN mst_guard AS mg ON mg.guard_id = mu.usr_id
+            AND mg.del_flg = mu.del_flg
+            INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'RELTNSP_DIV'
+            AND mcd3.cod_cd  = mg.reltnsp_div
+        </if>
+        INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_key = 'LEADER_ROLE_LIST'
+        AND mcd1.cod_cd = mu.role_div
+        INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_key = 'USER_TYPE'
+        AND cast( mcd2.cod_cd AS NUMERIC ) = mu.del_flg
+        <if test="roleType == 4">
+            INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+            AND ms.del_flg = mu.del_flg
+            INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'SCHY_DIV'
+            AND mcd3.cod_cd = ms.schy_div
+            INNER JOIN mst_cod_d AS mcd4 ON mcd4.cod_key = 'GENDR_DIV'
+            AND mcd4.cod_cd = ms.gendr_div
+        </if>
+        WHERE
+        <if test="roleType == 1 or roleType == 2">
+            to_char ( mm.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+        </if>
+        <if test="roleType == 3">
+            to_char ( mg.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+        </if>
+        <if test="roleType == 4">
+            to_char ( ms.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+        </if>
+        AND mu.role_div = #{roleType}
+        AND  mu.del_flg = #{delType}
+    </select>
+    <select id="getOrgList" resultType="jp.learningpark.modules.job.entity.BTGKA1003Dto">
+        SELECT
+            mo.org_id,
+            mo.org_nm,
+            mm.flnm_nm || '' || mm.flnm_lnm AS userName,
+            mm.flnm_kn_nm || '' || mm.flnm_kn_lnm AS userKName,
+            mm.telnum,
+            mm.mailad,
+            mo.upplev_org_id,
+            mo.LEVEL,
+            mo.brand_cd,
+            mcd1.cod_value AS del,
+            mcd2.cod_value AS orgType,
+            mcd3.cod_value AS specAuth
+        FROM
+            mst_org AS mo
+            INNER JOIN mst_usr AS mu ON mo.org_id = mu.org_id
+            AND mu.role_div = '1'
+            INNER JOIN mst_manager AS mm ON mu.usr_id = mm.mgr_id
+            AND mm.del_flg = mu.del_flg
+            AND mu.spec_auth_flg = '1'
+            INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_key = 'USER_TYPE'
+            AND cast( mcd1.cod_cd AS NUMERIC ) = mo.del_flg
+            INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_key = 'ORG_TYPE'
+            AND mcd2.cod_cd = mo.mgr_flg
+            INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'MANAGER_TYPE'
+            AND mcd3.cod_cd = mu.spec_auth_flg
+        WHERE
+            to_char ( mo.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+            AND mu.del_flg = #{delType}
+    </select>
+
+    <select id="getOrgAllList" resultType="jp.learningpark.modules.job.entity.BTGKA1003Dto">
+        ( SELECT
+            mo.org_id,
+            mcd1.cod_value AS del,
+            mcd2.cod_value AS role,
+            mcd3.cod_value AS orgType,
+            mu.after_usr_id
+            FROM
+                mst_org AS mo
+                INNER JOIN mst_usr AS mu ON mu.org_id = mo.org_id
+                INNER JOIN mst_manager AS mm ON mm.mgr_id = mu.usr_id
+                INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_key = 'ORG_USER_DIV'
+                AND cast( mcd1.cod_cd AS NUMERIC ) = mo.del_flg
+                INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_key = 'ORG_TYPE'
+                AND mcd2.cod_cd = mo.mgr_flg
+                INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'LEADER_ROLE_LIST'
+                AND mcd3.cod_cd = mu.role_div
+            WHERE
+                to_char ( mm.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+
+                AND mm.del_flg = #{delType}
+                AND mu.role_div = '1'
+
+                ) UNION ALL
+                (
+                SELECT
+                    mo.org_id,
+                    mcd1.cod_value AS del,
+                    mcd2.cod_value AS role,
+                    mcd3.cod_value AS orgType,
+                    mu.after_usr_id
+                FROM
+                    mst_org AS mo
+                    INNER JOIN mst_usr AS mu ON mu.org_id = mo.org_id
+                    INNER JOIN mst_mentor AS mm ON mm.mentor_id = mu.usr_id
+                    INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_key = 'ORG_USER_DIV'
+                    AND cast( mcd1.cod_cd AS NUMERIC ) = mo.del_flg
+                    INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_key = 'ORG_TYPE'
+                    AND mcd2.cod_cd = mo.mgr_flg
+                    INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'LEADER_ROLE_LIST'
+                    AND mcd3.cod_cd = mu.role_div
+                WHERE
+                    to_char ( mm.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+
+                    AND mm.del_flg =#{delType}
+                    AND mu.role_div = '2'
+
+                ) UNION ALL
+                (
+                SELECT
+                    mo.org_id,
+                    mcd1.cod_value AS del,
+                    mcd2.cod_value AS role,
+                    mcd3.cod_value AS orgType,
+                    mu.after_usr_id
+                FROM
+                    mst_org AS mo
+                    INNER JOIN mst_usr AS mu ON mu.org_id = mo.org_id
+                    INNER JOIN mst_guard AS mg ON mg.guard_id = mu.usr_id
+                    INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_key = 'ORG_USER_DIV'
+                    AND cast( mcd1.cod_cd AS NUMERIC ) = mo.del_flg
+                    INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_key = 'ORG_TYPE'
+                    AND mcd2.cod_cd = mo.mgr_flg
+                    INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'LEADER_ROLE_LIST'
+                    AND mcd3.cod_cd = mu.role_div
+                WHERE
+                    to_char ( mg.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+
+                    AND mg.del_flg = #{delType}
+                    AND mu.role_div = '3'
+
+                ) UNION ALL
+                (
+                SELECT
+                    mo.org_id,
+                    mcd1.cod_value AS del,
+                    mcd2.cod_value AS role,
+                    mcd3.cod_value AS orgType,
+                    mu.after_usr_id
+                FROM
+                    mst_org AS mo
+                    INNER JOIN mst_usr AS mu ON mu.org_id = mo.org_id
+                    INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+                    INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_key = 'ORG_USER_DIV'
+                    AND cast( mcd1.cod_cd AS NUMERIC ) = mo.del_flg
+                    INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_key = 'ORG_TYPE'
+                    AND mcd2.cod_cd = mo.mgr_flg
+                    INNER JOIN mst_cod_d AS mcd3 ON mcd3.cod_key = 'LEADER_ROLE_LIST'
+                    AND mcd3.cod_cd = mu.role_div
+                WHERE
+                    to_char ( ms.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+
+                    AND ms.del_flg = #{delType}
+                    AND mu.role_div = '4'
+
+            )
+    </select>
+    <select id="getPwList" resultType="jp.learningpark.modules.job.entity.BTGKA1003Dto">
+        SELECT
+            mufp.usr_id,
+            mufp.role_div AS role,
+            mufp.usr_fst_password,
+            mufp.sys_div,
+            mcd.cod_value as del
+        FROM
+            mst_usr_firt_pw AS mufp
+            INNER JOIN mst_cod_d AS mcd ON cast( mcd.cod_cd AS NUMERIC ) = mufp.del_flg
+            AND cod_key = 'ORG_USER_DIV'
+        WHERE
+            mufp.del_flg = #{delType}
+            AND to_char ( mufp.upd_datime, 'yyyy-MM-dd' ) = #{sysTime}
+    </select>
+</mapper>

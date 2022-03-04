@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>パスワード再設定</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40007.css"/>
+</head>
+<body>
+<header style="background: #e2ffef;">
+    <div class="header_logo">
+    </div>
+</header>
+<div class="mian">
+    <div class="mainCon">
+        <div class="mainTitle">パスワード再設定</div>
+        <div id="message" class="topMessage"></div>
+        <div class="mainDiv" id="ttth">
+            <div class="topMain">
+                <div>再設定したパスワードを入力してください</div>
+            </div>
+            <div class="bottomMain">
+                <p>パスワード</p>
+                <p class="center">*</p>
+                <input type="password" name="password" maxlength="32">
+            </div>
+            <div class="bottomMain">
+                <p>パスワード再入力</p>
+                <p class="center">*</p>
+                <input type="password" name="ensurePwd" maxlength="32">
+            </div>
+            <div class="bottomMain">
+                <p class="pleft"></p>
+                <p class="center">「*」</p>
+                <p class="noData">は入力必須項目です</p>
+            </div>
+            <div class="bottomMain" id="bottomMain" style="margin-bottom: 5vw;height: 100px;">
+                <p class="pleft"></p>
+                <p class="center" style="visibility: hidden">「*」</p>
+                <p class="noData" style="width: 50%;">パスワードは、半角英大文字小文字数字混在の8文字以上<br>(記号は使えません)</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="theme_btn">
+    <div class="btn_con">
+        <button class="left" id="back"  onclick="gotoLogin()">ログイン画面へ</button>
+        <button id="submit" onclick="getInto()">設定する</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/common/F40007.js" type="text/javascript" charset="utf-8"></script>
+</html>

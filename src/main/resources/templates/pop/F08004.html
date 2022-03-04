@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>F08004</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/pop/F08004.css">
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="div_info">
+            <div class="div_title">テンプレート</div>
+            <div class="div_cont">{{ eventEntity.tmplateTitle }}</div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">カテゴリ名</div>
+            <div class="div_cont">{{ eventEntity.ctgyNm }}</div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">タイトル</div>
+            <div class="div_cont">{{ eventEntity.eventTitle }}</div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">本文</div>
+            <div id="event_cont" class="div_cont"></div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">添付ファイル</div>
+            <div id="attachFilePath" class="div_cont">{{ eventEntity.attachFilePath }}</div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">配信先組織選択</div>
+            <div id="orgList" class="div_cont">
+                <span class="span_org" v-for="org in orgList">
+                    {{ org.orgNm }}
+                </span>
+            </div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">対象</div>
+            <div class="div_cont">{{ eventEntity.object }}</div>
+        </div>
+        <div class="div_info">
+            <div class="div_title">1コマあたりの時間</div>
+            <div class="div_cont">{{ eventEntity.unitTime }}</div>
+        </div>
+    </div>
+    <script src="${request.contextPath}/js/pop/F08004.js"></script>
+</body>
+</html>

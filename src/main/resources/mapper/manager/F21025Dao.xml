@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.pop.dao.F21025Dao">
+    <resultMap id="lateAbsHistoryDetail" type="jp.learningpark.modules.pop.dto.F21025Dto">
+        <result property="content" column="content"/>
+        <result property="lateTime" column="late_tm"/>
+        <result property="reason" column="reason"/>
+        <result property="bikou" column="bikou"/>
+    </resultMap>
+    <select id="getDetail" resultMap="lateAbsHistoryDetail">
+        SELECT
+          MCD.cod_value AS content
+          ,MCD1.cod_value AS reason
+          ,LAH.bikou
+          ,LAH.late_tm
+          ,to_char(LAH.cret_datime, 'yyyy/MM/dd') as cretDatime
+          ,MU.after_usr_id
+        FROM
+          (SELECT abs_sts, abs_reason, stu_id,bikou, late_tm,cret_datime FROM late_abs_hst
+           WHERE id = #{id} AND del_flg = 0) LAH
+           INNER JOIN mst_cod_d MCD1 ON (LAH.abs_reason = MCD1.cod_cd and MCD1.cod_key = 'ABS_REASON')
+           INNER JOIN mst_cod_d MCD ON (LAH.abs_sts = MCD.cod_cd and MCD.cod_key = 'ABS_STS')
+           INNER JOIN mst_usr AS mu ON MU.USR_ID = LAH.stu_id and mu.del_flg = 0
+        WHERE
+          MCD1.del_flg = 0
+    </select>
+</mapper>

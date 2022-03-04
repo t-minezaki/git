@@ -1,0 +1,616 @@
+.div_img {
+    text-align: center;
+}
+
+.title {
+    width: 90%;
+    font-size: calc(56px / 3);
+    color: #444;
+    text-align: justify;
+    margin-top: 55px;
+    margin-left: 7%;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.topTitle{
+    height: 40px;
+    background: #8CC11F;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    /*font-family: Hiragino sans-serif !important;*/
+    font-size: 18px;
+    position: fixed;
+    top: 44px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.img {
+    width: 80%;
+}
+
+.oneTitle {
+    width: 100%;
+    padding: 10px 5px 0 5px;
+    height: 41px;
+}
+
+.oneTitle ul {
+    width: 100%;
+    height: 100%;
+    /*border-radius: 5px;*/
+    overflow: hidden;
+}
+
+.count {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cf2d28;
+    color: #fff;
+    font-size: 10px;
+    right: 15px;
+    top: 60px;
+    line-height: 18px;
+    display: none;
+}
+
+.oneTitle li {
+    width: 50%;
+    height: 100%;
+    float: left;
+    color: #009944;
+    background: none;
+    font-size: 13px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.oneTitle li.active {
+    color: #555;
+    border-bottom: 4px solid #555;
+}
+
+.oneTitle li.active1 {
+    color: #009944;
+    border-bottom: 4px solid #009944;
+}
+
+.content {
+    /* position: fixed; */
+    width: 100%;
+    /* 2021/09/15 modify for v9.02 LiGX start*/
+    overflow: hidden;
+    /* 2021/09/15 modify for v9.02 LiGX end*/
+    /* padding: 4px; */
+    padding-bottom: 58px;
+    padding-top: 44px;
+    height: calc(100% - 48px);
+}
+
+.content_div {
+    height: auto;
+    min-height: 150.6vw;
+    width: 100%;
+    overflow: auto;
+    /*overflow-x: hidden;*/
+    /*padding-top: 2vw;*/
+}
+
+.description {
+    width: 86%;
+    font-size: 15px;
+    color: #555;
+    margin-left: 7%;
+    overflow: hidden;
+    border-top: 1px solid #CCCCCC;
+    /*通知詳細画面調整します。 modify yang 2011/11/28 start--*/
+    word-break: break-all;
+    /*通知詳細画面調整します。 modify yang 2011/11/28 start--*/
+    margin-top: 0vw;
+    white-space: break-spaces;
+}
+/*2021/01/21 liyuhuan modify start */
+.description p {
+    text-align: justify;
+    width: 98%;
+    height: auto;
+    word-break: break-all;
+    padding-left: 2%;
+}
+/*2021/01/21 liyuhuan modify end */
+
+p > span {
+    line-height: 170%;
+}
+
+.title_div {
+    width: 100%;
+    float: left;
+}
+
+.div_files {
+    margin-top: 2vh;
+    text-align: center;
+    margin-right: 6vw;
+}
+
+.div_files a {
+    color: red;
+    text-decoration: none;
+    border-bottom: 0.5vh solid red;
+    word-break: break-all;
+    width: 100%;
+    height: auto;
+    /*margin-right: 3vw;*/
+    text-align: justify;
+    margin-left: 6vw;
+    /* 2020/12/24 ITA-025 cuikailin add start */
+    line-height: 3vh;
+    /* 2020/12/24 ITA-025 cuikailin add end */
+}
+
+/* 2020/11/25 modify zmh start*/
+#btn_confirm {
+/* 2021/01/30 MANAMIRU1-412 cuikailin modify start*/
+    width: 40vw;
+    height: 40px;
+    text-align: center;
+    margin: 10% auto 0 auto;
+    background-color: #00B050;
+    color: #FFFFFF;
+    font-size: 18px;
+    line-height: 40px;
+/* 2021/01/30 MANAMIRU1-412 cuikailin modify start*/
+    font-weight: bold;
+    display: none;
+}
+/* 2020/11/25 modify zmh end*/
+
+.back {
+    margin-top: 56px;
+    width: 20px;
+    height: 20px;
+    float: left;
+    position: fixed;
+}
+
+.back img {
+    width: 100%;
+    height: 100%;
+}
+
+.url {
+    font-size: 12px;
+    padding: 5px;
+    float: right;
+    text-align: center;
+    border: 2px solid #009944;
+    border-radius: 5px;
+    color: #009944;
+    margin-top: 10px;
+}
+
+.updateTime {
+    float: right;
+    font-size: 12px;
+    color: #555;
+    margin-top: 10px;
+}
+
+video {
+    max-width: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+/* Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+
+    .div_img {
+        margin-left: 17px;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .title {
+        font-size: 1.2rem;
+        color: #202020;
+        text-align: justify;
+        padding-top: 1.8rem;
+        margin-left: 3.5rem;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        /*position: fixed;*/
+        background-color: white;
+        border-bottom: 1px solid #CCCCCC;
+        /*height: 7.2rem;*/
+        /*line-height: 1.7rem;*/
+        min-height: 7.2rem;
+        width: auto;
+        padding-right: 3.5rem;
+        margin-top: unset;
+    }
+
+    .topTitle{
+        position: fixed;
+        top: 56px;
+        letter-spacing: 0;
+        z-index: 1;
+    }
+
+    .img {
+        width: auto;
+    }
+
+    .oneTitle {
+        width: 100%;
+        padding: 10px 5px 0 5px;
+        height: 41px;
+    }
+
+    .oneTitle ul {
+        width: 100%;
+        height: 100%;
+        /*border-radius: 5px;*/
+        overflow: hidden;
+    }
+
+    .count {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #cf2d28;
+        color: #fff;
+        font-size: 10px;
+        right: 15px;
+        top: 60px;
+        line-height: 18px;
+        display: none;
+    }
+
+    .oneTitle li {
+        width: 50%;
+        height: 100%;
+        float: left;
+        color: #009944;
+        background: none;
+        font-size: 13px;
+        line-height: 25px;
+        text-align: center;
+    }
+
+    .oneTitle li.active {
+        color: #555;
+        border-bottom: 4px solid #555;
+    }
+
+    .oneTitle li.active1 {
+        color: #009944;
+        border-bottom: 4px solid #009944;
+    }
+
+    .content {
+        width: 100%;
+        overflow: auto;
+        padding-top: 84px;
+        height: calc(100% - 46px);
+        padding-bottom: unset;
+    }
+
+    .content_div {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        min-height: unset;
+    }
+
+    .description {
+        font-size: 1rem;
+        color: #202020;
+        margin-left: 3.5rem;
+        overflow: hidden;
+        margin-top: 0;
+        padding-right: 3.5rem;
+        width: unset;
+        border-top: unset;
+        margin-bottom: 1rem;
+    }
+
+    .description p {
+        margin-right: 3vw;
+        text-align: justify;
+    }
+
+    p > span {
+        line-height: 170%;
+    }
+
+    .title_div {
+        width: auto;
+        float: left;
+    }
+
+    .div_files {
+        margin-top: 2vh;
+        text-align: center;
+    }
+
+    .div_files a {
+        color: red;
+        text-decoration: none;
+        border-bottom: 0.5vh solid red;
+    }
+
+    .back {
+        margin-top: 2rem;
+        margin-left: 1.5rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        float: left;
+        position: static;
+    }
+
+    .back img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .url {
+        font-size: 12px;
+        padding: 5px;
+        float: right;
+        text-align: center;
+        border: 2px solid #009944;
+        border-radius: 5px;
+        color: #009944;
+        margin-top: 10px;
+    }
+
+    .updateTime {
+        float: right;
+        font-size: 12px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    video {
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+/* ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+    .commonTabTitle {
+        height: 52px;
+        background: #8CC11F;
+        line-height: 52px;
+        color: white;
+        text-align: center;
+        font-size: 1.5rem;
+        width: 100%;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    .div_header{
+        height: 56px;
+    }
+
+    .div_bottom{
+        height: 60px;
+    }
+
+    .div_img {
+        margin-left: 17px;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+        color: #202020;
+        text-align: justify;
+        padding-top: 2.35rem;
+        margin-left: 3.5rem;
+        white-space: normal;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        background-color: white;
+        border-bottom: 1px solid #CCCCCC;
+        padding-right: 3.5rem;
+        margin-top: unset;
+        width:auto;
+        min-height: 9.3rem;
+    }
+
+    .topTitle{
+        position: fixed;
+        top: 56px;
+        letter-spacing: 0;
+        z-index: 1;
+    }
+
+    .img {
+        width: auto;
+    }
+
+    .oneTitle {
+        width: 100%;
+        padding: 10px 5px 0 5px;
+        height: 41px;
+    }
+
+    .oneTitle ul {
+        width: 100%;
+        height: 100%;
+        /*border-radius: 5px;*/
+        overflow: hidden;
+    }
+
+    .count {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #cf2d28;
+        color: #fff;
+        font-size: 10px;
+        right: 15px;
+        top: 60px;
+        line-height: 18px;
+        display: none;
+    }
+
+    .oneTitle li {
+        width: 50%;
+        height: 100%;
+        float: left;
+        color: #009944;
+        background: none;
+        font-size: 13px;
+        line-height: 25px;
+        text-align: center;
+    }
+
+    .oneTitle li.active {
+        color: #555;
+        border-bottom: 4px solid #555;
+    }
+
+    .oneTitle li.active1 {
+        color: #009944;
+        border-bottom: 4px solid #009944;
+    }
+
+    .content {
+        width: 100%;
+        overflow: auto;
+        padding-top: 108px;
+        height: calc(100% - 60px);
+        padding-bottom: unset;
+    }
+
+    .content_div {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        min-height: unset;
+    }
+
+    .description {
+        font-size: 1.25rem;
+        color: #202020;
+        margin-left: 3.5rem;
+        overflow: hidden;
+        margin-top: 0;
+        padding-right: 3.5rem;
+        width: unset;
+        border-top: unset;
+        margin-bottom: 1rem;
+    }
+
+    .description p {
+        margin-right: 3vw;
+        text-align: justify;
+    }
+    /*NWT　楊　2021/08/03　MANAMIRU1-754　Delete　Start*/
+    /*NWT　楊　2021/08/03　MANAMIRU1-754　Delete　End*/
+    p > span {
+        line-height: 170%;
+    }
+
+    .title_div {
+        width: auto;
+        float: left;
+    }
+
+    .div_files {
+        margin-top: 2vh;
+        text-align: center;
+    }
+
+    .div_files a {
+        color: red;
+        text-decoration: none;
+        border-bottom: 0.5vh solid red;
+    }
+
+    .back {
+        margin-top: 2.75rem;
+        margin-left: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        float: left;
+        position: static;
+    }
+
+    .back img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .url {
+        font-size: 12px;
+        padding: 5px;
+        float: right;
+        text-align: center;
+        border: 2px solid #009944;
+        border-radius: 5px;
+        color: #009944;
+        margin-top: 10px;
+    }
+
+    .updateTime {
+        float: right;
+        font-size: 12px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    video {
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+.hyper_link{
+    color: blue;
+    text-decoration: underline;
+}
+/*2020/12/14 liguangxin add start*/
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+    object-fit: contain;
+    background-color: transparent;
+}
+.layui-layer-page .layui-layer-content{
+    overflow:hidden!important;
+}
+.layui-layer-page,.layui-layer-content{
+    background-color: transparent;
+    box-shadow:none;
+}
+.layui-layer-molv123 a.layui-layer-ico.layui-layer-close.layui-layer-close1 {
+    right: 40px !important;
+    top: -6px !important;
+}
+/*2020/12/14 liguangxin add end*/

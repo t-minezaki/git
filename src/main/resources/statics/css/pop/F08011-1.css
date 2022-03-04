@@ -1,0 +1,254 @@
+.all {
+
+    width: 100%;
+    height: auto;
+    padding-left: 3%;
+}
+
+.header {
+
+    width: 100%;
+    text-align: left;
+    font-size: 5vw;
+    font-weight: bolder;
+    height: 8vh;
+    line-height: 8vh;
+    opacity: 0.7;
+    margin-left: 3vw;
+    margin-top: 4vh;
+    margin-bottom: 1vh;
+}
+
+.content_new {
+
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+
+.content_new div {
+
+    width: 100%;
+    height: 10vh;
+    line-height: 7.5vh;
+    float: left;
+}
+
+.content_new div p {
+
+    width: 20%;
+    height: 6vh;
+    text-align: left;
+    font-size: 3vw;
+    line-height: 6vh;
+    display: inline-block;
+    float: left;
+    margin-left: 4vw;
+}
+
+.content_new div input, select {
+
+    width: 35vw !important;
+    height: 6vh;
+    color: #2e2e2e;
+    font-size: 2vw;
+    line-height: 6vh;
+    float: left;
+    border-radius: 5px;
+    text-indent: 1em;
+    border: 1px grey solid;
+}
+
+#template, #status, #object {
+
+    width: 35vw !important;
+    height: 7vh !important;
+    border-radius: 5px;
+    border: 1px grey solid !important;
+    line-height: 6vh;
+}
+
+.theme_btn {
+
+    width: 100%;
+    height: 12vh;
+    line-height: 12vh;
+    /*margin-top: 7%;*/
+    /*padding-left: 10%;*/
+    text-align: center;
+}
+
+.theme_btn button {
+    width: 40%;
+    height: 10vh;
+    line-height: 9vh;
+    background-color: #009944;
+    color: white;
+    /* font-weight: bolder; */
+    font-size: 2.5vw;
+    /* float: left; */
+    border: 1px solid #009944;
+    border-bottom: 3px rgba(0,0,0,.2) solid;
+    border-radius: 5px;
+    margin-top: 5vh;
+    /* margin-right: 1vw; */
+}
+
+.theme_btn button.left {
+
+    border: 0;
+    color: #EA331B;
+}
+
+#mgr_flg {
+
+    width: 7%;
+    height: 6vw;
+}
+
+.inputMessage {
+    /* height: auto; */
+    text-align: left;
+    display: inline-block;
+    width: 65% !important;
+    box-sizing: border-box;
+}
+
+.inputMessage div {
+    display: inline-block;
+    height: 8vh;
+    line-height: 8vh;
+    width: 5%;
+    /*padding-right: 1vw;*/
+    font-weight: bolder;
+    font-size: 3vw;
+    box-sizing: border-box;
+    float: left;
+}
+
+#readTimeStart, #readTimeEnd, #replyTimeStart, #replyTimeEnd, #applyDatimeStart, #applyDatimeEnd {
+
+    width: 27vw !important;
+    height: 5.5vh;
+    color: #2e2e2e;
+    font-size: 2vw;
+    line-height: 5vh;
+    pointer-events: none;
+    border: 0px;
+    position: absolute;
+}
+
+.inputMessage img {
+
+    width: 4vw;
+}
+
+select.my_select + label::after {
+
+    line-height: 10vh !important;
+    border: 0px !important;
+    font-size: 0.5em !important;
+    float: right;
+}
+
+select.my_select + label::before {
+    border: 0px !important;
+    font-size: 0.5em !important;
+    position: relative;
+    left: -5%;
+    top: 0.5vh;
+    float: right;
+}
+
+select.my_select + label {
+
+    width: 35vw !important;
+    height: 7vh !important;
+    font-size: 5vw;
+}
+
+
+#close_btn {
+
+    position: absolute;
+    display: inline-block;
+    right: 1.5vw !important;
+    top: 2vh !important;
+    border: 1px black solid;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 17px;
+    font-weight: bolder;
+    cursor: default;
+}
+
+#close_btn:hover {
+
+    background-color: #ccc;
+}
+
+.indend {
+
+    display: inline-block;
+    width: 3em;
+    height: 6vh;
+    line-height: 6vh;
+    box-sizing: content-box;
+    float: left;
+}
+
+.time_div {
+
+    font-size: 0.8em !important;
+    width: 45% !important;
+    height: 7vh !important;
+    line-height: 6vh !important;
+    float: left !important;
+    border: 1px grey solid;
+}
+
+.img_div {
+    height: 7vh !important;
+    line-height: 9.5vh !important;
+    width: 28vw !important;
+    z-index: 999;
+    position: absolute;
+    text-align: right;
+    padding-right: 0.3vw !important;
+}
+
+.time_split {
+
+    width: 10vw !important;
+    font-size: 1.5em !important;
+    font-weight: bolder !important;
+    text-align: center;
+    float: left !important;
+    padding-right: 0vw !important;
+    height: 6vh !important;
+    line-height: 6vh !important;
+}
+
+html {
+
+    margin-top: 4vh;
+}
+.laydate-btns-time,.laydate-btns-now{
+    display: none !important;
+}
+#layui-laydate1{
+    top: unset !important;
+}
+.layui-laydate-header{
+    padding: unset !important;
+}
+.layui-laydate-content td, .layui-laydate-content th{
+    padding: unset !important;
+    height: 21px !important;
+}
+.layui-laydate-header i{
+    top: unset !important;
+}

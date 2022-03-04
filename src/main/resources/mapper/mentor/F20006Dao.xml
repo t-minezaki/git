@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.manager.dao.F20006Dao">
+
+
+    <!-- 日別の学科ブロック情報取得 -->
+    <select id="getWeekkyBlockInfo" resultType="jp.learningpark.modules.manager.dto.F20006Dto">
+        SELECT
+             swpp.id
+             ,stp.id as termId
+            ,swpp.stu_id
+            ,swpp.SUBJT_DIV
+            ,swpp.SUBJT_NM AS subjt_nm
+            ,swpp.BLOCK_TYPE_DIV
+            ,case swpp.BLOCK_TYPE_DIV when 'R1' then ' ' || mcd2.cod_value when 'P1' then ' ' || mcd2.cod_value when 'W1' then ' ' || mcd2.cod_value when 'V1' then ' ' || mcd2.cod_value else swpp.BLOCK_DISPY_NM end as BLOCK_DISPY_NM
+            ,swpp.PLAN_YMD
+            ,case extract(DOW FROM swpp.PLAN_YMD)
+                when '1' then '月' when '2' then '火' when '3' then '水'
+                when '4' then '木' when '5' then '金' when '6' then '土'
+                else  '日' end as day_week
+            ,case when swpp.stu_del_flg = '1' then '削除' else swpp.LEARN_LEV_UNDS end as LEARN_LEV_UNDS
+            ,swpp.PLAN_LEARN_START_TIME
+            ,swpp.REMAIN_DISP_FLG
+            ,swpp.STU_DEL_FLG
+            ,swpp.unit_id
+            ,case swpp.BLOCK_TYPE_DIV when 'R1' then swpp.BLOCK_DISPY_NM when 'P1' then swpp.BLOCK_DISPY_NM when 'W1' then swpp.BLOCK_DISPY_NM when 'V1' then swpp.BLOCK_DISPY_NM else tdti.unit_dispy_nm end as unit_nm
+            ,null as bnum
+            ,'f' as isTerm
+        FROM STU_WEEKLY_PLAN_PERF swpp
+        left join STU_TERM_PLAN stp on swpp.STU_TERM_PLAN_ID =stp.id
+        left join TEXTB_DEF_TIME_INFO tdti on tdti.id=stp.TEXTB_DEF_UNIT_ID
+--         left JOIN mst_cod_d mcd on mcd.COD_KEY   = 'SUBJT_DIV' and swpp.SUBJT_DIV = mcd.COD_CD
+        left JOIN mst_cod_d mcd2 on mcd2.COD_KEY = 'BLOCK_TYPE_DIV' and swpp.BLOCK_TYPE_DIV = mcd2.COD_CD
+        WHERE
+            swpp.STU_ID =  #{stuId}
+            AND swpp.PLAN_YMD between  #{startDate} and #{endDate}
+            AND swpp.BLOCK_TYPE_DIV NOT IN ('O1', 'O2', 'O3')
+            AND swpp.DEL_FLG = '0'
+        union all
+        SELECT
+            null as id
+            ,stp.id as termId
+            ,stp.stu_id
+            ,stp.SUBJT_DIV
+            ,D.COD_VALUE AS SUBJT
+            ,'S1' as  BLOCK_TYPE_DIV
+            ,stp.BLOCK_DISPY_NM
+            ,mls.LEARN_SEASN_START_DY as PLAN_YMD
+            --,to_char(mls.LEARN_SEASN_START_DY, 'TMDy') as day_week
+            ,null as day_week
+            ,CASE
+            WHEN stp.plan_reg_flg = '2' THEN
+            '削除' ELSE '未計画'
+            END AS LEARN_LEV_UNDS
+            ,null as PLAN_LEARN_START_TIME
+            ,null as REMAIN_DISP_FLG
+            ,null as STU_DEL_FLG
+            ,stp.unit_id
+            ,tdti.unit_dispy_nm as unit_nm
+            ,stp.bnum
+            ,'t' as isTerm
+        FROM STU_TERM_PLAN stp
+        left join MST_LEARN_SEASN mls on mls.id = stp.plan_learn_seasn_id
+        left JOIN mst_cod_d d on d.COD_KEY = 'SUBJT_DIV' and stp.SUBJT_DIV = D.COD_CD
+        left join TEXTB_DEF_TIME_INFO tdti on tdti.id=stp.TEXTB_DEF_UNIT_ID
+        WHERE
+            stp.STU_ID = #{stuId}
+            AND stp.plan_reg_flg <![CDATA[<>]]> '1'
+            AND mls.LEARN_SEASN_START_DY = #{startDate}
+            AND stp.DEL_FLG = '0'
+        order by plan_ymd,plan_learn_start_time
+    </select>
+
+    <select id="getWeekPreNextSeason" resultType="jp.learningpark.modules.common.utils.dto.WeekPreNextSeasonDto">
+        SELECT
+             D.plan_learn_seasn as seasn_id
+            ,to_char(D.learn_seasn_start_dy,'yyyyMMdd') as tgt_ymd
+            ,D.learn_seasn_start_dy
+            ,D.learn_seasn_end_dy
+             ,case when CURRENT_DATE between D.learn_seasn_start_dy and D.learn_seasn_end_dy
+                   then '今週'
+                   else to_char(D.learn_seasn_start_dy,'MM/dd-') end  as week_disply
+
+            ,COALESCE(to_char(pro.learn_seasn_start_dy ,'yyyyMMdd'),'') as pre_week
+
+            ,case when CURRENT_DATE between pro.learn_seasn_start_dy and pro.learn_seasn_end_dy
+                   then '今週'
+                   else to_char(pro.learn_seasn_start_dy,'MM/dd-') end  as pre_week_disply
+            ,COALESCE(to_char(next.learn_seasn_start_dy,'yyyyMMdd'),'') as next_week
+            ,case when CURRENT_DATE between next.learn_seasn_start_dy and next.learn_seasn_end_dy
+                   then '今週'
+                   else to_char(next.learn_seasn_start_dy,'MM/dd-') end  as next_week_disply
+        FROM mst_stu A
+--         管理者表示の追加 2020/11/25 modify yang start--
+        <!--INNER JOIN mentor_stu B ON A.stu_id = B.stu_id-->
+            <!--AND b.mentor_id = #{mentorId}-->
+            <!--AND B.del_flg = '0'-->
+--         管理者表示の追加 2020/11/25 modify yang end--
+--         INNER JOIN mst_crmsch_learn_prd C ON C.org_id = B.crmsch_id
+--             AND C.schy_div = A.schy_div
+--             AND C.use_flg  = '1'
+--             AND C.del_flg  = '0'
+        INNER JOIN mst_learn_seasn D ON D.crm_learn_prd_id = #{crmLearnPrdId}
+            AND D.del_flg = '0'
+            AND D.learn_seasn_start_dy <![CDATA[<=]]> #{tgtYmd}
+            AND D.learn_seasn_end_dy   <![CDATA[>=]]> #{tgtYmd}
+        LEFT JOIN mst_learn_seasn pro ON pro.plan_learn_seasn = d.plan_learn_seasn - 1
+        AND pro.crm_learn_prd_id=D.crm_learn_prd_id
+            AND pro.del_flg = '0'
+        LEFT JOIN mst_learn_seasn next ON next.plan_learn_seasn = d.plan_learn_seasn + 1
+        AND next.crm_learn_prd_id=D.crm_learn_prd_id
+            AND next.del_flg = '0'
+        WHERE
+            A.stu_id = #{stuId}
+        AND A.del_flg = '0'
+            limit 1
+    </select>
+
+    <!-- ユーザー基本情報取得処理 -->
+    <select id="selectStudentInfo" resultType="java.util.Map">
+        SELECT
+            B.after_usr_id AS stu_id
+            ,(A.flnm_nm || ' ' || A.flnm_lnm) AS stu_nm
+            ,D.COD_VALUE AS schy
+        FROM
+            mst_stu A
+        LEFT JOIN mst_usr B ON A.stu_id = B.usr_id and B.del_flg = '0'
+        LEFT JOIN (
+            SELECT
+                C.COD_CD,
+                C.COD_VALUE
+            FROM
+                MST_COD_H B
+            INNER JOIN mst_cod_d C ON B.COD_KEY = C.COD_KEY
+                AND B.COD_KEY = 'SCHY_DIV'
+        ) D ON A.SCHY_DIV = D.COD_CD
+        WHERE
+            A.STU_ID = #{stuId}
+            AND A.DEL_FLG = '0'
+    </select>
+
+    <!-- 印刷用計画済みブロック情報取得処理 -->
+    <select id="selectPrintPlannedBlock" resultType="jp.learningpark.modules.student.dto.F1030105Dto">
+        SELECT
+             A.plan_ymd
+            ,to_char(A.plan_learn_start_time, 'hh24:mi') AS start_time
+            ,to_char(A.plan_learn_start_time + (A.stu_plan_learn_tm || ' min')::interval, 'hh24:mi') AS end_time
+            --障害票no21
+            ,A.plan_learn_start_time as check_start_time
+            ,A.plan_learn_start_time + (A.stu_plan_learn_tm || ' min')::interval as check_end_time
+            ,A.subjt_nm
+            ,A.stu_plan_learn_tm
+            ,B.chapt_nm
+            ,B.unit_nm
+            ,D.textb_page
+            ,A.block_dispy_nm
+            ,A.BLOCK_TYPE_DIV
+        FROM
+            STU_WEEKLY_PLAN_PERF A
+        LEFT JOIN mst_unit B ON B.id = A.unit_id AND B.del_flg = '0'
+        LEFT JOIN stu_term_plan C ON A.stu_term_plan_id = C.id AND C.del_flg = '0'
+        LEFT JOIN textb_def_time_info D ON C.textb_def_unit_id = D.id AND D.del_flg = '0'
+        WHERE
+            A.stu_id = #{stuId}
+            AND A.PLAN_YMD between #{startYmd} and #{endYmd}
+            AND A.BLOCK_TYPE_DIV in ('R1', 'S1', 'P1', 'W1', 'V1')
+            AND A.DEL_FLG = '0'
+        ORDER BY
+            A.plan_ymd
+           ,A.plan_learn_start_time
+           ,A.stu_plan_learn_tm DESC
+    </select>
+</mapper>

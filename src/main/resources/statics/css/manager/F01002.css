@@ -1,0 +1,133 @@
+.all{
+	width: 100%;
+	height: auto;
+}
+.topTitle{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	color: #2e2e2e;
+	text-align: center;
+}
+.content{
+	width: 100%;
+	height: auto;
+	padding: 0 5% 0 5%;
+	overflow-x: hidden;
+}
+.content div{
+	width: 100%;
+	height: 30px;
+	margin-top: 14px;
+}
+.content p{
+	width: 30%;
+	float: left;
+	height: 100%;
+	line-height: 30px;
+	font-size: 14px;
+	color: #666;
+}
+.content p.longP{
+	width: 100%;
+}
+.content span{
+	line-height: 30px;
+	color: #cf2d28;
+	font-size: 14px;
+	float: left;
+}
+.content input[type="text"]{
+	width: 60%;
+	height: 100%;
+	line-height: 28px;
+	font-size: 14px;
+	float: left;
+	border: 1px solid #999;
+	padding: 0 4px;
+	color: #666;
+}
+.content input[type="text"]:disabled{
+	background: none;
+}
+.content input[type="text"].noData{
+	border: 0;
+}
+.content input[type="text"].getData{
+	color: #2e2e2e;
+}
+.content input[type="checkbox"]{
+	-webkit-appearance: none;
+	border: 1px solid grey;
+	width: 15px;
+	height: 15px;
+	background: white;
+}
+.content select{
+	width: 60%;
+	float: left;
+	height: 100%;
+	font-size: 14px;
+	color: #2e2e2e;
+	padding: 0 16px 0 4px;
+	background: url(../../img/select_ico.png) no-repeat right center/14px;
+	background-color: white;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.content h1{
+	width: 20px;
+	height: 20px;
+	position: relative;
+	left: 6px;
+	top: 0;
+	float: left;
+}
+.content h1 img{
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	z-index: 9;
+}
+.content h1 button{
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	z-index: 99;
+	opacity: 0;
+}
+.theme_btn{
+	width: 100%;
+	padding: 0 5%;
+	margin-top: 14px;
+	height: 40px;
+}
+.theme_btn button{
+	width: 47%;
+	height: 100%;
+	border-radius: 4px;
+	margin-left: 3%;
+	background: #00a65a;
+	color: white;
+	border: 0;
+	border-bottom: 3px grey solid;
+}
+.theme_btn button.left{
+	margin-left: 0;
+}
+.content input[type="checkbox"]:checked::after{
+	content: '✔';
+	font-size: 13px;
+	vertical-align: middle;
+	color: black;
+	position: relative;
+	/* top: -0.1vw; */
+	left: 0.14vw;
+	bottom: 1.0vh;
+}

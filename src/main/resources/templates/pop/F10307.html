@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>学習単元実績登録画面(POP)</title>
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F10307.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+</head>
+<body>
+<div class="theme_selec" id="info" v-cloak>
+    <div class="theme_btn">
+        <button disabled>
+            学習記録の入力
+        </button>
+    </div>
+    <h2>
+        <div id="subjtNmDiv" v-if="flag == 1">
+            <!--2020/11/24 V9.0 cuikailin modify start-->
+            <div v-if="wpp.blockTypeDiv=='R1' ||wpp.blockTypeDiv=='P1' || wpp.blockTypeDiv == 'W1' || wpp.blockTypeDiv == 'V1' || wpp.blockTypeDiv == 'NP' ||(wpp.blockTypeDiv == 'S1' && wpp.stuTermPlanId == null) ">
+                <span id="smallBlockRPWV" style="font-size: 4.2vw;">{{wpp.blockDispyNm}}<select :disabled="wpp.blockTypeDiv !== 'S1'" v-model="wpp.subjtDiv" id="subject_select"><option v-for="item in subjtList" :value="item.codCd">{{item.codValue}}</option></select></span>
+            </div>
+            <div v-else>
+                <span style="font-size: 4.2vw;" v-text="wpp.blockDispyNm"></span>
+            </div>
+        </div>
+        <!--|| wpp.blockTypeDiv == 'W1' || wpp.blockTypeDiv == 'V1'-->
+        <span v-if="flag == 1 && wpp.blockTypeDiv == 'S1' && wpp.stuTermPlanId" id="smallBlockS" v-text="texDff.unitDispyNm +' 教科書P.'+texDff.textbPage"></span>
+         <!--2020/11/24 V9.0 cuikailin modify end -->
+        <span v-if="flag == 1">計画日</span><span v-if="flag == 1" v-html="weekday +' '+'&nbsp; '+'   ' + planLearnStartTime +' '+'&nbsp;～  '+'   '+ planLearnEndTime"></span>
+    </h2>
+    <div @click="showBlock" class="showteach showtF" v-if="flag == 0">
+        <p>カテゴリ</p>
+        <div id="block"><p style="width: 100%;text-align: right">選択してください</p></div>
+    </div>
+    <div class="check_block disNone">
+        <select id="dom_block" name="select" >
+            <option :value="block.codCd" v-for="block in blockList">
+                {{block.codValue}}
+            </option>
+        </select>
+    </div>
+    <div id="showSubjt" @click="showSubjt" class="showteach showtF" v-if="flag == 0">
+        <p>教科/科目</p>
+        <div id="subjt"><p style="width: 100%;text-align: right">選択してください</p></div>
+    </div>
+    <div class="check_sub disNone">
+        <select id="dom_sub" name="select1" >
+            <option :value="sub.codCd" v-for="sub in eduList">
+                {{sub.codValue}}
+            </option>
+        </select>
+    </div>
+
+    <div class="mainDiv">
+        <span id="perf_time">実行日</span>
+        <div type="text" id="startInput"></div>
+        <select id="time_picker" name="time_picker"></select>
+        <div class="mainDivP">～</div>
+        <select id="end_time" name="end_time"></select>
+    </div>
+
+    <div class="content_them">
+        <ul class="time_st_con" style="display:block;">
+            <li v-for="li in list" :desc="li.codCd" :acceptColor="li.codValue2"
+                :class="learnLevUnds==li.codCd ? 'active' : ''" :style="getStyle(vm.learnLevUnds,li)">
+                {{li.codValue}}
+            </li>
+        </ul>
+    </div>
+
+    <div id="memo" style="width: 100%;" v-if="flag ==0 ">
+        <span class="planTittle">メモ</span>
+        <textarea id="memoText" class="memo" v-model="memoText"></textarea>
+    </div>
+    <div class="bottom_btn" id="planDiv" v-if="flag == 0 || wpp.perfYmd != undefined || wpp.perfYmd == null ">
+        <button @click="cancelFn" class="theme_btn_left">
+            キャンセル
+        </button>
+        <button @click="submitFn">
+            登録
+        </button>
+    </div>
+    <!-- 2020/11/12 V9.0 cuikailin add start -->
+    <div class="bottom_btn" id="perfDiv" v-if="flag == 1 && wpp.perfYmd != undefined && wpp.perfYmd != null">
+        <button @click="cancelFn" class="left_btn">
+            キャンセル
+        </button>
+        <button @click="submitFn" class="mid_btn">
+            登録
+        </button>
+        <button @click="delFn" class="right_btn">
+            実行を削除
+        </button>
+    <!-- 2020/11/12 V9.0 cuikailin add end -->
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F10307.js">
+</script>
+</html>

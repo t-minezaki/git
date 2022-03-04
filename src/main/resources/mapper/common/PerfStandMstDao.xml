@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.PerfStandMstDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.PerfStandMstEntity" id="perfStandMstMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="usrId" column="usr_id"/>
+        <result property="perfStandDay1" column="perf_stand_day1"/>
+        <result property="perfStandDay2" column="perf_stand_day2"/>
+        <result property="perfStandDay3" column="perf_stand_day3"/>
+        <result property="perfStandWeek1" column="perf_stand_week1"/>
+        <result property="perfStandWeek2" column="perf_stand_week2"/>
+        <result property="perfStandWeek3" column="perf_stand_week3"/>
+        <result property="perfStandMonth1" column="perf_stand_month1"/>
+        <result property="perfStandMonth2" column="perf_stand_month2"/>
+        <result property="perfStandMonth3" column="perf_stand_month3"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

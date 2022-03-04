@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <#include "/header.html" />
+    <meta http-equiv="content-type" content="text/html; charset= UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F08015.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/select2/js/select2.js"></script>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/select2/css/select2.css" type="text/css">
+</head>
+<body>
+
+<div class="main"style="background: white" v-cloak>
+    <div id="eventDiv">
+        <div id="close" ><button @click="close()" style="right: 0px; position: absolute;border: 0; background: white;">×</button></div>
+        <span id="colorBlock" v-if="pageDiv!='1'"></span>
+        <select id="eventList" onchange="eventChange()">
+            <option></option>
+            <option v-for="event in  eventList" :value="event.Id">{{event.eventTitle}}</option>
+        </select>
+        <div class="line" ></div>
+    </div>
+    <div class="div_textone">
+        <img src="../img/time_pop.png" class="div_png">
+        <input type="text" id="date" name="date" readonly>
+        <input type="text" id="startTime" name="startTime" readonly>
+        <p>—</p>
+        <input type="text" id="endTime" name="endTime" readonly>
+    </div>
+    <div class="div_texttwo">
+        <img src="../img/contact_pop.png" class="div_png">
+        <select id="stuList" >
+            <option></option>
+            <option v-for="stu in stuList" :value = "stu.stuId" >{{stu.stuName}}</option>
+        </select>
+    </div>
+    <div class="div_textthree">
+        <img src="../img/place_pop.png" class="div_png">
+        <select id="mentorList">
+            <option></option>
+            <option v-for="mentor in  mentorList" :value="mentor.refId">{{mentor.displayNm}}</option>
+        </select>
+    </div>
+    <div class="div_sava">
+        <button id="cancle" @click="close()" name="save" v-if="pageDiv == '3'" >キャンセル</button>
+        <button id="logBtn" onclick="log(2)" name="save" v-if="pageDiv == '1' || showFlg == '0' || pageDiv == '3'">代理登録</button>
+        <button id="KomaNoBtn" onclick="unit(1)" name="save" v-if="pageDiv == '2'" v-show="showFlg == '0'||showFlg == '4'">コマ非表示</button>
+        <button id="KomaBtn" name="save" onclick="unit(0)" v-if="pageDiv == '2'" v-show="showFlg == '1'||showFlg == '4'">コマ表示</button>
+    </div>
+    <div class="div_sava">
+    </div>
+</div>
+
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F08015.js"></script>
+</html>

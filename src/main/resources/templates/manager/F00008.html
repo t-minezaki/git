@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<#include "/header.html" />
+    <title>パスワード初期化画面</title>
+	<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00008.css" />
+</head>
+<body>
+<div class="content">
+	<div id="message" class="topMessage"></div>
+	<div class="popTitle">パスワード初期化</div>
+	 <div class="topSessionTitle">
+		 <div >組織ID:</div>
+		 <div id="orgId" ></div>
+		 <div >組織名:</div>
+		 <div id="orgNm" ></div>
+	 </div>
+	 <div class="main">
+		 <div class="one">
+			 <div>ログインID</div>
+			 <input type="text" value="" maxlength="32" name="inputId" class="userId">
+			 <button onclick="passWordInit()">パスワード初期化</button>
+			 <!--<div class="lockCheck">-->
+				 <!--<div class="lockText">ロック解除</div>-->
+				 <!--<div class="lock">-->
+					 <!--<input type="checkbox" name="lockCheck">-->
+				 <!--</div>-->
+			 <!--</div>-->
+		 </div>
+		 <div class="one">
+			 <div>パスワード</div>
+			 <p id="newPwd"></p>
+		 </div>
+	 </div>
+ </div>
+</body>
+<script src="${request.contextPath}/js/manager/F00008.js" type="text/javascript" charset="utf-8"></script>
+</html>

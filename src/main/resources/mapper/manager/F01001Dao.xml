@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F01001Dao">
+    <select id="getUpplevInfomation" resultType="jp.learningpark.modules.manager.dto.F01001Dto">
+        WITH RECURSIVE cte AS (
+        SELECT
+        *
+        FROM
+        mst_org om
+        WHERE
+        om.org_id = #{orgId}
+        AND om.del_flg = 0 UNION ALL
+        SELECT
+        d.*
+        FROM
+        cte
+        C INNER JOIN mst_org d ON C.upplev_org_id = d.org_id
+        AND d.del_flg = 0
+        ) SELECT DISTINCT A
+        .ID,
+        A.org_nm,
+        A.plan_prd_start_dy,
+        A.plan_prd_end_dy,
+        A.LEVEL,
+        A.use_flg,
+        A.prd_nm,
+        A.org_id,
+        A.flg,
+        b.sort,
+        B.cod_value,
+        A.orgIdPk
+        FROM
+        (
+        SELECT
+        crm.ID,
+        CAST ( crm.schy_div AS INTEGER ),
+        crm.plan_prd_start_dy,
+        crm.plan_prd_end_dy,
+        crm.prd_nm,
+        crm.use_flg,
+        org.org_id,
+        org.org_nm,
+        org.LEVEL,
+        org.id as orgIdPk,
+        CASE
+
+        WHEN crm.org_id = #{orgId} THEN
+        '1' ELSE'0'
+        END AS flg
+        FROM
+        cte s,
+        mst_crmsch_learn_prd crm,
+        mst_org org
+        WHERE
+        s.org_id = org.org_id
+        AND crm.del_flg = 0
+        AND crm.org_id = org.org_id
+        AND org.brand_cd = #{brandCd}
+        )
+        A LEFT JOIN mst_cod_d B ON A.schy_div = CAST ( B.cod_cd AS INTEGER )
+        AND B.cod_key = 'SCHY_DIV'
+        LEFT JOIN mst_cod_d C ON A.use_flg = C.cod_cd
+        AND C.cod_key = 'USE_FLG'
+        ORDER BY
+        A.use_flg DESC,
+        B.sort ASC
+        <if test="pageSize != null">
+            Limit #{limit} offset #{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotalCount"  resultType="Integer">
+        WITH recursive cte AS (
+          SELECT *
+          FROM mst_org om
+          WHERE om.org_id = #{orgId}
+            AND om.del_flg = 0
+          UNION ALL
+          SELECT d.*
+          FROM cte c
+          INNER JOIN mst_org d ON c.upplev_org_id = d.org_id
+            AND d.del_flg = 0
+        )
+        SELECT DISTINCT
+        count(*)
+        FROM
+        (
+          SELECT
+            crm.ID,
+            crm.schy_div,
+            crm.plan_prd_start_dy,
+            crm.plan_prd_end_dy,
+            crm.prd_nm,
+            crm.use_flg,
+            org.org_id,
+            org.org_nm,
+            org.LEVEL,
+            CASE WHEN crm.org_id = #{orgId} THEN '1' ELSE '0' end as flg
+          FROM cte s,
+            mst_crmsch_learn_prd crm,
+            mst_org org
+          WHERE s.org_id     = org.org_id
+            AND crm.del_flg  = 0
+            AND crm.org_id   = org.org_id
+            AND org.brand_cd = #{brandCd}
+        ) A
+        LEFT JOIN mst_cod_d B ON A.schy_div = B.cod_cd AND B.cod_key = 'SCHY_DIV'
+        LEFT JOIN mst_cod_d C ON A.use_flg  = C.cod_cd AND C.cod_key = 'USE_FLG'
+    </select>
+</mapper>

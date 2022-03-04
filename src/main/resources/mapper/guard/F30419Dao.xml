@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30419Dao">
+    <!--  チャンネルを取得し、画面で表示される。  -->
+    <select id="selectNews" resultType="jp.learningpark.modules.guard.dto.F30419Dto">
+        SELECT
+            a.org_id,
+            b.id,
+            b.notice_title AS noticeTitle,
+            b.pub_plan_start_dt AS startTime,
+            b.notice_cont AS noticeContent,
+            b.title_img_path AS noticeImgPath,
+            b.notice_level_div AS noticeLevDiv,
+            c.reading_sts_div AS readStsDiv
+        FROM
+        (SELECT * FROM mst_notice_deliver WHERE org_id = #{orgId} AND stu_id = #{stuId} AND del_flg = 0) a
+        INNER JOIN
+            mst_notice b
+        ON
+            to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+        AND
+            to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+        AND
+            b.notice_type_div = '6'
+        AND
+            a.notice_id = b.id
+        --NWT　楊　2021/07/14　MANAMIRU1-690　Edit Start
+        AND
+            b.del_flg = 0
+        --NWT　楊　2021/07/14　MANAMIRU1-690　Edit End
+        INNER JOIN
+            guard_reading_sts c
+        ON
+            c.guard_id = #{guardId}
+        AND
+            c.stu_id = #{stuId}
+        AND
+            a.guard_id = c.guard_id
+        AND
+            c.notice_id = b.id
+        AND
+            c.del_flg = 0
+        GROUP BY
+            a.org_id,
+            b.id,
+            b.notice_title,
+            b.pub_plan_start_dt,
+            b.notice_cont,
+            b.title_img_path,
+            b.notice_level_div,
+            c.reading_sts_div
+        ORDER BY
+            c.reading_sts_div,
+            pub_plan_start_dt desc
+        <if test="limit != null">
+            offset #{offset} limit #{limit}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT
+                count(*)
+        FROM
+                (SELECT * FROM mst_notice_deliver WHERE org_id = #{orgId} AND stu_id = #{stuId} AND del_flg = 0) a
+                        INNER JOIN
+                        mst_notice b
+                                ON
+                                        to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+                                                AND
+                                        to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+                                                AND
+                                        b.notice_type_div = '6'
+                                                AND
+                                        a.notice_id = b.id
+                        INNER JOIN
+                        guard_reading_sts c
+                                ON
+                                        c.guard_id = #{guardId}
+                                                AND
+                                        c.stu_id = #{stuId}
+                                                AND
+                                        a.guard_id = c.guard_id
+                                                AND
+                                        c.notice_id = b.id
+                                                AND
+                                        c.del_flg = 0
+    </select>
+
+    <!--  チャンネルの総数を取得し、画面で表示される。  -->
+    <select id="selectNewsCount" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            (SELECT * FROM mst_notice_deliver WHERE org_id = #{orgId} AND stu_id = #{stuId} AND del_flg = 0) A
+        INNER JOIN
+            mst_notice b
+        ON
+            to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+        AND
+            to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+        AND
+            b.notice_type_div = '6'
+        AND
+            a.notice_id = b.id
+        INNER JOIN
+            guard_reading_sts c
+        ON
+            c.guard_id = #{guardId}
+        AND
+            c.stu_id = #{stuId}
+        AND
+            a.guard_id = c.guard_id
+        AND
+            c.notice_id = b.id
+        AND
+            c.del_flg = 0
+    </select>
+    <!--  未読チャンネルの総数を取得し、画面で表示される。  -->
+    <select id="selectUnreadCount" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            (SELECT * FROM mst_notice_deliver WHERE org_id = #{orgId} AND stu_id= #{stuId} AND del_flg = 0) A
+        INNER JOIN
+            mst_notice b
+        ON
+            to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+        AND
+            to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+        AND
+            b.notice_type_div = '6'
+        AND
+            a.notice_id = b.id
+        INNER JOIN
+            guard_reading_sts c
+        ON
+            c.guard_id = #{guardId}
+        AND
+            a.guard_id = c.guard_id
+        AND
+            c.stu_id = #{stuId}
+        AND
+            c.notice_id = b.id
+        AND
+            c.del_flg = 0
+        AND
+            c.reading_sts_div = '0'
+    </select>
+</mapper>

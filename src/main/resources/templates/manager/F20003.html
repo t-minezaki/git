@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title id="F20003">タームプラン作成</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F20003.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <!--<script src="${request.contextPath}/js/common/layer/layer.js" type="text/javascript" charset="utf-8"></script>-->
+</head>
+<body>
+<div id="app" v-cloak>
+    <iframe src="${request.contextPath}/common/F40003.html?id=F20003&type=1" width="100%" id="iframe"
+            style="padding:0;border:none;margin-top:1vw;scrolling : no; height:calc(2.7vw + 2px)"></iframe>
+    <div class="content">
+        <div id="message" class="topMessage"></div>
+        <ul class="title_tab_one">
+            <li class="fthree_tab tab_one_active" id="subject_thre" name="subject_thre" @click="migrateToFirst">
+                教科別のタームプランを設定
+            </li>
+            <li class="fthree_tab" id="time_thre" name="time_thre" @click="migrate">週別の学習時間を確認</li>
+        </ul>
+        <div class="subject_thre" id="tab_twothr">
+            <ul class="title_tab_two">
+                <li v-for="(item,index) in textchocList" :id="index==0?'crrentLi':''" :textbId="item.textbId"
+                    :subjtNm="item.subjtDivNm" :acceptColor="item.codValue2" :acceptPath1="item.codCont"
+                    :acceptPath2="item.codValue3" :desc="item.subjtDiv" :style="liGetStyle(index,item.codValue2)"
+                    :class="index==0?'active': ''">
+                    <img :src=" index==0? item.codValue3:item.codCont" alt="">
+                    <p :style="'color:'+item.codValue2" v-text="item.subjtDivNm"></p>
+                </li>
+            </ul>
+            <div id="tab-1">
+                <div class="info_subj">
+                    <div class="info_subj_div disNone">
+                        <ul id="treelist">
+                            <li>4/1~</li>
+                            <li>4/8~</li>
+                            <li>4/16~</li>
+                        </ul>
+                    </div>
+                    <ul class="fthree_info ">
+                        <li class="one">
+                            <div v-text="stuInfo.stuNm"></div>
+                        </li>
+                        <li><p></p>
+                            <div v-text="stuInfo.schy"></div>
+                        </li>
+                        <li><p></p>
+                            <div v-text="stuInfo.schNm"></div>
+                        </li>
+                        <li><p></p>
+                            <div v-text="stuInfo.orgNm"></div>
+                        </li>
+                    </ul>
+                    <div class="login_info_btn" @click="submitFn">登録</div>
+                    <ul class="ratio">
+                        <li class="one">
+                            <img src="../img/ratio1.png" desc="1" alt="" @click="allAddOne(listSize)"/>
+                            <p>+1</p>
+                        </li>
+                        <li class="two active">
+                            <img src="../img/ratio2active.png" desc="2" class="checkCurrent" alt="" @click="backBegin"/>
+                            <p>-</p>
+                        </li>
+                        <li class="there">
+                            <img src="../img/ratio3.png" desc="3" alt="" @click="allLessOne(listSize)"/>
+                            <p>-1</p>
+                        </li>
+                        <li>
+                            <img src="../img/ratio4.png" desc="4" alt="" @click="allLessTwo(listSize)"/>
+                            <p>-2</p>
+                        </li>
+                    </ul>
+                </div>
+                <table id="textbTimeInfo" class="study-time showBg" cellspacing="0">
+                    <tr>
+                        <th rowspan="2" width="14%">
+                            章名
+                        </th>
+                        <th rowspan="2" width="6%">
+                            单元NO
+                        </th>
+                        <th rowspan="2" width="18%">
+                            節名
+                        </th>
+                        <th rowspan="2" width="18%">
+                            項目名
+                        </th>
+                        <th rowspan="2" width="5%">
+                            ページ
+                        </th>
+                        <th rowspan="2" width="8%">
+                            時期
+                        </th>
+                        <th colspan="8">
+                            目標学習時間(分)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="thBlock">
+                            15
+                        </th>
+                        <th class="thBlock">
+                            30
+                        </th>
+                        <th class="thBlock">
+                            45
+                        </th>
+                        <th class="thBlock">
+                            60
+                        </th>
+                        <th class="thBlock">
+                            75
+                        </th>
+                        <th class="thBlock">
+                            90
+                        </th>
+                        <th class="thBlock">
+                            105
+                        </th>
+                        <th class="thBlock">
+                            120
+                        </th>
+                    </tr>
+                    <tbody class="mytbody">
+                    <tr class="termTr" v-for="(term,index) in termPlanList" :data-json="JSON.stringify(term)">
+                        <td>
+                            <span v-text="term.chaptNm" :title="term.chaptNm"></span>
+                        </td>
+                        <td :style="term.blueFlg ? 'background:dodgerblue;text-align: center;' : 'text-align: center;'">
+                            <span v-text="term.sectnNo!=null&&term.unitNo!=null?term.sectnNo +'-'+ term.unitNo:term.sectnNo==null&&term.unitNo!=null?'-'+term.unitNo:term.sectnNo!=null&&term.unitNo==null?term.sectnNo+'-':'-'"></span>
+                        </td>
+                        <td :style="term.blueFlg ? 'background:dodgerblue' : ''">
+                            <span v-text="term.sectnNm" :title="term.sectnNm"></span>
+                        </td>
+                        <td :style="term.blueFlg ? 'background:dodgerblue' : ''">
+                            <span v-text="term.unitNm" :title="term.unitNm"></span>
+                        </td>
+                        <td :style="term.blueFlg ? 'background:dodgerblue;text-align: left;' : 'text-align: left;'">
+                            <span v-text="term.textbPage"></span>
+                        </td>
+                        <td class="tbpop">
+                            <select class="mySelect" v-if="term.selectFlg" :name="term.unitId"
+                                    :id="''+term.unitId+term.planLearnSeasnId+term.textbDefUnitId"
+                                    style="height: 100%;margin: 0;border: 0!important;padding-right: 2vw;">
+                                <OPTION value="" desc="">対象外</OPTION>
+                                <option v-for="(le,idx) in learnSeasnList" :desc="JSON.stringify(le)" :value="idx"
+                                        :selected="term.planLearnSeasnId == le.id ? 'selected' : ''"
+                                        v-text="le.learnSeasnStartDyDisply" style="font-size: 14px"></option>
+                            </select>
+                            <select class="mySelect" v-else disabled :name="term.unitId"
+                                    :id="''+term.unitId+term.planLearnSeasnId+term.textbDefUnitId"
+                                    style="height: 100%;margin: 0;border: 0!important;padding-right: 1.8vw;">
+                                <option v-for="(le,idx) in learnSeasnList" :desc="JSON.stringify(le)" :value="idx"
+                                        :selected="term.planLearnSeasnId == le.id ? 'selected' : ''"
+                                        v-text="le.learnSeasnStartDyDisply" style="font-size: 14px"></option>
+                            </select>
+                        </td>
+                        <td v-for="s in term.f20003BnumLearnLevDtoList" :id="s.id" :class="getClass(s.isEmpty)"
+                            :style="getStyle(s.isEmpty,s.planRegFlg,s.learnLevUnds)"
+                            onclick="changeColorClick(this);"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="pageF20004" class="time_thre disNone">
+            <div class="people-name">
+                <ul class="fthree_info fthree_info_two">
+                    <li class="one">
+                        <div v-text="stuInfo.stuNm"></div>
+                    </li>
+                    <li><p></p>
+                        <div v-text="stuInfo.schy"></div>
+                    </li>
+                    <li><p></p>
+                        <div v-text="stuInfo.schNm"></div>
+                    </li>
+                    <li><p></p>
+                        <div v-text="stuInfo.orgNm"></div>
+                    </li>
+                </ul>
+            </div>
+            <table class="study-time-end" id="study-time" cellspacing="0">
+                <tr>
+                    <th>
+                        <div>週</div>
+                    </th>
+                    <th>
+                        <div>時間</div>
+                    </th>
+                    <th>
+                        <div>週</div>
+                    </th>
+                    <th>
+                        <div>時間</div>
+                    </th>
+                    <th>
+                        <div>週</div>
+                    </th>
+                    <th>
+                        <div>時間</div>
+                    </th>
+                    <th>
+                        <div>週</div>
+                    </th>
+                    <th>
+                        <div>時間</div>
+                    </th>
+                </tr>
+                <tr v-for="i in 14">
+                    <td>
+                        <div><p v-if="dtoMap[i] != null" v-text="dtoMap[i].learnSeasnStartDyDisplay"></p></div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i] != null && dtoMap[i].planLearnTmSum != null"
+                                v-text="dtoMap[i].planLearnTmSum+'分'"></p></div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i + 14] != null" v-text="dtoMap[i + 14].learnSeasnStartDyDisplay"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i + 14] != null && dtoMap[i + 14].planLearnTmSum != null"
+                                v-text="dtoMap[i + 14].planLearnTmSum+'分'"></p></div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i + 14*2] != null" v-text="dtoMap[i + 14*2].learnSeasnStartDyDisplay"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i + 14*2] != null && dtoMap[i + 14*2].planLearnTmSum != null"
+                                v-text="dtoMap[i + 14*2].planLearnTmSum+'分'"></p></div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i + 14*3] != null" v-text="dtoMap[i + 14*3].learnSeasnStartDyDisplay"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div><p v-if="dtoMap[i + 14*3] != null && dtoMap[i + 14*3].planLearnTmSum != null"
+                                v-text="dtoMap[i + 14*3].planLearnTmSum+'分'"></p></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="${request.contextPath}/js/manager/F20003.js"></script>
+<script>
+
+</script>
+</html>

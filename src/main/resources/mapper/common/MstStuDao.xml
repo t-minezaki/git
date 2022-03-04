@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstStuDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstStuEntity" id="mstStuMap">
+        <result property="id" column="id"/>
+        <result property="stuId" column="stu_id"/>
+        <result property="sch" column="sch"/>
+        <result property="guardId" column="guard_id"/>
+        <result property="flnmNm" column="flnm_nm"/>
+        <result property="flnmLnm" column="flnm_lnm"/>
+        <result property="flnmKnNm" column="flnm_kn_nm"/>
+        <result property="flnmKnLnm" column="flnm_kn_lnm"/>
+        <result property="gendrDiv" column="gendr_div"/>
+        <result property="birthd" column="birthd"/>
+        <result property="photPath" column="phot_path"/>
+        <result property="schyDiv" column="schy_div"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+        <result property="qrCod" column="qr_cod"/>
+        <result property="oriaCd" column="oria_cd"/>
+        <result property="guard1Id" column="guard1_id"/>
+        <result property="guard2Id" column="guard2_id"/>
+        <result property="guard3Id" column="guard3_id"/>
+        <result property="guard4Id" column="guard4_id"/>
+        <result property="englishNm" column="english_nm"/>
+        <result property="dayweekDiv" column="dayweek_div"/>
+        <result property="memoCont" column="memo_cont"/>
+        <result property="resptyNm" column="respty_nm"/>
+        <result property="studyCont" column="study_cont"/>
+        <result property="goodSubjtDiv" column="good_subjt_div"/>
+        <result property="nogoodSubjtDiv" column="nogood_subjt_div"/>
+        <result property="hopeJobNm" column="hope_job_nm"/>
+        <result property="hopeUnityNm" column="hope_unity_nm"/>
+        <result property="hopeLearnSub" column="hope_learn_sub"/>
+        <result property="specCont" column="spec_cont"/>
+        <result property="memberCd" column="member_cd"/>
+        <result property="courseId" column="course_id"/>
+        <result property="admissionDate" column="admission_date"/>
+        <result property="careeresNum" column="careeres_num"/>
+    </resultMap>
+
+</mapper>

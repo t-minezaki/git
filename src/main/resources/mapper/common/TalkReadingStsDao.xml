@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.TalkReadingStsDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.TalkReadingStsEntity" id="talkReadingStsMap">
+        <result property="id" column="id"/>
+        <result property="orgId" column="org_id"/>
+        <result property="messageId" column="message_id"/>
+        <result property="deliverId" column="deliver_id"/>
+        <result property="readingStsDiv" column="reading_sts_div"/>
+        <result property="askDispFlg" column="ask_disp_flg"/>
+        <result property="talkDispFlg" column="talk_disp_flg"/>
+        <result property="openedFlg" column="opened_flg"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

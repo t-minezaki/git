@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10004Dao">
+    <select id="selectSubjtInfo" parameterType="string" resultType="jp.learningpark.modules.student.dto.F10004Dto">
+        select
+        A.cod_cd AS cod,
+        A.cod_value AS NAME,
+        A.cod_cont AS img_src,
+        MCB.color_id AS color,
+        MCB.ID AS id
+            FROM
+                (
+                    SELECT
+                        A.cod_cd,
+                        A.cod_value,
+                        A.cod_cont,
+                        array_to_string (
+                        ARRAY (
+                    SELECT
+                        b.cod_cd
+                    FROM
+                        mst_cod_d b
+                        INNER JOIN mst_stu ms ON b.cod_cd = ms.schy_div
+                        AND ms.stu_id = #{stuId}
+                        AND ms.del_flg = 0
+                    WHERE
+                        b.cod_key = 'SCHY_DIV'
+                        AND b.cod_cd = ANY ( regexp_split_to_array ( A.cod_value_5, ',' ) )
+                        AND b.del_flg = 0
+                ), ',' ) AS shy_div
+        FROM
+            mst_cod_d A
+        WHERE
+            A.cod_key = 'SUBJT_DIV'
+            AND A.del_flg = 0
+            ) A
+        INNER JOIN mst_cod_d C ON C.cod_key = 'SCHY_DIV' AND C.cod_cd = A.shy_div AND C.del_flg = 0
+        left join mst_color_block mcb on mcb.block_type_div = 'S1' and mcb.subjt_div = A.cod_cd and mcb.stu_id = #{stuId} and mcb.del_flg = 0
+        ORDER BY
+        case
+         WHEN A.cod_cd = 'k1' then 1
+         WHEN A.cod_cd = 'm1' or A.cod_cd = 'm2' then 2
+         WHEN A.cod_cd = 'r1' then 3
+         WHEN A.cod_cd = 's4' then 4
+         WHEN A.cod_cd = 'e1' then 5
+         WHEN A.cod_cd = 's5' then 6
+         WHEN A.cod_cd = 'r2' then 7
+         WHEN A.cod_cd = 'r3' then 8
+         WHEN A.cod_cd = 'r4' then 9
+         WHEN A.cod_cd = 'r5' then 10
+         WHEN A.cod_cd = 's1' then 11
+         WHEN A.cod_cd = 's2' then 12
+         WHEN A.cod_cd = 's3' then 13
+         WHEN A.cod_cd = 't1' then 14
+         WHEN A.cod_cd = 'o1' then 15
+         WHEN A.cod_cd = 'z1' then 16 end
+    </select>
+    <select id="selectFreeInfo" parameterType="string" resultType="jp.learningpark.modules.student.dto.F10004Dto">
+       SELECT
+           mb.block_dispy_nm AS blockDispyNm,
+           mb.block_pic_div AS blockPicDiv,
+           mcb.color_id AS color,
+           mcb.ID AS ID,
+           mb.id as blockId
+       FROM
+           mst_block AS mb
+       LEFT JOIN mst_color_block AS mcb
+           ON mcb.block_type_div = mb.block_type_div
+           AND mcb.stu_id = #{stuId}
+           AND ( mcb.block_type_div = 'R1' OR mcb.block_type_div = 'W1' OR mcb.block_type_div = 'V1' )
+           AND mcb.del_flg = 0
+       WHERE
+            mb.del_flg = 0
+            AND ( mb.block_type_div = 'R1' OR mb.block_type_div = 'W1' OR mb.block_type_div = 'V1' )
+       GROUP BY
+            mb.block_dispy_nm,
+            mb.block_pic_div,
+            mcb.color_id,
+            mcb.ID,
+            mb.id
+       ORDER BY blockDispyNm DESC
+    </select>
+    <select id="selectFixedInfo" parameterType="string" resultType="jp.learningpark.modules.student.dto.F10004Dto">
+        SELECT
+            mb.block_dispy_nm as blockDispyNm,
+            mb.block_pic_div as blockPicDiv,
+            mcb.color_id as color,
+            mcb.id as id,
+            mb.id as blockId
+        FROM
+            mst_block AS mb
+            LEFT JOIN mst_color_block AS mcb ON mcb.block_id = mb.id
+            and mcb.stu_id = #{stuId}
+            and mcb.block_type_div = 'C1'
+            and mcb.del_flg = 0
+        WHERE
+            mb.block_type_div = 'C1'
+            AND mb.del_flg = 0
+            GROUP BY
+            mb.block_dispy_nm,
+            mb.block_pic_div ,
+            mcb.color_id,
+            mcb.id,
+            mb.id
+    </select>
+    <select id="selectOtherInfo" parameterType="string" resultType="jp.learningpark.modules.student.dto.F10004Dto">
+        SELECT
+            mb.block_dispy_nm AS blockDispyNm,
+            mb.block_pic_div AS blockPicDiv,
+            mcb.color_id AS color,
+            mcb.id as id,
+            mb.id as blockId
+        FROM
+            mst_block AS mb
+            LEFT JOIN mst_color_block AS mcb ON mcb.block_id = mb.id
+            and mcb.stu_id = #{stuId}
+            and (mcb.block_type_div = 'O1' or mcb.block_type_div = 'O2' or mcb.block_type_div = 'O3')
+            and mcb.del_flg = 0
+        WHERE
+            mb.stu_id = #{stuId}
+            and (mb.block_type_div = 'O1' or mb.block_type_div = 'O2' or mb.block_type_div = 'O3')
+            AND mb.del_flg = 0
+        GROUP BY
+            mb.block_dispy_nm,
+            mb.block_pic_div,
+            mcb.color_id,
+            mcb.id,
+            mb.id
+    </select>
+</mapper>

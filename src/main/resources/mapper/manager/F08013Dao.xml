@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08013Dao">
+    <select id="selectUserCheckList" resultType="jp.learningpark.modules.manager.dto.F08013Dto">
+        select
+        me.org_id  as refId
+        , mo.org_nm as displayNm
+            , '0' as refType
+        from mst_event me
+        inner join mst_event_deliver med
+            on med.org_id = #{orgId}
+            and med.event_id = me.id
+            and med.del_flg = 0
+        inner join mst_org mo
+            on me.org_id = mo.org_id
+            <if test="inputNm != '' and inputNm != null">
+                and mo.org_nm LIKE concat('%',#{inputNm},'%')
+            </if>
+            and mo.del_flg = 0
+        where
+            me.org_id <![CDATA[ <> ]]> #{orgId}
+            and me.del_flg = 0
+            and me.ref_type <![CDATA[ <> ]]> '2'
+        UNION ALL
+        SELECT DISTINCT
+            me.org_id as refId
+            , mo.org_nm as displayNm
+            , '0' as refType
+        FROM
+            mst_event me
+        inner join mst_org mo
+            on me.org_id = mo.org_id
+            <if test="inputNm != '' and inputNm != null">
+                and mo.org_nm LIKE concat('%',#{inputNm},'%')
+            </if>
+            and mo.del_flg = 0
+        WHERE
+            me.org_id = #{orgId}
+            and me.del_flg = 0
+            and me.ref_type <![CDATA[ <> ]]> '2'
+        union all
+        SELECT
+            mu.usr_id as refId
+            , mm.flnm_nm || ' ' || mm.flnm_lnm as displayNm
+            , '1' as refType
+        FROM
+            mst_usr mu
+        INNER JOIN mst_mentor mm
+            on mm.mentor_id = mu.usr_id
+            <if test="inputNm != null and inputNm != ''">
+                AND mm.flnm_nm || ' ' || mm.flnm_lnm LIKE concat('%',#{inputNm},'%')
+            </if>
+            and mm.del_flg = 0
+        WHERE
+            mu.org_id = #{orgId}
+            and mu.del_flg = 0
+    </select>
+    <select id="selectScheduleInfo" resultType="jp.learningpark.modules.manager.dto.F08013GuardApplyDto">
+        SELECT
+            me.id,
+            es.ID as scheduleId,
+            es.sgd_start_datime,
+            es.sgd_end_datime,
+            es.ref_id
+        FROM
+            event_schedule es
+        INNER join mst_event_deliver med
+            on med.org_id = #{orgId}
+            and med.del_flg = 0
+        INNER JOIN mst_event me
+            on me.id = med.event_id
+            and me.id = es.event_id
+            and me.del_flg = 0
+        WHERE
+            es.sgd_plan_date BETWEEN #{ startDate } AND #{ endDate }
+            AND es.del_flg = 0
+    </select>
+    <select id="selectGuardInfo" resultType="jp.learningpark.modules.manager.dto.F08013GuardApplyDto">
+        SELECT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS displayNm
+        FROM
+            guard_event_apply_sts AS geas
+            INNER JOIN mst_stu AS ms ON ms.stu_id = geas.stu_id
+            AND ms.del_flg = 0
+        WHERE
+            geas.event_sche_del_id = #{eventScheDelId}
+            AND geas.reply_sts_div != '2'
+            AND geas.del_flg = 0
+    </select>
+    <select id="selectStudentInfo" resultType="jp.learningpark.modules.manager.dto.F08013GuardApplyDto">
+        SELECT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS displayNm
+        FROM
+            stu_event_apply_sts AS seas
+            INNER JOIN mst_stu AS ms ON ms.stu_id = seas.stu_id
+            AND ms.del_flg = 0
+        WHERE
+            seas.event_sche_del_id = #{eventScheDelId}
+            AND seas.reply_sts_div != '2'
+            AND seas.del_flg = 0
+    </select>
+    <select id="selectEventInfo" resultType="jp.learningpark.modules.common.entity.MstEventEntity">
+        select
+        me.id
+        , me.event_title
+        from mst_event_deliver med
+        inner join mst_event me
+        on med.event_id = me.id
+        <if test="eventTitle != null and eventTitle != ''">
+            and me.event_title like concat('%',#{eventTitle},'%')
+        </if>
+            and me.del_flg = 0
+        where
+            med.org_id = #{orgId}
+            and med.del_flg = 0
+            and me.ref_type <![CDATA[ <> ]]> '2'
+    </select>
+    <select id="selectEventScheDelInfo" resultType="jp.learningpark.modules.manager.dto.F08013GuardApplyDto">
+        SELECT distinct
+	        espd.*,
+	        espd.id as detailId,
+	        geas.flg as userFlag
+        FROM
+            event_sche_plan_del AS espd
+            inner join event_schedule as es on es.id = espd.event_sche_id and es.del_flg = 0 and es.org_id = #{orgId}
+            inner join
+            (SELECT
+				id,
+				event_id,
+				org_id,
+				reading_sts_div,
+				reply_sts_div,
+				again_send_dt,
+				del_flg,
+				't' as flg
+				FROM
+				guard_event_apply_sts
+				UNION All
+				SELECT
+				id,
+				event_id,
+				org_id,
+				reading_sts_div,
+				reply_sts_div,
+				again_send_dt,
+				del_flg,
+				'f' as flg
+				FROM
+				stu_event_apply_sts
+				)as geas on geas.event_id = es.event_id and geas.del_flg = 0
+            inner join mst_event as me on me.id = es.event_id and me.del_flg = 0
+        WHERE
+            espd.sgd_plan_date BETWEEN #{ startDate }
+            AND #{ endDate }
+            and espd.del_flg = 0
+            and me.ref_type <![CDATA[ <> ]]> '2'
+    </select>
+</mapper>

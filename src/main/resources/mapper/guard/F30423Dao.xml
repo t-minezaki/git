@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30423Dao">
+    <select id="selectInitData" resultType="jp.learningpark.modules.guard.dto.F30423Dto">
+        SELECT
+            mn.notice_title
+            ,scm.compliment_div
+            ,scm.compliment_cont
+            ,mcd.cod_value
+            ,mn.id
+        FROM stu_compliment_mst scm
+        inner join mst_notice mn
+            on mn.id = #{noticeId}
+            and cast( mn.notice_cont AS NUMERIC ) = scm.id
+            and mn.del_flg = 0
+        left join mst_cod_d mcd
+            on mcd.cod_key = 'PRAISE_STAMP_LIST'
+            and mcd.cod_cd = scm.compliment_div
+            and mcd.del_flg = 0
+        WHERE
+            scm.org_id = #{orgId}
+            and scm.stu_id = #{stuId}
+            and scm.del_flg = 0
+    </select>
+</mapper>

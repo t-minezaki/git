@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F21074Dao">
+    <select id="selectManagerAndMentorList" resultType="jp.learningpark.modules.pop.dto.F21074Dto">
+        SELECT DISTINCT
+            mu.usr_id AS userId,
+            mo.org_nm,
+            mu.after_usr_id AS afterUserId,
+            mm.user_name AS userName
+        FROM mst_usr mu
+        INNER JOIN
+            (
+                SELECT
+                    mgr_id AS user_id,
+                    flnm_nm||' '||flnm_lnm AS user_name
+                FROM mst_manager
+                WHERE del_flg = 0
+                UNION ALL
+                SELECT
+                    mentor_id AS user_id,
+                    flnm_nm||' '||flnm_lnm AS user_name
+                FROM mst_mentor
+                WHERE del_flg = 0
+            ) mm
+            ON mu.usr_id = mm.user_id
+        inner join mst_org mo
+            on mo.org_id = mu.org_id
+            and mo.del_flg = 0
+        WHERE
+            mu.usr_sts = '1'
+            <if test="searchName != null and searchName != ''">
+                AND mm.user_name LIKE '%'||#{searchName}||'%'
+            </if>
+            <if test="loginId != null and loginId != ''">
+                AND mu.after_usr_id LIKE '%'||#{loginId}||'%'
+            </if>
+            <if test="orgIdList != null and orgIdList.size > 0">
+                AND mu.org_id IN
+                <foreach collection="orgIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+            </if>
+            AND mu.del_flg = 0
+            AND left(mu.usr_id , 2) != 'QR'
+        ORDER BY
+            mm.user_name
+    </select>
+
+    <select id="selectUserCount" resultType="Integer">
+        select
+            count(A.userId)
+        from (
+            SELECT DISTINCT
+                mu.usr_id AS userId,
+                mo.org_nm,
+                mu.after_usr_id AS afterUserId,
+                mm.user_name AS userName
+            FROM mst_usr mu
+            INNER JOIN
+            (
+                SELECT
+                mgr_id AS user_id,
+                flnm_nm||' '||flnm_lnm AS user_name
+                FROM mst_manager
+                WHERE del_flg = 0
+                UNION ALL
+                SELECT
+                mentor_id AS user_id,
+                flnm_nm||' '||flnm_lnm AS user_name
+                FROM mst_mentor
+                WHERE del_flg = 0
+                ) mm
+                ON mu.usr_id = mm.user_id
+                inner join mst_org mo
+                on mo.org_id = mu.org_id
+                and mo.del_flg = 0
+            WHERE
+                mu.usr_sts = '1'
+                <if test="searchName != null and searchName != ''">
+                    AND mm.user_name LIKE '%'||#{searchName}||'%'
+                </if>
+                <if test="orgIdList != null and orgIdList.size > 0">
+                    AND mu.org_id IN
+                    <foreach collection="orgIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+                </if>
+                AND mu.del_flg = 0
+                AND left(mu.usr_id , 2) != 'QR'
+            ORDER BY
+                mm.user_name
+        ) A
+    </select>
+</mapper>

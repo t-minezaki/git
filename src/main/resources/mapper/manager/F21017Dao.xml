@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21017Dao">
+    <select id="orgDatas" resultType="jp.learningpark.modules.manager.dto.F21017Dto">
+        SELECT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            ms.schy_div,
+            ms.stu_id,
+            ms.birthd,
+            ms.phot_path
+        FROM
+            mst_usr AS mu
+            INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+            AND ms.del_flg = 0
+        WHERE
+            mu.org_id = #{orgId}
+            AND mu.usr_sts = '1'
+            AND mu.del_flg = 0
+            order by
+            schy_div,
+            stuName
+    </select>
+    <select id="mentorDatas" resultType="jp.learningpark.modules.manager.dto.F21017Dto">
+        SELECT
+            mstu.flnm_nm || ' ' || mstu.flnm_lnm AS stuName,
+            mstu.schy_div,
+            mstu.stu_id,
+            mstu.birthd,
+            mstu.phot_path
+        FROM
+            mentor_stu AS ms
+            INNER JOIN mst_stu AS mstu ON mstu.stu_id = ms.stu_id
+            AND mstu.del_flg = 0
+        WHERE
+            ms.mentor_id = #{mentorId}
+            AND ms.crmsch_id = #{crmschId}
+            AND ms.del_flg = 0
+            order by
+            schy_div,
+            stuName
+    </select>
+    <select id="orgDatasCount" resultType="integer">
+        SELECT
+        count(*)
+        FROM
+        mst_usr AS mu
+        INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+        AND ms.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        AND mu.usr_sts = '1'
+        AND mu.del_flg = 0
+    </select>
+    <select id="mentorDatasCount" resultType="integer">
+        SELECT
+        count(*)
+        FROM
+        mentor_stu AS ms
+        INNER JOIN mst_stu AS mstu ON mstu.stu_id = ms.stu_id
+        AND mstu.del_flg = 0
+        WHERE
+        ms.mentor_id = #{mentorId}
+        AND ms.crmsch_id = #{crmschId}
+        AND ms.del_flg = 0
+    </select>
+
+    <select id="selectLateDatas" resultType="jp.learningpark.modules.manager.dto.F21017Dto">
+        SELECT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            ms.schy_div,
+            ms.stu_id,
+            max( tgt_ymd ) AS tgtYmd ,
+            mcd.cod_value absSts
+        FROM
+            mst_stu AS ms
+            <if test="roleDiv == 1">
+                INNER JOIN mst_usr AS mu ON mu.usr_id = ms.stu_id
+            </if>
+            <if test="roleDiv == 2">
+                INNER JOIN mentor_stu as mstu on mstu.stu_id = ms.stu_id
+            </if>
+            INNER JOIN late_abs_hst AS lah ON lah.stu_id = ms.stu_id
+            AND lah.tgt_ymd = ( SELECT max( tgt_ymd ) FROM late_abs_hst WHERE lah.org_id = #{orgId}
+            AND to_char(lah.tgt_ymd,'YYYY-MM-DD') = #{date} )
+            INNER JOIN mst_cod_d AS mcd ON mcd.cod_key = 'ABS_STS'
+            AND mcd.cod_cd = lah.abs_sts
+            AND mcd.del_flg = 0
+        WHERE
+            <if test="roleDiv == 1">
+                mu.org_id = #{orgId}
+                AND mu.usr_sts = '1'
+            </if>
+            <if test="roleDiv == 2">
+                mstu.mentor_id = #{userId}
+                and mstu.crmsch_id = #{orgId}
+            </if>
+            GROUP BY
+            stuName,
+            ms.schy_div,
+            ms.stu_id,
+            absSts
+    </select>
+
+    <select id="selectEntryDatas" resultType="jp.learningpark.modules.manager.dto.F21017Dto">
+        SELECT
+            a.org_id,
+            a.stu_id,
+            max(a.entry_dt) as entryDt,
+            max(b.entry_dt) as exitDt
+        from
+            (SELECT ROW_NUMBER ( ) OVER ( ORDER BY A.entry_dt ),A.org_id, A.stu_id, A.entry_dt, A.entry_flg  from entry_exit_hst a WHERE a.entry_flg ='0' and a.del_flg = 0)
+        as a
+        left join
+            (SELECT ROW_NUMBER ( ) OVER ( ORDER BY A.entry_dt ),A.org_id, A.stu_id, A.entry_dt, A.entry_flg from entry_exit_hst a WHERE a.entry_flg = '1' and a.del_flg = 0)
+        as b
+        on
+            (a.stu_id = b.stu_id)
+        <if test="roleDiv == 2">
+            INNER JOIN mentor_stu AS ms ON ms.stu_id = A.stu_id
+            AND ms.del_flg = 0
+            AND ms.mentor_id = #{userId}
+        </if>
+        group by
+            a.org_id,
+            a.stu_id
+    </select>
+    <select id="getUnreadCount" resultType="Integer">
+        SELECT
+            count( * )
+        FROM
+            late_abs_hst AS lah
+            INNER JOIN mst_stu AS ms ON ms.stu_id = lah.stu_id
+            AND ms.del_flg = 0
+            INNER JOIN mst_cod_d MCD ON ( MS.schy_div = MCD.cod_cd AND MCD.cod_key = 'SCHY_DIV' AND MCD.del_flg = 0 )
+            <if test="roleDiv == 2">
+                INNER JOIN mentor_stu AS mstu ON mstu.stu_id = lah.stu_id
+                AND mstu.mentor_id = #{userId}
+                AND mstu.crmsch_id = #{orgId}
+                AND mstu.del_flg = 0
+            </if>
+        WHERE
+            lah.org_id = #{orgId}
+            AND lah.corrspd_sts in ( '0','3')
+            AND lah.del_flg = 0
+    </select>
+
+    <select id="getStuInfo" resultType="jp.learningpark.modules.manager.dto.F21017Dto">
+        SELECT DISTINCT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            ms.schy_div,
+            ms.dayweek_div,
+            ms.birthd,
+            ms.phot_path,
+            lah.tgt_ymd AS tgtYmd,
+            lah.abs_sts,
+            <if test="roleDiv == 1">
+                mu.org_id,
+            </if>
+            <if test="roleDiv == 2">
+                mes.crmsch_id,
+            </if>
+            ms.stu_id,
+            ms.id,
+            entry.entryDt,
+            <!-- add at 2021/08/19 for V9.02 by NWT wen START -->
+            to_char(entry.entryDt, 'HH24:MI') as display,
+            <!-- add at 2021/08/19 for V9.02 by NWT wen END -->
+            entry.exitDt,
+            entry.entryFlg,
+            case when scm.compliment_dt is not null then '0' else '1' end as complimentFlg
+        FROM mst_stu AS ms
+        <if test="roleDiv == 1">
+            INNER JOIN mst_usr AS mu
+                ON ms.stu_id = mu.usr_id
+                and mu.org_id = #{orgId}
+                AND mu.usr_sts = '1'
+                AND mu.del_flg = 0
+        </if>
+        <if test="roleDiv == 2">
+            inner join mentor_stu mes
+                on mes.stu_id = ms.stu_id
+                and mes.mentor_id = #{mentorId}
+                and mes.crmsch_id = #{orgId}
+                and mes.del_flg = 0
+        </if>
+        LEFT JOIN stu_compliment_mst as scm
+            on scm.stu_id = ms.stu_id
+            AND to_char(scm.compliment_dt,'YYYY-MM-DD') = #{date}
+            and scm.del_flg = 0
+        /* modify at 2021/10/21 for V9.02 by NWT wen START */
+        left join
+        ( SELECT MAX ( tgt_ymd ) AS tgt_ymd, stu_id, string_agg(abs_sts, ',') as abs_sts FROM late_abs_hst WHERE org_id = #{orgId} AND to_char( tgt_ymd,
+        'YYYY-MM-DD' ) = #{date} AND del_flg = 0 GROUP BY stu_id ORDER BY stu_id,abs_sts )
+        as lah on lah.stu_id = ms.stu_id
+        /* modify at 2021/10/21 for V9.02 by NWT wen END */
+        /* modify at 2021/10/21 for V9.02 by NWT wen START */
+--         left JOIN mst_cod_d AS mcd
+--         ON mcd.cod_key = 'ABS_STS'
+--         AND mcd.cod_cd = lah.abs_sts
+--         AND mcd.del_flg = 0
+        /* modify at 2021/10/21 for V9.02 by NWT wen END */
+        left join
+        (
+            SELECT
+                a.org_id
+                , a.stu_id
+                , max(a.entry_dt) as entryDt
+                , max(b.entry_dt) as exitDt
+                , a.entry_flg as logFlg
+                , b.entry_flg as outFlg
+                , case
+                    when max(a.entry_dt) > max(b.entry_dt) or max(b.entry_dt) is null then '0'
+                    -- 2020/12/9 cuikailin modify start
+                    when max(b.entry_dt) > max(a.entry_dt) or MAX ( A.ID ) <![CDATA[ < ]]>  MAX ( b.ID ) then '1'
+                    when max(a.entry_dt) is null and max(b.entry_dt) is null then null
+                end as entryFlg
+            from
+            (
+                SELECT
+                    ROW_NUMBER() over(ORDER BY entry_dt)
+                    , org_id
+                    , stu_id
+                    , entry_dt
+                    , entry_flg
+                    , id
+                from entry_exit_hst a
+                WHERE
+                    a.entry_flg = '0'
+                    <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start -->
+                    and a.entry_dt >= #{startTime}
+                    and #{endTime} > a.entry_dt
+                    <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　END -->
+            ) as a
+            LEFT join
+            (
+                SELECT
+                    ROW_NUMBER() over(ORDER BY entry_dt)
+                    , org_id
+                    , stu_id
+                    , entry_dt
+                    , entry_flg
+                    , id
+                from entry_exit_hst a
+                WHERE
+                    a.entry_flg = '1'
+                    <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start -->
+                    and a.entry_dt >= #{startTime}
+                    and #{endTime} > a.entry_dt
+                    <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　END -->
+            ) as b on a.stu_id = b.stu_id /*2020/12/9 cuikailin modify end*/
+            GROUP BY
+                a.org_id
+                , a.stu_id
+                , logFlg
+                , outFlg
+        ) entry on entry.stu_id = ms.stu_id
+        WHERE
+            ms.del_flg = 0
+--         modify at 2021/08/10 for V9.02 by NWT wen START
+            <if test="schoolYear != null and schoolYear !=''">
+                and ms.schy_div = #{schoolYear}
+            </if>
+            <if test="week != null and week !=''">
+                and (ms.dayweek_div like concat('%', #{week}, '%') or ms.dayweek_div is null)
+            </if>
+            <if test="status != null and status !=''">
+                and entry.entryFlg = '0'
+            </if>
+--         modify at 2021/08/10 for V9.02 by NWT wen END
+        /* modify at 2021/10/21 for V9.02 by NWT wen START */
+<!--        GROUP BY-->
+<!--        stuName,-->
+<!--        ms.schy_div,-->
+<!--        ms.birthd,-->
+<!--        ms.phot_path,-->
+<!--        mcd.cod_value,-->
+<!--        <if test="roleDiv == 1">-->
+<!--            mu.org_id,-->
+<!--        </if>-->
+<!--        <if test="roleDiv == 2">-->
+<!--            mes.crmsch_id,-->
+<!--        </if>-->
+<!--        ms.stu_id,-->
+<!--        ms.id,-->
+<!--        entry.entryFlg,-->
+<!--        entry.entryDt,-->
+<!--        entry.exitDt,-->
+<!--        complimentFlg-->
+        /* modify at 2021/10/21 for V9.02 by NWT wen END */
+        ORDER BY
+            entry.entryFlg,
+            entry.entryDt,
+            ms.id
+        <if test="limit != null and offset != null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+    <!--add at 2021/08/10 for V9.02 by NWT wen START-->
+    <select id="getStudentCount" resultType="Integer">
+        select
+            count(1)
+        from
+        (
+            SELECT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            ms.schy_div,
+            ms.dayweek_div,
+            ms.birthd,
+            ms.phot_path,
+            max( tgt_ymd ) AS tgtYmd ,
+            mcd.cod_value absSts,
+            <if test="roleDiv == 1">
+                mu.org_id,
+            </if>
+            <if test="roleDiv == 2">
+                mes.crmsch_id,
+            </if>
+            ms.stu_id,
+            ms.id,
+            entry.entryDt,
+            <!-- add at 2021/08/19 for V9.02 by NWT wen START -->
+            to_char(entry.entryDt, 'HH24:MI') as display,
+            <!-- add at 2021/08/19 for V9.02 by NWT wen END -->
+            entry.exitDt,
+            entry.entryFlg,
+            case when scm.compliment_dt is not null then '0' else '1' end as complimentFlg
+            FROM mst_stu AS ms
+            <if test="roleDiv == 1">
+                INNER JOIN mst_usr AS mu
+                ON ms.stu_id = mu.usr_id
+                and mu.org_id = #{orgId}
+                AND mu.usr_sts = '1'
+                AND mu.del_flg = 0
+            </if>
+            <if test="roleDiv == 2">
+                inner join mentor_stu mes
+                on mes.stu_id = ms.stu_id
+                and mes.mentor_id = #{mentorId}
+                and mes.crmsch_id = #{orgId}
+                and mes.del_flg = 0
+            </if>
+            LEFT JOIN stu_compliment_mst as scm
+            on scm.stu_id = ms.stu_id
+            AND to_char(scm.compliment_dt,'YYYY-MM-DD') = #{date}
+            and scm.del_flg = 0
+            left JOIN late_abs_hst AS lah
+            ON lah.stu_id = ms.stu_id
+            AND lah.tgt_ymd in
+            (
+            SELECT
+            max( tgt_ymd )
+            FROM late_abs_hst lah
+            inner join mst_stu AS ms
+            ON lah.stu_id = ms.stu_id
+            WHERE lah.org_id = #{orgId}
+            AND to_char(lah.tgt_ymd,'YYYY-MM-DD') = #{date}
+            GROUP BY lah.stu_id
+            )
+            left JOIN mst_cod_d AS mcd
+            ON mcd.cod_key = 'ABS_STS'
+            AND mcd.cod_cd = lah.abs_sts
+            AND mcd.del_flg = 0
+            left join
+            (
+            SELECT
+            a.org_id
+            , a.stu_id
+            , max(a.entry_dt) as entryDt
+            , max(b.entry_dt) as exitDt
+            , a.entry_flg as logFlg
+            , b.entry_flg as outFlg
+            , case
+            when max(a.entry_dt) > max(b.entry_dt) or max(b.entry_dt) is null then '0'
+            -- 2020/12/9 cuikailin modify start
+            when max(b.entry_dt) > max(a.entry_dt) or MAX ( A.ID ) <![CDATA[ < ]]>  MAX ( b.ID ) then '1'
+            when max(a.entry_dt) is null and max(b.entry_dt) is null then null
+            end as entryFlg
+            from
+            (
+            SELECT
+            ROW_NUMBER() over(ORDER BY entry_dt)
+            , org_id
+            , stu_id
+            , entry_dt
+            , entry_flg
+            , id
+            from entry_exit_hst a
+            WHERE
+            a.entry_flg = '0'
+            <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start -->
+           and a.entry_dt >= #{startTime}
+           and #{endTime} > a.entry_dt
+            <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　END -->
+            ) as a
+            LEFT join
+            (
+            SELECT
+            ROW_NUMBER() over(ORDER BY entry_dt)
+            , org_id
+            , stu_id
+            , entry_dt
+            , entry_flg
+            , id
+            from entry_exit_hst a
+            WHERE
+            a.entry_flg = '1'
+           <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start -->
+            and a.entry_dt >= #{startTime}
+            and #{endTime} > a.entry_dt
+           <!-- 2021/10/25　MANAMIRU1-809 huangxinliang　Edit　end -->
+            ) as b on a.stu_id = b.stu_id /*2020/12/9 cuikailin modify end*/
+            GROUP BY
+            a.org_id
+            , a.stu_id
+            , logFlg
+            , outFlg
+            ) entry on entry.stu_id = ms.stu_id
+            WHERE
+            ms.del_flg = 0
+            -- modify at 2021/08/10 for V9.02 by NWT wen START
+            <if test="schoolYear != null and schoolYear !=''">
+                and ms.schy_div = #{schoolYear}
+            </if>
+            <if test="week != null and week !=''">
+                and (ms.dayweek_div like concat('%', #{week}, '%') or ms.dayweek_div is null)
+            </if>
+            <if test="status != null and status !=''">
+                and entry.entryFlg = '0'
+            </if>
+            --  modify at 2021/08/10 for V9.02 by NWT wen END
+            GROUP BY
+            stuName,
+            ms.schy_div,
+            ms.birthd,
+            ms.phot_path,
+            mcd.cod_value,
+            <if test="roleDiv == 1">
+                mu.org_id,
+            </if>
+            <if test="roleDiv == 2">
+                mes.crmsch_id,
+            </if>
+            ms.stu_id,
+            ms.id,
+            entry.entryFlg,
+            entry.entryDt,
+            entry.exitDt,
+            complimentFlg
+        ) as stu
+    </select>
+    <!--add at 2021/08/10 for V9.02 by NWT wen END-->
+</mapper>

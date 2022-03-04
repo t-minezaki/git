@@ -1,0 +1,198 @@
+html{
+    overflow-y: hidden;
+}
+.header_operat{
+	width: auto;
+}
+.content{
+	padding: 0;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	font-size: 0.9vw;
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+.inputDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+	margin-bottom: 1vw;
+}
+.inputMessage {
+	width: 80%;
+	float: left;
+	padding: 0.4vw 4vw 0.4vw 4vw;
+	height: auto;
+	margin-left: 10%;
+}
+.inputMessage div{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+}
+.inputMessageOne{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 50%;
+}
+.inputMessageOne button{
+	border-radius: 0.3vw;
+	background: none;
+	height: 2.2vw;
+	line-height: 2.2vw;
+	border: 2px solid #009944;
+	color: #009944;
+	margin-left: 3%;
+	float: left;
+	width: 10%;
+}
+.inputMessage div.input_center{
+	width: 3%;
+	text-align: center;
+}
+.inputMessage input {
+	height: 1.6vw;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	float: left;
+	 width: 35%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	border: 1px solid #333;
+}
+.inputMessage select{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 30%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.inputMessage input:disabled{
+	background: none;
+	border: 0;
+}
+.inputMessage img{
+	height: 50px;
+	width: 50px;
+	float: left;
+	border: 1px solid #000;
+	background-color: #A0A0A0;
+}
+.buttonDiv{
+	height: 2.2vw;
+	margin-top: -0.5vw;
+	width: 100%;
+	border-bottom: 1px solid #000;
+}
+.note{
+	width: 12vw;
+	margin-top: 1vw;
+}
+.imgtitle{
+	width: 20%;
+	border-bottom: none !important;
+	margin-top: 1vw;
+}
+.buttonDiv p{
+	width: auto;
+	height: 100%;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	color: #000;
+	float: left;
+	padding-right: 1vw;
+}
+.buttonDiv div{
+	width: auto;
+	height: 100%;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	color: #000;
+	float: left;
+	padding-right: 1vw;
+}
+.end_btn{
+	width: 12%;
+	border-radius: 0.3vw;
+	height: 2.2vw;
+	background: none;
+	border: 2px solid #009944;
+	color: #009944;
+	font-weight: bolder;
+	margin-left: 3%;
+	margin-right: 3%;
+	font-size: 0.9vw;
+}
+.star{
+	width: 10%;
+	text-align: right;
+	color: red;
+}
+.title{
+	width: 20%;
+    border-bottom: none !important;
+}
+.notice {
+	color: red;
+	height: auto;
+	border-top: 1px solid #000;
+	bottom: 15%;
+	position: fixed;
+	width: 100%;
+	padding-left: 3%;
+	margin-bottom: 1vw;
+	font-size: 0.9vw;
+}
+.button_div{
+	margin-top: 28vw;
+	width: 100%;
+	text-align: center;
+}
+.roleUl {
+	width: 100%;
+	height: 2.2vw;
+}
+.roleUl li {
+	float: left;
+	width: 16%;
+	line-height: 2.2vw;
+
+}
+.img{
+	margin-left: 2%;
+	width: 50px;
+	height: 50px !important;
+}
+input[type="file"]{
+	height: 100%;
+	width: 100%;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	margin-top: -50px;
+}
+input[type="color"]{
+	width: 8%;
+	border: 1px solid #fff;
+	background: none;
+}

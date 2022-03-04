@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>面談記録画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21075.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/sys/bootstrap.min.css">
+</head>
+<body>
+<div id="page">
+    <div v-for="item in mstCodDEntities" class="items_div">
+        <div class="_record question_div" v-if="item.codCd == '0'">
+            <span class="question_span">{{item.codValue}}</span>
+            <ul v-if="!proxyFlg">
+                <li v-for="ask in talkRecordDEntityAskList">
+                    <!-- 2020/12/23 UT-024 cuikailin modify start -->
+                    <p :title="ask.questionName">{{ask.questionName}}</p>
+                    <p :title="ask.answerReltCont" v-html="ask.answerReltCont"></p>
+                    <!-- 2020/12/23 UT-024 cuikailin modify end -->
+                </li>
+            </ul>
+            <ul v-if="proxyFlg">
+                <li v-for="(talk, index) in f21075AskDtos" :style="talk.answerTypeDiv == '0'?'height:18vh;margin-top:2vw;line-height: 18vh;':''">
+                    <p :style="talk.answerTypeDiv == '2'?'width: 20%;':'width: 40%'">{{talk.questionName}}</p>
+                    <div class="result_div proxy" :style="talk.answerTypeDiv == '2'?'width: 70%;':'width: 50%'">
+                        <textarea
+                                name="_cont" maxlength="500" class="result_text proxyText"
+                                v-if="talk.answerTypeDiv == '0' && talkRecordHEntity.talkApplyStsDiv == '0'" cols="40" rows="2"></textarea> <textarea
+                            name="_cont" maxlength="500" class="result_text proxyText"
+                            v-if="talk.answerTypeDiv == '0' && talkRecordHEntity.talkApplyStsDiv != '0'" :value="talkRecordDEntityAskList[index].answerReltCont" cols="40" rows="2"></textarea>
+                        <select name="result_select" class="result_select proxySelect" v-if="talk.answerTypeDiv == '1' && talkRecordHEntity.talkApplyStsDiv == '0'">
+                            <option value="0" selected></option>
+                            <option value="1" v-if="talk.optCont1 && talk.optCont1 != ''">{{talk.optCont1}}</option>
+                            <option value="2" v-if="talk.optCont2 && talk.optCont2 != ''">{{talk.optCont2}}</option>
+                            <option value="3" v-if="talk.optCont3 && talk.optCont3 != ''">{{talk.optCont3}}</option>
+                            <option value="4" v-if="talk.optCont4 && talk.optCont4 != ''">{{talk.optCont4}}</option>
+                            <option value="5" v-if="talk.optCont5 && talk.optCont5 != ''">{{talk.optCont5}}</option>
+                        </select>
+                        <select name="result_select" class="result_select proxySelect" v-if="talk.answerTypeDiv == '1' && talkRecordHEntity.talkApplyStsDiv != '0'">
+                            <option value="1" v-if="talk.optCont1 && talk.optCont1 != ''" :selected="talkRecordDEntityAskList[index].answerReltCont == talk.optCont1?'selected':''">
+                                {{talk.optCont1 }}
+                            </option>
+                            <option
+                                    value="2" v-if="talk.optCont2 && talk.optCont2 != ''"
+                                    :selected="talkRecordDEntityAskList[index].answerReltCont == talk.optCont2?'selected':''">{{talk.optCont2 }}
+                            </option>
+                            <option
+                                    value="3" v-if="talk.optCont3 && talk.optCont3 != ''"
+                                    :selected="talkRecordDEntityAskList[index].answerReltCont == talk.optCont3?'selected':''">{{talk.optCont3 }}
+                            </option>
+                            <option
+                                    value="4" v-if="talk.optCont4 && talk.optCont4 != ''"
+                                    :selected="talkRecordDEntityAskList[index].answerReltCont == talk.optCont4?'selected':''">{{talk.optCont4 }}
+                            </option>
+                            <option
+                                    value="5" v-if="talk.optCont5 && talk.optCont5 != ''"
+                                    :selected="talkRecordDEntityAskList[index].answerReltCont == talk.optCont5?'selected':''">{{talk.optCont5 }}
+                            </option>
+                        </select>
+                        <div class="result_check proxyCheck" v-if="talk.answerTypeDiv == '2' && talkRecordHEntity.talkApplyStsDiv == '0'">
+                            <div v-if="talk.optCont1 && talk.optCont1 != ''"><input type="checkbox" value="1"><span>{{talk.optCont1}}</span></div>
+                            <div v-if="talk.optCont2 && talk.optCont2 != ''"><input type="checkbox" value="2"><span>{{talk.optCont2}}</span></div>
+                            <div v-if="talk.optCont3 && talk.optCont3 != ''"><input type="checkbox" value="3"><span>{{talk.optCont3}}</span></div>
+                            <div v-if="talk.optCont4 && talk.optCont4 != ''"><input type="checkbox" value="4"><span>{{talk.optCont4}}</span></div>
+                            <div v-if="talk.optCont5 && talk.optCont5 != ''"><input type="checkbox" value="5"><span>{{talk.optCont5}}</span></div>
+                        </div>
+                        <div class="result_check proxyCheck" v-if="talk.answerTypeDiv == '2' && talkRecordHEntity.talkApplyStsDiv != '0'">
+                            <div v-if="talk.optCont1 && talk.optCont1 != ''"><input
+                                    type="checkbox" value="1"
+                                    :checked="talkRecordDEntityAskList[index].answerReltCont.indexOf(talk.optCont1) >= 0?'checked':''"><span>{{talk.optCont1}}</span>
+                            </div>
+                            <div v-if="talk.optCont2 && talk.optCont2 != ''"><input
+                                    type="checkbox" value="2"
+                                    :checked="talkRecordDEntityAskList[index].answerReltCont.indexOf(talk.optCont2) >= 0?'checked':''"><span>{{talk.optCont2}}</span>
+                            </div>
+                            <div v-if="talk.optCont3 && talk.optCont3 != ''"><input
+                                    type="checkbox" value="3"
+                                    :checked="talkRecordDEntityAskList[index].answerReltCont.indexOf(talk.optCont3)  >= 0?'checked':''"><span>{{talk.optCont3}}</span>
+                            </div>
+                            <div v-if="talk.optCont4 && talk.optCont4 != ''"><input
+                                    type="checkbox" value="4"
+                                    :checked="talkRecordDEntityAskList[index].answerReltCont.indexOf(talk.optCont4)  >= 0?'checked':''"><span>{{talk.optCont4}}</span>
+                            </div>
+                            <div v-if="talk.optCont5 && talk.optCont5 != ''"><input
+                                    type="checkbox" value="5"
+                                    :checked="talkRecordDEntityAskList[index].answerReltCont.indexOf(talk.optCont5)  >= 0?'checked':''"><span>{{talk.optCont5}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="_record talk_div" v-if="item.codCd == '1'">
+            <span>{{item.codValue}}</span>
+            <ul v-if="f21075Dtos.length != 0">
+                <li v-for="(talk, index) in f21075Dtos" :style="talk.answerTypeDiv == '0'?'height:18vh;margin-top:2vw;line-height: 18vh;':''">
+                    <p :style="talk.answerTypeDiv == '2'?'width: 20%;':'width: 40%'">{{talk.questionName}}</p>
+                    <div class="result_div normal" :style="talk.answerTypeDiv == '2'?'width: 70%;':'width: 50%'">
+                        <textarea
+                                name="_cont" maxlength="500" class="result_text normalText"
+                                v-if="talk.answerTypeDiv == '0' && talkRecordHEntity.talkApplyStsDiv != '0'" :value="talkRecordDEntityTalkList[index].answerReltCont" cols="40" rows="2"></textarea>
+                        <textarea
+                                name="_cont" maxlength="500" class="result_text normalText"
+                                v-if="talk.answerTypeDiv == '0' && talkRecordHEntity.talkApplyStsDiv == '0'" cols="40" rows="2"></textarea> <select
+                            name="result_select" class="result_select normalSelect"
+                            v-if="talk.answerTypeDiv == '1' && talkRecordHEntity.talkApplyStsDiv == '0'">
+                        <option value="0" selected></option>
+                        <option value="1" v-if="talk.optCont1 && talk.optCont1 != ''">{{talk.optCont1}}</option>
+                        <option value="2" v-if="talk.optCont2 && talk.optCont2 != ''">{{talk.optCont2}}</option>
+                        <option value="3" v-if="talk.optCont3 && talk.optCont3 != ''">{{talk.optCont3}}</option>
+                        <option value="4" v-if="talk.optCont4 && talk.optCont4 != ''">{{talk.optCont4}}</option>
+                        <option value="5" v-if="talk.optCont5 && talk.optCont5 != ''">{{talk.optCont5}}</option>
+                    </select>
+                        <select name="result_select" class="result_select normalSelect" v-if="talk.answerTypeDiv == '1' && talkRecordHEntity.talkApplyStsDiv != '0'">
+                            <option value="1" v-if="talk.optCont1 && talk.optCont1 != ''" :selected="talkRecordDEntityTalkList[index].answerReltCont == talk.optCont1?'selected':''">
+                                {{talk.optCont1 }}
+                            </option>
+                            <option
+                                    value="2" v-if="talk.optCont2 && talk.optCont2 != ''"
+                                    :selected="talkRecordDEntityTalkList[index].answerReltCont == talk.optCont2?'selected':''">{{talk.optCont2 }}
+                            </option>
+                            <option
+                                    value="3" v-if="talk.optCont3 && talk.optCont3 != ''"
+                                    :selected="talkRecordDEntityTalkList[index].answerReltCont == talk.optCont3?'selected':''">{{talk.optCont3 }}
+                            </option>
+                            <option
+                                    value="4" v-if="talk.optCont4 && talk.optCont4 != ''"
+                                    :selected="talkRecordDEntityTalkList[index].answerReltCont == talk.optCont4?'selected':''">{{talk.optCont4 }}
+                            </option>
+                            <option
+                                    value="5" v-if="talk.optCont5 && talk.optCont5 != ''"
+                                    :selected="talkRecordDEntityTalkList[index].answerReltCont == talk.optCont5?'selected':''">{{talk.optCont5 }}
+                            </option>
+                        </select>
+                        <div class="result_check normalCheck" v-if="talk.answerTypeDiv == '2' && talkRecordHEntity.talkApplyStsDiv == '0'">
+                            <div v-if="talk.optCont1 && talk.optCont1 != ''"><input type="checkbox" value="1"><span>{{talk.optCont1}}</span></div>
+                            <div v-if="talk.optCont2 && talk.optCont2 != ''"><input type="checkbox" value="2"><span>{{talk.optCont2}}</span></div>
+                            <div v-if="talk.optCont3 && talk.optCont3 != ''"><input type="checkbox" value="3"><span>{{talk.optCont3}}</span></div>
+                            <div v-if="talk.optCont4 && talk.optCont4 != ''"><input type="checkbox" value="4"><span>{{talk.optCont4}}</span></div>
+                            <div v-if="talk.optCont5 && talk.optCont5 != ''"><input type="checkbox" value="5"><span>{{talk.optCont5}}</span></div>
+                        </div>
+                        <div class="result_check normalCheck" v-if="talk.answerTypeDiv == '2' && talkRecordHEntity.talkApplyStsDiv != '0'">
+                            <div v-if="talk.optCont1 && talk.optCont1 != ''"><input
+                                    type="checkbox" value="1"
+                                    :checked="talkRecordDEntityTalkList[index].answerReltCont.indexOf(talk.optCont1) >= 0?'checked':''"><span>{{talk.optCont1}}</span>
+                            </div>
+                            <div v-if="talk.optCont2 && talk.optCont2 != ''"><input
+                                    type="checkbox" value="2"
+                                    :checked="talkRecordDEntityTalkList[index].answerReltCont.indexOf(talk.optCont2) >= 0?'checked':''"><span>{{talk.optCont2}}</span>
+                            </div>
+                            <div v-if="talk.optCont3 && talk.optCont3 != ''"><input
+                                    type="checkbox" value="3"
+                                    :checked="talkRecordDEntityTalkList[index].answerReltCont.indexOf(talk.optCont3)  >= 0?'checked':''"><span>{{talk.optCont3}}</span>
+                            </div>
+                            <div v-if="talk.optCont4 && talk.optCont4 != ''"><input
+                                    type="checkbox" value="4"
+                                    :checked="talkRecordDEntityTalkList[index].answerReltCont.indexOf(talk.optCont4)  >= 0?'checked':''"><span>{{talk.optCont4}}</span>
+                            </div>
+                            <div v-if="talk.optCont5 && talk.optCont5 != ''"><input
+                                    type="checkbox" value="5"
+                                    :checked="talkRecordDEntityTalkList[index].answerReltCont.indexOf(talk.optCont5)  >= 0?'checked':''"><span>{{talk.optCont5}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="btn_div">
+        <button @click="cancel">キャンセル</button>
+        <button @click="commit">登録</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/pop/F21075.js"></script>
+</html>

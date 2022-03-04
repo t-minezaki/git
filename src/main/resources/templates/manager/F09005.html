@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>F09005</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F09005.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min-F09005.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>入退室管理</li>
+            <li> ＞ 代理入退室検索設定</li>
+            <li> ＞ 設定確認</li>
+        </ul>
+    </div>
+</div>
+<div class="div_input">
+    <label class="div_title" style="position: relative;left: 1vw;margin-bottom: 3vh;">对象者、ステータス</label>
+    <table id="jqGrid" border="1px"></table>
+
+</div>
+
+<div class="div_foot">
+    <button id="back">戻る</button>
+    <button id="conf">登録</button>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F09005.js"></script>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F01002Dao">
+    <!-- 一覧情報 -->
+    <select id="selectCodeValue" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+    SELECT
+        cod_value,
+        cod_cd
+    FROM
+        mst_cod_d
+    WHERE
+        cod_key = 'SCHY_DIV'
+        AND del_flg = 0
+        order  by  sort
+    </select>
+    <!-- 学年区分リストボックスを表示するため、コードマスタを元に、学年区分を取得し、画面で表示する。 -->
+    <select id="selectByIdOrgId" resultType="jp.learningpark.modules.common.entity.MstCrmschLearnPrdEntity">
+    SELECT
+        *
+    FROM
+        mst_crmsch_learn_prd crm
+    WHERE
+        crm.org_id = #{orgId}
+        AND crm.id = #{id}
+        AND crm.del_flg = 0
+    </select>
+    <!-- 引渡データ．IDをキーとして、塾学習期間マスタを更新する。 -->
+    <update id="updateCrm" parameterType="jp.learningpark.modules.common.entity.MstCrmschLearnPrdEntity">
+    UPDATE mst_crmsch_learn_prd
+    SET use_flg ='0'
+    WHERE
+    org_id = #{orgId}
+    AND
+    schy_div = #{schyDiv}
+    AND
+    id != #{id}
+    AND
+    use_flg = '1'
+    </update>
+    <!--塾学習期間データが生徒教科書選択管理マスタに存在するかどうかを判定する。-->
+    <select id="selectOneByCrmId" resultType="Integer">
+    SELECT COUNT
+    ( * )
+    FROM
+    stu_textb_choc
+    WHERE
+    crm_learn_prd_id = #{crmId}
+    AND del_flg = 0
+    </select>
+    <delete id="deleteByCrmId">
+    DELETE
+    FROM
+        mst_learn_seasn
+    WHERE
+        crm_learn_prd_id = #{crmId}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21026Dao">
+    <select id="getStu" resultType="jp.learningpark.modules.manager.dto.F21026Dto">
+        SELECT
+            mu.usr_id as stuId,
+            mu.after_usr_id,
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuNm,
+            ms.guard_id,
+            mcd1.cod_value AS schy,
+            sp.point,
+            mcd3.cod_value AS userSts
+        FROM
+            mst_usr AS mu
+            INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+            AND ms.del_flg = 0
+            LEFT JOIN stu_point AS sp ON sp.stu_id = mu.usr_id
+            AND sp.del_flg = 0
+            INNER JOIN mst_cod_d AS mcd1 ON mcd1.cod_cd = ms.schy_div
+            AND mcd1.cod_key = 'SCHY_DIV'
+            AND mcd1.del_flg = 0
+            INNER JOIN mst_cod_d AS mcd2 ON mcd2.cod_cd = mu.usr_sts
+            AND mcd2.cod_key = 'USR_STS'
+            LEFT JOIN entry_exit_hst AS eeh ON eeh.stu_id = mu.usr_id
+        <!--    2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start    -->
+            AND entry_dt = ( SELECT MAX( entry_dt ) FROM entry_exit_hst WHERE stu_id = #{stuId} AND del_flg = 0 and entry_dt >= #{startTime} and #{endTime} > entry_dt)
+        <!--    2021/10/25　MANAMIRU1-809 huangxinliang　Edit　End    -->
+            LEFT join mst_cod_d as mcd3 on mcd3.cod_cd = eeh.entry_flg
+            and mcd3.cod_key = 'ENTRY_FLG_DIV'
+        WHERE
+            mu.org_id = #{orgId}
+            AND mu.usr_id = #{stuId}
+            AND mu.del_flg = 0
+        ORDER BY eeh.cret_datime DESC
+        LIMIT 1
+    </select>
+    <select id="login" resultType="Integer">
+        SELECT
+            count( * )
+        FROM
+            entry_exit_hst
+        WHERE
+        <!--    2021/10/25　MANAMIRU1-809 huangxinliang　Edit　Start    -->
+            entry_dt >= #{startTime} and #{endTime} > entry_dt
+        <!--    2021/10/25　MANAMIRU1-809 huangxinliang　Edit　End    -->
+            AND stu_id = #{stuId}
+            AND del_flg = 0
+    </select>
+</mapper>

@@ -1,0 +1,253 @@
+.div_header {
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    height: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+}
+
+.newt-layout-body div_img {
+    padding:5%;
+}
+.content {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 4px;
+    padding-bottom: 58px;
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    padding-top: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+}
+
+@media screen and (max-device-width: 533px) {
+    .div_header {
+        height: 44px;
+    }
+    .content {
+        padding-top: 44px;
+    }
+}
+
+.content_div {
+    /*2020/11/12 zhangminghao modify start*/
+    height: 70%;
+    /*2020/11/12 zhangminghao modify end*/
+    width: 100%;
+    /*overflow: auto;*/
+    /*overflow-x: hidden;*/
+    /*padding-top: 2vw;*/
+}
+#notice_tab>p {
+    float: right;
+}
+.description {
+    width: 90%;
+    font-size: 4vw;
+    color: #555;
+    margin-left: 5%;
+    overflow: hidden;
+}
+
+.description p {
+    word-wrap: break-word;
+    word-break: break-all;
+    /*padding-bottom: 1vh;*/
+    /*padding-top: 1vh;*/
+    /*padding: 10px auto;*/
+}
+
+p > span {
+    line-height: 170%;
+}
+.title {
+    width: 80%;
+    font-size: 5vw;
+    color: #444;
+    margin-top: 10px;
+    margin-left: 10%;
+    font-weight: bolder;
+}
+
+.img {
+    width: 80%;
+    margin-left: 5%;
+}
+
+.div_bottom {
+    height: 58px !important;
+    bottom: 0px;
+}
+
+.title413 {
+    background-color: #FFEEE0;
+}
+
+.div_body {
+    height: 84%;
+    background-color: white;
+}
+.headerBtn button {
+    padding: 1px 6px !important;
+}
+
+.line {
+    margin-bottom: 15px;
+    height: 2px;
+    background-color: #ddd;
+}
+
+.text413 > div:nth-child(1) > div:nth-child(1) {
+    background: unset;
+}
+
+.back {
+    width: 28px;
+    height: 28px;
+    float: left;
+}
+
+.back img {
+    width: 100%;
+    height: 100%;
+}
+
+#title_top {
+    color: red;
+    font-size: large;
+    text-align: center;
+    padding-top: 0.7vh;
+    letter-spacing: 0.5vw;
+    padding-bottom: 0.6vh;
+}
+
+.text413 {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 95%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.left_title {
+    height: auto;
+    position: relative;
+    vertical-align: center;
+}
+
+.span_cont {
+    width: 40%;
+    font-weight: bold;
+    font-size: large;
+}
+
+.span_cont span {
+    vertical-align: middle;
+}
+
+.span_val {
+    width: 60%;
+}
+
+sapn {
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+.oneTitle {
+    width: 100%;
+    padding: 10px 5px 0 5px;
+    height: 41px;
+
+}
+
+.oneTitle ul {
+    width: 100%;
+    height: 100%;
+    /*border-radius: 5px;*/
+    overflow: hidden;
+    border-bottom: 4px solid #009944;
+}
+
+.oneTitle li {
+    width: 100%;
+    height: 100%;
+    float: left;
+    color: #727272;
+    background: none;
+    font-size: 13px;
+    line-height: 25px;
+    text-align: right;
+    padding-right: 10%;
+    font-weight: bold;
+}
+.numCount {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #cf2d28;
+    color: #fff;
+    font-size: 10px;
+    left: 90%;
+    top: 57px;
+    line-height: 18px;
+    display: none;
+    text-align: center;
+}
+.div_files{
+    text-align: center;
+}
+.div_files a{
+    color: red;
+    text-decoration: none;
+    border-bottom: 0.5vh solid red;
+    word-break: break-all;
+    width: 100%;
+    height: auto;
+    /* margin-right: 3vw; */
+    text-align: justify;
+    margin-left: 6vw;
+    line-height: 3vh;
+}
+/*2020/11/12 zhangminghao modify start*/
+#btn_confirm {
+    width: 40vw;
+    height: 40px;
+    text-align: center;
+    margin: 10% auto 0 auto;
+    background-color: #4BC783;
+    color: #FFFFFF;
+    font-size: 18px;
+    line-height: 40px;
+    font-weight: bold;
+    display: none;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+}
+/*2020/11/12 zhangminghao modify end*/
+.hyper_link{
+    color: blue;
+    text-decoration: underline;
+}
+/*2020/12/14 liguangxin add start*/
+img#preview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0vw !important;
+    object-fit: contain;
+    background-color: transparent;
+}
+.layui-layer-page .layui-layer-content{
+    overflow:hidden!important;
+}
+.layui-layer-page,.layui-layer-content{
+    background-color: transparent;
+    box-shadow:none;
+}
+.layui-layer-molv123 a.layui-layer-ico.layui-layer-close.layui-layer-close1 {
+    right: 40px !important;
+    top: -6px !important;
+}
+/*2020/12/14 liguangxin add end*/

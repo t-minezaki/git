@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21041Dao">
+    <select id="getDegree" resultType="jp.learningpark.modules.manager.dto.F21041Dto">
+        SELECT
+               tt.subjt_div
+                ,mcd.cod_value as cod_value
+                ,mcd.cod_value_2 as cod_value_2
+                ,tt.perf_ymd as plan_ymd
+                ,SUM(perf_learn_tm) as perfLearnTm
+        FROM
+             (
+             SELECT
+                    id,
+                    stu_term_plan_id,
+                    block_type_div,
+                    stu_id,
+                    perf_ymd,
+                    subjt_div,
+                    CASE
+
+                        WHEN EXTRACT(
+                                 EPOCH
+                                 FROM
+                                 ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                     ) / 60 <![CDATA[ < ]]> 0 THEN
+                            perf_learn_tm ELSE (
+                            perf_learn_tm - EXTRACT(
+                                                EPOCH
+                                                FROM
+                                                ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                                    ) / 60
+                            )
+                            END AS perf_learn_tm ,
+                    CASE
+
+                        WHEN EXTRACT(
+                                 EPOCH
+                                 FROM
+                                 ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                     ) / 60 <![CDATA[ < ]]> 0 THEN
+                            stu_plan_learn_tm ELSE (
+                            stu_plan_learn_tm - EXTRACT(
+                                                    EPOCH
+                                                    FROM
+                                                    ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                                        ) / 60
+                            )
+                            END AS stu_plan_learn_tm
+             FROM
+                  stu_weekly_plan_perf
+             WHERE
+                     del_flg = 0
+               AND stu_id = #{stuId}  UNION ALL
+             SELECT
+                    id,
+                    stu_term_plan_id,
+                    block_type_div,
+                    stu_id,
+                    to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' AS plan_ymd,
+                    subjt_div,
+                    CASE
+                        WHEN
+                            EXTRACT(
+                                EPOCH
+                                FROM
+                                ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                    ) / 60 <![CDATA[ < ]]> 0 THEN 0
+                        ELSE EXTRACT(
+                                 EPOCH
+                                 FROM
+                                 ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                     ) / 60 END AS perf_learn_tm,
+                    CASE
+                        WHEN
+                            EXTRACT(
+                                EPOCH
+                                FROM
+                                ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                    ) / 60 <![CDATA[ < ]]> 0 THEN 0
+                        ELSE EXTRACT(
+                                 EPOCH
+                                 FROM
+                                 ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                     ) / 60 END AS stu_plan_learn_tm
+             FROM
+                  stu_weekly_plan_perf
+             WHERE
+                     del_flg = 0
+               AND stu_id = #{stuId}
+               AND (EXTRACT(
+                        EPOCH
+                        FROM
+                        ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                            ) / 60 > 0
+                        OR
+                    EXTRACT(
+                        EPOCH
+                        FROM
+                        ( plan_learn_start_time :: TIMESTAMP + ( stu_plan_learn_tm || 'min' ) :: INTERVAL - ( to_char ( plan_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                            ) / 60 > 0
+                             ))
+                     as tt
+                 INNER JOIN mst_cod_d mcd on (tt.subjt_div =mcd.cod_cd )
+        WHERE
+                tt.perf_ymd BETWEEN #{startDate} and #{endDate}
+          and( tt.block_type_div = 'P1' or tt.block_type_div = 'S1' or tt.block_type_div = 'R1' or tt.block_type_div = 'W1' or tt.block_type_div = 'V1')
+          and mcd.cod_key ='SUBJT_DIV'
+        GROUP BY
+                 tt.subjt_div
+                ,mcd.cod_value
+                ,mcd.cod_value_2
+                ,tt.perf_ymd
+        ORDER BY
+                 tt.subjt_div asc
+    </select>
+    <select id="getDegreeWeek" resultType="jp.learningpark.modules.manager.dto.F21041Dto">
+        SELECT
+               A.stu_id AS stuId,
+               mcd.cod_value,
+               mcd.cod_value_2 AS cod_value_2,
+               A.perf_ymd :: DATE - ( MOD ( ( EXTRACT ( dow FROM A.perf_ymd :: TIMESTAMP ) + 6 ) :: INTEGER, 7 ) || 'day' ) :: INTERVAL AS plan_ymd,
+               SUM(A.perf_learn_tm) as perfLearnTm
+        FROM
+             (
+             SELECT
+                    id,
+                    stu_id,
+                    perf_ymd,
+                    subjt_div,
+                    CASE
+
+                        WHEN EXTRACT(
+                                 EPOCH
+                                 FROM
+                                 ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                     ) / 60 <![CDATA[ < ]]> 0 THEN
+                            perf_learn_tm ELSE (
+                            perf_learn_tm - EXTRACT(
+                                                EPOCH
+                                                FROM
+                                                ( perf_learn_start_time :: TIMESTAMP + ( perf_learn_tm || 'min' ) :: INTERVAL - ( to_char ( perf_learn_start_time, 'yyyy-mm-dd' ) :: TIMESTAMP + '1 day' ) )
+                                                    ) / 60
+                            )
+                            END AS perf_learn_tm
+             FROM
+                  stu_weekly_plan_perf
+             WHERE
+                     del_flg = 0
+               AND stu_id = #{stuId}
+               and( stu_weekly_plan_perf .block_type_div = 'P1' or stu_weekly_plan_perf .block_type_div = 'S1' or stu_weekly_plan_perf .block_type_div = 'R1' or stu_weekly_plan_perf .block_type_div = 'W1' or stu_weekly_plan_perf .block_type_div = 'V1')
+             ) A
+                 left join  mst_cod_d mcd on (mcd.cod_cd = A.subjt_div and mcd.del_flg = 0)
+        WHERE
+                A.perf_ymd BETWEEN #{endDate}
+                        AND #{startDate}
+          and mcd.cod_key = 'SUBJT_DIV'
+
+        GROUP BY
+                 A.stu_id,
+                 mcd.cod_value,
+                 mcd.cod_value_2,
+                 A.perf_ymd :: DATE - ( MOD ( ( EXTRACT ( dow FROM A.perf_ymd :: TIMESTAMP ) + 6 ) :: INTEGER, 7 ) || 'day' ) :: INTERVAL
+    </select>
+    <!--  生徒情報を取得する  -->
+    <select id="getDegreeMonth" resultType="jp.learningpark.modules.manager.dto.F21041Dto">
+        SELECT
+               A.stu_id as stuId,
+               mcd.cod_value,
+               mcd.cod_value_2 AS cod_value_2,
+               A.perf_ymd::DATE-(extract(day from A.perf_ymd::TIMESTAMP) - 1||'day')::interval as plan_ymd
+                ,SUM(A.perf_learn_tm) as perfLearnTm
+        FROM
+             (
+             (SELECT
+                     id,
+                     stu_id,
+                     subjt_div,
+                     perf_ymd,
+                     CASE WHEN EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60  <![CDATA[ < ]]> 0 THEN
+                             perf_learn_tm
+                          ELSE
+                             (perf_learn_tm - EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60)
+                             END as perf_learn_tm
+              FROM
+                   stu_weekly_plan_perf
+              WHERE
+                      del_flg = 0
+                AND
+                      stu_id= #{stuId}
+             )
+             UNION ALL
+             SELECT
+                    id,
+                    stu_id,
+                    subjt_div,
+                    to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day' as perf_ymd,
+                    EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 as perf_learn_tm
+             FROM
+                  stu_weekly_plan_perf
+             WHERE
+                     del_flg = 0
+               AND
+                     stu_id= #{stuId}
+
+               AND EXTRACT(EPOCH FROM (perf_learn_start_time::timestamp + (perf_learn_tm || 'min')::INTERVAL - (to_char(perf_learn_start_time,'yyyy-mm-dd')::timestamp + '1 day')))/60 > 0
+             ) A
+                 left join  mst_cod_d mcd on (mcd.cod_cd = A.subjt_div and mcd.cod_key = 'SUBJT_DIV' and mcd.del_flg = 0)
+        WHERE
+                A.perf_ymd BETWEEN #{endDate}
+                        AND #{startDate}
+        GROUP BY
+                 A.stu_id,
+                 mcd.cod_value,
+                 mcd.cod_value_2,
+                 A.perf_ymd::DATE-(extract(day from perf_ymd::TIMESTAMP) - 1||'day')::interval
+    </select>
+    <select id="getTalk" resultType="jp.learningpark.modules.manager.dto.F21041Dto">
+        select
+        me.event_title
+        ,trh.id
+        ,trh.talk_datime
+        ,trh.talk_apply_sts_div
+        FROM
+        talk_record_h trh
+        inner join mst_event me on (trh.event_id = me.id and trh.talk_apply_sts_div IN ('2', '3') and trh.del_flg = 0
+        and me.del_flg = 0)
+        WHERE
+        trh.talk_datime >=#{nowYear}
+        AND trh.stu_id = #{stuId}
+        order by
+        trh.talk_datime desc
+        <if test="page != null">
+            limit #{limit} OFFSET #{page}
+        </if>
+    </select>
+    <select id="getPop" resultType="jp.learningpark.modules.manager.dto.F21041Dto">
+        SELECT
+               trd.question_name,
+               trh.meg_state,
+               trh.sube_cont,
+               trh.note_cont,
+               trd.answer_relt_cont,
+               mcd.cod_value,
+               trd.item_type_div
+        FROM
+             talk_record_h trh
+                 LEFT JOIN talk_record_d trd ON ( trh.ID = trd.talk_id AND trh.del_flg = 0 AND trd.del_flg = 0 )
+                 LEFT JOIN mst_cod_d mcd ON ( mcd.cod_cd = trd.item_type_div AND mcd.cod_key = 'ITEM_TYPE_DIV' AND mcd.del_flg = 0  )
+                 INNER JOIN mst_event me ON ( me.ID = trh.event_id AND me.del_flg = 0 )
+        WHERE
+                trh.id = #{id}
+          and trh.org_id = #{orgId}
+    </select>
+</mapper>

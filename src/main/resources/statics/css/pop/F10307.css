@@ -1,0 +1,361 @@
+html,body{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+*{
+	box-sizing: border-box;
+}
+.theme_selec{
+	width: auto;
+	height: 100%;
+	text-align: center;
+	background: #fff;
+	overflow:scroll;
+}
+.theme_selec h2{
+	height: auto;
+	font-size: 3vh;
+	color: #666;
+	margin: 0;
+	text-align: left;
+}
+.theme_selec h2 span{
+	font-size: 3vh;
+	font-weight: 500;
+	line-height: 6vh;
+	padding-left: 3vw;
+	color:#000000;
+}
+.theme_selec h2 p{
+	width: 100%;
+	height: 0.2vh;
+	background: #ccc;
+	margin: 0;
+	margin-top: 10vh;
+}
+.time_st_con li{
+	width: 100%;
+	/* 0701 障害票3.5 no2 */
+	line-height: 7.5vh;
+	margin-bottom: 1vh;
+	border-radius: 1vw;
+	box-sizing: border-box;
+}
+.theme_btn{
+	width: 100%;
+	float: left;
+	border-bottom: 0.1vh solid #ccc;
+}
+.theme_btn button{
+	width: 100%;
+	float: left;
+	border: 0;
+	color: #00b050;
+	border-radius: 0;
+	line-height: 7vh;
+	background: none;
+	font-size: 3vh;
+}
+.theme_btn button:focus{
+	background: none;
+	opacity: 1;
+}
+.theme_btn button:active{
+	background: none;
+	opacity: 1;
+}
+.content_them{
+	padding: 2vw;
+	padding-top: 0.2vw;
+	height: auto;
+	float: left;
+	width: 100%;
+}
+.con_left{
+	width:60px;
+	float:left;
+	height:190px;
+	border:1px solid #cecece;
+	margin-top:10px;
+}
+.content_them ul{
+	padding: 0;
+	margin: 0;
+	margin-left: 12vw;
+	width: calc(100% - 22vw);
+	float: left;
+}
+.time_std{
+	color: #9a6464!important;
+	position: absolute;
+	left: -7vw;
+	width: 8vw!important;
+	font-size: 3.2vw;
+	background: none!important;
+	height: 56vw;
+
+}
+.time_std li{
+	margin-top: 9.2vh;
+	height: 2.4vw;
+}
+.bottom_btn{
+	bottom: 0;
+	width: 100%;
+	z-index: 99;
+	position: fixed;
+	background-color: #fff;
+	height: 10vh;
+	padding: 0 4vw;
+}
+.bottom_btn button{
+	width: 56%;
+	float: left;
+	border: 2px solid #00b050;
+	color: #00b050;
+	border-radius: 8vh;
+	height: 8vh;
+	background: none;
+}
+.bottom_btn button.theme_btn_left{
+	border: 0;
+	color: #E94738;
+	width: 44%;
+}
+/* 2020/11/12 V9.0 cuikailin add start */
+.bottom_btn button.left_btn{
+	border: 0;
+	color: #E94738;
+	width: 30%;
+}
+
+.bottom_btn button.mid_btn{
+	width: 33%;
+	float: left;
+	border: 2px solid #00b050;
+	color: #00b050;
+	border-radius: 8vh;
+	height: 8vh;
+	background: none;
+}
+
+.bottom_btn button.right_btn{
+	width: 30%;
+	float: right;
+	border: 2px solid #ff3612;
+	color: #ff3612;
+	border-radius: 8vh;
+	height: 8vh;
+	background: none;
+}
+/* 2020/11/12 V9.0 cuikailin add end */
+.mainDiv {
+	width: calc(100% - 0px);
+	height: 2rem;
+	float: left;
+	position: relative;
+	margin-top: 5px;
+}
+.mainDiv .in_check{
+	float: right;
+	height: 2vw;
+}
+.mainDiv .la_next{
+	display: inline-block;
+	width: 8.2vw;
+	float: right;
+	margin-right:4.0vw;
+	line-height: 1.5rem;
+	text-align: left;
+}
+.mainDivP{
+	height: 0.2vh;
+	margin: 0px;
+	float: left;
+	line-height: 1.9rem;
+	margin-left: -1.1rem;
+}
+
+#startInput{
+	/* 2021/01/12 V9.0 liyuhuan modify start */
+	width: calc(48% - 4rem);
+	/* 2021/01/12 V9.0 liyuhuan modify start */
+	height: 85%;
+	border-radius: 0.2rem;
+	border: 0.1em solid #666;
+	/* 2020/11/24 V9.0 cuikailin modify start */
+	/*padding: 0 0.4rem;*/
+	/* 2020/11/24 V9.0 cuikailin modify end */
+	margin-left: 0.8rem;
+	line-height: 1.7rem;
+	float: left;
+	font-weight: lighter;
+	color:#000000;
+}
+.form_item_content{
+	width: calc(50% - 0px);
+	height: 2rem;
+	float: left;
+	position: relative;
+	margin-top: 0.2rem;
+}
+
+#time_picker{
+	width: calc(14% - 0rem);
+	height: 1.7rem;
+	border-radius: 0.2rem;
+	border: 0.1em solid #666;
+	padding: 0 0;
+	margin-left: 0.2rem;
+	text-align: center;
+	font-weight: lighter;
+	font-size: 3.3vw;
+	float: left;
+	margin-right: 1.3rem;
+	background-color: white;
+	color: #000000;
+	-webkit-appearance: none;
+	line-height: 4.3vw;
+}
+
+.layui-laydate-main {
+	width: 14.3rem !important;
+	height: 15.5rem !important;
+}
+
+.layui-laydate{
+	font-size: 0.7rem !important;
+}
+.layui-laydate-content td, .layui-laydate-content th{
+	width: 1rem !important;
+	height: 1rem !important;
+}
+.layui-laydate-header i{
+	font-size: 0.7rem !important;
+	height: 2rem !important;
+}
+.layui-laydate-header{
+	line-height: 1rem !important;
+}
+.layui-laydate-content td, .layui-laydate-content th{
+	padding: 0.4rem 0.5rem !important;
+}
+#layui-laydate1{
+	left: 0.4rem!important;
+}
+
+#perf_time{
+	font-size: 3vh;
+	font-weight: 500;
+	line-height: 6vh;
+	padding-left: 3vw;
+	float: left;
+}
+#end_time{
+	width: calc(14% - 0rem);
+	height: 1.7rem;
+	border-radius: 0.2rem;
+	border: 0.1em solid #666;
+	padding: 0 0;
+	margin-left: 0.2rem;
+	margin-right: 0.2vw;
+	text-align: center;
+	font-weight: lighter;
+	font-size: 3.3vw;
+	float: left;
+	/*margin-right: 1.3rem;*/
+	background-color: white;
+	color: #000000;
+	-webkit-appearance: none;
+	line-height: 4.3vw;
+}
+#smallBlockS,#smallBlockRPWV{
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow: hidden;
+	display: block;
+	line-height: 7vh;
+}
+/* 2020/11/12 V9.0 cuikailin add start */
+.disNone{
+	display: none;
+}
+
+.showteach {
+	width: calc(100% - 20px);
+	padding: 5px 0 5px 10px;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
+}
+
+.showteach p {
+	float: left;
+	width: 40%;
+	font-size: 4vw;
+	line-height: 8vw;
+	left: 1vw;
+	margin: 0;
+	top: 0;
+	text-align: left;
+}
+
+.showteach div {
+	width: 60%;
+	font-size: 4vw;
+	text-align: right;
+	line-height: 8vw;
+	float: right;
+}
+
+.check_sub {
+	overflow: hidden;
+}
+
+#dom_sub_dummy, #dom_block_dummy {
+	display: none;
+}
+
+.memo {
+	width: 16.6rem;
+	margin-left: 0.6rem;
+	margin-top: 0.5rem;
+	margin-bottom: 4rem;
+	height: 8rem;
+	border-color: #cfcfcf;
+	resize: none;
+	float: left;
+}
+/* 2020/11/12 V9.0 cuikailin add end */
+/* 2020/11/20 V9.0 cuikailin add start */
+.dwwol {
+	border-top: 1px solid #eee!important;
+	border-bottom: 1px solid #eee!important;
+}
+
+.dw {
+	width: 98%;
+}
+
+.dwc {
+	max-width: 100%;
+	vertical-align: middle;
+	display: inline-block;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.mbsc-mobiscroll .dwwr {
+	background: none!important;
+}
+/* 2020/11/20 V9.0 cuikailin add end */
+
+.planTittle {
+	float: left;
+	margin-top: 0.6rem;
+	padding-left: 0.6rem;
+}
+

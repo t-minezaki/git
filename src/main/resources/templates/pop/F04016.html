@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>保護者既読未読詳細一覧画面（マナミルチャンネル）</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F04016.css"/>
+
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app" v-cloak>
+    <div class="one">
+        <div>
+            <ul class="one-ul">
+                <li>マナミルチャンネル</li>
+                <li>  ＞   配信設定/状況確認</li>
+                <li>  ＞   {{ title }}</li>
+            </ul>
+        </div>
+    </div>
+        <div class="div_head">
+
+            <div class="div_head_title">
+                対象者一覧:{{count}} 名
+            </div>
+        </div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <div class="bottom">
+        <button class="end_btn" @click="bakBtn()">戻る</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/pop/F04016.js" type="text/javascript" charset="utf-8"></script>
+</html>

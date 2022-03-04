@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>配信先既読未読状態確認一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F04015.css"/>
+    <style>
+        .ui-widget.ui-widget-content {
+            margin-top: 6.6vw;
+        }
+    </style>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app" v-cloak>
+    <div class="popTitle">配信先既読未読状態確認一覧画面（マナミルチャンネル）</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="sOrgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="inputDiv">
+        <div class="inputMessage">
+            <div>マナミルチャンネルＩＤ</div>
+            <input type="text" :value="mstNoticeEntity.id" maxlength="60" id="orgId" disabled>
+            <div class="input_center"></div>
+            <div>マナミルチャンネル名</div>
+            <input type="text" :value="mstNoticeEntity.noticeTitle" maxlength="60" id="id" disabled :title="mstNoticeEntity.noticeTitle">
+        </div>
+        <div class="inputMessage">
+            <div>掲載開始日時</div>
+            <input type="text" :value="start" id="pubPlanStartDt" disabled>
+            <div class="input_center">~</div>
+            <div>掲載終了日時</div>
+            <input type="text" :value="end" id="pubPlanEndDt" disabled>
+        </div>
+    </div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <button class="back_btn" @click="backBtn">戻る</button>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F04015.js" type="text/javascript" charset="utf-8"></script>
+</html>

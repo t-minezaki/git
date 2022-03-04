@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>検索画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/my_select.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F21010-1.css" />
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div class="all" id="app">
+    <div class="content_new">
+        <form id="form1">
+            <div>
+                <p>状態</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div  v-for="mstCodDEntity in mstCodDEntityList" class="eventStsDiv">
+                        <input type="radio" class="choose" name="a" v-model="pick" :value="mstCodDEntity.codCd" style="height: 4vh !important;"  ><span :id="mstCodDEntity.codCd">{{mstCodDEntity.codValue}}</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <p>公開日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeFive">
+                        </div>
+                        <input type="text" id="pubStartDt" name="cretTimeStart" readonly>
+                    </div>
+                    <div style="text-align: center">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeSix">
+                        </div>
+                        <input type="text" id="pubEndDt" name="cretTimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <p>作成日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeOne">
+                        </div>
+                        <input type="text" id="cretTimeStart" name="cretTimeStart" readonly>
+                    </div>
+                    <div style="text-align: center">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeTwo">
+                        </div>
+                        <input type="text" id="cretTimeEnd" name="cretTimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>最終更新日</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeThree">
+                        </div>
+                        <input type="text" id="updDatimeStart" name="updDatimeStart" readonly>
+                    </div>
+                    <div style="text-align: center">～</div>
+                    <div class="time_div">
+                        <div class="img_div">
+                            <img src="../img/timeBtn2.png" alt="" id="timeFour">
+                        </div>
+                        <input type="text" id="updDatimeEnd" name="updDatimeEnd" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p>作成者名</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="cretUserName"/>
+                </div>
+            </div>
+
+            <div>
+                <p>最終更新者名</p>
+                <span class="indend">:</span>
+                <div class="inputMessage">
+                    <input type="text" id="updUserName"/>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="theme_btn">
+            <button id="submitbtn">検索</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F21010-1.js"></script>
+</html>

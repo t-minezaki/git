@@ -1,0 +1,77 @@
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.div_header {
+    height: 60px !important;
+}
+
+.content {
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 60px - 58px);
+    overflow: auto;
+    top: 60px;
+    box-sizing: border-box;
+}
+
+.div_header .logout {
+    margin-top: 1.8vw !important;
+}
+
+.div_header .headerBtn {
+    margin-top: 1.5vw !important;
+}
+
+.header_title {
+
+    display: inline-block;
+    height: 4vh;
+    line-height: 4vh;
+    font-size: 1.2em;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    background: #ccc;
+    opacity: 0.5;
+    margin-top: 0vh;
+}
+
+h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.content_bottom {
+
+    position: fixed;
+    top: 80%;
+    text-align: center;
+    width: 100%;
+}
+
+#btn_cancel {
+
+    background: #ccc;
+    border: 0px;
+    width: 30vw;
+    height: 5.5vh;
+    font-size: 1em;
+    font-weight: bolder;
+    color: whitesmoke;
+    margin-left: 35vw;
+    float: left;
+}
+
+
+.content_title {
+    width: 100%;
+    margin-top: 10vh;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bolder;
+    margin-bottom: 6vh;
+}
+

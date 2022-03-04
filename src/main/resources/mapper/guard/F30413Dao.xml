@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30413Dao">
+    <select id="init" parameterType="java.util.Map" resultType="jp.learningpark.modules.guard.dto.F30413Dto">
+        SELECT DISTINCT
+            mcd.cod_value AS absStsDiv,
+            gras.guid_repr_deliver_cd AS guidReprDeliverCd,
+            grd.guid_cont,
+            grd.hwk_cont,
+            mcd4.cod_value AS hwkDiv,
+            mcd1.cod_value_2 AS lastHwkDiv,
+            grd.test_unit_nm,
+            abd.test_points,
+            mcd5.cod_value AS careDiv,
+            mcd2.cod_value_2 AS schStsDiv,
+            grd.lect_shape_div AS lectShapeDiv,
+            grd.conc_item_cont,
+            grd.use_cont,
+            grd.upd_usr_id,
+            grd.cret_usr_id
+        FROM guid_repr_d grd
+        inner join guid_repr_apply_sts gras
+            on grd.guid_repr_id = gras.guid_repr_id
+            and gras.stu_id = grd.stu_id
+            and gras.org_id = #{orgId}
+            and gras.guid_repr_id = #{grId}
+            and gras.del_flg = 0
+            inner join guid_repr_deliver as grd1 on gras.org_id = grd1.org_id and gras.guid_repr_deliver_cd = #{deliverCd}
+            INNER JOIN guid_repr_h grh ON grh.id = grd.guid_repr_id
+            and grh.org_id = #{orgId}
+            and grh.del_flg = 0
+        inner join attend_book_h abh
+            on abh.attend_book_cd = grh.attend_book_cd
+            and abh.org_id = #{orgId}
+            and abh.tgt_ymd = #{tgtYmd}
+            and abh.del_flg = 0
+        inner join attend_book_d abd
+            on abd.attend_book_id = abh.id
+            and abd.stu_id = grd.stu_id
+            and abd.del_flg = 0
+        left join mst_cod_d mcd
+            on mcd.cod_key = 'ABS_STS_DIV'
+            and mcd.cod_cd = grd.abs_sts_div
+            and mcd.del_flg = 0
+        left join mst_cod_d mcd1
+            on mcd1.cod_key = 'LAST_TIME_HWK_DIV'
+            and mcd1.cod_cd = grd.last_time_hwk_div
+            and mcd1.del_flg = 0
+        left join mst_cod_d mcd2
+            on mcd2.cod_key = 'SCH_STS_DIV'
+            and mcd2.cod_cd = grd.sch_sts_div
+            and mcd2.del_flg = 0
+        left join mst_cod_d mcd3
+            on mcd3.cod_key = 'LECT_SHAPE_DIV'
+            and mcd3.cod_cd = grd.lect_shape_div
+            and mcd3.del_flg = 0
+        left join mst_cod_d mcd4
+            on mcd4.cod_key = 'HOME_WK_DIV'
+            and mcd4.cod_cd = abd.home_wk_div
+            and mcd4.del_flg = 0
+        left join mst_cod_d mcd5
+            on mcd5.cod_key = 'CARE_DIV'
+            and mcd5.cod_cd = abd.care_div
+            and mcd5.del_flg = 0
+        WHERE grd.stu_id = #{stuId}
+            and grd.del_flg = 0
+    </select>
+
+    <select id="selectNoticeInfo" resultType="jp.learningpark.modules.guard.dto.F30112Dto">
+        SELECT
+        mn.notice_level_div AS noticeLevDiv,
+        grs.id  AS grsId,
+        gras.id AS grasId,
+        grs.reading_sts_div AS readStsDiv,
+        gras.reading_sts_div AS readingStsDiv,
+        gras.opened_flg
+        FROM mst_notice mn
+        INNER JOIN guard_reading_sts grs
+        ON
+        grs.notice_id = mn.id
+        and grs.del_flg = 0
+        inner join guid_repr_apply_sts gras
+        ON
+        gras.guid_repr_id = #{guidReprId}
+        and gras.stu_id = #{stuId}
+        and gras.org_id = #{orgId}
+        and gras.guard_id = #{guardId}
+        and gras.del_flg = 0
+        WHERE mn.id = #{id}
+        and mn.del_flg = 0
+        and gras.guid_repr_deliver_cd = #{guidReprDeliverCd}
+    </select>
+</mapper>

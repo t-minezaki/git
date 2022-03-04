@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F21006Dao">
+    <!--  管理者基本マスタから取得し -->
+    <select id="getSubjt" resultType="jp.learningpark.modules.common.entity.MstCodDEntity">
+        SELECT
+            cod_key,
+            cod_cd,
+            cod_value,
+            cod_value_2,
+            cod_value_3,
+            cod_value_4,
+            cod_value_5,
+            cod_cont,
+            sort,
+            cret_datime,
+            cret_usr_id,
+            upd_datime,
+            upd_usr_id,
+            del_flg
+        FROM
+            mst_cod_d
+        WHERE
+            cod_key = 'SUBJT_DIV'
+        AND cod_cd in
+        <foreach collection="subjtDiv" item="codCd" open="(" separator="," close=")">
+            #{codCd}
+        </foreach>
+            AND del_flg = 0
+            order by
+            case
+            WHEN cod_cd = 'k1' then 1
+            WHEN cod_cd = 'm1' or cod_cd = 'm2' then 2
+            WHEN cod_cd = 'r1' then 3
+            WHEN cod_cd = 's4' then 4
+            WHEN cod_cd = 'e1' then 5
+            WHEN cod_cd = 's5' then 6
+            WHEN cod_cd = 'r2' then 7
+            WHEN cod_cd = 'r3' then 8
+            WHEN cod_cd = 'r4' then 9
+            WHEN cod_cd = 'r5' then 10
+            WHEN cod_cd = 's1' then 11
+            WHEN cod_cd = 's2' then 12
+            WHEN cod_cd = 's3' then 13
+            WHEN cod_cd = 't1' then 14
+            WHEN cod_cd = 'o1' then 15
+            WHEN cod_cd = 'z1' then 16 end
+    </select>
+</mapper>

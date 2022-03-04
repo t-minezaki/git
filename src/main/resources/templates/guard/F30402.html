@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>塾からのイベント詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30402.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe id="iframe_top" name="common_top" frameborder="0" width="100%" height="100%" src="../common/F40004-1.html"></iframe>
+</div>
+<div class="topTitle commonTabTitle">
+    お知らせ
+</div>
+<div class="content">
+<!--    <div class="oneTitle">-->
+<!--        <ul id="titleUl">-->
+<!--            <li onclick="window.location.href='F30112.html'" class="active active1">お知らせ<div class="count1"></div></li>-->
+<!--            <li onclick="window.location.href='F30419.html'" class="active">マナミルチャンネル<div class="newsCount"></div></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    <div class="content_div">
+        <div class="title_div">
+            <div class="back">
+                <img src="../img/left.png" onclick="common_top.toNotice();">
+                <div class="title"></div>
+            </div>
+            <!--<div class="updateTime"></div>-->
+        </div>
+        <!--<div class="div_img"><img src="" class="img"></div>-->
+        <div class="description"></div>
+        <div class="div_files">
+        </div>
+        <div class="div_btnbox">
+            <button class="green" id="appli_btn" onclick="toF30405()">申込/回答</button>
+        </div>
+        <div class="div_msgbox">
+
+        </div>
+    </div>
+</div>
+<div class="div_bottom">
+    <iframe id="ifr_bottom" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/hammer/hammer.js"></script>
+<script src="${request.contextPath}/js/guard/F30402.js"></script>
+</html>

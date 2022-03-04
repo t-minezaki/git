@@ -1,0 +1,141 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+        jcenter()
+        google ()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'jp.learningpark'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    //implementation('org.springframework.boot:spring-boot-starter-data-redis')
+	implementation('org.springframework.boot:spring-boot-starter-freemarker')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	//implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+	//implementation('org.springframework.session:spring-session-core')
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-batch
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: '2.3.4.RELEASE'
+
+	compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+//    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.8.0'
+
+    compile group: 'com.github.penggle', name: 'kaptcha', version: '2.3.2'
+    
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
+
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
+    //compile group: 'com.alibaba', name: 'druid', version: '1.1.12'
+    //compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.10'
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.1'
+
+    // PDF Start
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+    compile group: 'com.itextpdf', name: 'itext-asian', version: '5.2.0'
+
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.1.3.RELEASE'
+
+    // uediter
+    compile group: 'com.gitee.qdbp.thirdparty', name: 'ueditor', version: '1.4.3.3'
+    
+    //JWT
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    //Google Sheet Start
+    // https://mvnrepository.com/artifact/com.google.api-client/google-api-client
+    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.30.4'
+    // https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty
+    compile group: 'com.google.oauth-client', name: 'google-oauth-client-jetty', version: '1.30.6'
+    // https://mvnrepository.com/artifact/com.google.apis/google-api-services-sheets
+    compile group: 'com.google.apis', name: 'google-api-services-sheets', version: 'v4-rev581-1.25.0'
+    
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+//    runtimeOnly('org.postgresql:postgresql')
+//    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    
+    // https://mvnrepository.com/artifact/gov.adlnet/jxapi
+    compile group: 'gov.adlnet', name: 'jxapi', version: '2.0.1'
+    
+    // https://mvnrepository.com/artifact/org.quartz-scheduler/quartz
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.0'
+
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-ehcache
+    compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.4.1'
+    
+    // https://mvnrepository.com/artifact/user-agent-utils/user-agent-utils
+    compile group: 'user-agent-utils', name: 'user-agent-utils', version: '1.2.3'
+
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-quartz
+    compile( group: 'org.apache.shiro', name: 'shiro-quartz', version: '1.4.1')
+    {
+        exclude module: 'quartz'
+    }
+
+    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
+
+    compile group: 'com.google.zxing', name: 'core', version: '3.2.0'
+
+    compile group: 'com.google.zxing', name: 'javase', version: '3.2.0'
+
+    implementation group:'com.squareup.okhttp3', name:"okhttp", version:'3.4.1'
+
+    implementation group: 'org.apache.rampart', name: 'rampart', version: '1.7.0'
+
+    implementation group: 'org.apache.rampart', name: 'rampart-core', version: '1.7.0'
+
+    implementation group: 'org.apache.axis2', name: 'addressing', version: '1.7.5'
+
+    implementation group: 'commons-discovery', name: 'commons-discovery', version: '0.5'
+
+    implementation group: 'org.apache.axis2', name: 'axis2-spring', version: '1.7.5'
+
+    implementation group: 'org.apache.axis2', name: 'axis2-kernel', version: '1.7.5'
+
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    implementation group: 'org.apache.axis2', name: 'axis2-adb', version: '1.7.5'
+
+    implementation group: 'org.apache.axis2', name: 'axis2-transport-local', version: '1.7.5'
+
+    implementation group: 'org.apache.axis2', name: 'axis2-transport-http', version: '1.7.5'
+
+    implementation group: 'org.apache.axis2', name: 'axis2', version: '1.7.5'
+
+    implementation 'net.sourceforge.javacsv:javacsv:2.0'
+
+    implementation 'com.jcraft:jsch:0.1.55'
+}

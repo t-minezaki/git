@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F07012Dao">
+    <select id="mstcodEntity" resultType="jp.learningpark.modules.manager.dto.F07012Dto">
+        SELECT
+            c2.cod_value schy,
+            c2.cod_cd schyId,
+            c1.cod_cd codCd,
+            c1.cod_value subName,
+            c1.cod_value_2 backGround,
+            c1.cod_cont codCont,
+            c1.sort
+        FROM
+	        mst_cod_d c1
+	    INNER JOIN mst_cod_d c2 ON c1.cod_value_5 = c2.cod_cd
+	    WHERE c2.cod_key = 'SCHY_DIV'
+        AND
+            c1.cod_key = 'TEST_SUBJT_DIV'
+        <if test="codCd != null and codCd != '' ">
+            AND c1.cod_cd = #{codCd}
+        </if>
+        AND c1.del_flg = 0
+        and c2.del_flg = 0
+        ORDER BY c1.sort,c2.sort
+    </select>
+</mapper>

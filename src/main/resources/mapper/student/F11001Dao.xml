@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11001Dao">
+    <select id="getSubjt" resultType="jp.learningpark.modules.student.dto.F11001Dto">
+    SELECT
+            A.cod_cd AS subjtDiv,
+            A.cod_value AS subjtNm
+            FROM
+                (
+                    SELECT
+                        A.cod_cd,
+                        A.cod_value,
+                        A.sort,
+                        array_to_string (
+                        ARRAY (
+                    SELECT
+                        b.cod_cd
+                    FROM
+                        mst_cod_d b
+                        INNER JOIN mst_stu ms ON b.cod_cd = ms.schy_div
+                        AND ms.stu_id = #{stuId}
+                        AND ms.del_flg = 0
+                    WHERE
+                        b.cod_key = 'SCHY_DIV'
+                        AND b.cod_cd = ANY ( regexp_split_to_array ( A.cod_value_5, ',' ) )
+                        AND b.del_flg = 0
+                ), ',' ) AS shy_div
+        FROM
+            mst_cod_d A
+        WHERE
+            A.cod_key = 'SUBJT_DIV'
+            AND A.del_flg = 0
+            ) A
+        INNER JOIN mst_cod_d C ON C.cod_key = 'SCHY_DIV' AND C.cod_cd = A.shy_div AND C.del_flg = 0
+        ORDER BY
+        A.sort
+    </select>
+</mapper>

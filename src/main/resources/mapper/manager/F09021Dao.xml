@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F09021Dao">
+    <!--  本組織及下層組織リストの取得  -->
+    <select id="selectLowerOrg" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F09021Dto">
+		WITH RECURSIVE cte AS (
+            SELECT
+                a1.* ,
+                '1' as orgDiv
+            FROM
+                mst_org a1
+            WHERE
+                a1.org_id = #{orgId}
+                AND a1.brand_cd=#{brandCd}
+                AND a1.del_flg = 0
+                UNION ALL
+            SELECT
+                a2.* ,
+                '2' as orgDiv
+            FROM
+                cte
+                C INNER JOIN mst_org a2 ON C.org_id = a2.upplev_org_id
+                AND a2.del_flg = 0
+                ) SELECT DISTINCT
+                s.org_id,
+                s.org_nm,
+                s.orgDiv,
+                s.level FROM cte s
+        ORDER BY
+            s.level,
+            s.org_id
+    </select>
+    <!--  生徒情報のクエリ  -->
+    <select id="selectStuList" resultType="jp.learningpark.modules.manager.dto.F09021Dto">
+    SELECT
+        b.stu_id,
+        b.flnm_nm||' '||b.flnm_lnm as stuNm,
+        b.schy_div,
+        d.cod_value as schy,
+        a.org_id
+    FROM
+        (SELECT * FROM mst_usr WHERE trim(role_div) = '4' AND usr_sts = '1' AND del_flg = 0
+        AND
+            org_id
+        IN
+        <foreach collection="orgIdList" item="orgId" open="(" separator="," close=")">
+            #{orgId}
+        </foreach>
+    ) a
+    LEFT JOIN
+        mst_stu b
+    ON
+        (a.usr_id = b.stu_id AND b.del_flg = 0)
+    <if test="grpId != null and grpId != '' ">
+    INNER JOIN
+        stu_grp c
+    ON
+        (c.grp_id = #{grpId} AND c.stu_id = b.stu_id AND c.del_flg = 0)
+    </if>
+    INNER JOIN
+        mst_cod_d d
+    ON
+        (b.schy_div = d.cod_cd AND d.cod_key = 'SCHY_DIV' AND d.del_flg = 0
+        <if test="schyDiv != null and schyDiv != '' ">
+        AND
+        b.schy_div = #{schyDiv}
+        </if>
+        )
+    ORDER BY
+        b.stu_id
+    </select>
+</mapper>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F09002-1.css"/>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <title>Title</title>
+</head>
+<body style="background: white;">
+<div id="app">
+    <div id="div_title">
+
+        <label id="title_cont">
+            二次元コードの印字位置を<br>設定してください（縦5×横2）。<br>左上から右方向に印字されます。
+        </label>
+    </div>
+
+    <div id="div_mid">
+
+        <div class="div_select">
+            <select id="row_select">
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+            <span class="span_select">行目</span>
+        </div>
+
+        <div class="div_select">
+            <select id="col_select">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <span class="span_select">列目</span>
+        </div>
+    </div>
+
+    <div id="div_bottom">
+        <button id="btn_ok">出力</button>
+        <span id="span_info"></span>
+    </div>
+
+</div>
+</body>
+<script src="${request.contextPath}/js/pop/F09002-1.js"></script>
+</html>

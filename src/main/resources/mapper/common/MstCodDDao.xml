@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.common.dao.MstCodDDao">
+
+    <!-- 自分のニーズに応じて、使用するかどうかを判断することができる。 -->
+    <resultMap type="jp.learningpark.modules.common.entity.MstCodDEntity" id="mstCodDMap">
+        <result property="codKey" column="cod_key"/>
+        <result property="codCd" column="cod_cd"/>
+        <result property="codValue" column="cod_value"/>
+        <result property="codValue2" column="cod_value_2"/>
+        <result property="codValue3" column="cod_value_3"/>
+        <result property="codValue4" column="cod_value_4"/>
+        <result property="codValue5" column="cod_value_5"/>
+        <result property="codCont" column="cod_cont"/>
+        <result property="sort" column="sort"/>
+        <result property="cretDatime" column="cret_datime"/>
+        <result property="cretUsrId" column="cret_usr_id"/>
+        <result property="updDatime" column="upd_datime"/>
+        <result property="updUsrId" column="upd_usr_id"/>
+        <result property="delFlg" column="del_flg"/>
+    </resultMap>
+
+</mapper>

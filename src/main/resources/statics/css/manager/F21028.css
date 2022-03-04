@@ -1,0 +1,303 @@
+html, body {
+    height: 100%;
+}
+
+.one {
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+    display: inline-block;
+    margin-right: 0.5vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+
+.topMessage {
+    position: absolute;
+}
+
+.button {
+    background: #00a65a;
+    color: whitesmoke;
+    border-radius: 5px;
+    width: 9vw;
+    min-width: 80px;
+    text-align: center;
+    font-size: 0.9vw;
+    margin-left: 1vw;
+    height: 1.6vw;
+    border: 0;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+.left-item {
+    float: left;
+}
+
+.head_button{
+    width: 12%;
+    height: 75%;
+}
+.head_button > button{
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    padding: 5px;
+}
+
+.head_button button img{
+    width: 100%;
+    height: 100%;
+}
+#schedule_show {
+    position: absolute;
+    right: 6vw;
+    /* 2021/01/04  UT-072 wangyuehao modify start */
+    top: 50px;
+    margin-right: 10px;
+    background-color: #006E00;
+}
+#list_show {
+    position: absolute;
+    right: 3vw;
+    top: 50px;
+    /* 2021/01/04  UT-072 wangyuehao modify end */
+    background-color: #BFBFBF;
+}
+
+.right-item {
+    float: right;
+}
+
+.row {
+    overflow: hidden;
+}
+
+.label {
+    float: left;
+    font-size: 0.9vw;
+    margin: 0 1vw 0 1vw;
+}
+
+img.img {
+    float: left;
+    height: 1.6vw;
+}
+
+.date-range {
+    float: left;
+    font-size: 0.9vw;
+    margin: 0!important;
+    line-height: 1.6vw;
+}
+
+.reloadRow {
+    padding-top: 4vh;
+    width: 90%;
+    margin-left: 5%;
+}
+
+.selectRow {
+    padding-top: 4vh;
+    width: 93%;
+    margin-left: 4%;
+    height: 18vh;
+}
+
+.search-btn {
+    float: right;
+    border-radius: 3px;
+    cursor: pointer;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: grey solid 1px;
+    border-bottom: 3px grey solid;
+    letter-spacing: 0.1vw;
+}
+
+.stand-set-btn {
+    float: right;
+    background: #00a65a;
+    color: whitesmoke;
+    border-radius: 3px;
+    cursor: pointer;
+    border: #00a65a solid 1px;
+    border-bottom: 3px grey solid;
+    letter-spacing: 0.1vw;
+}
+
+.input {
+    width: 10vw;
+    border: 1px solid black;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+}
+
+.select {
+    width: 10vw;
+}
+
+.view-change-btn {
+    background: whitesmoke;
+    color: black;
+    border: 2px solid #00a65a;
+}
+
+.this-view {
+    background: #b2b2b2;
+    pointer-events: none;
+}
+
+.listContentRow {
+    margin-top: 2vh;
+    width: 90%;
+    margin-left: 5%;
+
+}
+
+/*jqGrid*/
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    font-size: 1vw;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+    /*table-layout: unset!important;*/
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: hidden !important;
+    width: 100%!important;
+}
+
+::-webkit-scrollbar {
+    height: 2vh;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 0px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    background: rgba(120, 120, 120, 1);
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+    border-radius: 0;
+    background: #eee;
+}
+
+.ui-jqgrid .ui-jqgrid-view::-webkit-scrollbar {
+    width: 0px !important;
+    height: 10px;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.layui-layer {
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 10px 5px #777;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 3em;
+    font-weight: bolder;
+}
+
+.layui-layer-myskin {
+    overflow: hidden;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+    padding: 0px 0px;
+}
+
+#jqGridPager_right {
+    text-align: left;
+}
+
+/*#pg_jqGridPager {*/
+/*    background: white;*/
+/*    position: fixed;*/
+/*    top: 95%;*/
+/*}*/
+
+.ui-jqgrid-bdiv {
+    width: 100% !important;
+}
+
+.ui-paging-info {
+    margin-right: 3vw !important;
+}
+
+.ui-widget-overlay {
+    display: none;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    height: 1.6vw !important;
+    margin-top: 0.8vw !important;
+}
+.ui-jqgrid .ui-jqgrid-view {
+    margin-left: 0!important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable {
+     /*table-layout: unset!important;*/
+}

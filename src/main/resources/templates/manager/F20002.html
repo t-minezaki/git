@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title id="F20002">生徒基本情報画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F20002.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/select2/css/select2.css" type="text/css">
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/select2/js/select2.js"></script>
+</head>
+<body>
+<div id="info" v-cloak>
+    <iframe src="${request.contextPath}/common/F40003.html?id=F20002" width="100%" style="border:none;margin-top:1vw;scrolling : no;height: calc(2.7vw + 2px)"></iframe>
+    <div class="content">
+        <div id="message" class="topMessage" ></div>
+        <h1 class="ftwo_title">基本情報</h1>
+        <div class="basic">
+            <div class="basic_infor">
+                <div><p>氏名：</p> <span v-text="stuNm.replace(' ','')"></span></div>
+                <div><p>学年：</p><span v-text="schy"></span></div>
+                <div><p>所属校：</p> <span v-text="schNm"></span></div>
+                <div><p>所属塾：</p> <span v-text="orgNm"></span></div>
+                <div><p>担当者：</p> <input class="input-item" maxlength="50" v-model="stu.resptyNm"></div>
+                <div><p>習い事：</p> <input class="input-item" maxlength="300" v-model="stu.studyCont"></div>
+                <div><p>得意科目：</p> <select class="selectSa" v-model="stu.goodSubjt" multiple v-select2>
+                    <option :value="sub.codCd" v-for="sub in subjt">{{sub.codValue}}
+                    </option>
+                </select></div>
+                <div><p>不得意科目：</p> <select class="selectUnsa" v-model="stu.nogoodSubjt" multiple v-select2>
+                    <option :value="sub.codCd" v-for="sub in subjt">{{sub.codValue}}
+                    </option>
+                </select></div>
+                <div><p>希望職種：</p> <input class="input-item" maxlength="50" v-model="stu.hopeJobNm"></div>
+                <div><p>希望大学：</p> <input class="input-item" maxlength="50" v-model="stu.hopeUnityNm"></div>
+                <div><p>希望学部学科：</p> <input class="input-item" maxlength="50" v-model="stu.hopeLearnSub"></div>
+                <div class="textarea-container"><p>特記事項：</p> <textarea class="textarea-item" maxlength="300"
+                                                                       v-model="stu.specCont">{{stu.specCont}}</textarea>
+                </div>
+            </div>
+            <ul>
+                <li :style="sub.subjtDiv === '' ? 'display: none' : ''" v-for="sub in subjtlist">
+                    <div class="f_subject" :style="'background:'+sub.codValue2">
+                        <img :src="sub.imgPath" alt=""/>
+                        <span v-text="sub.codValue"></span>
+                    </div>
+                    <select class="f_books" :name="sub.subjtDiv" :updateStr="sub.updateTimeStr">
+                        <option value="" target="">選択してください</option>
+                        <option v-for="book in sub.f20002TextListDtos" :value="book.textbId" v-if="book.selFlg>0"
+                                selected="selected" :target="book.textbNm" v-text="book.textbNm">
+                        </option>
+                        <option v-for="book in sub.f20002TextListDtos" :value="book.textbId" v-if="! book.selFlg"
+                                v-text="book.textbNm">
+                        </option>
+                    </select>
+                </li>
+            </ul>
+            <div id="right" style="width: 55%;float: left;background-color: white;height: 29vh">
+                <div class="rightBtn">
+                    <button class="topBtn" value="1" style="color: #1B9848;" id="askTalk" onclick="F21060()">面談記録</button>
+                    <button class="topBtn" value="3" style="color: #C6C6C6;" id="askAbout" onclick="F21049()">問合せ記録</button>
+                    <!--<button class="topBtn" id="score" onclick="toF10507()" style="color: #FF1818;" value="4">成績管理</button>-->
+                    <button class="topBtn" id="add" onclick="infoPop()" style="color: #1B9848;display: none"
+                            value="5">新規登録
+                    </button>
+                </div>
+                <div id="div-grid" class="div_main" style="margin-top: 2vh">
+                    <div class="first_div">
+                        <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                        <div id="jqGridPager"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<button class="turn_back" id="backBtn">戻る</button>
+<button class="login_btn_F20002" :disabled="subjtlist.length == 0 ? true : false " onclick="updateChoc()">登録</button>
+
+</body>
+<script src="${request.contextPath}/plugins/date.format-master/date.format.js" type="text/javascript"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F20002.js">
+</script>
+</html>

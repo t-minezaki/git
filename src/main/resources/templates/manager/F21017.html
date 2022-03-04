@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <!--<link rel="stylesheet" href="${request.contextPath}/css/manager/F21017.css"/>-->
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div id="page">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40011-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content" v-cloak>
+        <div id="head">
+            <!-- add at 2021/08/10 for V9.02 by NWT wen START -->
+            <select name="schoolYear" id="schoolYear" onchange="_filter()">
+                <option value="" disabled selected style='display:none;'>学年を選択</option>
+                <option value="">すべて</option>
+                <template v-for="year in schoolYear">
+                    <option :value="year.codCd">{{year.codValue}}</option>
+                </template>
+            </select>
+            <select name="week" id="week" onchange="_filter()">
+                <option value="" disabled selected style='display:none;'>曜日を選択</option>
+                <option value="">すべて</option>
+                <template v-for="week in weekDay">
+                    <option :value="week.codCd">{{week.codValue}}</option>
+                </template>
+            </select>
+            <select name="status" id="status" onchange="_filter()">
+                <option value="" disabled selected style='display:none;'>入室状況を選択</option>
+                <option value="">すべて</option>
+                <template v-for="div in status">
+                    <option :value="div.codCd">{{div.codValue}}</option>
+                </template>
+            </select>
+<!--            <div id="btnDiv">-->
+<!--                <button class="headBtns active" id="btn1">全員</button>-->
+<!--                <button class="headBtns" id="btn2">本日入室済</button>-->
+<!--            </div>-->
+            <!-- add at 2021/08/10 for V9.02 by NWT wen END -->
+        </div>
+        <div id="datas">
+            <ul>
+                <li class="liClass" v-for="dto in stuList">
+                    <div :style="'background:' + dto.backGround + ';border:1px solid ' + dto.border" class="stu-container">
+                        <div class="photo-container">
+                            <img :src="dto.photPath" :style="dto.style"
+                                 @click="toF21018(dto.stuId,dto.absSts)" class="img1"
+                                 onerror="this.src='../img/logo2.png'">
+                        </div>
+                        <div class="_center" @click="toF21018(dto.stuId,dto.absSts)">
+                            <div id="textDiv">
+                                <p class="status" style="font-weight: bolder;padding-top: 2px;">{{dto.stuName}}</p>
+                                <p class="_entryTime" :style="dto.display != null && dto.display != '' ? 'visibility: visible;' : 'visibility: hidden;'">入室
+                                    {{dto.display}}</p>
+                            </div>
+                            <!-- add at 2021/08/19 for V9.02 by NWT wen START -->
+                            <div class="_entry">
+                                <p style="font-size: 3vw;width: auto;float: left;" :style="dto.tgtYmd != null && dto.entryFlg == null ? 'color: red;' : ''"
+                                   class="status sts absSts">{{dto.absSts}}</p>
+                                <p style="font-size: 3vw" class="status sts birthSts">{{dto.birthDayTxt}}</p>
+                            </div>
+                        </div>
+                        <img @click="toF21020(dto.stuId)" class="img2" :src="dto.complimentFlg == '0'?'${request.contextPath}/img/redSmile.png':'${request.contextPath}/img/greySmile.png'">
+                        <!-- add at 2021/08/19 for V9.02 by NWT wen END -->
+                    </div>
+                    <div class="bottom-line"></div>
+                </li>
+                <li class="insert" @click="insert()">更に読み込む</li>
+            </ul>
+        </div>
+        <div id="pageFoot"></div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40011.html?id=F21017" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21017.js"></script>
+</html>

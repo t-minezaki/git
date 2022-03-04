@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F11004Dao">
+    <select id="init" resultType="jp.learningpark.modules.student.dto.F11004Dto">
+        SELECT
+            id,
+            plan_ymd,
+            subjt_div,
+            stu_plan_learn_tm,
+            perf_ymd,
+            plan_learn_start_time,
+            b.cod_value as subName,
+            b.cod_cont as subImgPath,
+            b.cod_value_2 as color
+        FROM
+            STU_WEEKLY_PLAN_PERF a
+                INNER JOIN mst_cod_d b ON (a.subjt_div = b.cod_cd AND b.cod_key = 'SUBJT_DIV' AND b.del_flg = 0)
+        WHERE
+            a.del_flg = 0
+            AND stu_id = #{userId}
+            AND perf_ymd is null
+            AND learn_lev_unds IS NULL
+            AND block_type_div IN ('01','02','03','R1','S1','P1','W1','V1')
+        ORDER BY
+            plan_ymd DESC
+    </select>
+</mapper>

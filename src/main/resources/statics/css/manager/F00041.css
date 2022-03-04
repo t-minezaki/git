@@ -1,0 +1,364 @@
+a {
+    text-decoration: underline;
+    color: blue;
+    font-size: .9vw;
+}
+
+label {
+    font-size: .9vw;
+    width: 100%;
+    display: block;
+}
+
+.header_operat {
+    width: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: hidden;
+}
+
+.main {
+    width: 90%;
+    height: auto;
+    float: left;
+    margin-left: 10vw;
+    /*margin-right: 5vw;*/
+}
+
+.one {
+    width: 100%;
+    height: 2.2vw;
+    float: left;
+    box-sizing: border-box;
+}
+
+.two {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.two-left {
+    float: left;
+}
+
+.two-right {
+    float: right;
+}
+
+.objectName {
+    width: auto;
+    margin-right: 3%;
+    height: 2.2vw;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    float: left;
+}
+
+.objectName.left {
+    width: 14%;
+}
+
+.objectName.right {
+    width: 23%;
+}
+
+.one input {
+    float: left;
+    padding: 0 0.5vw;
+    border: 1px solid #000;
+    border-radius: 0.1vw;
+    font-size: 0.9vw;
+    height: 1.6vw;
+    width: 0;
+}
+
+.two select,
+.one select {
+    float: left;
+    width: 42%;
+    margin-right: 3%;
+    padding: 0 0.5vw;
+    border: 1px solid #000 !important;
+    border-radius: 0.1vw;
+    line-height: 2.2vw;
+    height: 2.2vw;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.noData {
+    opacity: 0;
+}
+
+.one input:disabled {
+    background: none;
+}
+
+.one button {
+    float: left;
+    width: 8%;
+    height: 2.2vw;
+    border-radius: 4px;
+    color: #009944;
+    background: none;
+    font-size: 0.9vw;
+    color: rgba(100, 100, 100, 1);
+    background: white;
+    border: 1px grey solid;
+    border-bottom: 3px grey solid;
+}
+
+.one button.other {
+    width: 20%;
+    float: right;
+    margin-right: 4%;
+}
+
+.bottom {
+    width: 100%;
+    height: auto;
+}
+
+.bottom_title {
+    margin-left: 0.4vw;
+    font-weight: bold;
+    font-size: 0.9vw;
+    text-align: left;
+}
+
+table, tr {
+    width: 100%;
+}
+
+th {
+    border-bottom: 1px dashed #000;
+}
+
+.fileForm {
+    width: 8%;
+    height: 2.2vw;
+    position: absolute;
+    left: 88%;
+    top: 0;
+    opacity: 0;
+    margin-right: 0;
+}
+
+.one input.getFile {
+    width: 100%;
+    height: 2.2vw;
+    margin-right: 0;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    line-height: 17px;
+}
+
+.ui-jqgrid .ui-jqgrid-pager {
+    height: 40px;
+}
+
+.oneLeft {
+    float: left;
+    height: 100%;
+    width: 50%;
+}
+
+.oneRight {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.twoRight {
+    width: 100%;
+    height: 2.7vw;
+    float: left;
+}
+
+.roleUl input {
+    margin-right: 5%;
+}
+
+.twoRight input[type = "text"],
+.oneRight input[type = "text"] {
+    height: 1.6vw;
+    margin-top: .3vw;
+    width: 30%;
+}
+
+.twoRight button {
+    float: right;
+    border: 1px solid #009944;
+    color: #009944;
+    background: white;
+    border-radius: 5px;
+    width: 8vw;
+}
+
+.exprot a {
+    margin-left: 4vw;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+    text-decoration: underline;
+    color: blue;
+}
+
+.btn {
+    height: 100%;
+    float: left;
+    width: 60%;
+}
+
+.btn button {
+    float: right !important;
+    width: 12vw !important;
+    margin: 0 5%;
+    cursor: pointer;
+}
+
+.ui-widget-content a {
+    color: blue;
+    font-size: 13px;
+}
+
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.jqgrow.ui-row-ltr.ui-widget-content.ui-state-hover a {
+    color: blue;
+    text-decoration: underline;
+}
+
+/*.radio {*/
+/*height: 2.2vw;*/
+/*line-height: 2.2vw;*/
+/*}*/
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    line-height: 20px;
+    font-weight: bold;
+}
+
+#orgSelect,
+#schy {
+    height: 1.6vw;
+    margin-top: .3vw;
+    width: 30%;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+#new {
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+#specAuthFlg {
+    display: none;
+}
+
+#gbox_jqGrid, #jqGrid, .ui-jqgrid-hdiv, .ui-jqgrid-bdiv, .ui-jqgrid-htable, #jqGridPager {
+    width: 100% !important;
+}
+
+.ui-jqgrid-view {
+    width: 100% !important;
+    overflow-x: overlay;
+}
+
+.ui-jqgrid-bdiv > div {
+    width: calc(100% - 16px) !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+}
+
+.ui-jqgrid-bdiv {
+    width: calc(100% - 4px) !important;
+    height: 52vh !important;
+}
+
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 3em;
+    font-weight: bolder;
+    margin-top: 0.8vh;
+}
+
+.layui-layer-title {
+    /*visibility: hidden !important;*/
+}

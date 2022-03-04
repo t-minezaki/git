@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>単元情報検索一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F02002.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="content" id="vue" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div class="popTitle">単元情報検索一覧画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div>{{mstOrgEntity.orgId}}</div>
+        <div>組織名:</div>
+        <div>{{getOrgName(mstOrgEntity.orgNm)}}</div>
+    </div>
+    <form id="f00041Form">
+    <div class="inputDiv">
+
+            <div class="inputMessage">
+                    <div class="objectName">組織</div>
+                    <select type="text" id="orgId">
+                        <option style="display: none" :value="mstOrgEntity.orgId">{{mstOrgEntity.orgId}} {{getOrgName(mstOrgEntity.orgNm)}}</option>
+                        <option v-for="org in orgAll" :value="org.orgId">{{org.orgId}} {{getOrgName(org.orgNm)}}</option>
+                    </select>
+                    <div class="objectName">学年</div>
+                    <select type="text" id="schyDiv">
+                        <option ></option>
+                        <option v-for="schy in schyDiv" :value="schy.codCd">{{schy.codValue}}</option>
+                    </select>
+                    <div class="objectName">教科</div>
+                    <select type="text" id="subjtDiv">
+                        <option ></option>
+                        <option v-for="subjt in subjtDiv" :value="subjt.codCd">{{subjt.codValue}}</option>
+                    </select>
+            </div>
+            <div class="inputMessage">
+                    <div class="objectName">単元名</div>
+                    <input type="text" id="unitNm">
+            </div>
+        </div>
+        </form>
+        <div class="one">
+            <div class="btn">
+                <button @click="select()">検索</button>
+                <button style="background: #00a65a;color: white;border: 0;border-bottom: 3px grey solid;" onclick="newF03005()">新規作成</button>
+            </div>
+            <!--<div class="exprot">-->
+                <!--<a href="F02001.html">一括登録＆エクスポート</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F02002.js"></script>
+</html>

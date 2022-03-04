@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00043Dao">
+    <!-- ユーザー基本情報 -->
+    <select id="getAfterUserId" resultType="jp.learningpark.modules.manager.dto.F00043Dto">
+        SELECT usr.after_usr_id,
+               usr.usr_password,
+               usr.gidpk,
+               usr.gid_flg,
+               usr.usr_sts,
+               cod.cod_cd,
+               cod.cod_value,
+               usr.upd_datime
+        FROM
+            mst_cod_d cod,
+            mst_usr usr
+        WHERE
+            usr.usr_id = #{usrId}
+            AND cod.cod_cd = usr.role_div
+            AND cod.cod_key = 'ROLE_DIV'
+            <if test="!ignoreDelete">
+                AND cod.del_flg = 0
+                AND usr.del_flg = 0
+            </if>
+    </select>
+
+    <select id="getUserOrgList" resultType="jp.learningpark.modules.common.entity.MstOrgEntity">
+        SELECT usr.org_id,
+               org.org_nm,
+               org.level,
+               org.upplev_org_id
+        FROM mst_usr usr
+                     LEFT JOIN mst_org org ON usr.org_id = org.org_id
+        WHERE usr.after_usr_id = #{usrId}
+          AND usr.owner_org_flg = '1'
+          AND usr.del_flg = 0
+          AND org.org_id in
+        <foreach item="orgId" collection="orgIds" open="(" separator="," close=")">
+            #{orgId}
+        </foreach>
+        ORDER BY org.level;
+    </select>
+</mapper>

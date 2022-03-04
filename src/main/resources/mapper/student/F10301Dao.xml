@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.student.dao.F10301Dao">
+
+    <select id="selectLearnBlock" resultType="jp.learningpark.modules.student.dto.F1030101Dto">
+        SELECT 
+           A.id AS stuTermPlanId
+          ,A.stu_id 
+          ,A.unit_id AS blockId
+          ,A.textb_def_unit_id
+          ,A.bnum
+          ,A.plan_learn_seasn_id
+          ,A.block_dispy_nm
+          ,A.subjt_div
+          ,A.plan_learn_tm
+          ,A.plan_reg_flg
+          ,to_char(B.learn_seasn_start_dy, 'yyyyMMdd') AS learnSeasnStartDy
+          ,to_char(B.learn_seasn_end_dy, 'yyyyMMdd') AS learnSeasnEndDy
+          ,C.cod_value AS subjtNm
+          ,'S1' AS blockTypeDiv
+          ,mcb1.color_id AS color_id
+        FROM
+          stu_term_plan A
+          INNER JOIN mst_learn_seasn B 
+                  ON A.plan_learn_seasn_id = B.id
+                 AND B.del_flg = '0'
+                 AND B.crm_learn_prd_id = #{crmLearnPrdId}
+          LEFT JOIN mst_cod_d C 
+                 ON A.subjt_div = C.cod_cd
+                AND C.cod_key = 'SUBJT_DIV'
+                AND C.del_flg = '0'
+          left join mst_color_block mcb1 on mcb1.stu_id = #{stuId} and mcb1.block_type_div = 'S1' AND mcb1.subjt_div = C.cod_cd and mcb1.del_flg = 0
+        WHERE
+            A.stu_id = #{stuId}
+        AND A.del_flg = '0'
+        AND A.plan_reg_flg != '2'
+        ORDER BY
+            A.subjt_div,
+            A.dispy_order
+    </select>
+
+    <!--予習ブロックを取得する(F10301)  当学年の全教科を取得  no7  0625-->
+    <select id="selectPreviewBlock" resultType="jp.learningpark.modules.student.dto.F1030101Dto">
+        SELECT
+            A.cod_cd AS subjtDiv,
+            A.cod_value AS subjtNm,
+            A.cod_value AS blockDispyNm,
+            'P1' AS blockTypeDiv,
+            '0' AS learnLevUnds,
+            mcb.color_id,
+            A.shy_div
+            FROM
+                (
+                    SELECT
+                        A.cod_cd,
+                        A.cod_value,
+                        array_to_string (
+                        ARRAY (
+                    SELECT
+                        b.cod_cd
+                    FROM
+                        mst_cod_d b
+                        INNER JOIN mst_stu ms ON b.cod_cd = ms.schy_div
+                        AND ms.stu_id = #{stuId}
+                        AND ms.del_flg = 0
+                    WHERE
+                        b.cod_key = 'SCHY_DIV'
+                        AND b.cod_cd = ANY ( regexp_split_to_array ( A.cod_value_5, ',' ) )
+                        AND b.del_flg = 0
+                ), ',' ) AS shy_div
+        FROM
+            mst_cod_d A
+        WHERE
+            A.cod_key = 'SUBJT_DIV'
+            AND A.del_flg = 0
+            ) A
+        INNER JOIN mst_cod_d C ON C.cod_key = 'SCHY_DIV' AND C.cod_cd = A.shy_div AND C.del_flg = 0
+        left join mst_color_block mcb on mcb.block_type_div = 'S1' and mcb.subjt_div = A.cod_cd and mcb.stu_id = #{stuId} and mcb.del_flg = 0
+        ORDER BY
+        case
+         WHEN A.cod_cd = 'k1' then 1
+         WHEN A.cod_cd = 'm1' or A.cod_cd = 'm2' then 2
+         WHEN A.cod_cd = 'r1' then 3
+         WHEN A.cod_cd = 's4' then 4
+         WHEN A.cod_cd = 'e1' then 5
+         WHEN A.cod_cd = 's5' then 6
+         WHEN A.cod_cd = 'r2' then 7
+         WHEN A.cod_cd = 'r3' then 8
+         WHEN A.cod_cd = 'r4' then 9
+         WHEN A.cod_cd = 'r5' then 10
+         WHEN A.cod_cd = 's1' then 11
+         WHEN A.cod_cd = 's2' then 12
+         WHEN A.cod_cd = 's3' then 13
+         WHEN A.cod_cd = 't1' then 14
+         WHEN A.cod_cd = 'o1' then 15
+         WHEN A.cod_cd = 'z1' then 16 end
+    </select>
+
+    <!--予習ブロックを取得する(F10301)-->
+    <insert id="insertWeeklyPerfHst">
+        INSERT INTO stu_weekly_perf_hst
+            (stu_id, unit_id, stu_term_plan_id, plan_ymd
+            ,hnum
+            ,plan_learn_start_time ,perf_learn_tm ,plan_learn_seasn_id
+            ,perf_ymd, perf_learn_start_time
+            ,stu_plan_learn_tm, learn_lev_unds, cret_datime, cret_usr_id,
+            upd_datime, upd_usr_id, del_flg)
+        SELECT B.stu_id, B.unit_id, B.stu_term_plan_id, B.plan_ymd
+            ,(select coalesce(max(A.hnum), 0) + 1 from stu_weekly_perf_hst A where A.stu_id = stu_id AND A.unit_id = unit_id AND A.plan_ymd = plan_ymd AND A.stu_term_plan_id = stu_term_plan_id)
+            ,B.plan_learn_start_time, B.perf_learn_tm, B.plan_learn_seasn_id
+            ,B.perf_ymd, B.perf_learn_start_time
+            ,B.stu_plan_learn_tm, B.learn_lev_unds, #{updateTime}, #{stuId},
+            #{updateTime}, #{stuId}, '0'
+        FROM stu_weekly_plan_perf B
+        WHERE B.id= #{id}
+    </insert>
+
+    <select id="selectPlannedBlock" resultType="jp.learningpark.modules.student.dto.F1030103Dto">
+        SELECT
+        A.id AS planPerfId,
+        A.stu_id,
+        A.unit_id,
+        A.stu_term_plan_id,
+        case when A.block_type_div = 'S1'
+        then A.block_dispy_nm
+        else A.subjt_nm
+        end as block_dispy_nm,
+        A.block_type_div,
+        to_char(plan_ymd, 'yyyyMMdd') AS plan_ymd,
+        A.subjt_div,
+        A.subjt_nm,
+        A.stu_plan_learn_tm,
+        A.plan_learn_seasn_id,
+        A.plan_learn_start_time,
+        A.perf_learn_tm,
+        A.learn_lev_unds,
+        A.remain_disp_flg,
+        to_char(B.learn_seasn_start_dy, 'yyyyMMdd') AS learnSeasnStartDy,
+        CASE
+            WHEN A.block_type_div = 'P1' THEN mcb1.color_id
+            when A.block_type_div like '%O%' then mcb2.color_id
+            when A.block_type_div in ('R1', 'W1', 'V1') then mcb3.color_id
+            else mcb.color_id
+        END AS color_id
+        FROM stu_weekly_plan_perf A
+        INNER JOIN mst_learn_seasn B ON A.plan_learn_seasn_id = B.id
+            AND B.del_flg = '0'
+            AND B.crm_learn_prd_id = #{crmLearnPrdId}
+        LEFT JOIN mst_color_block AS mcb ON mcb.block_type_div = A.block_type_div
+            and mcb.subjt_div = A.subjt_div
+            and mcb.stu_id = #{stuId}
+            AND mcb.del_flg = 0
+        left join mst_color_block mcb1 on mcb1.stu_id = #{stuId}
+            and mcb1.block_type_div = 'S1'
+            and mcb1.subjt_div = A.subjt_div
+            and mcb1.del_flg = 0
+        left join mst_color_block mcb2 on mcb2.stu_id = #{stuId}
+            AND mcb2.block_type_div = A.block_type_div
+            and mcb2.block_id = A.unit_id
+            and mcb2.del_flg = 0
+        left join mst_color_block mcb3 on mcb3.stu_id = #{stuId}
+        AND mcb3.block_type_div in ('R1', 'W1', 'V1')
+        and mcb3.block_type_div = A.block_type_div
+        and mcb3.del_flg = 0
+        WHERE
+        A.stu_id = #{stuId}
+        AND A.block_type_div in
+        <foreach collection="blockTypeDiv" index="index" item="typeDiv" open="(" separator="," close=")">
+            #{typeDiv}
+        </foreach>
+        AND A.del_flg = '0'
+        ORDER BY
+        A.plan_ymd
+        ,A.plan_learn_start_time
+    </select>
+
+    <!-- 生徒基本情報取得処理 -->
+    <select id="selectStudentInfo" resultType="java.util.Map">
+        SELECT
+            B.after_usr_id AS stu_id
+            ,(A.flnm_nm || ' ' || A.flnm_lnm) AS stu_nm
+            ,D.COD_VALUE AS schy
+        FROM
+            mst_stu A
+        LEFT JOIN mst_usr B ON A.stu_id = B.usr_id and B.del_flg = '0'
+        LEFT JOIN (
+            SELECT
+                C.COD_CD,
+                C.COD_VALUE
+            FROM
+                MST_COD_H B
+            INNER JOIN mst_cod_d C ON B.COD_KEY = C.COD_KEY
+                AND B.COD_KEY = 'SCHY_DIV'
+        ) D ON A.SCHY_DIV = D.COD_CD
+        WHERE
+            A.STU_ID = #{stuId}
+            AND A.DEL_FLG = '0'
+    </select>
+
+    <!-- 印刷用計画済みブロック情報取得処理 -->
+    <select id="selectPrintPlannedBlock" resultType="jp.learningpark.modules.student.dto.F1030105Dto">
+        SELECT
+             A.plan_ymd
+            ,to_char(A.plan_learn_start_time, 'hh24:mi') AS start_time
+            ,to_char(A.plan_learn_start_time + (A.stu_plan_learn_tm || ' min')::interval, 'hh24:mi') AS end_time
+            --             障害票no21
+            ,A.plan_learn_start_time as check_start_time
+            ,A.plan_learn_start_time + (A.stu_plan_learn_tm || ' min')::interval as check_end_time
+            ,A.subjt_nm
+            ,A.stu_plan_learn_tm
+            ,B.chapt_nm
+            ,B.unit_nm
+            ,D.textb_page
+            ,A.block_dispy_nm
+            ,A.BLOCK_TYPE_DIV
+        FROM
+            STU_WEEKLY_PLAN_PERF A
+        LEFT JOIN mst_unit B ON B.id = A.unit_id AND B.del_flg = '0'
+        LEFT JOIN stu_term_plan C ON A.stu_term_plan_id = C.id AND C.del_flg = '0'
+        LEFT JOIN textb_def_time_info D ON C.textb_def_unit_id = D.id AND D.del_flg = '0'
+        WHERE
+            A.stu_id = #{stuId}
+            AND A.PLAN_YMD between #{startYmd} and #{endYmd}
+            AND A.BLOCK_TYPE_DIV in ('R1', 'S1', 'P1', 'W1', 'V1')
+            AND A.DEL_FLG = '0'
+        ORDER BY
+            A.plan_ymd
+           ,A.plan_learn_start_time
+           ,A.stu_plan_learn_tm DESC
+    </select>
+
+    <!--その他ブロックを取得する(F10301)  0625-->
+    <select id="selectOtherBlock" resultType="jp.learningpark.modules.student.dto.F1030106Dto">
+        SELECT
+            mb.*,
+            mcb.color_id AS color_id
+        FROM
+            mst_block AS mb
+            LEFT JOIN mst_color_block AS mcb ON mcb.block_id = mb.id
+            AND mcb.stu_id = #{stuId}
+            AND mcb.del_flg = 0
+        WHERE
+            mb.block_type_div LIKE 'O%'
+            AND mb.del_flg = 0
+            AND ( mb.stu_id IS NULL AND mb.upplev_block_id IS NULL OR mb.stu_id =  #{stuId} )
+        ORDER BY
+            mb.stu_id DESC,
+            mb.block_type_div ASC
+    </select>
+    <!--復習ブロックの取得-->
+    <select id="getReviewBlockList" resultType="jp.learningpark.modules.student.dto.F1030106Dto">
+        SELECT
+            MB.*
+--             MCB.color_id AS color_id
+        FROM
+            mst_block AS MB
+<!--            LEFT JOIN mst_color_block AS MCB ON MCB.block_type_div = MB.block_type_div and mcb.stu_id = #{stuId}-->
+<!--            AND MCB.block_type_div IN-->
+<!--            <foreach collection="blockTypeDiv" index="index" item="typeDiv" open="(" separator="," close=")">-->
+<!--                #{typeDiv}-->
+<!--            </foreach>-->
+        WHERE
+            MB.block_type_div IN
+            <foreach collection="blockTypeDiv" index="index" item="typeDiv" open="(" separator="," close=")">
+                #{typeDiv}
+            </foreach>
+            AND MB.del_flg = 0
+        ORDER BY
+            MB.block_type_div ASC
+    </select>
+</mapper>

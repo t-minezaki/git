@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>報告書詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/newtui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30413.css"/>
+</head>
+<body>
+<div class="newt-layout-body" id="main">
+    <div class="div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="topTitle commonTabTitle">
+        お知らせ
+    </div>
+    <div class="newt-layout-line div_body">
+        <div class="title413">
+            <div class="back" onclick="window.history.go(-1);">
+                <img src="../img/left.png">
+            </div>
+            <span><h1 id="title_top">指導報告書</h1></span>
+        </div>
+        <div class="text413">
+            <div id="asd">
+                <div class="line"></div>
+                <div class="left_title">
+                    <div class="span_cont newt-layout-block">
+                        <span >出欠状態</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="abs_sts_div"></sapn>
+                    </div>
+                </div>
+            </div>
+            <div id="gc">
+                <div class="line newt-layout-line"></div>
+                <div class="newt-layout-line left_title">
+                    <div class="span_cont newt-layout-block">
+                        <span>本日の<br/>授業内容</span>
+                    </div><div class="span_val newt-layout-block">
+                    <sapn id="guid_cont"></sapn>
+                </div>
+                </div>
+            </div>
+
+            <div id="hc">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>本日の<br/>宿題内容</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="hwk_cont"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hd">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>宿題状態</span>
+                    </div><div class="span_val newt-layout-block">
+                    <sapn id="hwk_div"></sapn>
+                </div>
+                </div>
+            </div>
+
+            <div id="ld">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span class="span_cont newt-layout-block">前回宿題<br/>完成状態</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="lasthwk_div"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tun">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>小テスト単元名</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="test_unit_nm"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tp">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <sapn>小テスト点数</sapn>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <span id="test_points"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cd">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>ケア</span>
+
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="care_div"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ssd">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>進捗ステータス</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="sch_sts_div"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="lsd">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>授業様子</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="lect_shape_div"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cic">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>連絡事項</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="conc_item_cont"></sapn>
+                    </div>
+                </div>
+            </div>
+
+            <div id="uc">
+                <div class="line newt-layout-line"></div>
+                <div class="left_title newt-layout-line">
+                    <div class="span_cont newt-layout-block">
+                        <span>使用テキスト</span>
+                    </div>
+                    <div class="span_val newt-layout-block">
+                        <sapn id="use_cont"></sapn>
+                    </div>
+                </div>
+            </div>
+            <!--<div id="confirmContainer" v-if="importantDiv == 2 && openedFlg == 0">-->
+                <!--<div class="line newt-layout-line"></div>-->
+                <!--<div class="newt-layout-line">-->
+                    <!--<button id="confirm" @click="confirm">確認しました</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="line newt-layout-line" v-if="importantDiv == 1 || openedFlg == 1">-->
+
+            <!--</div>-->
+
+        </div>
+    </div>
+    <div class="newt-layout-fixed div_bottom">
+        <iframe src="../common/F40004.html?id=F30421" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30413.js"></script>
+</html>

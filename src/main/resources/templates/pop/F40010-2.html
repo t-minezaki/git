@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>指定者検索</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/my_search.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F40010-2.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js"></script>
+</head>
+<body>
+<div class="all" id="main">
+    <div class="head">
+    <div class="top">
+       <p style="margin: 0px;float: left;line-height: 7vh;font-size: 2vw;">組織</p>
+
+            <select id="orgId" style="width: 18vw; margin-left: 1em;height: 2.6vw;-webkit-appearance: none;">
+                <option value="" style="display: none;"></option>
+                <option v-for="mstOrg in mstOrgEntityList"
+                        :value="mstOrg.orgId">{{mstOrg.orgId}}
+                </option>
+
+            </select>
+        </div>
+    </div>
+    <div class="choose">
+        <div class="div_radio">
+            <input type="radio" name="choose" value="1" checked>
+            <span>管理者 & 先生</span>
+        </div>
+        <div class="div_radio">
+            <input type="radio" name="choose" value="2">
+            <span>管理者</span>
+        </div>
+        <div class="div_radio">
+            <input type="radio" name="choose" value="3">
+            <span>先生</span>
+        </div>
+        <button id="select" @click="getUserList()">検索</button>
+    </div>
+    <div class="content">
+
+        <div class="head"><span class="title">検索</span></div>
+        <select id="select_left" multiple='multiple' style="width: 36vw;height: 48vh;font-size: 1.6em;">
+            <option v-for='f40010DspDto in f40010DspDtoList' :value="f40010DspDto.userId">{{f40010DspDto.name}}</option>
+        </select>
+    </div>
+    <div class="symbol">
+        <div>
+            <div>
+                <button id="right"><span>&#155</span></button>
+            </div>
+            <div>
+                <button id="right_all"><span>&#187</span></button>
+            </div>
+            <div>
+                <button id="left"><span>&#139</span></button>
+            </div>
+            <div>
+                <button id="left_all"><span>&#171</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+
+        <div class="head"><span class="title">指定者対象</span></div>
+        <select id="select_right" multiple='multiple' style="width: 36vw;height: 48vh;font-size: 1.6em;">
+            <option v-for='f40010DspDto in userListRight' :value="f40010DspDto.userId">{{f40010DspDto.name}}</option>
+        </select>
+    </div>
+
+
+</div>
+<div class="theme_btn">
+    <button id="conf">確定</button>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F40010-2.js"></script>
+</html>

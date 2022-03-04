@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>スマホ_管理者共通メニュー画面</title>
+        <#include "/header.html" />
+        <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+        <link rel="stylesheet" href="${request.contextPath}/css/common/F40004.css"/>
+        <style>
+            html,body{
+                height: 100%;
+            }
+            li p{
+                color: white;
+                text-indent: 4px;
+                pointer-events: none;
+                margin-left: 5vw;
+                /*line-height: 22px;*/
+            }
+            li{
+                pointer-events: none;
+                height: 30% !important;
+                padding-top: 3px !important;
+            }
+            #head {
+                background: #FF80A5;
+                height: 100%;
+                border-top: unset;
+                overflow: hidden;
+            }
+            #orgName{
+                font-weight: bold;
+                width: auto;
+            }
+
+            #time {
+                width: auto;
+                float: left;
+            }
+
+            #reload_container {
+                position: fixed;
+                bottom: calc((50% - 25px) / 2);
+                right: 16px;
+                height: 24px !important;
+                width: 24px !important;
+                border-radius: 5px;
+            }
+
+            img#reload {
+                height: 24px;
+                position: relative;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #logout {
+                position: fixed;
+                top: calc((50% - 25px) / 2);
+                right: 15px;
+                height: 25px !important;
+                display: block;
+            }
+            #changeOrg{
+                font-size: 13px;
+                width: auto;
+                height: 35%;
+                border-radius: 1vw;
+                border: unset;
+                background: #DCDDDD;
+                color: #8E8E8E;
+                pointer-events: auto;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 97px;
+                line-height: 6px !important;
+            }
+            @media screen and ( max-width: 450px ) {
+                #changeOrg{
+                    /*教室切替ボタンのスタイルを調整します。 modify yang 2011/11/28 start--*/
+                    position: absolute;
+                    top: 78%;
+                    transform: translateY(-50%);
+                    right: 70px;
+                    /*教室切替ボタンのスタイルを調整します。 modify yang 2011/11/28 end--*/
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="head">
+            <li id="classRoom" class="li">
+                <p id="classRoom_p" style="width: 50%;float: left;line-height: 34vh;font-size: 1em;margin-left:5.5vw">学研教室</p>
+            </li>
+            <img alt="logout" id="logout" onclick="openUrl('logout');" src="../img/logoutPink.png"/>
+            <button id="changeOrg" onclick="window.parent.location.href='../common/F40015.html'">教室切替</button>
+            <li style="height: 30%!important;margin-top: 5vh;" class="li" id="li">
+                <div>
+                    <P id="time" style="font-size: 1em"></P>
+                    <p id="p" style="font-size: 1em">&nbsp;時点</p>
+                </div>
+            </li>
+            <div id="reload_container">
+                <img id="reload" onclick="reload()" src="${request.contextPath}/img/reload_clockwise.png">
+            </div>
+            <li class="li" id="_orgNm" style=" float: left !important;padding-top: 0!important;">
+                <p id="orgName"  style="font-size: 1em"></p>
+            </li>
+        </ul>
+    </body>
+    <script src="${request.contextPath}/js/common/F40011.js"></script>
+</html>

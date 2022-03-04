@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40012Dao">
+    <select id="getNum" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        ((SELECT
+        a.id,
+        a.message_title as title,
+        a.message_type_div as type_div,
+        a.message_level_div as level_div,
+        a.pub_plan_start_dt as start_dt,
+        a.title_img_path,
+        null as event_cd,
+        b.reading_sts_div,
+        null as again_send_dt,
+        't' as message
+        FROM
+        mst_message a
+        INNER JOIN talk_reading_sts b ON (a.id = b.message_id AND b.del_flg = 0)
+        WHERE
+        b.deliver_id = #{userId}
+        AND b.org_id = #{orgId}
+        AND CASE WHEN A.message_type_div = '1' THEN a.pub_plan_start_dt <![CDATA[ <= ]]> now( ) and a.pub_plan_end_dt <![CDATA[ >= ]]> now( ) else 1=1 END
+        AND a.message_type_div IN ('1', '4', '5')
+        AND a.del_flg = 0
+        AND b.reading_sts_div = '0'
+        ORDER BY
+        b.reading_sts_div = '0' desc,
+        a.message_level_div = '2' desc,
+        a.pub_plan_start_dt)
+        UNION ALL
+        (SELECT
+        a.id,
+        a.event_title as title,
+        null as type_div,
+        a.event_level_div as level_div,
+        a.pub_start_dt as start_dt,
+        a.title_img_path,
+        a.event_cd,
+        b.reading_sts_div,
+        b.again_send_dt,
+        'f' as message
+        FROM
+        mst_event a
+        INNER JOIN stu_event_apply_sts b ON (a.id = b.event_id AND b.del_flg = 0)
+        WHERE
+        b.stu_id = #{userId}
+        AND a.org_id = #{orgId}
+        AND a.event_sts_div = '0'
+        AND a.pub_start_dt <![CDATA[ <= ]]> now()
+        AND a.pub_end_dt <![CDATA[ >= ]]> now()
+        AND b.reading_sts_div = '0'
+        )) as message_event
+    </select>
+</mapper>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>Title</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/my_select.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F08012.css"/>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js"></script>
+</head>
+<body>
+
+<div class="main" id="app">
+
+    <div class="div_input">
+        <label class="title">種類</label>
+        <div class="inputMessage" id="type">
+            <input id="r_classroom" type="radio" class="my_radio" name="type_select" value="0" v-model="type_select"/>
+            <span>教室</span>
+            <input id="r_gender" type="radio" class="my_radio" name="type_select" value="1" v-model="type_select"/>
+            <span>学年</span>
+            <input id="r_group" type="radio" class="my_radio" name="type_select" value="2" v-model="type_select"/>
+            <span>グループ</span>
+        </div>
+    </div>
+
+    <div class="div_input" style="height: 12vh">
+        <label class="title">学年</label>
+        <div class="inputMessage">
+            <select name="" id="schy_boxs" style="background: none">
+                <option id="_blank"></option>
+                <option v-for="obj in SchyDivList" :value="obj.codCd">{{ obj.codValue }}</option>
+            </select>
+            <!--<form id="gender_form_up" class="noFocus  form_up">-->
+                <!--<ul>-->
+                <!--</ul>-->
+            <!--</form>-->
+            <!--<form id="gender_form_down" class="noFocus  form_down">-->
+                <!--<ul>-->
+                    <!--<li v-for="obj in SchyDivList" :content="obj.codCd">{{ obj.codValue }}</li>-->
+                <!--</ul>-->
+            <!--</form>-->
+        </div>
+    </div>
+
+    <div class="div_input" style="height: 30vh;">
+        <label class="title">グループ</label>
+        <div class="inputMessage">
+            <form id="grp_form_up" class="noFocus form_up">
+                <ul>
+                </ul>
+            </form>
+            <form id="grp_form_down" class="noFocus  form_down">
+                <ul>
+                    <li v-show="type_select == 2" v-for="obj in mstGrpEntityList" :content="obj.grpId">{{ obj.grpNm }}</li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+    <div class="div_input" style="margin-top: -6vh;">
+        <div class="inputMessage">
+            <button id="search">検索</button>
+        </div>
+    </div>
+
+    <div class="div_input">
+        <div class="content">
+            <div class="head"><span class="title">参照元</span></div>
+            <form id="form_left">
+                <select multiple="multiple" id="select_left">
+                    <option v-for="obj in searchGuardAndStudentList" :read_flg="obj.readFlg" :value="obj.stuId" :content="obj.guardId" :schy="obj.schyDiv">{{
+                        obj.stuNm }}
+                    </option>
+                </select>
+            </form>
+        </div>
+        <div class="symbol">
+            <div>
+                <div class="symbol_div">
+                    <button id="right"></button>
+                </div>
+                <div class="symbol_div">
+                    <button id="right_all"></button>
+                </div>
+                <div class="symbol_div">
+                    <button id="left"></button>
+                </div>
+                <div class="symbol_div">
+                    <button id="left_all"></button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head"><span class="title">追加対象</span></div>
+            <form id="form_right">
+                <select multiple="multiple" id="select_right">
+                    <option v-for="obj in guardAndStudentList" :read_flg="obj.readFlg" :value="obj.stuId" :content="obj.guardId" :schy="obj.schyDiv">{{
+                        obj.stuNm }}
+                    </option>
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<button id="btn_ok">確定</button>
+
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/manager/F08012.js"></script>
+</html>

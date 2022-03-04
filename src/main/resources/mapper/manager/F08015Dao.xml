@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08015Dao">
+    <select id="getEventSchedulePlanDel" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+		SELECT DISTINCT
+            espd.event_id AS eventId,
+            espd.sgd_plan_date as planDate,
+            espd.sgd_start_datime as startTime,
+            espd.sgd_end_datime as endTime,
+            espd.cancel_flg as  cancelFlg,
+            espd.id as Id
+		FROM
+		event_sche_plan_del AS espd
+-- 		INNER JOIN guard_event_apply_sts AS geas ON espd.ID = geas.event_sche_del_id
+		WHERE espd.id = #{id}
+		AND espd.del_flg = 0
+-- 		AND geas.del_flg = 0
+    </select>
+    <select id="getEventList" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+		SELECT
+            me.id AS Id,
+            me.ref_type AS refType,
+            me.event_title AS eventTitle
+        FROM
+            mst_event_deliver AS med
+            INNER JOIN mst_event me ON me.id = med.event_id
+            AND me.event_title like CONCAT('%',trim(#{eventTitle}),'%')
+            AND med.org_id = #{orgId}
+            AND me.del_flg = 0
+            AND med.del_flg = 0
+            ORDER BY
+            me.id
+    </select>
+
+    <select id="getStuList" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+        SELECT
+        ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+        ms.stu_id AS stuId
+        FROM
+        mst_usr AS mu
+        INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+        AND mu.org_id = #{orgId}
+        INNER JOIN
+        <if test="userFlag != null and userFlag == true">
+            guard_event_apply_sts GEAS
+        </if>
+        <if test="userFlag != null and userFlag == false">
+            stu_event_apply_sts GEAS
+        </if>
+        ON ms.stu_id = geas.stu_id
+        AND geas.event_id = #{eventId}
+        AND mu.del_flg = 0
+        AND ms.del_flg = 0
+        ORDER BY
+        stuId
+    </select>
+
+    <select id="getEventEntity" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+		SELECT
+            me.id AS Id,
+            me.ref_type AS refType,
+            me.event_title AS eventTitle
+        FROM
+            mst_event_deliver AS med
+            INNER JOIN mst_event me ON me.id = med.event_id
+            AND me.event_title = #{eventTitle}
+            AND med.org_id = #{orgId}
+            AND me.del_flg = 0
+            AND med.del_flg = 0
+    </select>
+
+    <select id="getStuEntity" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+		SELECT
+            ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+            ms.stu_id as stuId,
+            ms.guard_id as guardId
+        FROM
+            mst_usr AS mu
+            INNER JOIN mst_stu AS ms ON ms.stu_id = mu.usr_id
+            AND mu.org_id = #{orgId}
+
+            AND ms.flnm_nm ||' '|| ms.flnm_lnm =#{stuName}
+
+            AND mu.del_flg = 0
+            AND ms.del_flg = 0
+    </select>
+    <select id="getMentorList" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+        select
+        me.org_id as refId
+        , mo.org_nm as displayNm
+        , '0' as refType
+        from mst_event me
+        inner join mst_event_deliver med
+        on med.org_id = #{orgId}
+        and med.event_id = me.id
+        and med.del_flg = 0
+        inner join mst_org mo
+        on me.org_id = mo.org_id
+<!--        <if test="mentorName != '' and mentorName == null">-->
+<!--            and mo.org_nm LIKE concat('%',#{mentorName},'%')-->
+<!--        </if>-->
+        and mo.del_flg = 0
+        where
+        me.org_id <![CDATA[ <> ]]> #{orgId}
+        and me.del_flg = 0
+        UNION ALL
+        SELECT DISTINCT
+        me.org_id as refId
+        , mo.org_nm as displayNm
+        , '0' as refType
+        FROM
+        mst_event me
+        inner join mst_org mo
+        on me.org_id = mo.org_id
+<!--        <if test="mentorName != '' and mentorName == null">-->
+<!--            and mo.org_nm LIKE concat('%',#{mentorName},'%')-->
+<!--        </if>-->
+        and mo.del_flg = 0
+        WHERE
+        me.org_id = #{orgId}
+        and me.del_flg = 0
+        union all
+        SELECT
+        mu.usr_id as refId
+        , mm.flnm_nm || ' ' || mm.flnm_lnm as displayNm
+        , '1' as refType
+        FROM
+        mst_usr mu
+        INNER JOIN mst_mentor mm
+        on mm.mentor_id = mu.usr_id
+<!--        <if test="mentorName != null and mentorName != ''">-->
+<!--            AND mm.flnm_nm || ' ' || mm.flnm_lnm LIKE concat('%',#{mentorName},'%')-->
+<!--        </if>-->
+        and mm.del_flg = 0
+        WHERE
+        mu.org_id = #{orgId}
+        and mu.del_flg = 0
+        order by
+        refId
+    </select>
+    <select id="getDeliver" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+		SELECT
+            me.event_title AS eventTitle,
+        me.id AS Id,
+        ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+        ms.stu_id AS stuId,
+        mm.flnm_nm || ' ' || mm.flnm_lnm AS displayNm,
+        mm.mentor_id AS refId,
+        espd.sgd_plan_date as planDate,
+        espd.sgd_start_datime as startTime,
+        espd.sgd_end_datime as endTime,
+        espd.cancel_flg as cancelFlg
+        FROM
+        <if test="userFlag != null and userFlag == true">
+            guard_event_apply_sts GEAS
+        </if>
+        <if test="userFlag != null and userFlag == false">
+            stu_event_apply_sts GEAS
+        </if>
+        INNER JOIN event_sche_plan_del AS espd ON espd.ID = geas.event_sche_del_id
+        INNER JOIN mst_stu AS ms ON ms.stu_id = geas.stu_id
+        INNER JOIN mst_mentor AS mm ON mm.mentor_id = espd.ref_id
+        INNER JOIN mst_event AS me ON me.ID = geas.event_id
+        AND geas.ID = #{geasId}
+        AND geas.del_flg = 0
+        AND espd.del_flg = 0
+        AND ms.del_flg = 0
+        AND mm.del_flg = 0
+        AND me.del_flg = 0
+    </select>
+    <select id="getMentor" resultType="jp.learningpark.modules.manager.dto.F08015Dto">
+		SELECT
+            es.ID
+        FROM
+            event_schedule AS es,
+            mst_mentor AS mm
+        WHERE
+            ( mm.mentor_id = es.ref_id AND es.ref_type = '1' AND mm.flnm_nm || ' ' || mm.flnm_lnm = #{displayName} )
+            AND es.event_id = #{eventId}
+            AND es.del_flg = 0
+            AND mm.del_flg = 0
+        union all
+        SELECT
+            es.ID
+        FROM
+            event_schedule AS es,
+            mst_org AS mo
+        WHERE
+             ( mo.org_id = es.ref_id AND es.ref_type = '0' AND mo.org_nm = #{displayName} )
+            AND es.event_id = #{eventId}
+            AND es.del_flg = 0
+            AND mo.del_flg = 0
+    </select>
+</mapper>

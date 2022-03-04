@@ -1,0 +1,204 @@
+html, body{
+	background:#fff;
+	height: 100%;
+}
+div#pageF20001 {
+	height: 100%;
+}
+.content{
+	padding: 0;
+}
+.topMessage{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	top: 40px;
+	left: 0;
+	color: red;
+	font-size: 18px;
+	text-align: center;
+	overflow: hidden;
+	display: none;
+}
+li{
+	float: left;
+	padding: 0.8vw 0 0.4vw;
+	height: 4vw;
+	border-bottom: 1px solid #cecece;
+	margin: 0 2vw;
+	width: 29.3%;
+}
+li div{
+	width: 3.4vw;
+	height: 3vw;
+	text-align: center;
+	float: left;
+}
+li img{
+	height: 2.6vw;
+}
+li span img{
+	height: 2vw;
+	float: right;
+	margin-top: 0.5vw;
+	cursor: pointer;
+}
+li p{
+	float: left;
+	margin-left: 1vw;
+	font-size: 0.9vw;
+	cursor: pointer;
+	width: 10vw;
+	height: 3vw;
+	line-height: 3vw;
+}
+.rl{
+	margin-left: 1vw;
+}
+.disNone{
+	display: none !important;
+}
+.popDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+	position: relative;
+}
+.title{
+	width: 100%;
+	height: 2.6vw;
+	line-height: 2.6vw;
+	background: #ccc;
+	font-size: 1.1vw;
+	color: #2e2e2e;
+	float: left;
+	text-align: center;
+}
+.popContent{
+	width: 100%;
+	height: auto;
+	float: left;
+	box-sizing: border-box;
+	padding: 1vw;
+}
+.left{
+	width: 5vw;
+	float: left;
+	height: 3vw;
+	padding-top: 1vw;
+	line-height: 2vw;
+	text-align: left;
+	box-sizing: border-box;
+}
+.right{
+	float: left;
+	width: auto;
+	height: 3vw;
+	padding-top: 1vw;
+	position: relative;
+	box-sizing: border-box;
+}
+.right input[type="text"]{
+	width: 12vw;
+	height: 100%;
+	background: none;
+	border: 1px solid #009944;
+	line-height: 2vw;
+	padding: 0 0.3vw;
+	box-sizing: border-box;
+}
+.right select{
+	width: 12vw;
+	height: 100%;
+	background: none;
+	border: 1px solid #009944!important;
+	line-height: 2vw;
+	padding: 0 2vw 0 0.3vw;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
+}
+.right img{
+	position: absolute;
+	right: 0.5vw;
+	top: 1.5vw;
+	width: 1vw;
+}
+.right select:focus{
+	outline: none;
+}
+.left_che{
+	width: 8vw;
+}
+
+#color-input-red +label{
+	display: block;
+	width: 1.4vw;
+	height: 1.4vw;
+	cursor: pointer;
+	position: absolute;
+	top: 1.2vw;
+	left: 0;
+	border: 1px solid #009944;
+	background: rgba(255, 255, 255, 1);
+	box-sizing: border-box;
+}
+#color-input-red:checked +label::before{
+	display: block;
+	content: "\2714";
+	text-align: center;
+	font-size: 1vw;
+	color: #009944;
+}
+input[type=checkbox]{
+	visibility: hidden;
+	margin: 0;
+	height: 18px;
+	width: 18px;
+	box-sizing: border-box;
+}
+.popBtn{
+	width: 100%;
+	height: 3vw;
+	padding: 0 1vw;
+	box-sizing: border-box;
+	float: left;
+}
+.popBtn button{
+	background: none;
+	border: 0.15vw solid #009944;
+	border-right: 0;
+	box-sizing: border-box;
+	color: #009944;
+	width: 50%;
+	border-radius: 2vw 0 0 2vw;
+	line-height: 2vw;
+	font-size: 0.9vw;
+	float: left
+}
+.popBtn button.popBtnright{
+	border-radius: 0 40px 40px 0;
+	border-right: 2px solid #009944;
+}
+.layui-layer{
+	border-radius: 6px!important;
+	overflow: hidden;
+}
+.topBtn{
+	width: 100%;
+	height: 3vw;
+	padding: 0.6vw 2vw 0 2vw;
+	box-sizing: border-box;
+}
+.topBtn button{
+	background: none;
+	width: 8vw;
+	line-height: 2.2vw;
+	border-radius: 0.4vw;
+	border: 0.15vw solid #009944;
+	color: #009944;
+	font-size: 0.9vw;
+	height: 2.4vw;
+	cursor: pointer;
+}

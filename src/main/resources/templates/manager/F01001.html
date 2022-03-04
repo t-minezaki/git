@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<#include "/header.html" />
+    <title>時期検索一覧画面</title>
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F01001.css" />
+	<style>
+		.ui-widget.ui-widget-content {
+			margin-top: 0.9vw;
+		}
+	</style>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content"　id="app">
+	<div class="popTitle">時期検索一覧画面</div>
+	<div class="topSessionTitle">
+		<div>組織ID:</div>
+		<div id="orgId"></div>
+		<div>組織名:</div>
+		<div id="orgNm"></div>
+		<button onclick="addFn()">追加</button>
+	</div>
+	<table id="jqGrid"></table>
+	<div id="jqGridPager"></div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F01001.js" type="text/javascript" charset="utf-8"></script>
+</html>

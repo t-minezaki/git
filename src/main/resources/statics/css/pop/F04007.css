@@ -1,0 +1,308 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body, .content {
+    height: 100%;
+}
+
+.header_operat {
+    width: auto;
+}
+
+.content {
+    padding: 0 0.12vw 0.12vw 0.12vw;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+.popTitle {
+    font-weight: bold;
+    width: 100%;
+    height: 3.6vw;
+    line-height: 3.6vw;
+    font-size: 1.5vw;
+    text-align: center;
+}
+
+.topSessionTitle {
+    height: 2.2vw;
+    margin-top: -0.5vw;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.topSessionTitle div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 1.5vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+    margin-left: 0.4vw;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    font-size: 0.9vw;
+    background: none;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.title {
+    height: 2.2vw;
+    margin-top: -0.5vw;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.title p {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+}
+
+.title div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+}
+
+.inputDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-left: 5vw;
+}
+
+.inputMessage {
+    width: 100%;
+    float: left;
+    padding: 0.4vw 4vw 0.4vw 1vw;
+    height: auto;
+}
+
+.inputMessage div {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 1.5vw;
+    float: left;
+    width: 11%;
+    padding-right: 1vw;
+}
+
+.inputMessage div.input_center {
+    width: 12%;
+    padding-left: 2vw;
+}
+
+.inputMessage input {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 1.5vw;
+    float: left;
+    width: 20%;
+    padding: 0 0.4vw;
+    border: 0;
+    background-color: transparent;
+}
+
+.buttonDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+    position: relative;
+    border-bottom: 1px solid #000;
+    margin-bottom: 1vw;
+}
+
+.buttonDiv button {
+    width: 14vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    color: #009944;
+    border: 2px solid #009944;
+    font-size: 0.9vw;
+    border-radius: 4px;
+}
+
+.buttonDiv div {
+    width: 12vw;
+    height: 2.2vw;
+    float: left;
+    margin: 0 1vw;
+    color: #333;
+    font-size: 0.9vw;
+    line-height: 2.2vw;
+}
+
+.buttonDiv input {
+    width: 14vw;
+    height: 2.2vw;
+    float: left;
+    background: none;
+    margin: 0 1vw;
+    font-size: 0.9vw;
+    color: #333;
+    border: 2px solid #aaa;
+    padding: 0 0.4vw;
+}
+
+.buttonDiv input.chooseFile {
+    position: absolute;
+    top: 1vw;
+    left: 31vw;
+    z-index: 999;
+    margin: 0;
+    width: 14vw;
+    opacity: 0;
+}
+
+.list {
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+    border-top: 1px solid #009944;
+}
+
+table {
+    width: 100%;
+}
+
+
+.insert {
+    width: 10%;
+    height: 5vh;
+    line-height: 5vh;
+    margin-top: 1vh;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 45%;
+    border-radius: 4px;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}
+
+/*.ui-widget.ui-widget-content {*/
+    /*margin-top: 9.8vw;*/
+/*}*/
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border-right: 1px dashed #999;
+    /*border-bottom: 1px dashed #999;*/
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv {
+    border-radius: 0;
+    background: none;
+    margin-right: 1.59vw !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    color: black;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-right: 1px dashed #999;
+}
+
+.ui-jqgrid tr.ui-row-ltr td a {
+    margin-left: 1vw;
+    color: #009944;
+    text-decoration: underline;
+    margin-right: 1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid .ui-jqgrid-hbox table {
+    padding: 0 !important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable {
+    width: auto !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+}
+
+.jqgfirstrow td {
+    border: 0;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.ui-jqgrid .ui-jqgrid-view button {
+    text-decoration: unset !important;
+    color: black !important;
+    border: 1px #ccc solid !important;
+    border-radius: 12px !important;
+    width: 6vw !important;
+    height: 4vh !important;
+    font-size: 1.1em !important;
+    float: right !important;
+    margin-right: 0.5vw;
+}
+
+.ui-jqgrid-bdiv {
+    width: 99.2% !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+#gview_jqGrid{
+    overflow: unset !important;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F04016Dao">
+    <select id="init" resultType="jp.learningpark.modules.manager.dto.F04016Dto">
+        SELECT
+        grs.id,
+        mu.after_usr_id AS afterUserId,
+        mu1.after_usr_id AS stuId,
+        mg.flnm_nm || ' ' || mg.flnm_lnm AS guardName,
+        ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName
+        FROM
+        guard_reading_sts AS grs
+        INNER JOIN mst_guard AS mg ON mg.guard_id = grs.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_usr AS mu ON mu.usr_id = grs.guard_id
+        AND mu.del_flg = 0
+        LEFT JOIN mst_usr as mu1 ON mu1.usr_id = grs.stu_id
+        AND mu1.del_flg = 0
+        LEFT JOIN mst_stu as ms on ms.stu_id = mu1.usr_id
+        and ms.del_flg = 0
+    WHERE
+        grs.notice_id = #{noticeId}
+        AND grs.guard_id like 'p%'
+        AND grs.reading_sts_div = #{flg}
+        AND grs.del_flg = 0
+        AND grs.org_id = #{orgId}
+    ORDER BY
+        afterUserId
+    <if test="page != null">
+        Limit #{limit} offset #{page}
+    </if>
+    </select>
+
+    <select id="getTotalCount" resultType="Integer">
+    SELECT
+        count(*)
+    FROM
+        guard_reading_sts AS grs
+    INNER JOIN mst_guard AS mg ON mg.guard_id = grs.guard_id
+        AND mg.del_flg = 0
+    INNER JOIN mst_usr AS mu ON mu.usr_id = grs.guard_id
+        AND mu.del_flg = 0
+    WHERE
+        grs.notice_id = #{noticeId}
+        AND grs.guard_id like 'p%'
+        AND grs.reading_sts_div = #{flg}
+        AND grs.del_flg = 0
+        AND grs.org_id = #{orgId}
+    </select>
+</mapper>

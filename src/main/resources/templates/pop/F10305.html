@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>計画時間調整画面(POP)</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F10305.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pop.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.frame.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/mobiscroll-2.17.1/css/mobiscroll.scroller.css"/>
+</head>
+<body>
+<div class="theme_selec" id="changePlTm" v-cloak>
+    <h2 v-if="(btDiv=='S1')&&(smallBlockNm.stuTermPlanId!=null)">
+        <p v-text="text.blockDispyNm"></p>
+        <span id = "smallBlockS" class="topspan" v-text="text.unitDispyNm"></span>
+        <p class="topspan" v-text="' 教科書P.'+ text.textbPage"></p>
+        <p class="topspan topEnd" v-text="weekday + planLearnStartTime +'-'+planLearnEndTime"></p>
+    </h2>
+    <h2 v-if="btDiv=='R1'|| btDiv=='P1'||btDiv=='W1'||btDiv=='V1' || (btDiv=='S1'&&smallBlockNm.stuTermPlanId==null)">
+        <span v-text="subjtNm"></span><br/>
+        <span id = "smallBlockRPWV" class="topspan" v-text="smallBlockNm.blockDispyNm"></span>
+        <span v-text="weekday+planLearnStartTime+'-'+planLearnEndTime"></span>
+    </h2>
+    <h2 v-if="btDiv=='O1'||btDiv=='O2'|| btDiv=='O3'">
+        <span v-text="bigBlock.blockDispyNm"></span><br/>
+        <span id = "smallBlockO" v-if="smallBlock.blockTypeDiv=='O1' || smallBlock.blockTypeDiv=='O2' || smallBlock.blockTypeDiv=='O3'"
+              v-text="smallBlockNm.blockDispyNm"></span>
+        <span v-text="weekday+planLearnStartTime+'-'+planLearnEndTime"></span>
+    </h2>
+    <div class="showTime">
+        <p>計画学習時間</p>
+        <p class="showTimeRight" v-if="minutes != undefined" @click="showTime" v-text="minutes">0時間30分</p>
+    </div>
+    <div class="check_time disNone">
+        <select id="demo_select" onchange="selectChange()" type="text" name="demo_select"></select>
+    </div>
+    <div class="showIput" v-if="smallBlockNm.stuTermPlanId==null">
+        <p>メモ：</p>
+        <textarea name="" id="memo" maxlength="50">{{memo}}</textarea>
+	</div>
+    <div class="theme_btn">
+        <button @click="cancelBtn" style="border-left: 0;border: 0;color: red"> キャンセル</button>
+        <button @click="updateBtn">登録</button>
+        <button @click="delBtn" :disabled="delBtnFlg == 'false'" style="color: #000000;border: 0;">削除</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+<script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F10305.js">
+</script>
+</html>

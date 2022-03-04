@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.sys.dao.SysUserDao">
+    <select id="selectAllPerms" resultType="string">
+        select m.perms
+        from sys_user_role ur
+                     LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+                     LEFT JOIN sys_menu m on rm.menu_id = m.menu_id
+        where ur.user_id = #{userId}
+    </select>
+
+    <select id="selectAllMenuId" resultType="long">
+        select distinct rm.menu_id
+        from sys_user_role ur
+                     LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+        where ur.user_id = #{userId}
+    </select>
+
+    <select id="selectByUserName" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        select *
+        from mst_usr
+        where usr_nm = #{username}
+    </select>
+
+    <select id="selectUserById" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        SELECT mu.*
+                , mo.org_nm
+        FROM mst_usr mu
+                     INNER JOIN
+                     mst_org mo ON mu.org_id = mo.org_id AND mo.del_flg = 0
+        WHERE mu.id = #{id}
+          AND mu.del_flg = '0'
+    </select>
+
+    <select id="selectUserByUserId" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        SELECT mu.*
+                , mo.org_nm
+                , mo.brand_cd
+        FROM mst_usr mu
+                     INNER JOIN
+                     mst_org mo ON mu.org_id = mo.org_id AND mo.del_flg = 0
+        WHERE mu.usr_id = #{userId}
+          and mu.spec_auth_flg in ('0', '1')
+          AND mu.del_flg = '0'
+    </select>
+
+    <select id="selectUserByBrandCd" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        select mu.*,c.cod_value as roleName,mo.org_nm as orgNm
+        from mst_usr mu
+        inner join mst_org mo on mu.org_id = mo.org_id and mo.del_flg = 0
+        left join mst_cod_d c on c.cod_cd = mu.role_div and c.cod_key = 'ROLE_DIV' and c.del_flg = 0
+        <where>
+            and mu.del_flg      = 0
+            and mu.after_usr_id = #{userCd}
+            and mo.brand_cd     = #{brandCd}
+            and mu.spec_auth_flg in ('0','1')
+        </where>
+        ORDER BY
+        mu.cret_datime
+    </select>
+
+    <select id="selectUserByLoginId" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        select mu.*,c.cod_value as roleName,mo.org_nm as orgNm,mo.brand_cd
+        from mst_usr mu
+        inner join mst_org mo on mu.org_id = mo.org_id and mo.del_flg = 0
+        left join mst_cod_d c on c.cod_cd = mu.role_div and c.cod_key = 'ROLE_DIV' and c.del_flg = 0
+        <if test="gidFlag == 1 and tchCdFlg == 1">
+            inner join mst_manager mm on mu.usr_id = mm.mgr_id and mm.del_flg = 0
+            and mm.tch_cd = #{userCd}
+        </if>
+        <where>
+            and mu.del_flg = 0
+            <if test="gidFlag == 0">
+                and mu.after_usr_id = #{userCd}
+            </if>
+            <if test="gidFlag == 1 and tchCdFlg == 0">
+                and mu.gidpk = #{userCd}
+            </if>
+            and mu.spec_auth_flg in ('0','1')
+            <if test="manaFlag == null or manaFlag == 0">
+                and mo.brand_cd = #{brandCd}
+            </if>
+            <if test="gidFlag != null">
+                AND mu.gid_flg = #{gidFlag}
+            </if>
+            <if test="gidFlag == 1 and tchCdFlg == 1">
+                and mm.tch_cd = #{userCd}
+            </if>
+        </where>
+        ORDER BY
+        mu.cret_datime
+    </select>
+
+    <select id="selectUserRole" resultType="string">
+        SELECT B.role_name
+        FROM sys_user_role A
+                     LEFT JOIN
+                     sys_role B ON A.role_id = B.role_id
+        WHERE A.user_id = #{userId}
+    </select>
+
+    <select id="selectStuCountByGuardId" resultType="java.util.HashMap">
+        select count(ms.stu_id) as counts ,max(ms.stu_id) as stuid
+        from mst_stu ms
+        inner join mst_usr mu1 on mu1.usr_id = ms.stu_id and mu1.del_flg = 0
+        inner join mst_usr mu2 on mu2.usr_id = ms.guard_id or mu2.usr_id = ms.guard1_id or mu2.usr_id = ms.guard2_id or
+        mu2.usr_id = ms.guard3_id or mu2.usr_id = ms.guard4_id and mu2.del_flg = 0
+        inner join mst_org mo1 on mu1.org_id = mo1.org_id and mo1.del_flg = 0
+        inner join mst_org mo2 on mu2.org_id = mo2.org_id and mo2.del_flg = 0
+
+        <where>
+            and ms.del_flg = 0
+            and (ms.guard_id = #{guardId}
+            or ms.guard1_id = #{guardId}
+            or ms.guard2_id = #{guardId}
+            or ms.guard3_id = #{guardId}
+            or ms.guard4_id = #{guardId})
+            and mo1.brand_cd = mo1.brand_cd
+        </where>
+    </select>
+    <select id="selectLearnPrdIdByUserId" resultType="Integer">
+        SELECT
+                mclp.id
+        FROM
+                mst_crmsch_learn_prd AS mclp
+                        INNER JOIN mst_stu AS ms ON ms.schy_div = mclp.schy_div
+                        AND ms.del_flg = 0
+        WHERE
+                mclp.org_id = #{orgId}
+          AND ms.stu_id = #{userId}
+          AND mclp.use_flg = '1'
+          AND mclp.del_flg = 0
+        LIMIT 1
+    </select>
+
+    <update id="addErrorCount">
+        update mst_usr
+        set error_count = #{errorCount},
+            upd_datime=CURRENT_TIMESTAMP
+        where after_usr_id = #{loginId}
+    </update>
+
+    <update id="setLockFlg" parameterType="string">
+        update mst_usr
+        set lock_flg='1',
+            upd_datime=CURRENT_TIMESTAMP
+        where after_usr_id = #{loginId}
+    </update>
+
+
+    <select id="selectEmailAddress" resultType="string">
+        select
+        mm.mailad
+        from
+        mst_usr mu
+        inner join mst_org mo
+        on mu.org_id = mo.org_id
+        and mo.del_flg = 0
+        and mo.brand_cd = #{brandCd}
+        inner join
+        <if test="roleDiv == 1">
+            mst_manager mm
+            on mm.mgr_id = mu.usr_id
+        </if>
+        <if test="roleDiv == 2">
+            mst_mentor mm
+            on mm.mentor_id = mu.usr_id
+        </if>
+        <if test="roleDiv == 3">
+            mst_guard mm
+            on mm.guard_id = mu.usr_id
+        </if>
+        and mm.del_flg = 0
+        where mu.spec_auth_flg
+        <if test="roleDiv == 1">
+            in('0', '1')
+        </if>
+        <if test="roleDiv == 2 or roleDiv == 3">
+            in('0')
+        </if>
+        and mu.after_usr_id = #{afterUsrId}
+        and mu.del_flg = 0
+        order by mm.mailad
+    </select>
+
+    <update id="updateMailAddress" parameterType="string">
+        update
+        <if test="roleDiv == 1">
+            mst_manager
+        </if>
+        <if test="roleDiv == 2">
+            mst_mentor
+        </if>
+        <if test="roleDiv == 3">
+            mst_guard
+        </if>
+        set
+        mailad = #{mailad}
+        ,upd_datime = CURRENT_TIMESTAMP
+        ,upd_usr_id = #{usrId}
+        where
+        <if test="roleDiv == 1">
+            mgr_id
+        </if>
+        <if test="roleDiv == 2">
+            mentor_id
+        </if>
+        <if test="roleDiv == 3">
+            guard_id
+        </if>
+        in (
+        select
+        usr_id
+        from mst_usr
+        where
+        after_usr_id = #{afterUsrId}
+        )
+    </update>
+
+    <update id="updateGidpkByTchCd">
+        update
+                mst_usr
+        set after_usr_id = #{gid}
+                , usr_nm       = #{usrNm}
+                , gid_rule_flg = #{gidRuleFlag}
+                , upd_datime = #{updatime}
+                , upd_usr_id = #{gid}
+        where usr_id
+                in (
+                      select mgr_id
+                      from mst_manager mm
+                                   inner join mst_usr mu on mm.mgr_id = mu.usr_id
+                      where mm.tch_cd = #{tchCd}
+                        and mu.gidpk is null
+                      )
+    </update>
+
+    <select id="selectUserByOrgIdAndAfterUsrId" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        SELECT mu.*
+                , mo.org_nm
+                , mo.brand_cd
+        FROM mst_usr mu
+                     INNER JOIN
+                     mst_org mo ON mu.org_id = mo.org_id AND mo.del_flg = 0
+        WHERE mu.after_usr_id = #{afterUsrId}
+          AND mo.org_id = #{orgId}
+          AND mu.spec_auth_flg in ('0', '1')
+          AND mu.del_flg = 0
+        ORDER BY mu.upd_datime
+        LIMIT 1
+    </select>
+    <select id="selectUserByOrgIdAndTchCd" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        SELECT
+                mu.*,
+                mo.org_nm,
+                mo.brand_cd
+        FROM
+                mst_manager AS mm
+                        INNER JOIN mst_usr AS mu ON mm.mgr_id = mu.usr_id
+                        AND mu.del_flg = 0
+                        INNER JOIN mst_org mo ON mu.org_id = mo.org_id
+                        AND mo.del_flg = 0
+        WHERE
+                mm.tch_cd = #{tchCd}
+          AND mo.org_id = #{orgId}
+          AND mu.spec_auth_flg IN ( '0', '1' )
+          AND mu.del_flg = 0
+        ORDER BY
+                mu.upd_datime
+        LIMIT 1
+    </select>
+    <!--NWT　楊　2021/07/01　MANAMIRU1-699 -> 727　Edit　Start-->
+    <select id="selectUserByGidpk" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        SELECT
+        mu.*,
+        mo.brand_cd
+        FROM mst_usr mu
+        INNER JOIN mst_org mo
+        ON mu.org_id = mo.org_id
+        AND mo.del_flg = 0
+        WHERE mu.gidpk = #{gidpk}
+        AND mu.spec_auth_flg IN ('0', '1')
+        AND mu.del_flg = 0
+        AND mo.org_id = #{orgId}
+        <!--NWT　楊　2021/07/01　MANAMIRU1-699 -> 727　Edit　End-->
+    </select>
+    <select id="tchCdCount" resultType="jp.learningpark.modules.common.entity.MstUsrEntity">
+        SELECT
+         mu.usr_id,
+         mu.role_div,
+        <!--NWT　楊　2021/07/01　MANAMIRU1-699 -> 727　Edit　Start-->
+         mu.gidPk
+        <!--NWT　楊　2021/07/01　MANAMIRU1-699 -> 727　Edit　End-->
+        FROM
+        mst_manager mm
+        INNER JOIN mst_usr mu
+        ON mm.mgr_id = mu.usr_id
+        AND mu.del_flg = 0
+        <!--NWT　楊　2021/07/21　MANAMIRU1-727.④　Edit　Start-->
+        <if test="orgId != null and orgId != ''">
+            AND mu.org_id = #{orgId}
+        </if>
+        <!--NWT　楊　2021/07/21　MANAMIRU1-727.④　Edit　End-->
+        AND mu.gid_flg = '1'
+        WHERE
+        mm.tch_cd = #{tchCd}
+        AND mm.del_flg = 0
+        <!--AND mm.tch_cd IS NOT NULL-->
+        <!--AND mm.tch_cd <![CDATA[ <> ]]> ''-->
+    </select>
+
+    <select id="selectStudentGidpkList" resultType="jp.learningpark.modules.common.entity.MstUsrEntity">
+        SELECT
+        mu.gidpk,
+        mu.usr_id
+        FROM mst_usr mu
+        INNER JOIN mst_stu ms
+        ON mu.usr_id = ms.stu_id
+        AND ms.del_flg = 0
+        AND ms.guard_id IN
+        <foreach item="item" collection="userIds" separator="," open="(" close=")" index="">
+            #{item, jdbcType=VARCHAR}
+        </foreach>
+        WHERE
+        mu.del_flg = 0
+        AND mu.role_div = '4'
+        AND mu.gidpk IS NOT NULL
+    </select>
+    <select id="selectSamlUserByLoginId" resultType="jp.learningpark.modules.sys.entity.SysUserEntity">
+        select
+               mu.*,
+               c.cod_value as roleName,
+               mo.org_nm as orgNm,mo.brand_cd
+        from
+             mst_usr mu
+        inner join mst_org mo on mu.org_id = mo.org_id and mo.del_flg = 0
+        left join mst_cod_d c on c.cod_cd = mu.role_div and c.cod_key = 'ROLE_DIV' and c.del_flg = 0
+        where
+            mu.del_flg = 0
+            and mu.after_usr_id = #{userCd}
+            and mu.spec_auth_flg in ('0','1')
+            and mu.gid_flg = '1'
+            and mu.org_id = 'mnONAIR2'
+        ORDER BY
+            mu.cret_datime
+    </select>
+    <!--NWT　楊　2021/07/15　MANAMIRU1-727　Edit　Start-->
+    <select id="selectFirstLoginUsrByTchcd" resultType="Integer">
+        SELECT
+                COUNT( usr_id )
+        FROM
+                mst_usr AS mu
+                        INNER JOIN mst_manager AS mm ON mu.usr_id = mm.mgr_id
+                        AND mm.tch_cd = #{tchCd}
+                        AND mm.del_flg = 0
+        WHERE
+                mu.fst_login_flg = '1'
+                AND mu.del_flg = 0
+    </select>
+    <!--NWT　楊　2021/07/15　MANAMIRU1-727　Edit　End-->
+</mapper>

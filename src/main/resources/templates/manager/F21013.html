@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>指導状況一覧画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/css/manager/F21013.css">
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/xlsx.core.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/vue-2.2.6/vue.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/layer-3.1.1/layer.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div id="message" class="topMessage"></div>
+    <div id="content" class="content">
+        <div id="one" class="one">
+            <div>
+                <ul class="one-ul">
+                    <li>出席簿管理</li>
+                    <li> ＞ 指導状況一覧</li>
+                </ul>
+            </div>
+        </div>
+        <div id="div-select">
+            <div class="selectDiv">
+                <span class="topText">表示項目</span>
+                <select class="selectBtn" id="choose" @change="show">
+                    <option v-for=" cod in mstCodDEntityList" :value="cod.codCd">{{cod.codValue}}</option>
+                </select>
+            </div>
+            <div class="selectDiv">
+                <span class="topText">表示月</span>
+                <div class="time_div">
+                    <div class="img_div">
+                        <img src="../img/timeBtn2.png" alt="" id="timeOne">
+                    </div>
+                    <input type="text" class="time_input"id="monthChoose"
+                           name="cretTimeStart" style="width: 18%;font-size: 1.2em;" readonly>
+                </div>
+            </div>
+        </div>
+        <div id="div-main">
+            <div id="div-head" class="div_head">
+                <button id="btn_download" @click="download">ダウンロード</button>
+                <button id="search" @click="search">検索</button>
+            </div>
+            <div id="div-grid" class="div_main" style="margin-top: 2vh">
+                <div class="first_div">
+                    <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F21013.js"></script>
+</html>

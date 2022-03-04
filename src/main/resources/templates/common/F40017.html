@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>メールアドレス認証画面</title>
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+</head>
+<body>
+<header style="width: 100%;padding: 0 15px;height: 6vh;">
+    <div class="header_logo"></div>
+</header>
+<div id="vue">
+    <div id="message" class="topMessage"></div>
+    <form id="f40017Form">
+        <div class="div_message">
+            <div class="div_message_one">マナミルでは、</div>
+            <div class="div_message_two">お客様の個人情報を安全に取り扱うため、登録前にメールアドレス認証をお願いしております。</div>
+            <div class="div_message_three">ご入力いただいたメールアドレス宛に、「ワンタイムパスワード」を記載した確認用メールをお送りします。</div>
+        </div>
+        <div class="div_input">
+            <div class="div_input_one">送信先メールアドレス</div>
+            <div class="div_input_two">
+                <input type="text" id="input" name="input" placeholder="メールアドレスを入力してください">
+                <button id="submit">確認用メールを送信</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/common/F40017.js"></script>
+</html>

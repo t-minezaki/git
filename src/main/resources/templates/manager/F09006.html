@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>Title</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09006.css"/>
+</head>
+<body onload="load()">
+<div id="message" class="topMessage"></div>
+<div class="one">
+    <div>
+        <ul class="one-ul">
+            <li>入退室管理</li>
+            <li>  ＞   ポイント画面</li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div>
+        <div class="p">
+            <div class="btn_div">
+                <button id="check_d">対象者を選択する</button>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 1vh;">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+<div class="point">
+    付与ポイント
+    <input id="point" type="text" oninput="t()">
+</div>
+<div class="two">
+    <button class="two_bottom" onclick="submit()" style="margin-left: 35vw;">確認</button>
+    <button class="two_bottom" onclick="reset()">リセット</button>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F09006.js" type="text/javascript" charset="utf-8"></script>
+</html>

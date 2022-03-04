@@ -1,0 +1,348 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+p {
+    margin: 0;
+}
+
+.theme_selec {
+    width: 100%;
+    height: 156vw;
+    position: relative;
+    text-align: center;
+    background: #fff;
+    margin: auto;
+}
+
+.theme_selec .topTitle {
+    background: none;
+    border-bottom: 0.1vw solid #999;
+    float: left;
+    height: 10vw;
+    font-size: 4.6vw;
+    padding-left: calc(50% - 20vw);
+    width: 100%;
+    padding-top: 1vw;
+    margin-top: 2vh;
+}
+
+.topTitle1{
+    font-weight: bolder;
+    text-align: center;
+    height: 10vw;
+    line-height: 10vw;
+    padding: 0!important;
+}
+
+.topTitle img {
+    float: left;
+    margin: 0 3vw;
+    width: 10vw;
+    height: 8vw;
+}
+
+.topTitle p {
+    float: left;
+    text-align: center;
+    line-height: 10vw;
+    font-weight: bolder;
+}
+
+.topTitle button {
+    border: 0;
+    color: #EA331B;
+    width: 45%;
+    float: right;
+    background: none;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 34px;
+    text-align: center
+}
+
+.content_them {
+    width: 100%;
+    height: auto;
+    padding: 0 6vw;
+    float: left;
+}
+
+.contentDiv {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+
+.title {
+    line-height: 8vw;
+    color: #000;
+    font-size: 4.4vw;
+    text-align: left;
+    position: relative;
+    z-index: 99999;
+    background: #fff;
+}
+
+.divContent {
+    width: 100%;
+    height: 11vw;
+    margin: 0;
+    padding: 0;
+}
+
+.divContent div {
+    float: left;
+    width: calc(50% - 3vw);
+    height: 9vw;
+    position: relative;
+}
+
+.divContent div .timeCon {
+    position: absolute;
+    z-index: 999;
+    right: 1vw;
+    top: 1vw;
+    opacity: 0;
+    width: 7vw;
+    overflow: hidden;
+    height: 7vw;
+    background: red;
+}
+
+.divContent div.line {
+    width: 6vw;
+    font-size: 6vw;
+    line-height: 11vw;
+}
+
+.divContent div input {
+    width: calc(100% - 9vw);
+    height: 100%;
+    float: left;
+    background: none;
+    border: 0.2vw solid #999;
+    padding: 0 2vw;
+    border-radius: 1vw;
+    line-height: 11vw;
+}
+
+.timeBtn {
+    width: 9vw;
+    height: 9vw;
+    float: left;
+    padding: 1vw;
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: 0;
+}
+
+.timeBtn img {
+    width: 100%;
+    height: 100%;
+}
+
+ul, li {
+    list-style: none;
+}
+
+ul {
+    height: 56px;
+    width: 100%;
+}
+
+li {
+    width: 14.28%;
+    float: left;
+    border: 1px solid #009944;
+    border-left: 0;
+    color: #009944;
+    font-size: 4vw;
+    line-height: 11vw;
+    height: 11vw;
+}
+
+li.one {
+    border-left: 0.2vw solid #009944;
+    border-radius: 1.4vw 0 0 1.4vw;
+}
+
+li.end {
+    border-radius: 0 1.4vw 1.4vw 0;
+}
+
+li.active {
+    color: #fff;
+    border-right: 1px solid #fff;
+    background: #009944;
+}
+
+div.chooseTime {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #999;
+    padding: 0 10px;
+    z-index: 99999;
+    background: #fff;
+    color: #666;
+}
+
+div.chooseTime p {
+    float: left;
+    height: 100%;
+    width: auto;
+    font-size: 1em;
+    text-align: left;
+    margin: 0;
+}
+
+div.chooseTime div {
+    float: right;
+    text-align: right;
+    font-size: 1em;
+}
+
+.theme_btn {
+    width: 100%;
+    height: 52px;
+    position: fixed;
+    background: #fff;
+    bottom: 0;
+    z-index: 9;
+    padding: 0 20px;
+    left: 0;
+    padding-top: 4px;
+}
+
+.theme_btn button {
+    width: 34%;
+    height: 36px;
+    line-height: 32px;
+    color: #009944;
+    border: 2px solid #009944;
+    float: left;
+    background: none;
+    border-radius: 40px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.divContent div.popTime {
+    height: 36px;
+    width: 20%;
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.divContent div input.mbsc-control {
+    width: 100%;
+}
+
+.mbsc-mobiscroll {
+    height: 126px;
+    margin-top: 40px;
+    display: none;
+    width: calc(100% + 40px);
+    margin-left: -20px;
+}
+
+.dw-persptop {
+    top: 230px !important;
+}
+
+.divtop {
+    top: 156px;
+    border-top: 1px solid #999;
+}
+
+.dwfl {
+    padding: 0 !important;
+}
+
+.dwwc {
+    margin: 0 !important;
+    max-width: 100% !important;
+}
+
+/*.mbsc-mobiscroll .dwbc{*/
+/*display: none!important;*/
+/*}*/
+/*.dwo{*/
+/*display: none!important;*/
+/*}*/
+.mbsc-mobiscroll .dwwol {
+    border-top: 1px solid #999 !important;
+    border-bottom: 1px solid #999 !important;
+}
+
+.mbsc-mobiscroll .dwc {
+    padding: 0 !important;
+}
+
+.form_item_content {
+    padding: 0;
+}
+
+.time_item {
+    padding: 5px;
+    border-bottom: 1px solid #999;
+    font-size: 12px;
+    height: 36px;
+    z-index: 9;
+    background: #fff;
+    position: relative;
+}
+
+.time_item .label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    line-height: 36px;
+    z-index: 2;
+}
+
+.time_item p {
+    width: 170px;
+    height: 100%;
+    line-height: 27px;
+    text-align: right;
+    float: left;
+}
+.time_item .p_che{
+    width: 60px;
+    margin-left:50px;
+}
+.p_che input{
+    float: left;
+    margin-top:6px;
+    margin-left:10px;
+}
+.dwwl, .dww, .dwww, .dwwr, .dwfl, .dwwc, .mbsc-mobiscroll .dwhl, .dwcc, .dw-inline .dw {
+    height: 100% !important;
+}
+
+.dw-inline .dw, .dwwr, .mbsc-mobiscroll .dwhl {
+    width: 100%;
+}
+
+.borderTop {
+    margin-top: 140px;
+    border-top: 1px solid #999;
+}
+
+.topborder {
+    top: 50% !important;
+}

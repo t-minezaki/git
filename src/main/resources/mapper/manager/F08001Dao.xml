@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F08001Dao">
+    <!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+    <select id="selectAll" resultType="jp.learningpark.modules.manager.dto.F08001Dto">
+		SELECT
+			ME.id
+			, ME.event_cd
+			, ME.cret_datime
+			, ME.upd_datime
+			, ME.upd_datime AS update_str_for_check
+			, ME.ctgy_nm
+			, ME.event_title
+			, ME.attach_file_path
+			, ME.event_cont
+			, ME.org_id
+			, A1.flnm_nm || A1.flnm_lnm AS cret_user_name
+			, A2.flnm_nm || A2.flnm_lnm AS upd_user_name
+			, MTP.tmplate_title
+			, MCD1.cod_value AS status
+			, MCD2.cod_value AS object
+			, MO.org_nm
+		 	, mo.level
+			, ME.ref_type
+		FROM
+			mst_event_deliver MED
+			INNER JOIN mst_event ME    ON ( MED.event_id = ME.ID       	 AND ME.del_flg = 0 )
+			LEFT JOIN mst_tmplate MTP ON ( ME.temp_id = MTP.ID        	 AND MTP.del_flg = 0 )
+			LEFT JOIN mst_manager A1  ON ( A1.mgr_id = ME.cret_usr_id 	 AND A1.del_flg = 0 )
+			LEFT JOIN mst_manager A2  ON ( A2.mgr_id = ME.upd_usr_id  	 AND A2.del_flg = 0 )
+			LEFT JOIN mst_cod_d MCD1  ON ( MCD1.cod_cd = ME.event_sts_div AND MCD1.cod_key = 'EVENT_STS_DIV' AND MCD1.del_flg = 0)
+			LEFT JOIN mst_cod_d MCD2  ON ( MCD2.cod_cd = ME.ref_type   	 AND MCD2.cod_key = 'REF_TYPE_DIV'  AND MCD2.del_flg = 0)
+			INNER JOIN mst_org     MO  ON ( MO.org_id = ME.org_id      	 AND MO.del_flg = 0 )
+		WHERE
+			ME.event_level_div = '0'
+			AND MED.del_flg = '0'
+			AND MED.org_id = #{params.orgId}
+			<if test='params.tmplateId != null and params.tmplateId != ""'>
+				AND ME.temp_id = '${params.tmplateId}'
+			</if>
+			<if test='params.ctgyNm != null and params.ctgyNm != ""'>
+				AND ME.ctgy_nm     LIKE '%${params.ctgyNm}%'
+			</if>
+			<if test='params.eventTitle != null and params.eventTitle != ""'>
+				AND ME.event_title LIKE '%${params.eventTitle}%'
+			</if>
+			<if test='params.cretDatimeStart != null and params.cretDatimeStart != ""'>
+				AND to_char(ME.cret_datime, 'yyyy/mm/dd') >= '${params.cretDatimeStart}'
+			</if>
+			<if test='params.cretDatimeEnd != null and params.cretDatimeEnd != ""'>
+				AND '${params.cretDatimeEnd}' >= to_char(ME.cret_datime, 'yyyy/mm/dd')
+			</if>
+			<if test='params.updDatimeStart != null and params.updDatimeStart != ""'>
+				AND to_char(ME.upd_datime, 'yyyy/mm/dd') >= '${params.updDatimeStart}'
+			</if>
+			<if test='params.updDatimeEnd != null and params.updDatimeEnd != ""'>
+				AND '${params.updDatimeEnd}' >= to_char(ME.upd_datime, 'yyyy/mm/dd')
+			</if>
+			<if test='params.cretUserName != null and params.cretUserName != ""'>
+				AND A1.flnm_nm || A1.flnm_lnm LIKE '%${params.cretUserName}%'
+			</if>
+			<if test='params.updUserName != null and params.updUserName != ""'>
+				AND A2.flnm_nm || A2.flnm_lnm LIKE '%${params.updUserName}%'
+			</if>
+			<if test='params.eventStsDiv != null and params.eventStsDiv != ""'>
+				AND ME.event_sts_div = '${params.eventStsDiv}'
+			</if>
+			<if test='params.object != null and params.object != ""'>
+				AND ME.ref_type = '${params.object}'
+			</if>
+		ORDER BY
+			ME.cret_datime DESC,
+			ME.upd_datime
+		<if test="offset!=null and limit!=null">
+			LIMIT #{limit} OFFSET #{offset}
+		</if>
+    </select>
+	<!--  ユーザ表示項目設定、或いは、コードマスタより、画面初期化項目を取得し -->
+	<select id="selectDspItems" resultType="jp.learningpark.modules.manager.dto.F08001Dto">
+		SELECT DISTINCT COALESCE
+			( UDIS.display_items, MCD.cod_value ) AS dsp_items,
+			MCD.cod_value_2 as mustItems,
+            MCD.cod_value_3 as allItems
+		FROM
+			user_display_item_set UDIS
+			RIGHT JOIN mst_cod_d MCD ON ( UDIS.user_id = #{userId} AND UDIS.menu_id = #{menuId} AND UDIS.del_flg = 0)
+		WHERE
+			MCD.cod_key = 'EVENT_ITEM'
+			AND MCD.cod_cd = #{menuId}
+			AND MCD.del_flg = 0
+    </select>
+	<!--  从ユーザ表示項目設定取得行數-->
+	<select id="getDspCount" resultType="java.lang.Integer">
+		SELECT
+			COUNT( * )
+		FROM
+			user_display_item_set UDIS
+		WHERE
+			UDIS.user_id = #{userId}
+			AND UDIS.menu_id = #{menuId}
+			AND UDIS.del_flg=0
+    </select>
+	<!--  ユーザ表示項目設定に登録する -->
+	<select id="insertDspItem" resultType="java.lang.Integer">
+		INSERT INTO user_display_item_set ( user_id, menu_id, display_items, cret_datime, cret_usr_id, upd_datime, upd_usr_id, del_flg )
+		VALUES (#{userId},#{menuId},#{dspItems},#{cretDatime},#{cretUsrId},#{updDatime},#{updUsrId},#{delFlg})
+    </select>
+	<!--  ユーザ表示項目設定に更新する -->
+	<select id="updateDspItem" resultType="java.lang.Integer">
+   		UPDATE user_display_item_set
+		SET display_items =  #{dspItems},upd_datime = #{updDatime},upd_usr_id = #{updUsrId}
+		WHERE
+			user_id = #{userId}
+		AND menu_id = #{menuId}
+    </select>
+	<!--  从テンプレート得到所有 -->
+	<select id="getTmplateAll" resultType="jp.learningpark.modules.common.entity.MstTmplateEntity">
+		SELECT
+			*
+		FROM
+			mst_tmplate
+		WHERE
+			del_flg=0
+    </select>
+</mapper>

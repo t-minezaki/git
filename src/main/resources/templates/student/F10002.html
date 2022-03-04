@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒Myページ画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10002.css"/>
+</head>
+<body>
+<header>
+    <iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div class="content">
+    <div id="message" class="topMessage"></div>
+    <div class="borderDiv"></div>
+    <div class="info_mine" id="mypage" v-cloak>
+         <div class="mine_avatar">
+            <div class="mine_avatar_img">
+                <div class="headerImg">
+                    <img v-if="stuDto.photPath == null || stuDto.photPath == ''" src="../img/user.png">
+                    <img v-else="stuDto.photPath" :src="stuDto.photPath" alt=""/>
+                </div>
+                <p class="firstP">{{stuDto.stuNm}}</p>
+                <p>(ID：<span>{{stuDto.afterUsrId}}</span>)</p>
+            </div>
+            <div class="bottomDiv">
+                <div class="leftbottom">
+                    <p>生年月日</p>
+                    <p>性别</p>
+                    <p>学校</p>
+                    <p>塾</p>
+                </div>
+                <div class="rightbottom">
+                    <p>{{birthd}}</p>
+                    <p>{{stuDto.gendrVal}}</p>
+                    <p>{{stuDto.schNm}}</p>
+                    <p>{{stuDto.orgNm}}</p>
+                </div>
+            </div>
+        </div>
+        <ul>
+            <li @click="f10101" class="litline">
+                スケジュール<br>登録
+            </li>
+            </a>
+
+            <li @click="f10003">
+                教科書選択
+            </li>
+            </a>
+            <li @click="updateFn" id="updateMenu" onmouseleave="blurFn()"  class="litline">
+                プロフィール<br>変更
+                <div class="xbottom disNone">
+                    <!--<div @click="f10001">基本情報変更</div>-->
+                    <div @click="f40008">パスワード変更</div>
+                </div>
+            </li>
+            </a>
+            <li @click="f10004" style="padding-top: 2.4vw">
+                スケジュールブロックの<br>
+                色設定
+            </li>
+            </a>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/student/F10002.js">
+</script>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F21007Dao">
+    <select id="selectAll" resultType="jp.learningpark.modules.manager.dto.F21007Dto">
+    SELECT
+   	    ABH.id,
+   	    ABH.org_id,
+   	    ABH.tgt_ymd,
+   	    ABH.grp_id,
+		ABH.attend_book_cd,
+		MG.grp_nm,
+		ABH.times_num
+	FROM mst_grp MG
+	INNER JOIN attend_book_h ABH
+		ON MG.grp_id = ABH.grp_id
+		AND MG.del_flg = 0
+		AND ABH.del_flg = 0
+	WHERE
+		ABH.org_id = #{orgId}
+		and ABH.tgt_ymd = '${date}'
+		<if test="grpNm != null and grpNm != ''">
+			and MG.grp_nm like concat('%',#{grpNm},'%')
+		</if>
+	ORDER BY
+		ABH.grp_id,
+		ABH.times_num,
+		ABH.attend_book_cd
+    </select>
+    <select id="selectNumMax" resultType="java.lang.Integer">
+	SELECT
+		MAX( times_num ) AS max_num
+	FROM
+		attend_book_h
+	WHERE
+		org_id = #{orgId} and
+		grp_id = #{grpId} and
+		tgt_ymd = #{date}
+	</select>
+    <select id="selectMstGrpNm" resultType="jp.learningpark.modules.manager.dto.F21007Dto">
+        select
+			null as attend_book_cd,
+			grp_id,
+			null as times_num,
+			grp_nm
+        from mst_grp as mg
+        where
+			org_id = #{orgId}
+			<if test="grpNm != null and grpNm != ''">
+				and MG.grp_nm like concat('%',#{grpNm},'%')
+			</if>
+			AND #{dayweekDiv} = ANY ( regexp_split_to_array ( dayweek_div,',' ) )
+			<if test="grpIdList.size!=0">
+				AND grp_id not in
+				<foreach collection="grpIdList" item="grpId" index="i" open="(" close=")" separator=",">
+					#{grpId}
+				</foreach>
+			</if>
+			and del_flg = 0
+    </select>
+</mapper>

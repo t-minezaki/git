@@ -1,0 +1,267 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body, #page {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: unset;
+}
+
+p {
+    margin: unset;
+    word-break: break-all;
+}
+
+.div_top {
+    position: fixed;
+    width: 100%;
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    height: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.main {
+    height: 90%;
+    /* 2020/12/17 V9.0 cuikailin modify start */
+    padding-top: 60px;
+    /* 2020/12/17 V9.0 cuikailin modify end */
+    overflow-y: auto;
+}
+
+.div_back {
+    width: 4vh;
+    height: 4vh;
+    float: left;
+}
+
+.div_back img {
+    width: 100%;
+    height: 100%;
+    margin-top: 1vh;
+}
+
+.div_name {
+    height: 6vh;
+    border-bottom: 1px solid #ccc;
+}
+
+.div_name p {
+    width: 100%;
+    line-height: 6vh;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.div_event_span {
+    height: 7vh;
+    width: 100%;
+}
+
+.div_event_span ul {
+    height: 100%;
+    width: 100%;
+    padding: unset;
+    margin: unset;
+}
+
+.div_event_span ul li {
+    list-style: none;
+    height: 100%;
+    width: 50%;
+    float: left;
+    text-align: center;
+    line-height: 7vh;
+    font-weight: bold;
+}
+
+.div_event_span #past {
+    background: #E6E6E6;
+}
+/* 2020/11/18 V9.0 cuikailin modify start */
+/*.div_content {*/
+    /*height: calc(100% - 13vh);*/
+/*}*/
+
+/*.div_content ul {*/
+    /*padding-left: unset;*/
+    /*margin: unset;*/
+    /*overflow-y: auto;*/
+    /*padding-top: 4px;*/
+/*}*/
+
+/*.div_content ul li {*/
+    /*list-style: none;*/
+    /*height: 25vh;*/
+    /*border-bottom: 1px solid #ccc;*/
+/*}*/
+/* 2020/11/18 V9.0 cuikailin modify end */
+.li_record div {
+    width: 95%;
+    height: 25%;
+    display: inline-flex;
+}
+
+.div_btn {
+    height: 25%;
+}
+
+.div_btn button {
+    background: #3B8686;
+    color: white;
+    border: none;
+    width: 49%;
+    height: 8vw;
+    margin-left: 1%;
+    margin-right: 1%;
+    padding: unset;
+}
+
+.div_title {
+    padding-left: 1%;
+}
+
+.div_title span {
+    width: 1%;
+    height: 50%;
+    background-color: #52C988;
+    float: left;
+}
+
+.div_title p {
+    margin-left: 2vw;
+    font-weight: bold;
+    height: 50%;
+    font-size: 15px;
+}
+
+.div_stu, .div_time {
+    margin-left: 5vw;
+}
+
+.div_stu span, .div_time span {
+    width: 25%;
+}
+
+.div_stu p, .div_time p {
+    margin-left: 5vw;
+}
+
+.div_msg {
+    margin-left: 2vw;
+    height: 15vw;
+    color: red;
+}
+
+/*.div_bottom {*/
+    /*height: 10%;*/
+/*}*/
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    max-width: 50%;
+    width: auto !important;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+
+/* 2020/11/18 V9.0 cuikailin add start */
+.photo-container {
+    height: 100px;
+    width: 100px;
+    float: left;
+    overflow: hidden;
+    z-index: 1;
+    margin-left: 35vw;
+}
+
+.photo-image {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.image-container > img {
+    position: fixed;
+    top: 50%;
+    max-width: 100%;
+    min-width: 50%;
+    max-height: fit-content;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.6);
+    display: block;
+    object-fit: cover;
+}
+
+.image-container {
+    position: absolute;
+    top: 0;
+    z-index: 9999999;
+    height: 100%;
+    width: 100%;
+    background: #e5e5e585;
+}
+
+.div_content ul{
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid grey;
+    padding:4px;
+}
+.div_content li{
+    width: 95%;
+    padding: 3px 4px 4px 0;
+    height: 15%;
+    display: inline-flex;
+}
+._btn{
+    background: #8CC11F;
+    color: white;
+    border: none;
+    width: 46%;
+    height: 8vw;
+    padding: 0;
+    margin: 1px 6px;
+}
+/* 2020/11/18 V9.0 cuikailin add end */
+/* 2020/12/30 V9.0 cuikailin add start */
+.result_text {
+    padding: unset !important;
+    margin-left: 2vw;
+    width: 96vw;
+    resize: none;
+}
+/* 2020/12/30 V9.0 cuikailin add end */

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F09024Dao">
+    <select id="selectHstList" resultType="jp.learningpark.modules.manager.dto.F09024Dto">
+        select
+            list.entryNum
+            , list.stu_id
+            , list.stuName
+            , list.schyDiv
+            , (array_agg(list.time ORDER BY list.time))[1] as entryTime
+            , (array_agg(list.time ORDER BY list.time))[2] as exitTime
+        from
+        (
+            SELECT
+                ROW_NUMBER( ) OVER ( PARTITION BY entry.stu_id,entry.entry_flg ORDER BY entry.entry_dt ) as entryNum,
+                entry.stu_id,
+                CONCAT ( student.flnm_nm, ' ', student.flnm_lnm ) AS stuName,
+                code.cod_value AS schyDiv,
+                to_char(entry.entry_dt, 'HH24:MI') as time
+            FROM entry_exit_hst entry
+            INNER JOIN mst_stu student ON ( entry.stu_id = student.stu_id AND student.del_flg = 0 )
+            INNER JOIN mst_cod_d code ON ( student.schy_div = code.cod_cd AND code.cod_key = 'SCHY_DIV' AND code.del_flg = 0 )
+            <if test="role == '2'">
+            　　 INNER JOIN mentor_stu ms ON ms.mentor_id = #{userId} AND ms.crmsch_id = #{orgId} AND ms.stu_id = entry.stu_id AND ms.del_flg = 0
+            </if>
+            WHERE
+                to_char( entry.entry_dt, 'yyyy/mm/dd' ) = #{tgtYmd}
+                AND entry.org_id = #{orgId}
+                AND entry.del_flg = 0
+        ) list
+        GROUP BY
+            list.entryNum
+            , list.stu_id
+            , list.stuName
+            , list.schyDiv
+        ORDER BY (array_agg(list.time ORDER BY list.time))[1]
+        <if test="limit != null and offset != null">
+            Limit #{limit} offset #{offset}
+        </if>
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select
+            count(1)
+        from
+        (
+            SELECT DISTINCT
+                ROW_NUMBER( ) OVER ( PARTITION BY entry.stu_id,entry.entry_flg ORDER BY entry.entry_dt ) as entryNum,
+                entry.stu_id
+            FROM entry_exit_hst entry
+            INNER JOIN mst_stu student ON ( entry.stu_id = student.stu_id AND student.del_flg = 0 )
+            INNER JOIN mst_cod_d code ON ( student.schy_div = code.cod_cd AND code.cod_key = 'SCHY_DIV' AND code.del_flg = 0 )
+            <if test="role == '2'">
+            　　 INNER JOIN mentor_stu ms ON ms.mentor_id = #{userId} AND ms.crmsch_id = #{orgId} AND ms.stu_id = entry.stu_id AND ms.del_flg = 0
+            </if>
+            WHERE
+                to_char( entry.entry_dt, 'yyyy/mm/dd' ) = #{tgtYmd}
+                AND entry.org_id = #{orgId}
+                AND entry.del_flg = 0
+        ) list
+    </select>
+</mapper>

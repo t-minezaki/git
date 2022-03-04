@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒共通メニュー画面</title>
+    <link href="${request.contextPath}/css/common/common.css" rel="stylesheet"/>
+    <style>
+        .header_operat li a {
+            width: 100%;
+            display: block;
+        }
+        .header_stuNm {
+            width: 26vw;
+        }
+        /* 2020/12/17 V9.0 cuikailin add start */
+        .header_point {
+            float: left;
+            width: 13vw;
+            height: 100%;
+            padding-top: 2vw;
+            margin-left: 0;
+            font-weight: bold;
+        }
+        #pointImg{
+            width: 2vw;
+            height: 2vw;
+            position: absolute;
+            margin: auto;
+        }
+        /* 2020/12/17 V9.0 cuikailin add end */
+    </style>
+</head>
+<body>
+<header>
+    <div class="header_logo" onclick="toF10301()">
+
+    </div>
+    <div class="header_stuNm">
+        <p id="stuNm"></p>
+    </div>
+    <!--/* 2020/12/17 V9.0 cuikailin add start */-->
+    <div class="header_point">
+        <p id="pointImg"></p>
+        <p id="point" style="font-size: 1.3vw; margin-top: 0.1vw;"></p>
+    </div>
+    <!--/* 2020/12/17 V9.0 cuikailin add start */-->
+    <div id="_change" style="float: left; width: 12%; height: 100%; margin-left: 3vw;">
+        <button
+                id="changeOrg" style="width: 100%; height: 60%; margin-top: 10%; border-radius: 2vw; border: unset; background: #009944; color: white;
+            padding: unset;" onclick="window.parent.location.href='../common/F40014.html'">教室切替
+        </button>
+    </div>
+    <ul class="header_operat">
+        <li>
+            <a href="../student/F10301.html" target="_top"> <img src="../img/operat1.png" id="schedule_img" alt=""/>
+                <p style="font-size: 62.5%">スケジュール</p>
+            </a>
+        </li>
+        <li>
+            <a href="../student/F10401.html" target="_top"> <img src="../img/operat2.png" id="status_img" alt=""/>
+                <p style="font-size: 62.5%">ふり返り</p>
+            </a>
+        </li>
+        <li>
+            <a href="../student/F10507.html" target="_top"> <img src="../img/operat3.png" id="grade_img" alt=""/>
+                <p style="font-size: 62.5%">成績</p>
+            </a>
+        </li>
+        <li>
+            <a href="../student/F10002.html" target="_top"> <img src="../img/user.png" id="mypage_img" alt=""/>
+                <p style="font-size: 62.5%">マイページ</p>
+            </a>
+        </li>
+        <li onclick="parent.openUrl('logout');">
+            <img src="../img/logout.png" id="logout_img" alt="logout"/>
+            <p style="font-size: 62.5%">ログアウト</p>
+        </li>
+    </ul>
+</header>
+</body>
+<script>
+    $.ajax({
+        url: ctxPath + '/common/F40002/init',
+        type: 'GET',
+        datatype: 'json',
+        success: function (data) {
+            if (data.stuNm != null) {
+                var s = "<b>" + data.stuNm + "</b><p>さん、今週も頑張りましょう！</p>";
+                $(".header_stuNm").html(s);
+            }
+            $("#_change").css("display", data.disa ? "none" : "block");
+            /* 2020/12/17 V9.0 cuikailin add start */
+            if(data.point){
+                $(".header_point").css("display","block");
+                var img = "<img src='../img/stu_point_little.png' id='point_img' style='height: 100%; width: 100%'>";
+                var point = "<span style='margin-left: 2.3vw'>"+data.point+"</span>"
+                var text = "<span style='font-size: 1vw;'>&nbsp;ポイント</span>";
+                $("#point").html(point + text);
+                $("#pointImg").html(img);
+            }
+            /* 2020/12/17 V9.0 cuikailin add end */
+        },
+        error: function () {
+        }
+    });
+
+    function toF10301() {
+        parent.location.href = "../student/F10301.html";
+    }
+</script>
+</html>

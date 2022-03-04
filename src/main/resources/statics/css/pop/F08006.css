@@ -1,0 +1,148 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+#close_btn {
+
+    position: absolute;
+    display: inline-block;
+    right: 1.5vw !important;
+    top: 2vh !important;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 17px;
+    font-weight: bolder;
+    cursor: default;
+}
+
+p {
+    margin: 0;
+}
+
+.theme_selec {
+    width: 100%;
+    /*height: 156vw;*/
+    position: relative;
+    text-align: center;
+    background: #fff;
+    margin: auto;
+}
+
+.inputDiv div {
+    height: 8vw;
+    margin-top: 6vw;
+}
+
+.content_them {
+    width: 100%;
+    height: auto;
+    padding: 0 6vw;
+    float: left;
+}
+
+.title {
+    line-height: 8vw;
+    color: #000;
+    font-size: 4.4vw;
+    text-align: left;
+    position: relative;
+    z-index: 99999;
+    background: #fff;
+    text-indent: 1em;
+}
+
+.divContent {
+    width: 92%;
+    height: 11vw;
+    margin: 0 0 0 4vw;
+    padding: 0;
+}
+
+#monday {
+    width: 14.28%;
+    float: left;
+    border: 1px solid #009944;
+    font-size: 4vw;
+    line-height: 11vw;
+    height: 11vw;
+    border-radius: 5px 0 0 5px;
+}
+
+#sunday {
+    width: 14.28%;
+    float: left;
+    font-size: 4vw;
+    line-height: 11vw;
+    height: 11vw;
+    border-radius: 0 5px 5px 0;
+}
+
+.li {
+    width: 14.28%;
+    float: left;
+    border: 1px solid #009944;
+    border-left: 0;
+    color: #009944;
+    font-size: 4vw;
+    line-height: 11vw;
+    height: 11vw;
+}
+
+.theme_btn {
+    width: 100%;
+    /*height: 52px;*/
+    /*position: fixed;*/
+    background: #fff;
+    /*bottom: 0;*/
+    z-index: 9;
+    padding: 0 20px;
+    left: 0;
+    padding-top: 4px;
+    float: left;
+    height: 20vw;
+    bottom: 0;
+    position: fixed;
+    border-radius: 3vw
+}
+
+.theme_btn button {
+    height: 36px;
+    line-height: 32px;
+    color: #009944;
+    border: 2px solid #009944;
+    margin-left: 2vw;
+    /*float: left;*/
+    margin-top: 5vw;
+    background: none;
+    border-radius: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.layui-laydate-content > .layui-laydate-list {
+    padding-bottom: 0px !important;
+    overflow: hidden !important;
+}
+
+.layui-laydate-content > .layui-laydate-list > li {
+    width: 50% !important;
+}
+
+.laydate-btns-clear{
+    display: none !important;
+}
+.laydate-btns-now{
+    display: none !important;
+}
+
+

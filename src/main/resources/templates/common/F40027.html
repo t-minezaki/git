@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>保護者共通メニュー画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40027.css"/>
+    <style type="text/css">
+        button#changeOrg:after {
+            content: '教室切替';
+            height: 100%;
+            display: inline-block;
+            line-height: 13px;
+        }
+        button {
+            margin-right: 2px;
+            margin-left: 2px;
+            float: left;
+        }
+
+        #changeOrg {
+            width: 26px;
+            padding: unset
+        }
+        /* 2020/12/17 V9.0 cuikailin add start */
+        .header_point {
+            float: left;
+            width: 100%;
+            font-weight: bold;
+        }
+        #pointImg{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            margin-left: 2vw;
+        }
+        .point_span{
+            position: absolute;
+            margin-left: 1vw;
+            margin-top: 1vh;
+        }
+        @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+            .point_span{
+                position: absolute;
+                margin-left: 1vw;
+                margin-top: -5vh;
+            }
+        }
+        /* 2020/12/17 V9.0 cuikailin add end */
+    </style>
+</head>
+<body>
+<div class="div_header" id="v_If">
+    <div>
+        <div class="logo" onclick="window.parent.location.reload()" style="margin-left: 3px">
+            <img src="../img/logo.png" style="margin-left: unset">
+        </div>
+        <div class="logout" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout">
+        </div>
+        <div class="headerBtn">
+            <!--<button id="changeOrg" style="float: left;font-size: 13px; width: 5%; height: 105%; border-radius: 1vw; border: unset;background: #DCDDDD;color:-->
+             <!--#8E8E8E" onclick="window.location.href='../common/F40016.html'">教室切替-->
+            <!--</button>-->
+            <button id="changeOrg" onclick="window.parent.location.href='../common/F40016.html'" title="教室切替"></button>
+            <!--2020/12/09 liguangxin add start -->
+            <!--<button onclick="window.parent.location.href='../common/F40008.html'">ID/パスワード変更</button>-->
+            <!--<button onclick="window.parent.location.href='../student/F10000.html'">基本情報変更</button>-->
+            <!--2020/12/09 liguangxin add end -->
+        </div>
+        <!--/* 2020/12/17 V9.0 cuikailin add start */-->
+        <div class="header_point">
+            <p id="pointImg"></p>
+            <p id="point" style="margin-left: 7vw"></p>
+        </div>
+        <!--/* 2020/12/17 V9.0 cuikailin add end */-->
+    </div>
+</div>
+</body>
+<script>
+    var param = getParam();
+    $.ajax({
+        url: ctxPath + '/common/F40012/init',
+        type: 'GET',
+        datatype: 'json',
+        success: function (data) {
+            if (data.stuNm != null) {
+                var s = "<b>" + data.stuNm + "</b><p>さん、今週も頑張りましょう！</p>";
+                $(".header_stuNm").html(s);
+            }
+            $("#changeOrg").css("display", data.disa ? "none" : "block");
+            /* 2020/12/17 V9.0 cuikailin add start */
+            if(data.point){
+                $(".header_point").css("display","block");
+                var img = "<img src='../img/stu_point_little.png' id='point_img' style='height: 100%; width: 100%'>";
+                var point = "<span class='point_span'>"+data.point+"<span style='font-size: 10px;'>&nbsp;ポイント</span></span>";
+                $("#point").html(point);
+                $("#pointImg").html(img);
+                $(".div_header").css("height", "60px");
+                parent.$(".div_header").css("height", "60px");
+                if (param.id == "F11011" || param.id == "F11013") {
+                    parent.$(".content").css("padding-top", "60px").css("height", "calc(100% - 60px)")
+                }
+            }
+            /* 2020/12/17 V9.0 cuikailin add end */
+        },
+        error: function () {
+        }
+    });
+</script>
+<script src="${request.contextPath}/js/common/F40027.js"></script>
+</html>

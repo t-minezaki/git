@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>メッセージ一覧</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F21062.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app">
+    <div class="popTitle">メッセージ一覧画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="sOrgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <form id="f21062Form">
+        <div class="inputDiv">
+            <div class="inputMessage">
+                <div>組織ID</div>
+                <input type="text" maxlength="20" id="orgId" name="orgId">
+                <div style="text-align: right;width: 10.2%">メッセージID</div>
+                <input maxlength="64" id="id" name="id">
+                <div style="width: 6%;text-align: right;">件名</div>
+                <input type="text" maxlength="100" id="messageTitle" name="messageTitle" style="width: 18%">
+            </div>
+            <div class="inputMessage">
+                <div>掲載開始日時</div>
+                <input type="text" id="pubPlanStartDt" name="pubPlanStartDt" style="width: 18%" readonly>
+                <img src="../img/timeBtn.png" alt="" id="timeOne">
+                <div style="text-align: center">～</div>
+                <div style="width: 9%">掲載期間終了日時</div>
+                <input type="text" id="pubPlanEndDt" name="pubPlanEndDt" style="width: 18%" readonly>
+                <img src="../img/timeBtn.png" alt="" id="timeTwo">
+            </div>
+        </div>
+    </form>
+    <div class="btn_div" style="margin-right: 25%;margin-top: 0.6vw;">
+        <button id="search" style="margin-left: 6vw;" onclick="searchButton()">検索</button>
+    </div>
+    <div class="btn_div" style="margin-top: 0.6vw;">
+        <button style="margin-left: 4.5vw;background: #00a65a;color: white;border: 0;border-bottom: 3px grey solid;" onclick="window.location.href='../manager/F21063.html'">新規作成</button>
+    </div>
+    <div class="titleDiv">メッセージ検索結果一覧</div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F21062.js" type="text/javascript" charset="utf-8"></script>
+</html>

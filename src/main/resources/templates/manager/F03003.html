@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<#include "/header.html" />
+	<title>教科書単元照会画面</title>
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+	<link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css" />
+	<link rel="stylesheet" href="${request.contextPath}/css/manager/F03003.css" />
+	<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+	<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+	<script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content"　id="app">
+	<div class="popTitle">教科書単元照会画面</div>
+	<div class="topSessionTitle">
+		<div>学年：</div>
+		<div class="showData" id="schy"></div>
+		<div>教科：</div>
+		<div class="showData" id="subjt"></div>
+		<div>出版社名：</div>
+		<div class="showData" id="publisher"></div>
+		<div>教科書名：</div>
+		<div class="showData" id="textbNm"></div>
+	</div>
+	<div class="buttonDiv">
+		<button onclick="returnFn()">一覧へ戻る</button>
+	</div>
+	<div class="listTitle">
+		<p>単元一覧</p>
+	</div>
+	<table id="jqGrid"></table>
+	<div id="jqGridPager"></div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F03003.js" type="text/javascript" charset="utf-8"></script>
+</html>

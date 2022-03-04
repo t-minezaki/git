@@ -1,0 +1,140 @@
+.layui-layer-myskin .layui-layer-title {
+    background-color: white !important;
+    color: #444 !important;
+    text-align: left !important;
+    border-bottom: none !important;
+    text-indent: 1.5em;
+    font-size: 3em;
+    font-weight: bolder;
+    margin-top: 0.8vh;
+}
+
+html, body {
+    background: white;
+}
+
+#body {
+    /*overflow-x: hidden;*/
+    overflow-y: auto;
+}
+
+.content {
+    height: calc(100vh - 102px);
+    padding: 5vw 0 0 0;
+    padding-top: 0;
+}
+
+.title {
+    text-align: center;
+    background: #FFEEE0;
+    color: #FF0606;
+    height: 36px;
+    line-height: 41px;
+    font-size: 24px;
+}
+
+.subtitle {
+    margin-top: 1vh;
+}
+
+.question-name {
+    float: left;
+    width: 35vw;
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: 5vw;
+    font-size: 1.2rem;
+}
+
+.answer {
+    margin-left: 35vw;
+    color: #454545;
+    white-space: nowrap;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.question-answer {
+    height: 9vh;
+    line-height: 9vh;
+    width: 100% !important;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.subtitle {
+    font-size: 2.4rem;
+    height: 36px;
+    line-height: 36px;
+    width: 100% !important;
+    border-bottom: 1px solid #dbdbdb;
+    text-indent: 2vw;
+}
+
+.fixed {
+    width: 100%;
+}
+
+.fixedTitle {
+    font-size: 2.4rem;
+    height: 9vh;
+    line-height: 9vh;
+    border-bottom: 1px solid #dbdbdb;
+    float: left;
+    width: 100% !important;
+    text-indent: 2vw;
+}
+
+.fixedAnswer {
+    width: 100% !important;
+    height: 9vh;
+    float: left;
+    border-bottom: 1px solid #dbdbdb;
+    line-height: 9vh;
+    white-space: nowrap;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-indent: 5vw;
+    font-size: 1.2rem;
+}
+
+.btn {
+    background: #00a65a;
+    width: 15%;
+    height: 5vw;
+    margin-top: 10vw;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    margin-bottom: 2vw;
+
+}
+
+.bottomBtn {
+    text-align: center;
+}
+.layui-layer-title {
+    padding: 0;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: #009944!important;
+    border-bottom: 1px solid #009944!important;
+    text-align: center !important;
+}
+.layui-layer-btn a {
+    border: 1px solid #009944!important;
+    background-color: #009944!important;
+    color: #FFF!important;
+    font-size: 1rem;
+    width: 6vw;
+    min-width: 120px;
+    text-align: center;
+}
+/* 2021/1/18 UT-176 cuikailin add start */
+.topMessage {
+    font-size: 2vw;
+}
+/* 2021/1/18 UT-176 cuikailin add end */

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>マナミル</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.core.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.frame.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.select.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.scroller.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.util.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetime.js"></script>
+    <script src="${request.contextPath}/plugins/mobiscroll-2.17.1/js/mobiscroll.datetimebase.js"></script>
+    <!--NWT　楊　2021/07/30　MANAMIRU1-747　Edit　Start-->
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.config.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.all.js" type="text/javascript"></script>
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js" type="text/javascript"></script>
+    <!--NWT　楊　2021/08/04　MANAMIRU1-754　Add　Start-->
+    <script src="${request.contextPath}/plugins/ueditor-1.4.3.3/lang/jp/jp.js" type="text/javascript" charset="utf-8"></script>
+    <!--NWT　楊　2021/08/04　MANAMIRU1-754　Add　End-->
+    <!--NWT　楊　2021/07/30　MANAMIRU1-747　Edit　End-->
+</head>
+<body style="background-color: white;">
+<div id="page">
+    <div id="header" class="div_header">
+        <iframe src="${request.contextPath}/common/F40011-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div id="content" class="cont1">
+        <div class="content1">
+            <div class="title">お知らせ作成</div>
+            <div class="input2">
+                <div class="ti">件名</div>
+                <div class="input-container">
+                    <input id="name" placeholder="件名を入力"  @click="hidden()" type="text">
+                </div>
+                <div class="ti">内容</div>
+                <div class="input-container">
+                    <!--NWT　楊　2021/07/30　MANAMIRU1-747　Edit　Start-->
+                    <div id="con" style="height:30vw;"></div>
+                    <!--NWT　楊　2021/07/30　MANAMIRU1-747　Edit　End-->
+                </div>
+            </div>
+            <div class="input1">
+                <div class="input3">
+                    <div class="im1">重要</div>
+                    <span><input id="import1"  @click="hidden()" type="checkbox"></span>
+                </div>
+
+                <div class="btnz"><p class="btn1">添付画像</p>
+                    <button1 class="circle" id="file_btn" onclick="F_Open_dialog()" type="button">
+                        <button>＋</button>
+                    </button1>
+                    <img alt="" class="camera" id="camera" accept="image/*" multiple onclick="F_Open_dialog()" src="../img/camera2.png">
+                    <span class="sp" id="showPath1" onclick="getPhotograph()" style="border: none;" type="text"></span>
+                    <input type="file" id="btn_file" accept="image/*">
+                </div>
+                <div class="kg"></div>
+                <div class="btn"><p class="btn1">配信先</p>
+                    <button1 class="circle" id="pop" onclick="toF09021()" type="button">
+                        <button>＋</button>
+                    </button1>
+                    <p class="btn1" style="margin-left: 3%;" id="stuCount"></p>
+                </div>
+                <div id="dateSelect" class="select-div-day">
+                    <div id="t1">
+                        <div class="left-item label">配信開始日時</div>
+                        <p><img alt="" class="timeBtn right-item" @click="starTime" id="dayS" src="../img/calendar_GKGC.png"></p>
+                        <div class="showTime selectDiv">
+                            <!--NWT　楊　2021/08/26　MANAMIRU1-765　Edit　Start-->
+                            <div  id="starTime"  @click="starTime" style="width: 40%; text-align: left" type="text"></div>
+                            <!--NWT　楊　2021/08/26　MANAMIRU1-765　Edit　End-->
+                        </div>
+                        <div class="check_starTime disNone">
+                            <select id="dom_starTime2" type="text" name="demo_select2">
+                            </select>
+                            <select id="dom_starTime1" type="text" name="demo_select1">
+                            </select>
+                            <select id="dom_starTime" type="text" name="demo_select">
+                            </select>
+                            <!--NWT　楊　2021/08/20　MANAMIRU1-765　Add　Start-->
+                            <select id="dom_starTime6" type="text" name="demo_select3">
+                            </select>
+                            <!--NWT　楊　2021/08/20　MANAMIRU1-765　Add　End-->
+                        </div>
+                    </div>
+                    <div class="kg"></div>
+                    <div id="t2">
+                        <div class="left-item label">配信終了日時</div>
+                        <p><img alt="" class="timeBtn right-item" @click="endTime" id="dayE" src="../img/calendar_GKGC.png"></p>
+                        <div class="showTime selectDiv">
+                            <!--NWT　楊　2021/08/26　MANAMIRU1-765　Edit　Start-->
+                            <div  id="endTime"  @click="endTime" style="width: 40%; text-align: left" type="text"></div>
+                            <!--NWT　楊　2021/08/26　MANAMIRU1-765　Edit　End-->
+                        </div>
+                        <div class="check_endTime disNone">
+                            <select id="dom_starTime5" type="text" name="demo_select2">
+                            </select>
+                            <select id="dom_starTime4" type="text" name="demo_select1">
+                            </select>
+                            <select id="dom_starTime3" type="text" name="demo_select">
+                            <!--NWT　楊　2021/08/20　MANAMIRU1-765　Add　Start-->
+                            </select>
+                            <select id="dom_starTime7" type="text" name="demo_select3">
+                            <!--NWT　楊　2021/08/20　MANAMIRU1-765　Add　End-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footDiv">
+            <div class="footAuto">
+                <button class="selectBtn footBtn" id="back" onclick="window.location.href = 'F09019.html'">戻る</button><button class="selectBtn footBtn" id="go">上記内容で掲載する</button>
+            </div>
+        </div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="${request.contextPath}/common/F40011.html?id=F09018" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function F_Open_dialog() {
+        document.getElementById("btn_file").click();
+    }
+</script>
+<script src="${request.contextPath}/js/manager/F09020.js"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.pop.dao.F04004Dao">
+    <select id="selectStuAndGuardList" resultType="jp.learningpark.modules.pop.dto.F04004Dto">
+        SELECT DISTINCT
+        A.usr_id as stuId,
+        ms.ID,
+        mg.flnm_nm || ' ' || mg.flnm_lnm || ',' || A.after_usr_id || ',' || ms.flnm_nm || ' ' || ms.flnm_lnm AS guardStuNm,
+        B.after_usr_id AS guardAfterId,
+        mg.guard_id AS guardId,
+        mg.flnm_nm || ' ' || mg.flnm_lnm AS guardName,
+        A.after_usr_id AS stuAfterId,
+        ms.flnm_nm || ' ' || ms.flnm_lnm AS stuName,
+        A.org_id,
+        mo.org_nm,
+        mcd.cod_value as schy,
+        mcd.sort as schy_sort
+        FROM
+        mst_usr A
+        INNER JOIN mst_stu ms ON A.usr_id = ms.stu_id
+        AND ms.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_usr B ON mg.guard_id = B.usr_id
+        AND B.del_flg = 0
+        INNER JOIN mst_org mo on A.org_id = mo.org_id
+        AND mo.del_flg = 0
+        <!--INNER JOIN mst_cod_d mcd1 on mcd1.cod_cd = ms.schy_div-->
+        <!--AND mcd1.del_flg = 0-->
+        INNER JOIN mst_cod_d mcd ON mcd.cod_key = 'SCHY_DIV'
+        AND mcd.cod_cd = ms.schy_div
+        <if test="schy!=null and schy!=''">
+        AND ms.schy_div = #{schy}
+        </if>
+        AND mcd.del_flg = 0
+        <if test="groupList!=null and groupList.size > 0">
+            INNER JOIN stu_grp sg ON sg.grp_id IN
+            <foreach collection="groupList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+            and sg.stu_id = A.usr_id
+            AND sg.del_flg = 0
+        </if>
+        <if test="stuNm != null and stuNm != ''">
+            INNER JOIN mst_stu mtu ON A.usr_id = mtu.stu_id
+            AND  mtu.flnm_nm || ' ' || mtu.flnm_lnm like concat('%',#{stuNm},'%')
+            AND mtu.del_flg = 0
+        </if>
+            INNER JOIN mst_stu mtu1 ON A.usr_id = mtu1.stu_id
+            AND mtu1.del_flg = 0
+
+        WHERE
+        A.usr_sts = '1'
+        <if test="orgIdList != null and orgIdList.size > 0">
+        AND A.org_id IN
+            <foreach collection="orgIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        <if test="stuId != null and stuId !=''">
+            AND A.after_usr_id like concat('%',#{stuId},'%')
+        </if>
+        <if test="stuIds != null">
+            AND A.after_usr_id IN
+            <foreach collection="stuIds" item="item" open="(" close=")" separator=",">#{item}</foreach>
+        </if>
+        <if test="rowIdS != null  and rowIdS.size > 0">
+            AND A.usr_id not in
+            <foreach collection="rowIdS" item="item" open="(" close=")" separator=",">#{item}</foreach>
+        </if>
+        <if test="stuIdList != null  and stuIdList.size > 0">
+            AND A.usr_id IN
+            <foreach collection="stuIdList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+        </if>
+        AND A.del_flg = 0
+        ORDER BY
+        stuName
+    </select>
+</mapper>

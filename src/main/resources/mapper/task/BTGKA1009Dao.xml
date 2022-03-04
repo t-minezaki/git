@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.job.dao.BTGKA1009Dao">
+    <select id="selectUsrList" resultType="jp.learningpark.modules.common.entity.MstUsrEntity">
+        SELECT
+            DISTINCT
+            gidpk
+            ,del_flg
+            ,role_div
+        FROM
+            mst_usr
+        WHERE
+            gid_flg = '1'
+            AND book_send_flg = '0'
+            AND del_flg = 0
+            AND (role_div = '4' OR role_div = '3')
+            AND org_id NOT LIKE 'fuka%'
+            AND gidpk NOT IN (''
+            <foreach collection="gidpkArr" item="gidpk" open="," close="" separator=",">
+                #{gidpk}
+            </foreach>
+                )
+    </select>
+    
+    <update id="bookSend">
+        UPDATE
+            mst_usr
+        SET
+            book_send_flg = '1'
+            ,upd_datime = now()
+            ,upd_usr_id = #{updUsr}
+        WHERE
+            gidpk = #{gidpk}
+            AND gid_flg = '1'
+            AND book_send_flg = '0'
+            AND del_flg = 0
+    </update>
+    
+    <select id="selectBookSendHst" resultType="jp.learningpark.modules.common.entity.BookendSendHstEntity">
+        SELECT
+            gidpk
+            ,book_api_flg
+            ,send_datime
+        FROM(
+                SELECT
+                    ROW_NUMBER() over(partition by hst.gidpk order by hst.send_datime desc)
+                    ,hst.gidpk
+                    ,hst.book_api_flg
+                    ,hst.send_datime
+                FROM bookend_send_hst hst
+                WHERE hst.del_flg = 0
+            ) as tableA
+        WHERE ROW_NUMBER = 1
+          and book_api_flg = '1'
+    </select>
+
+    <update id="updateBookSended">
+        UPDATE
+            mst_usr
+        SET
+            book_send_flg = '1'
+        WHERE
+            gidpk in
+        <foreach collection="gidpkArr" item="gidpk" open="(" close=")" separator=",">
+            #{gidpk}
+        </foreach>
+            AND book_send_flg = '0'
+            AND del_flg = 0
+    </update>
+</mapper>

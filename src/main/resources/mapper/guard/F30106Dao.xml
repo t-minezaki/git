@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30106Dao">
+    <select id="getStuSchy" resultType="jp.learningpark.modules.guard.dto.F30106Dto">
+		SELECT
+			cmd.cod_value schyVal,
+			sm.schy_div schyDiv
+		FROM
+			mst_stu sm
+			INNER JOIN mst_cod_d cmd ON sm.schy_div = cmd.cod_cd
+			AND cmd.cod_key = 'SCHY_DIV'
+			AND cmd.del_flg = 0
+		WHERE
+			sm.stu_id = #{stuId}
+			AND sm.del_flg = 0
+	</select>
+    <select id="getSchyList" resultType="jp.learningpark.modules.guard.dto.F30106Dto">
+		SELECT DISTINCT
+			grh.schy_div schyDiv,
+			cmd.cod_value schyVal,
+			cmd.sort
+		FROM
+			stu_test_goal_result_h grh
+			INNER JOIN mst_cod_d cmd ON grh.schy_div = cmd.cod_cd
+			AND cmd.cod_key = 'SCHY_DIV'
+			AND cmd.del_flg = 0
+		WHERE
+			grh.stu_id = #{stuId}
+			AND grh.test_type_div = #{testTypeDiv}
+			AND grh.del_flg = 0
+		ORDER BY
+			cmd.sort
+	</select>
+    <select id="getSubjtList" resultType="jp.learningpark.modules.guard.dto.F30106LowLevDto">
+		SELECT a.cod_value subjtVal FROM mst_cod_d a
+		WHERE
+			a.cod_key = 'TEST_SUBJT_DIV'
+			and #{schyDiv} = ANY ( regexp_split_to_array ( a.cod_value_5, ',' ) )
+			and a.del_flg = 0
+		ORDER BY a.sort
+		<if test="size != null">
+            limit 6 OFFSET #{size}
+        </if>
+	</select>
+    <resultMap id="getResultPointsAreaMap" type="jp.learningpark.modules.guard.dto.F30106Dto">
+        <result column="seasnTitle" property="seasnTitle"/>
+        <result column="testKindDiv" property="testKindDiv"/>
+        <result column="testTgtY" property="testTgtY"/>
+        <result column="testTgtM" property="testTgtM"/>
+        <collection property="resultPointsAreaMap" ofType="jp.learningpark.modules.guard.dto.F30106LowLevDto">
+            <result column="subjtDiv" property="subjtDiv"/>
+            <result column="resultPoints" property="resultPoints"/>
+            <result column="goalPerfectPoints" property="goalPerfectPoints"/>
+            <result column="resultPerfectPoints" property="resultPerfectPoints"/>
+            <result column="resultAvg" property="resultAvg"/>
+            <result column="resultRank" property="resultRank"/>
+        </collection>
+    </resultMap>
+    <select id="getResultPointsArea" resultMap="getResultPointsAreaMap" resultType="jp.learningpark.modules.guard.dto.F30106Dto">
+        select DISTINCT
+        <if test="testTypeDiv == 1 || testTypeDiv == 2">
+            c.cod_value as seasnTitle,
+        </if>
+        <if test="testTypeDiv == 3 || testTypeDiv == 4">
+            a.test_tgt_y || '年' || a.test_tgt_m || '月' as seasnTitle,
+        </if>
+        a.test_kind_div testKindDiv,
+        a.test_tgt_y testTgtY,
+        a.test_tgt_m testTgtM,
+        b.subjt_div,
+        b.result_points resultPoints,
+        b.result_perfect_points resultPerfectPoints,
+        b.goal_perfect_points goalPerfectPoints,
+        b.result_avg resultAvg,
+        b.result_rank resultRank,
+        f.cod_cd subjtDiv,
+        f.sort
+        FROM mst_cod_d f
+        inner join stu_test_goal_result_h A on A.stu_id = #{stuId}
+        AND A.test_type_div = #{testTypeDiv}
+        AND A.schy_div = #{schyDiv}
+        AND A.del_flg = 0
+        <if test="testKindDIv != null and testKindDIv != ''">
+            and a.test_kind_div = #{testKindDIv}
+        </if>
+        <if test="tgtY != null and tgtM != null">
+            and a.test_tgt_y = #{tgtY}
+            and a.test_tgt_m = #{tgtM}
+        </if>
+        left JOIN mst_cod_d C ON C.cod_key = 'TEST_KIND_DIV'
+        AND C.cod_cd = A.test_kind_div
+        AND C.del_flg = 0
+        inner JOIN mst_stu d ON d.stu_id = A.stu_id
+        AND d.del_flg = 0
+        left  JOIN stu_test_goal_result_d b ON f.cod_cd = b.subjt_div
+        AND b.del_flg = 0
+        and b.ID = A.ID
+        WHERE
+        f.cod_key = 'TEST_SUBJT_DIV'
+        and #{schyDiv} = ANY ( regexp_split_to_array( f.cod_value_5, ',' ) )
+        AND f.del_flg = 0
+        ORDER BY a.test_kind_div,a.test_tgt_y,a.test_tgt_m,f.sort
+        <if test="size != null">
+            limit 6 offset #{size}
+        </if>
+    </select>
+    <select id="getTgtYMList" resultType="jp.learningpark.modules.guard.dto.F30106Dto">
+        select DISTINCT
+        <if test="testTypeDiv == 1 || testTypeDiv == 2">
+            b.cod_value as seasnTitle,
+        </if>
+        <if test="testTypeDiv == 3 || testTypeDiv == 4">
+            a.test_tgt_y || '年' || a.test_tgt_m || '月' as seasnTitle,
+        </if>
+        b.cod_cd testKindDiv,
+        a.test_tgt_y testTgtY,
+        a.test_tgt_m testTgtM,
+        b.sort
+        FROM stu_test_goal_result_h a
+        left join mst_cod_d b on b.cod_key = 'TEST_KIND_DIV' and b.cod_cd = a.test_kind_div and b.del_flg = 0
+        WHERE
+        a.schy_div = #{schyDiv}
+        and a.stu_id = #{stuId}
+        and a.test_type_div = #{testTypeDiv}
+        and a.del_flg = 0
+        ORDER BY b.sort,
+        testTgtY,testTgtM
+
+    </select>
+    <select id="getResultPointsNewUpDateTime" resultType="jp.learningpark.modules.guard.dto.F30106Dto">
+        select DISTINCT
+        <if test="testTypeDiv == 1 || testTypeDiv == 2">
+            b.cod_value as seasnTitle,
+        </if>
+        <if test="testTypeDiv == 3 || testTypeDiv == 4">
+            a.test_tgt_y || '年' || a.test_tgt_m || '月' as seasnTitle,
+        </if>
+        b.cod_cd testKindDiv,
+        a.test_tgt_y testTgtY,
+        a.test_tgt_m testTgtM,
+        a.upd_datime
+        FROM stu_test_goal_result_h a
+        left join mst_cod_d b on b.cod_key = 'TEST_KIND_DIV' and b.cod_cd = a.test_kind_div and b.del_flg = 0
+        WHERE
+        a.schy_div = #{schyDiv}
+        and a.stu_id = #{stuId}
+        and a.test_type_div = #{testTypeDiv}
+        and a.del_flg = 0
+        ORDER BY a.upd_datime DESC
+        limit 1
+    </select>
+</mapper>

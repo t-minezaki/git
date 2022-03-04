@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>ユーザ一情報登録・変更:基本情報</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30001.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="content">
+    <div id="message" class="topMessage"></div>
+    <div class="contentTitle commonTabTitle">
+        <img src="../img/back.png" id="back" @click="backFn()"/>
+        登録情報変更
+    </div>
+
+    <div style="height:100%;overflow-y: scroll;" class="div_content">
+        <div class="title">
+            <p>修正したい内容を変更の上、「変更」をタップしてください。</p>
+        </div>
+        <form id="f30001Form">
+            <div class="mian">
+                <ul>
+                    <li>
+                        <p class="required" style="width: 10vw;float:unset;">氏名</p>
+                        <input type="text" class="two" id="flnmNm" name="flnmNm">
+                        <input type="text" class="two noRight" id="flnmLnm" name="flnmLnm">
+                    </li>
+                    <li>
+                        <p class="required" style="width: 10vw;float:unset;">カナ</p>
+                        <input type="text" class="two" id="flnmKnNm" name="flnmKnNm">
+                        <input type="text" class="two noRight" id="flnmKnLnm" name="flnmKnLnm">
+                    </li>
+                    <li class="more">
+                        <p>電話番号</p>
+                        <span style="color: red;">（ハイフンなし）</span>
+                        <input type="text" id="telnum" class="shortInput" name="telnum" maxlength="11">
+                    </li>
+                    <!--<li class="more">-->
+                    <!--<p>緊急電話番号</p>-->
+                    <!--<span style="color: red;">（ハイフンなし）</span>-->
+                    <!--<input type="text" id="urgTelnum" class="shortInput" name="urgTelnum">-->
+                    <!--</li>-->
+                    <li>
+                        <p style="width: 27vw;">メールアドレス</p>
+                        <!--<input type="text" id="email" name="email" disabled="disabled" style="width: calc(65vw -  50px);">-->
+                        <div id="email"></div>
+                        <button id="confirm" @click="confirmFn()" type="button" style="width: 32%;float: right">メールアドレス認証</button>
+                    </li>
+                    <li class="more">
+                        <p class="required" style="width: 17vw;" id="required">郵便番号</p>
+                        <span style="color: red" class="span1">（ハイフンなし）</span>
+                        <input type="text" class="two" id="postcd" name="postcd">
+                        <button id="search" type="button" @click="searchFn()">住所検索</button>
+                    </li>
+                    <li class="more">
+                        <p class="required" style="width: 12vw;">住所１</p>
+                        <span style="color:red;" class="span2">（市区町村まで）</span>
+                        <input type="text" id="adr1" name="adr1">
+                    </li>
+                    <li>
+                        <p style="width: 100%;">住所２</p>
+                        <input type="text" id="adr2" name="adr2">
+                    </li>
+                    <li class="small">
+                        <p></p>
+                        <div>[*]は入力必須項目です。</div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div class="theme_btn">
+            <button class="one" @click="backFn()">キャンセル</button>
+            <button id="submit" @click="submitFn()">変更</button>
+        </div>
+    </div>
+
+
+</div>
+<div class="newt-layout-fixed div_bottom">
+    <iframe src="../common/F40004.html?id=F30422" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/guard/F30001.js"></script>
+</body>
+</html>

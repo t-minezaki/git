@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F02001Dao">
+    <select id="selectMstUnitInfo" parameterType="String"
+            resultType="jp.learningpark.modules.manager.dto.F02001Dto">
+        SELECT
+        mu.ID,
+        mu.org_id,
+        mu.schy_div,
+        mu.subjt_div,
+        mu.unit_mst_cd,
+        mu.chapt_nm,
+        mu.sectn_nm,
+        mu.unit_nm,
+        A.isOrg
+        FROM
+        mst_unit mu
+        INNER JOIN (
+        SELECT
+        mo.org_id,
+        '1' AS isOrg,
+        mo.LEVEL
+        FROM
+        mst_org mo
+        WHERE
+        mo.del_flg = 0
+        AND mo.org_id = #{orgId}
+        UNION ALL
+        SELECT
+        mo.org_id,
+        '2' AS isOrg,
+        mo.LEVEL
+        FROM
+        mst_org mo
+        WHERE
+        mo.del_flg = 0
+        AND mo.org_id in
+        <if test="upOrgId!=null">
+            <foreach collection="upOrgId" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        UNION ALL
+        SELECT
+        mo.org_id,
+        '3' AS isOrg,
+        mo.LEVEL
+        FROM
+        mst_org mo
+        WHERE
+        mo.del_flg = 0
+        AND mo.org_id IN
+        <if test="lowerOrgId!=null">
+            <foreach collection="lowerOrgId" item="item2" open="(" close=")" separator=",">#{item2}</foreach>
+        </if>
+        ) A ON mu.org_id = A.org_id
+        WHERE
+        mu.schy_div = #{schyDiv}
+        AND mu.subjt_div = #{subjtDiv}
+        AND mu.del_flg = 0
+        ORDER BY
+        A.LEVEL,
+        mu.ID
+    </select>
+    <select id="selectLowerOrg" parameterType="string" resultType="String">
+        with RECURSIVE cte as
+        (
+        select om.org_id from mst_org om
+        where om.upplev_org_id=#{orgId}
+        and om.del_flg=0
+        union all
+        select d.org_id from cte c inner join mst_org d
+        on c.org_id=d.upplev_org_id
+        and d.del_flg=0
+        )
+        select  DISTINCT cte.org_id from cte
+    </select>
+    <select id="selectUpOrg" parameterType="string" resultType="String">
+        WITH RECURSIVE cte AS (
+        SELECT
+        *
+        FROM
+        mst_org om
+        WHERE
+        om.org_id = #{orgId}
+        AND om.del_flg = 0 UNION ALL
+        SELECT
+        d.*
+        FROM
+        cte C
+        INNER JOIN mst_org d ON C.upplev_org_id = d.org_id
+        AND d.del_flg = 0
+        ) SELECT DISTINCT
+        s.org_id
+        FROM
+        cte s
+        WHERE
+        s.org_id <![CDATA[ <> ]]> #{orgId}
+    </select>
+</mapper>

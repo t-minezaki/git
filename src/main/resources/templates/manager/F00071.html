@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>生徒ステータス詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F00071.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate_all.js"></script>
+    <script src="${request.contextPath}/plugins/fullcalendar-3.9.0/moment.min.js"></script>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app">
+    <div class="popTitle">生徒ステータス詳細画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="sOrgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+
+    <div class="inputDiv">
+        <div class="inputMessage">
+            <div>組織名</div>
+            <select type="text" id="orgName" name="orgName"></select>
+            <div>ステータス</div>
+            <select type="text" id="usrStatus" name="usrStatus"></select>
+            <div>異動ステータス</div>
+            <select type="text" id="crmSts" name="crmSts"></select>
+        </div>
+        <form id="f00071Form">
+            <div class="inputMessage">
+                <div>生徒ID</div>
+                <input type="text" maxlength="20" id="stuId" name="stuId">
+                <div>生徒姓名</div>
+                <input type="text" maxlength="20" id="stuName" name="stuName">
+                <div>異動年月日</div>
+                <input type="text" id="moveYmd" name="moveYmd" readonly>
+                <img src="../img/timeBtn.png" alt="">
+                <lable id="time"></lable>
+            </div>
+        </form>
+    </div>
+    <div class="btn_search">
+        <button id="search" onclick="searchButton()">検索</button>
+        <!--<a href="./F00007.html">エクスポート画面へ</a>-->
+    </div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+<script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+<script src="${request.contextPath}/js/manager/F00071.js" type="text/javascript" charset="utf-8"></script>
+</html>

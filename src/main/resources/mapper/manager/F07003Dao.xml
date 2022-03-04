@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F07003Dao">
+    <select id="selectMstCodDList" resultType="jp.learningpark.modules.manager.dto.F07003Dto">
+        SELECT
+        A.cod_cd AS subjtCd,
+        A.cod_value AS subjtNm,
+        A.cod_value_2 AS bgColor,
+        A.cod_value_3 AS displayImg,
+        A.cod_value_4 AS reviewFlg,
+        ARRAY_TO_STRING( ARRAY_AGG ( B.cod_value ), ',' ) AS schy,
+        A.cod_cont AS btnImg,
+        A.sort,
+        A.upd_datime
+        FROM
+        mst_cod_d A
+        LEFT JOIN mst_cod_d B
+        ON (A.cod_value_5 LIKE B.cod_cd || ',%' OR A.cod_value_5 LIKE '%,' || B.cod_cd OR A.cod_value_5 LIKE '%,' || B.cod_cd || ',%' OR A.cod_value_5 = B.cod_cd)
+        AND B.cod_key = 'SCHY_DIV'
+        AND b.del_flg = 0
+        WHERE
+        A.cod_key = 'SUBJT_DIV'
+        <if test="subjtCd != null and subjtCd != '' ">
+            AND A.cod_cd = #{subjtCd}
+        </if>
+        <if test="subjtNm != null and subjtNm != '' ">
+            AND A.cod_value like concat('%',trim(#{subjtNm}),'%')
+        </if>
+        <if test="commonType == 1">
+            AND (A.cod_value_4 = '0'
+        </if>
+        <if test="commonType == 0">
+            AND (A.cod_value_4 <![CDATA[ <> ]]> '0'
+        </if>
+        <if test="reviewType == 1">
+            OR A.cod_value_4 = '1')
+        </if>
+        <if test="commonType == 0 ">
+            AND A.cod_value_4 <![CDATA[ <> ]]> '1')
+        </if>
+        AND A.del_flg=0
+        GROUP BY subjtCd,subjtNm,bgColor,displayImg,reviewFlg,btnImg,A.sort,A.upd_datime
+        ORDER BY A.sort
+        <if test="startRow!=null">
+            LIMIT 30 OFFSET #{startRow}
+        </if>
+    </select>
+    <select id="selectMstCodDListCount" resultType="Integer">
+        SELECT
+        count (*)
+        FROM
+        mst_cod_d A
+        WHERE
+        A.cod_key = 'SUBJT_DIV'
+        <if test="subjtCd != null and subjtCd != '' ">
+            AND A.cod_cd = #{subjtCd}
+        </if>
+        <if test="subjtNm != null and subjtNm != '' ">
+            AND A.cod_value like concat('%',trim(#{subjtNm}),'%')
+        </if>
+        <if test="commonType == 1">
+            AND (A.cod_value_4 = '0'
+        </if>
+        <if test="commonType == 0">
+            AND (A.cod_value_4 <![CDATA[ <> ]]> '0'
+        </if>
+        <if test="reviewType == 1">
+            OR A.cod_value_4 = '1')
+        </if>
+        <if test="reviewType == 0">
+            AND A.cod_value_4 <![CDATA[ <> ]]> '1')
+        </if>
+        AND A.del_flg=0
+    </select>
+</mapper>

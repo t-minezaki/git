@@ -1,0 +1,264 @@
+html{
+	overflow-y: hidden;
+}
+.header_operat{
+	width: auto;
+}
+.content{
+	padding: 0;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 2.2vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	font-size: 0.9vw;
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+.inputDiv{
+	width: 100%;
+	height: calc(100vh - 15vh - 2.6vw - 5.8vw - 1vw - 1em);
+	float: left;
+	margin-bottom: 1vw;
+	overflow-y: hidden;
+	border-bottom: 1px solid;
+}
+.inputMessage{
+	width: 100%;
+	float: left;
+	padding: 0.4vw 4vw 0.4vw 4vw;
+	height: auto;
+}
+.inputMessage div{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+}
+.inputMessageOne{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 50%;
+}
+.choseBtn{
+	border-radius: 0.3vw;
+	background: #009944;
+	height: 2.2vw;
+	line-height: 2vw;
+	border: 2px solid #009944;
+	color: white;
+	margin-left:0.8vw;
+	float: left;
+	width: auto;
+	font-size: 0.9vw;
+}
+.inputMessage div.input_center{
+	width: 3%;
+	text-align: center;
+}
+.inputMessage input{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 30%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	border: 1px solid #333;
+}
+.inputMessage select{
+	height: 2.2vw;
+	line-height: 2.2vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 30%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.role{
+	background: none !important;
+	border: 0 !important;
+}
+.inputMessage img{
+	height: 2.2vw;
+	width: 2.2vw;
+	float: left;
+	margin-left: 2%;
+	position: relative;
+	z-index: 1;
+}
+.end_btn{
+	width: 12%;
+	border-radius: 0.3vw;
+	height: 2.2vw;
+	margin-left: 3%;
+	margin-right: 3%;
+	font-size: 0.9vw;
+	background: #00a65a;
+	color: white;
+	border: 0;
+	border-bottom: 3px grey solid;
+}
+.star{
+	width: 10%;
+	text-align: right;
+	color: red;
+}
+.title{
+	width: 20%;
+}
+.notice {
+	color: red;
+	height: auto;
+	border-top: 1px solid #000;
+	bottom: 15%;
+	width: 100%;
+	padding-left: 3%;
+	margin-bottom: 1vw;
+	font-size: 0.9vw;
+}
+.button_div{
+	width: 100%;
+	text-align: center;
+	bottom: 10%;
+}
+.roleUl {
+	width: 100%;
+	height: 2.2vw;
+}
+.roleUl li {
+	float: left;
+	width: 16%;
+	line-height: 2.2vw;
+}
+input[type="radio"]:before {
+	display: block;
+	content: "";
+	width: .9vw;
+	height: .9vw;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	margin-top: .2vw;
+}
+input[type = "radio"]::after{
+	appearance: none;
+	-webkit-appearance: none;
+	outline: none;
+	margin: 0;
+	vertical-align: text-bottom;
+	margin-right: 0.1rem;
+}
+input[type="radio"]:checked:after {
+	display: inline-block;
+	content: "";
+	width: 0.4vw;
+	height: 0.4vw;
+	border-radius: 50%;
+	margin-top: -0.7vw;
+	margin-left: .33vw;
+	background-color: #2e2e2e;
+	float: left;
+}
+input[type="radio"]{
+	height: 0;
+}
+.dwo{
+	opacity: 0!important;
+}
+#time_picker_begin{
+	width: 2.2vw;
+	height: 2.2vw;
+	float: left;
+	margin-left: 1vw;
+	position: absolute;
+	z-index: 2;
+	opacity: 0;
+}
+.dw-ltr{
+	top: 37vh !important;
+	left: 18.7vw !important;
+	width: 30%;
+	border: 1px solid grey;
+}
+.dwhl,.dwwr{
+	width: 100% !important;
+}
+table {
+	border-collapse:collapse;
+	text-align: center;
+	table-layout: fixed;
+	word-break: break-all;
+}
+table,th, td {
+	border: 2px solid #BABABA;
+	font-size: 0.8vw;
+	text-align: center;
+	table-layout: fixed;
+	word-break: break-all;
+	overflow: hidden;
+	line-height: 28px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+table th {
+	font-size: 0.9vw;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.delBtn{
+	text-decoration: unset !important;
+	color: black !important;
+	border: 1px #ccc solid !important;
+	border-radius: 5px !important;
+	width: 3.5vw !important;
+	height: 2.6vh !important;
+	font-size: 1.1em !important;
+	margin-top: 0.2vw;
+}
+.tbl_title{
+	padding: 0 0.4vw;
+	margin-left: 2%;
+}
+
+.table-body ::-webkit-scrollbar {
+	display: none; /* Chrome Safari */
+	overflow-x: hidden;
+	height: 2vh;
+}
+.org-table ::-webkit-scrollbar{
+	display: none; /* Chrome Safari */
+}
+.org-table{
+	width: 30%;
+	float: left;
+	margin-left: -3.3vw;
+	margin-top:1vw
+}
+.org-table ::-webkit-scrollbar-thumb{
+	display: none;
+}
+
+.manageTabel table:first-child td{
+	border-top:unset;
+}
+.manageTabel{
+	width: 100%;
+	overflow: auto;
+	height: 15.22vh;
+}

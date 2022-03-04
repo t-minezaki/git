@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>バッチ</title>
+    <#include "/sys/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn" style="height:34px;">
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.beanName" @keyup.enter="query" placeholder="bean名称">
+			</div>
+			<a class="btn btn-default" @click="query">検索</a>
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新規</a>
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;変更</a>
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;削除</a>
+			<a class="btn btn-primary" @click="pause"><i class="fa fa-pause"></i>&nbsp;一時停止</a>
+			<a class="btn btn-primary" @click="resume"><i class="fa fa-play"></i>&nbsp;リストア</a>
+			<a class="btn btn-primary" @click="runOnce"><i class="fa fa-arrow-circle-right"></i>&nbsp;実行</a>
+			<a class="btn btn-danger" style="float:right;" href="schedule_log.html">ログ一覧</a>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+	</div>
+	
+	<div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">バッチ名</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.beanName" placeholder="spring bean名，例：testTask"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">メソッド</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.methodName" placeholder="メソッド"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">パラメータ</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.params" placeholder="パラメータ"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">CRON式</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.cronExpression" placeholder="例：0 0 12 * * ?"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">備考</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.remark" placeholder="備考"/>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="確認"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="戻る"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${request.contextPath}/js/job/schedule.js?_${.now?long}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.com.dao.F40021Dao">
+    <select id="getUsrListByTchCd" resultType="jp.learningpark.modules.common.entity.MstUsrEntity">
+        SELECT
+                *
+        FROM
+                mst_usr
+        WHERE
+                usr_id IN (
+                        SELECT mgr_id
+                        FROM mst_manager mm
+                        INNER JOIN mst_usr mu
+                        ON mm.mgr_id = mu.usr_id
+                        WHERE mm.tch_cd = #{tchCd} )
+    </select>
+</mapper>

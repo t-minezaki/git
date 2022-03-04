@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>ログインID解除</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/F40009.css"/>
+</head>
+<body>
+<header style="background: #e2ffef;">
+    <div class="header_logo">
+    </div>
+</header>
+<div class="mian">
+    <div class="mainCon">
+        <div class="mainTitle">ロックID解除</div>
+        <div id="message" class="topMessage"></div>
+        <form id="f40009Form">
+        <div class="mainDiv" id="ttth">
+            <div class="topMain">
+                <div>ご登録のメールアドレスとIDを入力の上、「確認」をクリックしてください。 </div>
+                <div>解除連絡メールを登録のメールアドレスに送信します。解除連絡メール内容よりロックIDの解除を続ける。</div>
+            </div>
+            <div class="bottomMain">
+                <p>メールアドレス</p>
+                <p class="center">*</p>
+                <input type="text" name="email">
+            </div>
+            <div class="bottomMain">
+                <p>ID</p>
+                <p class="center">*</p>
+                <input type="text" name="usrId" maxlength="32">
+            </div>
+            <div class="bottomMain">
+                <p></p>
+                <p class="center">「*」</p>
+                <input type="text" disabled value="は入力必須項目です" class="noData">
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<div class="theme_btn">
+    <div class="btn_con">
+        <button class="left" onclick="gotoLogin()">戻る</button>
+        <button onclick="getInto()">確認</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/common/F40009.js" type="text/javascript" charset="utf-8"></script>
+</html>

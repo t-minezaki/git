@@ -1,0 +1,306 @@
+body {
+    position: fixed;
+}
+#page {
+    height: 100%;
+}
+.content {
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+    /*padding: 4px;*/
+    padding-bottom: 0;
+    padding-top: 44px;
+    display: block !important;
+}
+
+.cont {
+    line-height : 5%;
+
+}
+
+p {
+    float: right;
+    height: 100%;
+    line-height: calc(140px / 3);
+    width: calc(92% - 25px);
+    border-bottom: 1px solid #BABABA;
+    font-size: calc(46px / 3);
+}
+a {
+    display: block;
+}
+
+
+
+/*img {*/
+    /*float:left;*/
+    /*margin-left:5% ;*/
+/*}*/
+.title {
+    height: 40px;
+    width: 100%;
+    background-color: #8CC134;
+    /* margin-bottom: 10px; */
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bgcolor {
+    height : 2px;
+    width : 100%;
+    background-color : #13eff9;
+}
+.pdiv {
+    float : right;
+    margin-left : 6%;
+}
+hr{
+    text-align:right;
+    width: 75%;
+    float:right;
+}
+
+ul.operate_ul {
+    width: 100%;
+    height: 100%;
+    padding-top: 5%;
+}
+
+
+ul.operate_ul li a {
+    text-decoration: none;
+}
+
+ul.operate_ul li img {
+    height: 25px;
+    float: left;
+    margin-top: calc(((140px / 3) - 25px) / 2);
+}
+ul.operate_ul li {
+    width: 90%;
+    height: calc(140px / 3);
+    float: right;
+}
+.goRight {
+    float: right !important;
+    height: 13px !important;
+    width: unset !important;
+    margin-right: 3vw;
+    margin-top: calc(((140px / 3) - 13px) / 2) !important;
+}
+
+
+/*Huawei Tablet 534 * 768と互換性があります */
+@media only screen and (min-device-width : 534px) and (max-device-width : 768px){
+    body {
+        position: fixed;
+    }
+    #page {
+        height: 100%;
+    }
+    .content {
+        height: calc(100% - 48px);
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+        padding-bottom: 0;
+        padding-top: 44px;
+        display: block !important;
+    }
+
+    .cont {
+        line-height : 5%;
+
+    }
+
+    p {
+        float: right;
+        height: 100%;
+        line-height: 2.9rem;
+        width: calc(95% - 25px);
+        border-bottom: 1px solid #BABABA;
+        font-size: .95rem;
+    }
+
+    a {
+        display: block;
+    }
+
+    .title {
+        position: fixed;
+        letter-spacing: 4px;
+        height: 40px;
+        width: 100%;
+        background-color: #8CC134;
+        text-align: center;
+        line-height: 40px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .bgcolor {
+        height : 2px;
+        width : 100%;
+        background-color : #13eff9;
+    }
+    .pdiv {
+        float : right;
+        margin-left : 6%;
+    }
+    hr{
+        text-align:right;
+        width: 75%;
+        float:right;
+    }
+
+    ul.operate_ul {
+        width: 100%;
+        height: 100%;
+        padding-top: 4.6rem;
+    }
+
+
+    ul.operate_ul li a {
+        text-decoration: none;
+    }
+
+    ul.operate_ul li img {
+        width: 1.6rem;
+        float: left;
+        margin-top: .9rem;
+        margin-left: 0.2rem;
+        height: unset;
+    }
+    ul.operate_ul li {
+        width: 95%;
+        height: 2.9rem;
+        float: right;
+    }
+    .goRight {
+        float: right !important;
+        height: 1rem !important;
+        width: unset !important;
+        margin-right: 1.7rem;
+        margin-top: 1rem!important
+    }
+    .div_header{
+        height: 44px;
+    }
+
+    .div_bottom{
+        height: 46px;
+    }
+
+    .Li_img{
+        width: 1.6rem!important;
+    }
+}
+/*ipadタブレット768 * 1024と互換性があります */
+@media only screen and (min-device-width : 768px) {
+    body {
+        position: fixed;
+    }
+    #page {
+        height: 100%;
+    }
+    .content {
+        height: calc(100% - 60px);
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+        /*padding: 4px;*/
+        padding-bottom: 0;
+        padding-top: 56px;
+        display: block !important;
+    }
+
+    .cont {
+        line-height : 5%;
+
+    }
+    .operate_ul li:first-of-type{
+        border-top: 1px solid #dcdcdc!important;
+    }
+    p {
+        float: right;
+        height: 100%;
+        line-height: calc(177px / 3);
+        width: calc(95% - 25px);
+        border-bottom: 1px solid #dcdcdc;
+        font-size: 1.3rem;
+    }
+
+    a {
+        display: block;
+    }
+
+    .title {
+        position: fixed;
+        letter-spacing: 4px;
+    }
+
+    .bgcolor {
+        height : 2px;
+        width : 100%;
+        background-color : #13eff9;
+    }
+    .pdiv {
+        float : right;
+        margin-left : 6%;
+    }
+    hr{
+        text-align:right;
+        width: 75%;
+        float:right;
+    }
+
+    ul.operate_ul {
+        width: 100%;
+        height: 100%;
+        padding-top: 5.9rem;
+    }
+
+
+    ul.operate_ul li a {
+        text-decoration: none;
+    }
+
+    ul.operate_ul li img {
+        height: 2rem;
+        float: left;
+        margin-top: 1rem;
+        margin-left: 0.2rem;
+        width: auto;
+    }
+
+    ul.operate_ul li {
+        width: 95%;
+        height: 3.85rem;
+        float: right;
+    }
+    .goRight {
+        float: right !important;
+        height: 1.2rem !important;
+        width: unset !important;
+        margin-right: 2rem;
+        margin-top: 1.3rem!important
+    }
+    .div_header{
+        height: 56px;
+    }
+
+    .div_bottom{
+        height: 60px;
+    }
+
+    .Li_img{
+        margin-left: -0.1rem !important;
+        width: 2.5rem !important;
+    }
+}

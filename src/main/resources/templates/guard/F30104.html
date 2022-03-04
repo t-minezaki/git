@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>学習状況分析画面（日、週、月）</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30104.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/echarts-4.2.0/echarts.min.js"></script>
+</head>
+<body>
+<div id="pageF30104">
+    <div class="newt-layout-line div_header">
+        <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <div class="content">
+        <ul class="tab">
+            <li class="liactive" id="learnStatus">学習状況</li>
+            <!--<li id="news">ニュース</li>-->
+        </ul>
+        <div class="time_tab">
+            <ul>
+                <li id="day" class="active">
+                    <a href="tab-1" target="day"></a>
+                    日
+                </li>
+                <li id="week">
+                    <a href="tab-2" target="week"></a>
+                    週
+                </li>
+                <li id="month">
+                    <a href="tab-3" target="month"></a>
+                    月
+                </li>
+            </ul>
+            <button onclick="getDatePrd()">時期指定</button>
+        </div>
+        <div class="content_main_div">
+            <div class="content_main">
+                <div class="content_title">理解度
+                    <div class="main">
+                        <div id="degree" style="width: 100%;height: 200px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_main">
+                <div class="content_title">学習時間</div>
+                <div class="main">
+                    <div class="main_right">
+                        <div class="choose_div">
+                            <img src="../img/bottom.png" alt="">
+                            <select name="subjtDiv" id="subjtDiv">
+                                <option value="">すべて</option>
+                            </select>
+                        </div>
+                        <div>
+                            <p>計画</p>
+                            <p class="pRight"><span id="stuplantm">10</span>時間</p>
+                        </div>
+                        <div>
+                            <p>実績</p>
+                            <p class="pRight pBlue"><span id="perftm">3</span>時間</p>
+                        </div>
+                        <div id="change_time_container">
+                            <p>変化(時間)</p>
+                            <p class="pRight pRed"><span id="comparetm">0.5</span>時間<span id="updown">UP</span></p>
+                        </div>
+                    </div>
+                    <div class="main_left" id="time_one"></div>
+                </div>
+            </div>
+            <div class="content_main">
+                <div class="main">
+                    <div class="main_left" style="width: 100%" id="time_two"></div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;height: 56px;"></div>
+    </div>
+    <div class="div_bottom">
+        <iframe src="../common/F40004.html?id=F30104" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/guard/F30104.js"></script>
+</html>

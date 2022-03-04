@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F04002Dao">
+    <select id="getStuList" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F04002Dto">
+        SELECT
+        A.usr_id as userId,
+        A.after_usr_id as sId,
+        ms.flnm_nm||' '||ms.flnm_lnm AS stuName,
+        B.after_usr_id as gId,
+        mg.flnm_nm||' '||mg.flnm_lnm AS guardName,
+        A.org_id as orgId,
+        B.after_usr_id || ' ' || mg.flnm_nm||''||mg.flnm_lnm || ',' || A.after_usr_id || ' ' || ms.flnm_nm||' '||ms.flnm_lnm as guardStuNm
+        FROM
+        mst_usr A
+        INNER JOIN mst_stu ms ON A.usr_id = ms.stu_id
+        AND MS.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_usr B ON mg.guard_id = B.usr_id
+        AND B.del_flg = 0
+        <if test="stuIdList!=null and !stuIdList.isEmpty()">
+            AND A.usr_id IN
+            <foreach collection="stuIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        ORDER BY
+        ms.flnm_nm,
+        ms.flnm_lnm
+    </select>
+    <select id="getList" parameterType="String" resultType="jp.learningpark.modules.manager.dto.F04002DtoIn">
+        SELECT
+        A.usr_id as usrId,
+        A.after_usr_id as sId,
+        ms.flnm_nm||' '||ms.flnm_lnm AS stuName,
+        B.after_usr_id as gId,
+        mg.flnm_nm||' '||mg.flnm_lnm AS guardName,
+        A.org_id as orgId,
+        B.after_usr_id || ' ' || mg.flnm_nm||''||mg.flnm_lnm || ',' || A.after_usr_id || ' ' || ms.flnm_nm||' '||ms.flnm_lnm as guardStuNm
+        , B.usr_id                   AS gUserId
+        FROM
+        mst_usr A
+        INNER JOIN mst_stu ms   ON A.usr_id = ms.stu_id
+        AND MS.del_flg = 0
+        INNER JOIN mst_guard mg ON ms.guard_id = mg.guard_id
+        AND mg.del_flg = 0
+        INNER JOIN mst_usr B    ON mg.guard_id = B.usr_id
+        AND B.del_flg = 0
+        <if test="stuIdList!=null and !stuIdList.isEmpty()">
+            AND A.usr_id IN
+            <foreach collection="stuIdList" item="item1" open="(" close=")" separator=",">#{item1}</foreach>
+        </if>
+        ORDER BY
+        ms.flnm_nm,
+        ms.flnm_lnm
+    </select>
+
+</mapper>

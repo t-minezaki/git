@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <#include "/header.html" />
+    <title>塾からの連絡通知詳細画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/fontSelect.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/guard/F30113.css"/>
+</head>
+<body>
+<div class="div_header">
+    <iframe src="${request.contextPath}/common/F40004-1.html" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div class="topTitle commonTabTitle">
+    お知らせ
+</div>
+<div class="content">
+    <!--<div class="oneTitle">-->
+    <!--</div>-->
+    <div class="content_div">
+        <div class="title_div">
+            <div class="back" onclick="window.location.href = document.referrer;">
+                <img src="../img/left.png">
+            </div>
+            <!--<div class="updateTime"></div>-->
+        </div>
+        <div class="title"></div>
+        <div class="div_img"></div>
+<!--        <div class="description"></div>-->
+        <div><div class="description"></div></div>
+        <div class="div_files"></div>
+        <div id="btn_confirm" onclick="noticeConfirm()">確認しました</div>
+    </div>
+</div>
+<div class="div_bottom">
+    <iframe id="ifr_bottom" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/plugins/ueditor-1.4.3.3/ueditor.parse.js"></script>
+<script type="text/javascript" src="${request.contextPath}/plugins/hammer/hammer.js"></script>
+<script src="${request.contextPath}/js/guard/F30113.js"></script>
+</html>

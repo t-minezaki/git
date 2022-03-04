@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.manager.dao.F00051Dao">
+    <select id="selectGrpList" parameterType="java.util.List" resultType="jp.learningpark.modules.manager.dto.F00051Dto">
+        SELECT
+            A.grp_id,
+            A.grp_nm,
+            A.dayweek_div,
+            /* 2020/12/03 V9.0 cuikailin modify start */
+            string_agg(A.cod_value, ' ' ORDER BY A.sort) as dayWeekStr,
+            /* 2020/12/03 V9.0 cuikailin modify end */
+            A.upd_datime
+        FROM
+            (
+            SELECT
+                mg.grp_id,
+                mg.grp_nm,
+                mg.dayweek_div,
+                mcd.cod_value,
+                mg.upd_datime,
+        /* 2020/12/03 V9.0 cuikailin add start */
+                mcd.sort
+        /* 2020/12/03 V9.0 cuikailin add end */
+            FROM mst_grp mg
+            left JOIN mst_cod_d mcd
+                ON mcd.cod_key = 'DAYWEEK_DIV'
+                AND mcd.cod_cd = ANY ( regexp_split_to_array ( mg.dayweek_div, ',' ) )
+                AND mcd.del_flg = 0
+            WHERE
+                mg.del_flg = 0
+                <if test='orgIdList != null'>
+                    AND mg.org_id IN
+                    <foreach item="item" collection="orgIdList" separator="," open="(" close=")" index="">
+                        #{item, jdbcType=INTEGER}
+                    </foreach>
+                </if>
+                <if test="grpNm != null and grpNm != '' ">
+                    AND mg.grp_nm like CONCAT('%',trim(#{grpNm}),'%')
+                </if>
+        /* 2020/12/03 V9.0 cuikailin add start */
+            ORDER BY
+                mg.grp_id,
+                mcd.sort
+        /* 2020/12/03 V9.0 cuikailin add end */
+            ) A
+        GROUP BY
+            A.grp_id,
+            A.grp_nm,
+            A.dayweek_div,
+            A.upd_datime
+        ORDER BY
+            A.grp_id desc
+        <if test="startRow!=null">
+            LIMIT 30 OFFSET #{startRow}
+        </if>
+    </select>
+    <select id="selectGrpListCount" resultType="Integer">
+        SELECT COUNT
+            ( mg.grp_id )
+        FROM mst_grp mg
+        INNER JOIN mst_cod_d mcd
+            on mcd.cod_key = 'DAYWEEK_DIV'
+            AND mcd.del_flg = 0
+        WHERE
+            mg.org_id = #{orgId}
+            <if test="grpNm != null and grpNm != '' ">
+                AND mg.grp_nm like CONCAT('%',trim(#{grpNm}),'%')
+            </if>
+            and mg.del_flg = 0
+    </select>
+</mapper>

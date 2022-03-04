@@ -1,0 +1,247 @@
+.header_operat {
+    width: auto;
+}
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+.page {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: auto;
+}
+
+.btn_div {
+    margin-top: 1.4vw;
+    margin-right: 1vw;
+    height: 2.2vw;
+    width: 12vw;
+    float: right;
+}
+
+.btn_div button {
+    background: none;
+    font-size: 0.9vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.6vw;
+}
+
+.title {
+    height: 2.2vw;
+    margin-top: 0.5vw;
+    padding: 0 2%;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.title div {
+    width: auto;
+    height: 100%;
+    line-height: 2.2vw;
+    font-size: 0.9vw;
+    color: #000;
+    float: left;
+    padding-right: 1vw;
+}
+
+.right {
+    float: right !important;
+}
+
+.div_main {
+    width: 100%;
+    /*border-bottom: 1px solid #000;*/
+    height: auto;
+    padding: 0vw 1.8%;
+}
+
+.one {
+    width: 100%;
+    height: 2.2vh;
+    margin-top: 0.5vw;
+    position: relative;
+}
+
+.one div {
+    float: left;
+}
+
+.mailLabel {
+    margin-top: 0.5vh;
+    width: 10%;
+    font-size: 0.9vw;
+    color: #000;
+    line-height: 2vh;
+    font-weight: bold;
+}
+
+#noticeLevel {
+    font-size: 2em;
+    color: red;
+    line-height: 2.5vh;
+    margin-left: 10vw;
+}
+
+.one div > button {
+    background: none;
+    font-size: 0.8vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    /*padding: 0 1.6vw;*/
+}
+
+.two {
+    width: 100%;
+    height: 40vh;
+    margin-top: 1vw;
+    position: relative;
+    /*overflow: auto;*/
+}
+
+.two div {
+    /*width: 16.6%;*/
+    float: left;
+}
+
+.content_wrap {
+    width: 100% !important;
+    height: 2vh !important;
+    margin-top: 2vh;
+    position: relative;
+}
+
+.content_wrap div {
+    float: left;
+}
+
+.three {
+    width: 100%;
+    height: 2.2vh;
+    margin-top: 15vh;
+    position: relative;
+}
+
+.three * {
+    float: left;
+}
+
+.three input {
+    width: 15%;
+}
+
+.three p {
+    width: 14vw;
+    line-height: 3.2vh;
+}
+
+#end_label {
+    text-align: right;
+    margin-right: 4vw;
+}
+
+.three p > img {
+    /*width: 31%;*/
+    margin-left: 1vw;
+}
+
+.four {
+    width: 100%;
+    height: 5vh;
+    margin-top: 10vh;
+    position: relative;
+    text-align: center;
+}
+
+.four div {
+    width: 50%;
+    float: left;
+    /*text-align: center;*/
+    /*margin-left: ;*/
+}
+
+button {
+    background: none;
+    font-size: 0.8vw;
+    color: #009944;
+    border: 2px solid #009944;
+    border-radius: 4px;
+    width: 6vw;
+    height: 100%;
+}
+
+#noticeCont {
+    border: 1px solid;
+    width: 40vw;
+    /*min-width: 40vw;*/
+    height: 38vh;
+    overflow-y: auto;
+    word-break: break-all;
+}
+
+.orgs {
+    border: 1px solid;
+    width: 40vw;
+    /*min-width: 40vw;*/
+    height: 16vh;
+    overflow-y: auto;
+    display: inline-block
+}
+
+#noticeTitle {
+    font-size: 0.8vw;
+}
+
+.noticeCont {
+    font-size: 0.7vw;
+}
+
+li {
+    font-size: 0.7vw;
+}
+
+p {
+    font-size: 0.8vw;
+}
+
+/*tr {*/
+    /*width: 100%;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*td {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*border: 0;*/
+    /*width: 10vw;*/
+    /*font-size: 0.7vw;*/
+    /*padding-left: 0.3vw*/
+/*}*/
+
+/*table {*/
+    /*padding: 0;*/
+    /*border: none;*/
+    /*border-spacing: 0;*/
+/*}*/
+
+#backBtn {
+    font-size: 0.9vw;
+    border-radius: 4px;
+    width: 11%;
+    height: 100%;
+    margin-right: 2vw;
+    background: #00a65a;
+    color: white;
+    border: 0;
+    border-bottom: 3px grey solid;
+}

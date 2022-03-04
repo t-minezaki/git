@@ -1,0 +1,334 @@
+html{
+    overflow-y: hidden;
+	-webkit-user-select:none;
+}
+.header_operat{
+	width: auto;
+}
+.content{
+	padding: 0;
+}
+.btn_div{
+	margin-top: 1.4vw;
+	margin-right: 1vw;
+	height: 1.6vw;
+	width: 12vw;
+	float: right;
+}
+.btn_div button{
+	font-size: 0.9vw;
+	background: none;
+	color: #009944;
+	border: 2px solid #009944;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.6vw;
+}
+.inputDiv{
+	width: 100%;
+	height: auto;
+	float: left;
+	margin-bottom: 1vw;
+}
+.inputMessage {
+	width: 80%;
+	float: left;
+	padding: 0.4vw 4vw 0.4vw 4vw;
+	height: auto;
+	margin-left: 10%;
+	/*text-align: center;*/
+}
+.inputMessage div{
+	height: 1.6vw;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	float: left;
+}
+.inputMessageOne{
+	height: 1.6vw;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 50%;
+}
+.inputMessageOne div{
+	width: 10vw;
+}
+
+.inputMessageOne button{
+	border-radius: 0.3vw;
+	background: none;
+	height: 1.6vw;
+	line-height: 1.6vw;
+	border: 2px solid #009944;
+	color: #009944;
+	margin-left: 3%;
+	float: left;
+	width: 10%;
+}
+.inputMessage div.input_center{
+	width: 3%;
+	text-align: center;
+}
+.inputMessage input {
+	height: 1.6vw;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	float: left;
+	 width: 35%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	border: 1px solid #333;
+}
+.inputMessageOne span{
+	display: inline-block;
+	height: 1.2vw;
+	line-height: 1.2vw;
+	float: left;
+	margin: 0.2vw;
+	margin-right: 2vw;
+	margin-top: 0.3vw;
+	box-sizing: border-box;
+}
+.inputMessage select{
+	height: 1.6vw;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	float: left;
+	width: 30%;
+	padding: 0 0.4vw;
+	margin-left: 2%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.inputMessage input:disabled{
+	background: none;
+	border: 0;
+}
+.inputMessageOne .subCd4{
+	width: 1.2vw;
+	height: 1.2vw;
+	line-height: 1.2vw;
+	margin: 0.2vw;
+	margin-left: 2%;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	appearance: none;
+	border: none;
+	padding: 0px !important;
+	text-align: center;
+}
+.subCd4:after{
+	display: inline-block;
+	width: 1.2vw;
+	height: 1.2vw;
+	content: "";
+	color: #FFF;
+	border: 1px solid red;
+	background-color: #F0F0F0;
+	border-radius: 50%;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.subCd4:checked:after{
+	display: inline-block;
+	width: 1.2vw;
+	height: 1.2vw;
+	content: "\2714";
+	font-size: 1vw;
+	border: 1px solid red;
+	background-color: red;
+	border-radius: 50%;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.inputMessage img{
+	height: 2.2vw;
+	width: 2.2vw;
+	float: left;
+	border: 1px solid #000;
+	background-color: #A0A0A0;
+}
+.buttonDiv{
+	height: 1.6vw;
+	margin-top: -0.5vw;
+	width: 100%;
+	border-bottom: 1px solid #000;
+}
+.buttonDiv p{
+	width: auto;
+	height: 100%;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	color: #000;
+	float: left;
+	padding-right: 1vw;
+}
+.buttonDiv div{
+	width: auto;
+	height: 100%;
+	line-height: 1.6vw;
+	font-size: 0.9vw;
+	color: #000;
+	float: left;
+	padding-right: 1vw;
+}
+.end_btn{
+	width: 12vw;
+	border-radius: 0.3vw;
+	height: 5vh;
+	background: none;
+	border: 2px solid #009944;
+	color: #009944;
+	font-weight: bolder;
+	margin-left: 3%;
+	margin-right: 3%;
+	font-size: 0.9vw;
+}
+.star{
+	width: 4vw !important;
+	text-align: right;
+	color: red;
+}
+.notice {
+	color: red;
+	height: auto;
+	border-top: 1px solid #000;
+	bottom: 15%;
+	position: fixed;
+	width: 100%;
+	padding-left: 3%;
+	margin-bottom: 1vw;
+	font-size: 0.9vw;
+}
+.button_div{
+	position: fixed;
+	bottom: 10vh;
+	width: 100%;
+	text-align: center;
+	z-index: 999;
+}
+.roleUl {
+	width: 100%;
+	height: 1.6vw;
+}
+.roleUl li {
+	float: left;
+	width: 16%;
+	line-height: 1.6vw;
+
+}
+.img{
+	margin-left: 2%;
+	width: 50px;
+	height: 50px !important;
+}
+input[type="file"]{
+	height: 2.2vw;
+	width: 2.2vw;
+	margin-left: -2.2vw;
+	padding: 0;
+	opacity: 0;
+}
+input[type="color"]{
+	width: 2.9vw;
+	height: 2.4vw;
+	border: 1px solid #fff;
+	background: none;
+	margin-top: -0.4vw;
+}
+.One div{
+	height: 2.2vw;
+	line-height: 4vw;
+	font-size: 0.9vw;
+	float: left;
+}
+.inputMessagex{
+	width: 80%;
+	float: left;
+	padding: 0.4vw 4vw 0.4vw 4vw;
+	height: auto;
+	margin-left: 10%;
+}
+.inputMessagex>div>div{
+	font-size: 0.9vw;
+	float: left;
+}
+.div_listbox{
+	width: 100%;
+	height: auto;
+}
+.div_listbox .div_schy_div_list{
+	width: 33vw;
+	height: auto;
+	border: 0.1vw solid #CCC;
+	border-radius: 5px;
+	box-sizing: border-box;
+	padding: 0.5vw;
+	margin-left: 1%;
+	max-height: 30vh;
+	overflow: auto;
+}
+.div_schy_div_list p{
+	display: inline-block;
+	width: 10vw;
+	height: 2vw;
+	line-height: 2vw;
+	/*background-color: #DDD;*/
+	margin: 0.2vw;
+	float: left;
+	box-sizing: border-box;
+}
+.div_schy_div_list p input{
+	width: 1.2vw;
+	height: 1.2vw;
+	float: left;
+	margin: 0.4vw;
+	margin-right: 0px;
+	-webkit-appearance:none;
+	appearance:none;
+	cursor: pointer;
+	text-align: center;
+}
+.div_schy_div_list p input:after{
+	width: 1.2vw;
+	height: 1.2vw;
+	content: "";
+	float: left;
+	/*background-color: red;*/
+	color: #FFF;
+	display: inline-block;
+	visibility: visible;
+	border: 1px solid red;
+	border-radius: 0.2vw;
+	box-sizing: border-box;
+}
+.div_schy_div_list p input:checked:after{
+	width: 1.2vw;
+	height: 1.2vw;
+	content: "\2714";
+	float: left;
+	font-size: 1vw;
+	line-height: 1.2vw;
+	background-color: red;
+	font-weight: bolder;
+	/*padding-left: 0.1vw;*/
+	box-sizing: border-box;
+}
+.div_schy_div_list p span{
+	display: inline-block;
+	width: 5vw;
+	height: 2vw;
+	line-height: 2vw;
+	float: left;
+	margin: 0px;
+	padding-top: 0.2vh;
+	padding-left: 0.5vw;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.p_checkall{
+	width: 100% !important;
+}

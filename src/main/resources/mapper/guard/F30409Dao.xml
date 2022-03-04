@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.learningpark.modules.guard.dao.F30409Dao">
+    <select id="getStuList" resultType="jp.learningpark.modules.guard.dto.F30409Dto">
+        (SELECT
+        ms.flnm_nm || '　' || ms.flnm_lnm AS stuNm,
+        ms.stu_id AS stuId,
+        geas.guard_id AS guardId,
+        espd.sgd_start_datime AS sgdStartDatime,
+        espd.sgd_plan_date AS sgdPlanDate,
+        me.chg_limt_days AS chgLimtDays,
+        geas.event_id AS eventId,
+        me.apply_end_dt as applyEndDate,
+        geas.id as applyId
+        <!-- 2020/11/16 V9.0 cuikailin add start -->
+        ,trd.ask_num as askNum
+        ,trd.question_name as questionName
+        ,trd.answer_type_div as answerTypeDiv
+        ,trd.answer_relt_cont as answerReltCont
+        ,trh.note_cont as noteCont
+        ,trh.id as talkId
+        <!-- 2020/11/16 V9.0 cuikailin add end -->
+        ,me.ref_type as refType
+        FROM
+        guard_event_apply_sts AS geas
+        inner join talk_record_h trh
+        on trh.stu_id = geas.stu_id
+        and trh.guard_id = geas.guard_id
+        and trh.event_id = geas.event_id
+            <if test="flg == 1 ">and trh.talk_apply_sts_div = '0'
+            </if>
+            <if test="
+        flg == 2 ">
+                and trh.talk_apply_sts_div in  ('2','3')
+            </if>
+            and trh.del_flg = 0
+            INNER JOIN mst_stu AS ms ON geas.stu_id = ms.stu_id AND geas.stu_id = #{stuId}
+            INNER JOIN event_sche_plan_del AS espd ON espd.id = geas.event_sche_del_id
+            INNER JOIN mst_event AS me ON me.id = geas.event_id AND me.ref_type in ('0','1')
+            AND geas.reply_sts_div = '1'
+            <if test="flg == 1 ">
+                AND espd.sgd_start_datime > #{systemTime}
+            </if>
+            <if test="flg == 2 ">
+                AND #{systemTime} >= espd.sgd_start_datime
+            </if>
+            AND geas.guard_id = #{guardId}
+            AND geas.del_flg = 0
+            AND ms.del_flg = 0
+            AND espd.del_flg = 0
+            AND me.del_flg = 0
+      <!--2020/11/16 V9.0 cuikailin add start-->
+            LEFT JOIN talk_record_d trd
+            on trd.talk_id = trh.id
+            and trd.item_type_div = '0'
+        ORDER BY
+            trd.ask_num asc,
+            espd.sgd_start_datime asc
+       <!-- 2020/11/16 V9.0 cuikailin add end -->
+       <!--2020/12/18 V9.0 cuikailin add start-->
+        ) UNION ALL(
+        SELECT
+        ms.flnm_nm || '　' || ms.flnm_lnm AS stuNm,
+        ms.stu_id AS stuId,
+        geas.guard_id AS guardId,
+        trh.TALK_DATIME AS sgdStartDatime,
+        trh.TALK_DATIME AS sgdPlanDate,
+        me.chg_limt_days AS chgLimtDays,
+        geas.event_id AS eventId,
+        me.apply_end_dt as applyEndDate,
+        geas.id as applyId
+        ,trd.ask_num as askNum
+        ,trd.question_name as questionName
+        ,trd.answer_type_div as answerTypeDiv
+        ,trd.answer_relt_cont as answerReltCont
+        ,trh.note_cont as noteCont
+        ,trh.id as talkId
+        ,me.ref_type as refType
+        FROM
+        guard_event_apply_sts AS geas
+        inner join talk_record_h trh
+        on trh.stu_id = geas.stu_id
+        and trh.guard_id = geas.guard_id
+        and trh.event_id = geas.event_id
+        <!-- 2020/12/29 V9.0 cukailin modify start -->
+            <!--<if test="flg == 1 ">-->
+                <!--and trh.talk_apply_sts_div = '0'-->
+            <!--</if>-->
+            <!--<if test="flg == 2 ">-->
+                <!--and trh.talk_apply_sts_div in  ('2','3')-->
+            <!--</if>-->
+            and trh.talk_apply_sts_div <![CDATA[ <> ]]> '1'
+        <!-- 2020/12/29 V9.0 cukailin modify end -->
+            and trh.del_flg = 0
+            <!-- 2020/12/21 V9.0 cuikailin modify start -->
+            INNER JOIN mst_stu AS ms ON geas.stu_id = ms.stu_id AND geas.stu_id = #{stuId}
+            <!-- 2020/12/18 V9.0 cuikailin modify end -->
+            INNER JOIN mst_event AS me ON me.id = geas.event_id AND me.ref_type = '2'
+            AND geas.reply_sts_div = '1'
+            <if test="flg == 1 ">
+                AND me.apply_end_dt >= #{systemTime}
+            </if>
+            <if test="flg == 2 ">
+                AND #{systemTime} > me.apply_end_dt
+            </if>
+            AND geas.guard_id = #{guardId}
+            AND geas.del_flg = 0
+            AND ms.del_flg = 0
+            AND me.del_flg = 0
+            INNER JOIN talk_record_d trd
+            on trd.talk_id = trh.id
+            and trd.item_type_div = '0'
+        ORDER BY
+            trd.ask_num asc
+        )
+        <!--2020/12/18 V9.0 cuikailin add start-->
+    </select>
+</mapper>

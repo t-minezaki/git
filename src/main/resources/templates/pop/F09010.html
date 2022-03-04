@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F09010.css"/>
+    <script src="${request.contextPath}/plugins/laydate-5.0.9/laydate.js"></script>
+</head>
+<body style="height: 100%">
+<div class="content" id="data" style="height: 100%;background: white">
+    <div class="box">
+        <div class="box1">
+            <div class="title"><span class="span_title">組織</span></div>
+            <div style="height: calc(90% - 10vh)">
+                <select multiple="multiple" id="select1" class="select">
+                    <option v-for="org in orgIdList" :value="org.orgId" class="orgList" :title="org.orgNm">{{getOrgName(org.orgNm)}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="symbol">
+            <div>
+                <div class="symbol_div">
+                    <button id="toright"></button>
+                </div>
+                <div class="symbol_div">
+                    <button id="allToRight"></button>
+                </div>
+                <div class="symbol_div">
+                    <button id="toleft"></button>
+                </div>
+                <div class="symbol_div">
+                    <button id="allToLeft"></button>
+                </div>
+            </div>
+        </div>
+        <div class="box1" style="margin-left: unset">
+            <div class="title"><span class="span_title">組織対象</span></div>
+            <div style="height: calc(90% - 10vh)">
+                <select multiple="multiple" id="select2" class="select">
+                    <option v-for="org in chosenOrgIdList" :value="org.orgId" class="orgList" :title="org.orgNm">{{getOrgName(org.orgNm)}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="footDiv">
+        <button  @click="submit()" id="select">選択</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F09010.js"></script>
+</html>

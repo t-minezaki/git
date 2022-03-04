@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.learningpark.modules.job.task.dao.BTGKA1004Dao">
+    <update id="deleteTeacherLogic">
+        UPDATE mst_manager
+        set del_flg = 1
+        FROM mst_usr
+        WHERE mst_manager.mgr_id = mst_usr.usr_id
+          AND mst_usr.role_div = '1'
+          AND mst_usr.system_kbn = '2'
+          AND mst_usr.spec_auth_flg = '0'
+    </update>
+    <update id="deleteTeacherUsrLogic">
+        UPDATE mst_usr
+        set del_flg = 1
+        FROM mst_manager
+        WHERE mst_manager.mgr_id = mst_usr.usr_id
+          AND mst_usr.role_div = '1'
+          AND mst_usr.system_kbn = '2'
+          AND mst_usr.spec_auth_flg = '0'
+    </update>
+    <select id="teacherCheck" resultType="string">
+        SELECT
+            mm.mgr_id
+        FROM
+            mst_usr mu,
+            mst_manager mm
+        WHERE
+            mu.usr_id = mm.mgr_id
+          AND (mm.tch_cd = #{tchCd}
+                OR mu.gidpk = #{gidpk})
+    </select>
+    <update id="resTeacherAndClassroom">
+        UPDATE mst_usr
+        SET org_id     = #{orgId},
+            upd_datime = #{updDatime},
+            upd_usr_id = #{updUsrId}
+        WHERE
+            mst_usr.role_div = '1'
+          AND mst_usr.spec_auth_flg = '0'
+          AND mst_usr.system_kbn = '2'
+    </update>
+    <select id="managerCheck" resultType="jp.learningpark.modules.job.entity.BTGKA1004UsrDto">
+        SELECT
+           mm.mgr_id,
+           mm.mailad,
+           mm.flnm_nm,
+           mm.flnm_lnm,
+           mm.flnm_kn_nm,
+           mm.flnm_kn_lnm,
+           mm.telnum,
+           mm.tch_cd,
+           mu.usr_password,
+           mu.fst_login_flg,
+           mu.usr_nm,
+           mu.role_div,
+           mu.org_id,
+           mu.pw_up_flg,
+           mu.usr_sts,
+           mu.spec_auth_flg,
+           mu.after_usr_id,
+           mu.error_count,
+           mu.lock_flg,
+           mu.gidpk,
+           mu.gid_flg,
+           mu.system_kbn,
+           mu.org_comm_key,
+           mu.gid_rule_flg,
+           mu.mana_rule_flg,
+           mu.perl_info_rule_flg
+        FROM
+            mst_usr mu,
+            mst_manager mm
+        WHERE
+            mu.usr_id = mm.mgr_id
+          AND (mm.tch_cd = #{mgrCd}
+                OR mu.gidpk = #{gidpk})
+          AND mu.role_div = '1'
+          AND mu.system_kbn = '2'
+          AND mu.spec_auth_flg = '0'
+        ORDER BY mu.org_id
+    </select>
+    <select id="getMaxLevel" resultType="integer">
+        SELECT
+            max(level)
+        FROM
+            mst_org
+        WHERE
+            system_kbn = '2'
+          AND del_flg = 0
+    </select>
+    <select id="getFirstCommonKey" resultType="jp.learningpark.modules.job.entity.BTGKA1004OrgCommonKeyDto">
+        SELECT
+            org_id,
+            gidpk,
+            org_comm_key
+        FROM
+            (
+                 SELECT
+                    org_id,
+                    gidpk,
+                    org_comm_key,
+                    ROW_NUMBER() OVER ( PARTITION BY gidpk ORDER BY org_id ASC ) rm
+                 FROM
+                    mst_usr
+                 WHERE
+                    system_kbn = '2'
+                   AND del_flg = 0
+            ) mm
+        WHERE
+            mm.rm = 1
+    </select>
+
+    <select id="selectThisAndUpOrgIdListFromOrgIdList" resultType="Integer">
+        WITH RECURSIVE cte AS (
+        SELECT
+        a1.*
+        FROM
+        mst_org a1
+        WHERE
+        a1.org_id = #{orgId}
+        AND a1.brand_cd=#{brandCd}
+        AND a1.del_flg = 0
+        UNION ALL
+        SELECT
+        a2.*
+        FROM
+        cte
+        C INNER JOIN mst_org a2 ON C.upplev_org_id = a2.org_id
+        AND a2.level != 0
+        AND a2.del_flg = 0
+        ) SELECT count( DISTINCT s.* ) FROM cte s
+        WHERE s.org_id in
+        <foreach collection="orgIdList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="getMemberCodeList" resultType="String">
+        SELECT
+            ms.member_cd
+        FROM
+            mst_usr mu
+        INNER JOIN mst_stu ms
+        ON mu.usr_id = ms.guard_id
+        AND mu.gidpk = #{guardGidpk}
+        AND mu.org_id = #{orgId}
+        AND mu.system_kbn = '2'
+        AND mu.del_flg = 0
+        AND ms.del_flg = 0
+    </select>
+    <select id="selectAllTeacher" resultType="jp.learningpark.modules.job.entity.BTGKA1004UsrDto">
+        SELECT
+           mu.*,
+           mm.mgr_id,
+           mm.mailad,
+           mm.flnm_nm,
+           mm.flnm_lnm,
+           mm.flnm_kn_nm,
+           mm.flnm_kn_lnm,
+           mm.telnum,
+           mm.tch_cd
+        FROM
+            mst_usr mu
+        INNER JOIN
+            mst_manager mm
+        ON mu.usr_id = mm.mgr_id
+        WHERE
+            trim(mu.role_div) = '1'
+          AND mu.spec_auth_flg = '0'
+          AND mu.system_kbn = '2'
+    </select>
+    <select id="selectStudentByGidpkAndOrgId" resultType="jp.learningpark.modules.job.entity.BTGKA1004StudentDto">
+        SELECT
+            mu.*,
+            ms.member_cd
+        FROM
+            mst_usr mu
+        INNER JOIN  mst_stu ms
+        ON ms.stu_id = mu.usr_id
+        WHERE
+                mu.gidpk = #{gidpk}
+          AND mu.org_id = #{orgId}
+          AND mu.system_kbn = '2'
+    </select>
+    <delete id="deleteTeacherPhysical">
+        DELETE
+        FROM mst_manager mm
+                USING mst_usr mu
+        WHERE mu.usr_id = mm.mgr_id
+          AND mu.system_kbn = '2'
+          AND mu.del_flg = 1
+          AND trim(mu.role_div) = '1'
+          AND mu.spec_auth_flg = '0'
+    </delete>
+    <delete id="deleteTeacherSysUserRolePhysical">
+        DELETE
+        FROM sys_user_role sur
+                USING mst_usr mu
+        WHERE mu.id = sur.user_id
+          AND mu.system_kbn = '2'
+          AND mu.del_flg = 1
+          AND trim(mu.role_div) = '1'
+          AND mu.spec_auth_flg = '0'
+    </delete>
+    <delete id="deleteTeacherUserPhysical">
+        DELETE
+        FROM mst_usr mu
+        WHERE mu.system_kbn = '2'
+          AND mu.del_flg = 1
+          AND trim(mu.role_div) = '1'
+          AND mu.spec_auth_flg = '0'
+    </delete>
+    <update id="activeTeacherByUserId">
+        UPDATE mst_manager
+        SET del_flg = 0
+        WHERE mgr_id = #{userId}
+          AND del_flg = 1
+    </update>
+    <update id="activeTeacherUserByUserId">
+        UPDATE mst_usr
+        SET del_flg = 0
+        WHERE usr_id = #{userId}
+          AND del_flg = 1
+    </update>
+    <select id="selectOrgLevelByOrgId" resultType="Integer">
+        SELECT
+                level
+        FROM
+                mst_org
+        WHERE
+                system_kbn = '2'
+          AND del_flg = 0
+          AND org_id = #{orgId}
+    </select>
+</mapper>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/plugins/jqgrid-5.1.1/ui.jqgrid.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F09011.css"/>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/jquery.jqGrid.min.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jqgrid-5.1.1/grid.locale-ja.js" charset="utf-8"></script>
+    <script src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <title>ポイント設定確認画面</title>
+</head>
+<body>
+<div id="message" class="topMessage"></div>
+
+<div id="app">
+    <div id="div_main">
+        <table id="jqGrid" class="easyui-tabs" border="1px"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div id="div_title">
+        <button id="btn_submit" class="button">登録</button>
+        <button id="btn_rollback" class="button" onclick="toF09006()">戻る</button>
+    </div>
+</div>
+</body>
+<script src="${request.contextPath}/js/manager/F09011.js"></script>
+</html>

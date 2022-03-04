@@ -1,0 +1,216 @@
+* {
+    font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+html, body, #page {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.div_header {
+    height: 10%;
+}
+
+.div_bottom {
+    height: 54px;
+}
+
+.content {
+    height: calc(90% - 54px);
+    padding-top: 1rem;
+}
+
+._time {
+    height: 5rem;
+    padding-left: 10rem;
+}
+
+._time img {
+    position: relative;
+    top: 0.4rem;
+    width: 1.8em;
+}
+
+._data {
+    padding: 0 10rem 0 10rem;
+    height: calc(100% - 11rem);
+}
+
+._time p {
+    display: inline;
+}
+
+#gbox_jqGrid, #gview_jqGrid, .ui-jqgrid-hdiv, .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid-bdiv, #jqGrid, #jqGridPager {
+    width: 100% !important;
+}
+
+.ui-jqgrid {
+    border-left: unset !important;
+    border-right: unset !important;
+    border-bottom: unset !important;
+}
+
+.ui-jqgrid {
+    height: 100%;
+}
+
+.ui-jqgrid-view {
+    height: 90%;
+}
+
+.ui-jqgrid-bdiv {
+    height: 100% !important;
+    overflow-x: hidden;
+}
+
+.ui-jqgrid-hbox {
+    padding-right: unset !important;
+    border-top: 1px solid #ccc !important;
+}
+
+.ui-jqgrid-htable.ui-common-table {
+    border-left: 1px solid #ccc !important;
+}
+
+.ui-jqgrid-htable.ui-common-table th {
+    background-color: #FFE2EB;
+}
+
+.ui-widget.ui-widget-content {
+    border-top: 1px solid #ccc !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    color: black;
+    height: 23px;
+    font-weight: 400;
+    letter-spacing: 0.1vw;
+    font-size: 13px;
+}
+
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    font-size: 13px;
+}
+
+.ui-jqgrid-htable.ui-common-table th:nth-child(1) {
+    width: 30% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table th:nth-child(2) {
+    width: 20% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table th:nth-child(3) {
+    width: 25% !important;
+}
+
+.ui-jqgrid-htable.ui-common-table th:nth-child(4) {
+    width: 25% !important;
+}
+
+.jqgfirstrow {
+    display: none;
+}
+
+/*This is consistent with the header border style*/
+/*table#jqGrid > tbody > tr > td {*/
+/*    border: 1px solid #ccc;*/
+/*}*/
+
+table#jqGrid > tbody > tr > td:nth-child(1) {
+    white-space: normal;
+    width: 30% !important;
+}
+
+table#jqGrid > tbody > tr > td:nth-child(2) {
+    white-space: normal;
+    width: 20% !important;
+}
+
+table#jqGrid > tbody > tr > td:nth-child(3) {
+    white-space: normal;
+    width: 25% !important;
+}
+
+table#jqGrid > tbody > tr > td:nth-child(4) {
+    white-space: normal;
+    width: 25% !important;
+}
+
+#jqGridPager_right, #jqGridPager_left {
+    display: none !important;
+}
+
+#jqGridPager_center {
+    margin: unset !important;
+    padding: unset !important;
+    width: 100% !important;
+}
+
+/*Align the column with the table head*/
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*Borders merge into a single border*/
+.ui-jqgrid .ui-jqgrid-htable, .ui-jqgrid .ui-jqgrid-btable {
+    border-collapse: collapse;
+}
+
+._more {
+    margin: 3rem auto;
+    width: 10rem;
+}
+
+.insert {
+    padding: unset !important;
+    width: 10rem;
+    height: 2rem;
+    line-height: 1rem;
+    color: #009944;
+    background: none;
+    font-size: 0.8rem;
+    border: 0.2rem solid #009944;
+    border-radius: 0.5rem;
+}
+
+.layui-layer-title {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #FFF !important;
+    background-color: #009944 !important;
+    border-bottom: 1px solid #009944 !important;
+    text-align: center !important;
+}
+
+.layui-layer-close {
+    display: none !important;
+}
+
+.layui-layer-btn a {
+    border: 1px solid #009944 !important;
+    background-color: #009944 !important;
+    color: #FFF !important;
+    font-size: 13px;
+    min-width: 85px;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}

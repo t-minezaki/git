@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>単元追加・編集画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/pop/F03005.css"/>
+</head>
+<body>
+<div class="content">
+    <div class="popTitle">単元追加・編集画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id="orgId"></div>
+        <div>組織名:</div>
+        <div id="orgNm"></div>
+    </div>
+    <div class="main">
+        <div class="main_one">
+            <label class="label_front">学年</label>
+            <p class="p_front">*</p>
+            <select id="schy_div_input" class="input_front"></select>
+            <label class="label_behind">教科</label>
+            <p class="p_behind">*</p>
+            <select id="subjt_div_input" class="input_behind"></select>
+        </div>
+        <div class="main_two">
+            <label class="label_front">章名</label>
+            <p class="p_front">*</p>
+            <input id="chapt_nm_input" maxlength="300" class="input_front">
+            <label class="label_behind">節名</label>
+            <p class="p_behind">&nbsp;</p>
+            <input id="sectn_nm_input" maxlength="300" class="input_behind">
+        </div>
+        <div class="main_three">
+            <label class="label_front">単元名</label>
+            <p class="p_front">*</p>
+            <input id="unit_nm_input" maxlength="300" class="input_front">
+            <label class="label_behind">単元管理ＣＤ</label>
+            <p class="p_behind">&nbsp;</p>
+            <input id="unit_mst_cd_input" maxlength="20" class="input_behind">
+        </div>
+    </div>
+    <div class="theme_btn">
+        <button id="cancel">キャンセル</button>
+        <button id="addBtn">登録</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/pop/F03005.js"></script>
+</html>

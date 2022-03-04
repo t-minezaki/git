@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <#include "/header.html" />
+    <title>教科追加・編集画面
+    </title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common_pc.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/manager/F07004.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<header style="width: 100%;padding: 0 1vw">
+    <div class="header_logo">
+    </div>
+    <ul class="header_operat">
+        <li class="endLi" onclick="openUrl('logout')">
+            <img src="../img/logout1.png" alt="logout"/>
+        </li>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00002.html'">基本情報変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='../common/F40008.html'">ID／パスワード変更</button>
+        </div>
+        <div class="btn_div">
+            <button onclick="window.location.href='./F00001.html'">管理者本ページへ</button>
+        </div>
+    </ul>
+</header>
+<div style="width: 100%;height: 7vw;background: #009944 "></div>
+<div id="message" class="topMessage"></div>
+<div class="content" id="app" v-cloak>
+    <div class="popTitle">教科追加・編集画面</div>
+    <div class="topSessionTitle">
+        <div>組織ID:</div>
+        <div id ="sOrgId">{{mstOrgEntity.orgId}}</div>
+        <div>組織名:</div>
+        <div id ="orgNm">{{mstOrgEntity.orgNm}}</div>
+    </div>
+    <form id="f07004Form">
+        <div class="inputDiv" id="manager">
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div>ブロックタイプ</div>
+                    <div class="star"></div>
+                    <input type="radio" :value="subjt.codCd" class="subCd4" name="subCd4" id="subCd4_1" value="0" checked><span>共通</span>
+                    <input type="radio" :value="subjt.codCd" class="subCd4" name="subCd4" id="subCd4_2" value="1" ><span>復習系のみ</span>
+                </div>
+            </div>
+            <div class="inputMessage" >
+                <div class="inputMessageOne">
+                    <div>教科ＣＤ</div>
+                    <div class="star" id="star">*</div>
+                    <input type="text" :value="subjt.codCd" maxlength="2" class="subCd" name="subCd" id="subCd">
+                </div>
+                <div class="inputMessageOne">
+                    <div>教科名</div>
+                    <div class="star">*</div>
+                    <input type="text" :value="subjt.codValue" maxlength="20" class="subNm" name="subNm">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne">
+                    <div>ソート</div>
+                    <div class="star">*</div>
+                    <input type="text" maxlength="3" class="sort" name="sort">
+                </div>
+                <div class="inputMessageOne">
+                    <div>背景色</div>
+                    <div class="star"></div>
+                    <input type="text" :value="subjt.codValue2" maxlength="7" class="backgroundColor" name="backgroundColor" id="backgroundColor"
+                           style="width: 25%" v-on:input="colorChange('backgroundColor1','backgroundColor')">
+                    <input type="color" :value="subjt.codValue2" class="backgroundColor1" v-on:input="colorChange('backgroundColor','backgroundColor1')" id="backgroundColor1" name="backgroundColor1">
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne One">
+                    <div>表示用画像</div>
+                    <div class="star">*</div>
+                    <div class="img">
+                        <img :src="subjt.codValue3" class="showImg1">
+                        <input type="file" value="" class="img1" name="img1" accept="image/*"
+                               @change="btnUploadFile(event,'showImg1')" id="img1"></div>
+                </div>
+                <div class="inputMessageOne One">
+                    <div>ボタン用画像</div>
+                    <div class="star">*</div>
+                    <div class="img">
+                        <img :src="subjt.codCont" class="showImg2">
+                        <input type="file" value="" class="img2" name="img2" accept="image/*"
+                               @change="btnUploadFile(event,'showImg2')" id="img2"></div>
+                </div>
+            </div>
+            <div class="inputMessage">
+                <div class="inputMessageOne" style="font-size: 0.7vw">
+                    ※推奨画像サイズ：　50 * 50
+                </div>
+                <div class="inputMessageOne" style="font-size: 0.7vw">
+                    ※推奨画像サイズ：　50 * 50
+                </div>
+            </div>
+            <div class="inputMessagex" onselect="return false;" oncontextmenu="return false;">
+                <div class="div_listbox inputMessageOne">
+                    <div>学年</div>
+                    <div class="star">*</div>
+                    <div class="div_schy_div_list">
+                        <p class="p_checkall"><input type="checkbox" name="checkall" id="checkall"><span>全選</span></p>
+                        <p v-if="subjtList != null" v-for="sub in subjtList"><input type="checkbox" name="schy_div" :value="sub.codCd" :id="'codCd'+sub.codCd"><span>{{sub.codValue}}</span></p>
+                        <p v-else ><span>学年情報がない</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="button_div">
+        <button class="end_btn" @click="submitFn()">登録</button>
+        <button class="end_btn" @click="bakBtn()">戻る</button>
+    </div>
+
+</div>
+</body>
+<script src="${request.contextPath}/plugins/jquery-validation-1.17.0/jquery-validate-ext.js"></script>
+<script src="${request.contextPath}/js/manager/F07004.js" type="text/javascript" charset="utf-8"></script>
+</html>

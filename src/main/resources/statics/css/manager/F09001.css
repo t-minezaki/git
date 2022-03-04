@@ -1,0 +1,308 @@
+.content {
+    width: 100%;
+    padding-top: 4vh;
+    font-size: 15px;
+}
+@media screen and (device-width: 1366px) {
+    .content {
+        width: 99%;
+        padding-top: 4vh;
+        font-size: 15px;
+        overflow-y: hidden;
+    }
+}
+#dayPic{
+    margin-left: 0.5vw;
+    height: 1.6vw;
+}
+.select-content {
+    padding: 0 0 2vh 1vw;
+}
+
+.select-div-day {
+    float: left;
+    display: table-cell;
+}
+
+.select-div-org {
+    float: left;
+    display: table-cell;
+}
+
+p {
+    margin: 0;
+    float: left;
+}
+
+.select-div-day .input {
+    height: 1.6vw;
+    line-height: 1.6vw;
+    font-size: 0.9vw;
+    width: 9vw;
+    background: white;
+    border: 1px solid black;
+}
+
+.left-item {
+    float: left;
+}
+
+.right-item {
+    margin: 0 3vw 0 0;
+}
+
+.label {
+    font-size: 1.2vw;
+    letter-spacing: 0.1vw;
+    margin: 0 1vw 0 0;
+}
+
+.download-button {
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+    top: -2px;
+    font-size: 1.2vw;
+    letter-spacing: 0.1vw;
+    border-radius: 3px;
+    width: 10vw;
+    height: 5vh;
+    margin-left: 2.5%;
+    background-color: #00a65a;
+    color: whitesmoke;
+    border: 0px;
+    border-bottom: 3px rgba(0, 0, 0, .2) solid;
+}
+
+.listContent {
+    width: 100%;
+}
+@media screen and (device-width: 1366px) {
+    .listContent {
+        width: 100%;
+        overflow-y: scroll;
+    }
+}
+.topMessage {
+    position: absolute;
+}
+
+.one {
+    width: 100% !important;
+    height: 38px;
+    padding-left: 2%;
+}
+
+.one div {
+    height: 100%;
+    float: left;
+    width: 52%;
+}
+
+.one-ul {
+    height: 100%;
+    line-height: 35px;
+}
+
+.one-ul li {
+    height: 100%;
+    float: left;
+    font-size: 1.4em;
+    color: grey;
+    font-weight: bold;
+    width: auto !important;
+}
+
+ul li {
+    display: inline-block;
+    margin-right: 1vw;
+    list-style: none;
+    margin-bottom: 0.4vw;
+    margin-top: 0.4vw;
+    width: 20%;
+}
+
+#load_jqGrid {
+    display: none !important;
+}
+
+a {
+    text-decoration: underline;
+}
+.layui-layer-btn a{
+    border-radius: 4px;
+    font-size: 0.9vw;
+    height: 4.5vh;
+    border: 0!important;
+    border-bottom: 3px rgba(0,0,0,.2) solid!important;
+    background-color: #00a65a!important;
+    line-height: 4.5vh;
+}
+.ui-th-ltr p {
+    border-bottom: 2px solid #CCC !important;
+    width: 100% !important;
+    padding: unset !important;
+    height: 3vh !important;
+    line-height: 3vh !important;
+}
+
+.detail_btn {
+    letter-spacing: -4px
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border: 2px solid #ccc !important;
+    color: black !important;
+    height: 6vh;
+    font-weight: 400;
+    border-bottom: none !important;
+    border-left: 1px solid #ccc !important;
+    padding: unset;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+.ui-jqgrid .ui-jqgrid-htable {
+    border-collapse: collapse !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    border: 2px solid #ccc !important;
+    font-size: 13px;
+    letter-spacing: 0.1vw;
+}
+
+#jqGrid {
+    border-collapse: collapse !important;
+    width: 99.1% !important;
+    border: none;
+}
+@media screen and (device-width: 1366px) {
+    #jqGrid {
+        border-collapse: collapse !important;
+        width:99% !important;
+        border-left: 2px solid #CCC;
+    }
+}
+.ui-jqgrid .ui-jqgrid-htable {
+    background-color: #eee !important;
+    width: 100% !important;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: unset !important;
+    width: 100% !important;
+    overflow-y: scroll;
+}
+@media screen and (device-width: 1366px) {
+    .ui-jqgrid .ui-jqgrid-bdiv {
+        overflow-x: unset !important;
+        width: 100% !important;
+        overflow-y: hidden;
+    }
+}
+@media screen and (device-width: 1366px) {
+    .ui-jqgrid .ui-jqgrid-bdiv {
+        overflow-x: unset !important;
+        width: 99% !important;
+        height: 100% !important;
+    }
+}
+@media screen and (min-width:1200px ){
+    .ui-jqgrid-bdiv{
+        height: 637.776px!important;
+    }
+}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox {
+
+    padding: 0px 0px;
+}
+
+#jqGridPager_right {
+
+    text-align: left;
+}
+
+#pg_jqGridPager {
+
+    background: white;
+    position: fixed;
+    top: 95%;
+    border-top: 2px #ccc solid !important;
+}
+.ui-jqgrid tr.jqgrow {
+    height: 6vh !important;
+}
+.layui-laydate-header{
+    padding: unset !important;
+}
+.layui-laydate-header i{
+    top: 0px !important;
+}
+.layui-laydate-header i.laydate-prev-y{
+    left: 0px !important;
+}
+.layui-laydate-header i.laydate-prev-m{
+    left: 25px !important;
+}
+.layui-laydate-header i.laydate-next-y{
+    right: 0px !important;
+}
+.layui-laydate-header i.laydate-next-m{
+    right: 25px !important;
+}
+.layui-laydate-content td, .layui-laydate-content th{
+    height: 15px !important;
+    padding: unset !important;
+    font-size: 0.4vw;
+}
+/* 2020/11/26 V9.0 liguangxin add start */
+.layui-laydate-content table {
+    height:14em
+}
+.layui-laydate-content {
+    height: 14em;
+}
+/* 2020/11/26 V9.0 liguangxin add end */
+/*.layui-laydate-footer {*/
+/*    line-height: 30px!important;*/
+/*    padding: unset!important;*/
+/*    height: 30px!important;*/
+/*}*/
+/*.laydate-footer-btns {*/
+/*    top: 3px!important;*/
+/*}*/
+/*.laydate-footer-btns span {*/
+/*    height: 24px!important;*/
+/*    line-height: 24px!important;*/
+/*}*/
+.layui-laydate-footer {
+    visibility: hidden!important;
+    height: 0px!important;
+    border-top: 1px solid #e2e2e2;
+}
+/* 2021/01/14 UT-156 cuikailin modify start */
+.jqGridPager_center{
+    width: 21vw;
+}
+/* 2021/01/14 UT-156 cuikailin modify end */
+div#gbox_jqGrid {
+    width: 98% !important;
+}
+@media screen and (device-width: 1366px) {
+    div#gbox_jqGrid {
+        width: 100% !important;
+    }
+}
+div#gview_jqGrid {
+    width: 98% !important;
+}
+
+.ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+    width: 100.2% !important;
+}
+@media screen and (device-width: 1366px) {
+    .ui-jqgrid-hdiv.ui-state-default.ui-corner-top {
+        width: 100% !important;
+    }
+}

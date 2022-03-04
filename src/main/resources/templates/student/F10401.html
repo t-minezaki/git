@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <#include "/header.html" />
+    <title>学習状況分析画面</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/student/F10401.css"/>
+    <script type="text/javascript" src="${request.contextPath}/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/plugins/echarts-4.2.0/echarts.min.js"></script>
+</head>
+<body>
+<header>
+    <iframe src="${request.contextPath}/common/F40002.html" id="iframe" width="100%" height="100%" style="padding:0 1vw;border:none;"></iframe>
+</header>
+<div id="message" class="topMessage"></div>
+<div class="content" id="pageF10401">
+    <div id="time_tab">
+        <div class="timeDiv">
+            <button onclick="getDatePrd()">時期指定</button>
+        </div>
+        <ul class="plan_time">
+            <li>
+                <a href="#tab-1" id="day" >日</a>
+            </li>
+            <li>
+                <a href="#tab-2" id="week">週</a>
+            </li>
+            <li>
+                <a href="#tab-3" id="month">月</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="statistics" id="tab1">
+        <div class="statistics_info">
+            <h2 class="onePage">
+                理解度
+            </h2>
+            <div id="degree" style="width: 80%;height:28vw;padding-top: 2.8vw;margin-left: 10%"></div>
+        </div>
+        <div class="statistics_info" style="position: relative;">
+            <h2>
+                学習時間
+            </h2>
+            <div class="choose_div">
+                <select name="subjtDiv" id="subjtDiv">
+                    <option value="">選択してください。</option>
+                </select>
+            </div>
+            <div id="st_time_one" style="width: 60%;height:18vw;display:inline-block;"></div>
+            <div class="st_time_one_cn" style="position: absolute;top: 50%;transform: translate(0, -50%);">
+                <div class="plandiv">
+                    <p>計画</p><span id="stuplantm">10</span>時間
+                </div>
+                <div>
+                    <p>実行</p><span id="perftm">3</span>時間
+                </div>
+                <div id="change_time_container">
+                    <p>変化(時間)</p>
+                    <p class="pRight pRed"><span id="comparetm">0.5</span>時間<span id="updown">UP</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="statistics_info">
+            <h2>
+                学習時間
+            </h2>
+            <div id="st_time_two" style="width: 80%;height: 22vw;margin: auto"></div>
+        </div>
+    </div>
+    <div class="statistics" id="tab3"></div>
+</div>
+</body>
+<script type="text/javascript" src="${request.contextPath}/js/student/F10401.js"></script>
+</html>
