@@ -121,9 +121,11 @@ public class F11008Controller extends AbstractController {
         List<F11008Dto> schdlBlockList = f11008Service.getSchdlBlockList(stuId, tgtYmd, monthFirstDay);
         info.put("schdlBlockList", schdlBlockList);
         // 学生の通塾時間を取得
+        // modify at 2022/2/10 for V9.02 by NWT cuikl START
         List<EntryExitHstEntity> entryExitHstEntityList = entryExitHstService.list(new QueryWrapper<EntryExitHstEntity>().select("entry_dt", "entry_flg").and(
-                w->w.eq("stu_id", stuId).gt("entry_dt", monthFirstDay).lt("entry_dt", monthEndDay).eq("del_flg", 0)).orderByAsc("entry_dt"));
+                w->w.eq("stu_id", stuId).ge("entry_dt", monthFirstDay).lt("entry_dt", DateUtils.addDays(monthEndDay,1)).eq("del_flg", 0)).orderByAsc("entry_dt"));
         // end ↑↑↑
+        // modify at 2022/2/10 for V9.02 by NWT cuikl END
 
         info.put("entryExitHstList", entryExitHstEntityList);
         return info;

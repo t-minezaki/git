@@ -361,4 +361,19 @@
             SM.stu_id
     </select>
     <!-- 2021/02/18 4-29 end -->
+
+    <!-- 2021/12/14 manamiru1-785 cuikl add start -->
+    <select id="getBrandcdByStu" resultType="string">
+        SELECT
+            mo.brand_cd
+        FROM
+            mst_org mo
+            INNER JOIN  mst_usr mu
+            ON mu.org_id = mo.org_id
+            AND mo.del_flg = 0
+        WHERE
+            mu.del_flg = 0
+            AND  mu.usr_id = #{stuId}
+    </select>
+    <!-- 2021/12/14 manamiru1-785 cuikl add end -->
 </mapper>

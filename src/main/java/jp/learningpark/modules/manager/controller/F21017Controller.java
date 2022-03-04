@@ -192,7 +192,9 @@ public class F21017Controller {
             if (!StringUtils.isEmpty(stu.getBirthd())) {
                 if (StringUtils.equals(today, stu.getBirthd().substring(5, 10))) {
                     stu.setBirthDayTxt("当日お誕生日です！");
-                } else if (thisWeek.get("week").equals(date.substring(0, 4) + getWeekAndYear(stu.getBirthd().substring(5, 10)).get("week"))) {
+                    //2021/12/30　MANAMIRU1-871 huangxinliang　Edit　Start
+                } else if (thisWeek.get("week").equals(getWeekAndYear(date.substring(0, 4) + stu.getBirthd().substring(4, 10)).get("week"))) {
+                    //2021/12/30　MANAMIRU1-871 huangxinliang　Edit　End
                     stu.setBirthDayTxt("今週お誕生日です！");
                 } else if (StringUtils.equals(thisMonth, stu.getBirthd().substring(5, 7))) {
                     stu.setBirthDayTxt("今月お誕生日です！");

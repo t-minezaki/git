@@ -30,7 +30,9 @@ import jp.learningpark.modules.common.service.MstCodDService;
 import jp.learningpark.modules.common.service.MstMaxIdService;
 import jp.learningpark.modules.common.service.MstVariousSetService;
 import jp.learningpark.modules.common.service.UserDisplayItemSetService;
+import jp.learningpark.modules.manager.dto.F09009Dto;
 import jp.learningpark.modules.manager.dto.F21008Dto;
+import jp.learningpark.modules.manager.service.F09009Service;
 import jp.learningpark.modules.manager.service.F21008Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,6 +110,14 @@ public class F21008Controller {
      */
     @Autowired
     AttendBookGetPointHstService pointHstService;
+
+    // 2022/01/04 MANAMIRU1-872 add start
+    /**
+     * F09009Service
+     */
+    @Autowired
+    F09009Service f09009Service;
+    // 2022/01/04 MANAMIRU1-872 add end
 
     /**
      * 初期表示
@@ -679,7 +689,40 @@ public class F21008Controller {
                 new QueryWrapper<MstVariousSetEntity>().select("padd_point", "full_marks_point", "work_out_point", "attent_out_point").eq("org_id", orgId).eq(
                         "del_flg", 0));
         if (variousSetEntity == null) {
-            throw new RRException(MessageUtils.getMessage("MSGCOMN0192", "入退室各種設定マスタの自動付与ポイント", "出席簿付与ポイント履歴作成"));
+            // 2022/01/04 MANAMIRU1-872 add start
+            F09009Dto dto = new F09009Dto();
+            // 組織ID
+            dto.setOrgId(ShiroUtils.getUserEntity().getOrgId());
+            //2022/01/06　MANAMIRU1-871 huangxinliang　Edit　Start
+            // 再認識不可時間
+            dto.setReRecoTime(10);
+            //2022/01/06　MANAMIRU1-871 huangxinliang　Edit　End
+            // 登校自動ポイント
+            dto.setGoSchPoint(0);
+            // 実行登録時自動ポイント
+            dto.setDoLoginPoint(0);
+            // 実行時間累計自動ポイント
+            dto.setDoTotalPoint(0);
+            // 入室時自動ポイント
+            dto.setInRoomPoint(0);
+            // 合格時自動ポイント
+            dto.setPaddPoint(0);
+            // 満点時自動ポイント
+            dto.setFullMarksPoint(0);
+            // 宿題提出時自動ポイント
+            dto.setWorkOutPoint(0);
+            // 出席登録時自動ポイント
+            dto.setAttentOutPoint(0);
+            // 誕生日時自動ポイント
+            dto.setBirthdayTimePoint(0);
+            dto.setCretDatime(DateUtils.getSysTimestamp());
+            f09009Service.edit(dto);
+            variousSetEntity = new MstVariousSetEntity();
+            variousSetEntity.setPaddPoint(0);
+            variousSetEntity.setFullMarksPoint(0);
+            variousSetEntity.setWorkOutPoint(0);
+            variousSetEntity.setAttentOutPoint(0);
+            // 2022/01/04 MANAMIRU1-872 add end
         }
         map.put("attendBookId", attendBookId);
         map.put("orgId", orgId);

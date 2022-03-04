@@ -860,6 +860,15 @@ public class CommonServiceImpl implements CommonService {
         // add at 2021/12/01 for V9.02 by NWT HuangXL END
         info.put("roleDiv", StringUtils.trim(mstUsrEntity.getRoleDiv()));
         info.put("key", "");
+        // 2022/01/21 MANAMIRU1-875 add start
+        List<MstDeviceTokenEntity> saveToken = mstDeviceTokenService.list(
+                new QueryWrapper<MstDeviceTokenEntity>().eq("usr_id", mstUsrEntity.getUsrId()).eq("device_token",deviceToken).eq("del_flg", 0));
+        boolean sendFalg = true;
+        if (saveToken != null && saveToken.size()>0){
+            sendFalg = false;
+        }
+        // 2022/01/21 MANAMIRU1-875 add end
+
         if (StringUtils.isNotBlank(deviceToken) && StringUtils.isNotBlank(phoneType)) {
             List<MstDeviceTokenEntity> mstDeviceTokenEntityList = mstDeviceTokenService.list(
                     new QueryWrapper<MstDeviceTokenEntity>().eq("device_token", deviceToken));
@@ -950,7 +959,7 @@ public class CommonServiceImpl implements CommonService {
 //        }
         // modify at 2021/08/16 for V9.02 by NWT wen END
         // add at 2021/09/15 for V9.02 by NWT wen START
-        if (!deviceTokenEntityList.isEmpty() && deviceTokenEntityList.size() >= 2) {
+        if (!deviceTokenEntityList.isEmpty() && deviceTokenEntityList.size() >= 2 && sendFalg) {// 2022/01/21 MANAMIRU1-875 edit
             String usrId = mstUsrEntity.getUsrId();
             String mailAddress = "";
             switch (StringUtils.trim(mstUsrEntity.getRoleDiv())) {
@@ -961,7 +970,9 @@ public class CommonServiceImpl implements CommonService {
                     // ログイン者情報を取得できない場合、
                     if (manager == null) {
                         manager = new MstManagerEntity();
-                        logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                        // 2022/01/24 MANAMIRU1-895 del start
+                        //logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                        // 2022/01/24 MANAMIRU1-895 del end
                     }
                     mailAddress = manager.getMailad();
                     break;
@@ -972,7 +983,9 @@ public class CommonServiceImpl implements CommonService {
                     // ログイン者情報を取得できない場合、
                     if (mentor == null) {
                         mentor = new MstMentorEntity();
-                        logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                        // 2022/01/24 MANAMIRU1-895 del start
+                        //logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                        // 2022/01/24 MANAMIRU1-895 del end
                     }
                     mailAddress = mentor.getMailad();
                     break;
@@ -982,7 +995,9 @@ public class CommonServiceImpl implements CommonService {
                     // ログイン者情報を取得できない場合、
                     if (guard == null) {
                         guard = new MstGuardEntity();
-                        logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                        // 2022/01/24 MANAMIRU1-895 del start
+                        //logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                        // 2022/01/24 MANAMIRU1-895 del end
                     }
                     mailAddress = guard.getMailad();
                     break;
@@ -1002,7 +1017,9 @@ public class CommonServiceImpl implements CommonService {
                         //保護者情報が取得できない場合、
                         if (guardMail == null) {
                             guardMail = new MstGuardEntity();
-                            logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                            // 2022/01/24 MANAMIRU1-895 del start
+                            //logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                            // 2022/01/24 MANAMIRU1-895 del end
                         }
                     }
                     mailAddress = guardMail.getMailad();
@@ -1020,11 +1037,16 @@ public class CommonServiceImpl implements CommonService {
                         sb.append("<p style='color:#000000'>" + mailInfo.getCodValue() + "</p>");
                         mailUtils.sendMail(mailAddress, title, sb.toString());
                     } catch (Exception e) {// 配信失敗の場合、
-                        return R.error(501, "メール送信が失敗しました。");
+                        // 2022/01/21 MANAMIRU1-897 edit start
+                        logger.error("メール送信が失敗しました。");
+                        //return R.error(501, "メール送信が失敗しました。");
+                        // 2022/01/21 MANAMIRU1-897 edit end
                     }
                 }
             } else {//メールアドレスが設定されない場合、
-                logger.warn("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                // 2022/01/21 MANAMIRU1-895 edit start
+                logger.info("ユーザID：" + usrId + "へアラートメールを送信できない。");
+                // 2022/01/21 MANAMIRU1-895 edit end
             }
         }
         // add at 2021/09/16 for V9.02 by NWT wen END

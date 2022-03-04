@@ -7,6 +7,7 @@ package jp.learningpark.modules.guard.dao;
 
 import jp.learningpark.modules.guard.dto.F30002Dto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -58,4 +59,13 @@ public interface F30002Dao {
      * @return
      */
     List<F30002Dto> selectStudentsCount(String guards);
+
+    /**
+     * brandcdの取得
+     *
+     * @param stuId 生徒Id
+     * @return
+     * 2021/12/14 manamiru1-785 cuikl add
+     */
+    String getBrandcdByStu(@Param("stuId") String stuId);
 }

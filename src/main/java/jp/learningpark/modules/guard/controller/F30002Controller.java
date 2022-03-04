@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -121,7 +123,7 @@ public class F30002Controller extends AbstractController {
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public R f30002save(String stuId, String orgId) {
+    public R f30002save(String stuId, String orgId, HttpServletResponse response) {
         ShiroUtils.setSessionAttribute(GakkenConstant.STU_ID, stuId);
         ShiroUtils.setSessionAttribute("orgId", orgId);
 //        //共通処理「 塾学習期間IDの取得」を呼び出し、
@@ -174,6 +176,15 @@ public class F30002Controller extends AbstractController {
             token = new UserAuthToken(StringUtils.defaultString(mstUsrEntity.getId()), password, Constant.LOGIN_TYPE_GAKKEN, false, null);
             subject.login(token);
             // 2020/11/11 huangxinliang modify end
+            // 2021/12/14 manamiru1-785 cuikl add start
+            String brandCd = f30002Service.getBrandcdByStu(stuId);
+            ShiroUtils.setSessionAttribute(GakkenConstant.SESSION_BRAND_CD, brandCd);
+            // ブランドコードをセッションに保存
+            Cookie cookie = new Cookie("brandcd", brandCd);
+            cookie.setPath("/");
+            cookie.setMaxAge(-1);
+            response.addCookie(cookie);
+            // 2021/12/14 manamiru1-785 cuikl add end
         }
         return R.ok();
     }

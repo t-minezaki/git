@@ -20,9 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>保護者面談の日程設定画面 ServiceImpl</p >
@@ -131,16 +129,23 @@ public class F30405ServiceImpl implements F30405Service {
             applylist.get(i).setTgtDay(DateUtils.format(applylist.get(i).getSgdPlanDate(), GakkenConstant.DATE_FORMAT_YYYY_MM_DD_BARS).split("-")[2]);
         }
         if (applylist.size() != 0) {
-            List<F30405Dto> applyListCopy = new ArrayList<>();
+            // modify at 2022/2/10 for V9.02 by NWT HuangXL START
+//            List<F30405Dto> applyListCopy = new ArrayList<>();
+            Set<F30405Dto> applySetCopy = new HashSet<>();
             for (int i = 0; i < applylist.size(); i++) {
                 for (int j = 0; j < applylist.size(); j++) {
                     if (StringUtils.equals(applylist.get(i).getTgtDay(), applylist.get(j).getTgtDay()) && i != j) {
-                        applyListCopy.add(applylist.get(i));
-                        applyListCopy.add(applylist.get(j));
-                        applylist.removeAll(applyListCopy);
+                        applySetCopy.add(applylist.get(i));
+                        applySetCopy.add(applylist.get(j));
+//                        applyListCopy.add(applylist.get(i));
+//                        applyListCopy.add(applylist.get(j));
+//                        applylist.removeAll(applyListCopy);
                     }
                 }
+                applylist.removeAll(applySetCopy);
             }
+            List<F30405Dto> applyListCopy = new ArrayList<>(applySetCopy);
+            // modify at 2022/2/10 for V9.02 by NWT HuangXL END
             //重複しないデータ
             for (int i = 0; i < applylist.size(); i++) {
                 //定員＞予定済人数

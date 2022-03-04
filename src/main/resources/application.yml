@@ -10,7 +10,7 @@ server:
   connection-timeout: 5000ms
 spring:
   profiles:
-    active: awsdev
+    active: aws
   jackson:
     time-zone: GMT+9
     date-format: yyyy-MM-dd HH:mm:ss

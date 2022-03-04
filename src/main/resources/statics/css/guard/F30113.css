@@ -96,11 +96,14 @@
 
 .content_div {
     height: auto;
-    min-height: 150.6vw;
+    /* 2022/01/05 MANAMIRU1-874 edit start */
+    min-height: 100%;
     width: 100%;
     overflow: auto;
     /*overflow-x: hidden;*/
     /*padding-top: 2vw;*/
+    max-height: calc(100% + 48px);
+    /* 2022/01/05 MANAMIRU1-874 edit end */
 }
 
 .description {

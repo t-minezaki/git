@@ -82,4 +82,16 @@ public class F30002ServiceImpl implements F30002Service {
     public List<F30002Dto> getStudentsCount(String guards) {
         return f30002Dao.selectStudentsCount(guards);
     }
+
+    // 2021/12/14 MANAMIRU1-785 add Start
+    /**
+     * getBrandcdByStu
+     * @param stuId 生徒Id
+     * @return
+     */
+    @Override
+    public String getBrandcdByStu(String stuId) {
+        return f30002Dao.getBrandcdByStu(stuId);
+    }
+    // 2021/12/14 MANAMIRU1-785 add end
 }

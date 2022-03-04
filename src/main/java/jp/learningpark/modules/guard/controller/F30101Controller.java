@@ -122,8 +122,10 @@ public class F30101Controller extends AbstractController {
         List<F30101Dto> schdlBlockList = f30101Service.getSchdlBlockList(stuId, monthFirstDay);
         info.put("schdlBlockList", schdlBlockList);
         // 学生の通塾時間を取得
+        /* 2022/02/22 manamiru1-939 cuikl edit start */
         List<EntryExitHstEntity> entryExitHstEntityList = entryExitHstService.list(new QueryWrapper<EntryExitHstEntity>().select("entry_dt", "entry_flg").and(
-                w->w.eq("stu_id", stuId).gt("entry_dt", monthFirstDay).lt("entry_dt", monthEndDay).eq("del_flg", 0)).orderByAsc("entry_dt"));
+                w->w.eq("stu_id", stuId).ge("entry_dt", monthFirstDay).lt("entry_dt", DateUtils.addDays(monthEndDay,1)).eq("del_flg", 0)).orderByAsc("entry_dt"));
+        /* 2022/02/22 manamiru1-939 cuikl edit end */
         //セッション・生徒組織Id
         String orgId = (String)ShiroUtils.getSessionAttribute("orgId");
         //生徒褒めスタンプと褒めコメントを取得

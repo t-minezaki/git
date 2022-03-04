@@ -67,7 +67,9 @@ function reload(){
                         var params = {};
                         params.id = object.id;
                         params.tgtYmd = object.tgtYmd.substring(0, 10);
-                        params.mailad = object.mailad;
+                        // 2022/01/06 MANAMIRU1-873 del start
+                        // params.mailad = object.mailad;
+                        // 2022/01/06 MANAMIRU1-873 del end
                         params.stuFN = object.stuFN;
                         params.stuFLn = object.stuFLn;
                         params.stuId = object.stuId;

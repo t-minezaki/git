@@ -17,9 +17,11 @@
         INNER JOIN
             mst_notice b
         ON
-            to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+        <!--NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit Start -->
+        to_timestamp(b.pub_plan_start_dt::text,'YYYY-MM-DD hh24:mi:ss') <![CDATA[ <= ]]> to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
         AND
-            to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+        to_timestamp(b.pub_plan_end_dt::text,'YYYY-MM-DD hh24:mi:ss') >= to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
+        <!--NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit End -->
         AND
             b.notice_type_div = '6'
         AND
@@ -65,9 +67,11 @@
                         INNER JOIN
                         mst_notice b
                                 ON
-                                        to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+                                        <!-- NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit Start -->
+                                        to_timestamp(b.pub_plan_start_dt::text,'YYYY-MM-DD hh24:mi:ss') <![CDATA[ <= ]]> to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
                                                 AND
-                                        to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+                                        to_timestamp(b.pub_plan_end_dt::text,'YYYY-MM-DD hh24:mi:ss') >= to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
+                                        <!-- NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit End -->
                                                 AND
                                         b.notice_type_div = '6'
                                                 AND
@@ -95,9 +99,11 @@
         INNER JOIN
             mst_notice b
         ON
-            to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+        <!-- NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit Start -->
+                to_timestamp(b.pub_plan_start_dt::text,'YYYY-MM-DD hh24:mi:ss') <![CDATA[ <= ]]> to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
         AND
-            to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+                to_timestamp(b.pub_plan_end_dt::text,'YYYY-MM-DD hh24:mi:ss') >= to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
+        <!-- NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit End -->
         AND
             b.notice_type_div = '6'
         AND
@@ -124,9 +130,11 @@
         INNER JOIN
             mst_notice b
         ON
-            to_date(b.pub_plan_start_dt::text,'YYYY-MM-DD') <![CDATA[ <= ]]> to_date(now()::text,'YYYY-MM-DD')
+        <!-- NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit Start -->
+                to_timestamp(b.pub_plan_start_dt::text,'YYYY-MM-DD hh24:mi:ss') <![CDATA[ <= ]]> to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
         AND
-            to_date(b.pub_plan_end_dt::text,'YYYY-MM-DD') >= to_date(now()::text,'YYYY-MM-DD')
+                to_timestamp(b.pub_plan_end_dt::text,'YYYY-MM-DD hh24:mi:ss') >= to_timestamp(now()::text,'YYYY-MM-DD hh24:mi:ss')
+        <!-- NWT　liaorc　2021/12/24　MANAMIRU1-834　Edit End -->
         AND
             b.notice_type_div = '6'
         AND

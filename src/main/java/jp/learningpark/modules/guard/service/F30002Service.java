@@ -54,4 +54,13 @@ public interface F30002Service {
      * @return
      */
     List<F30002Dto> getStudentsCount(String guards);
+
+    // 2021/12/14 MANAMIRU1-785 add Start
+    /**
+     * getBrandcdByStu
+     * @param stuId 生徒Id
+     * @return
+     */
+    String getBrandcdByStu(String stuId);
+    // 2021/12/14 MANAMIRU1-785 add end
 }
